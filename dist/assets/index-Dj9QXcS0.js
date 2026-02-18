@@ -25814,6 +25814,7 @@ var recentActivityData = [
 	}
 ];
 function Layout() {
+	const isCoursePage = useLocation().pathname.startsWith("/course/");
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "flex flex-col min-h-screen bg-brand-forest text-white font-sans selection:bg-brand-yellow selection:text-black overflow-hidden",
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
@@ -25872,11 +25873,11 @@ function Layout() {
 		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 			className: "flex pt-[64px] min-h-screen relative",
 			children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(AppSidebar, {}),
+				!isCoursePage && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AppSidebar, {}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", {
-					className: "flex-1 flex flex-col relative w-full lg:pl-[256px] xl:pr-[256px] transition-all duration-300",
+					className: cn("flex-1 flex flex-col relative w-full transition-all duration-300", !isCoursePage && "lg:pl-[256px]", "xl:pr-[256px]"),
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("footer", {
-						className: "hidden md:block absolute bottom-6 left-8 lg:left-[calc(256px+2rem)] z-10 pointer-events-none mix-blend-difference",
+						className: cn("hidden md:block absolute bottom-6 left-8 z-10 pointer-events-none mix-blend-difference", !isCoursePage && "lg:left-[calc(256px+2rem)]"),
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 							className: "text-[10px] text-brand-slate leading-relaxed max-w-md",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: "BETSMARTER ACADEMY" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
@@ -25977,4 +25978,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-C8tihQqY.js.map
+//# sourceMappingURL=index-Dj9QXcS0.js.map
