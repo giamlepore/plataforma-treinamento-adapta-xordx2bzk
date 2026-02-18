@@ -1,30 +1,37 @@
 import { Outlet } from 'react-router-dom'
 import { cn } from '@/lib/utils'
+import { AppSidebar } from './AppSidebar'
 
 /* 
   Layout Component:
   - Fixed Header (64px)
+  - Left Sidebar (Navigation - LG breakpoint)
   - Main Content Area
-  - Right Sidebar (XL breakpoint)
+  - Right Sidebar (Activity - XL breakpoint)
   - Footer (Medium screens+)
 */
 
 const recentActivityData = [
-  { name: 'L. Cruz', amount: 450, time: '2m ago' },
-  { name: 'D. Engström', amount: 1200, time: '5m ago' },
-  { name: 'I. Gers', amount: 340, time: '12m ago' },
-  { name: 'Y. Gorlovotsky', amount: 890, time: '15m ago' },
-  { name: 'E. Grazzi', amount: 2200, time: '18m ago' },
-  { name: 'S. De Haan', amount: 150, time: '22m ago' },
-  { name: 'F. Harb', amount: 900, time: '25m ago' },
-  { name: 'C. Hoffelner', amount: 3100, time: '28m ago' },
-  { name: 'M. Kneebone', amount: 600, time: '32m ago' },
-  { name: 'I. Marengo', amount: 440, time: '35m ago' },
-  { name: 'N. Mihaljevic', amount: 5500, time: '38m ago', highlight: true },
-  { name: 'P. Milicki', amount: 200, time: '41m ago' },
-  { name: 'P. Moraes', amount: 120, time: '45m ago' },
-  { name: 'A. Silva', amount: 330, time: '48m ago' },
-  { name: 'R. Kowalski', amount: 1250, time: '52m ago' },
+  { name: 'L. Cruz', amount: 'Started', time: '2m ago' },
+  { name: 'D. Engström', amount: 'Completed', time: '5m ago', highlight: true },
+  { name: 'I. Gers', amount: 'Joined', time: '12m ago' },
+  { name: 'Y. Gorlovotsky', amount: 'Started', time: '15m ago' },
+  { name: 'E. Grazzi', amount: 'Completed', time: '18m ago' },
+  { name: 'S. De Haan', amount: 'Started', time: '22m ago' },
+  { name: 'F. Harb', amount: 'Joined', time: '25m ago' },
+  {
+    name: 'C. Hoffelner',
+    amount: 'Completed',
+    time: '28m ago',
+    highlight: true,
+  },
+  { name: 'M. Kneebone', amount: 'Started', time: '32m ago' },
+  { name: 'I. Marengo', amount: 'Joined', time: '35m ago' },
+  { name: 'N. Mihaljevic', amount: 'Cert.', time: '38m ago', highlight: true },
+  { name: 'P. Milicki', amount: 'Started', time: '41m ago' },
+  { name: 'P. Moraes', amount: 'Joined', time: '45m ago' },
+  { name: 'A. Silva', amount: 'Started', time: '48m ago' },
+  { name: 'R. Kowalski', amount: 'Completed', time: '52m ago' },
 ]
 
 export default function Layout() {
@@ -39,7 +46,7 @@ export default function Layout() {
               BETSMARTER
             </span>
             <span className="text-[10px] text-brand-slate tracking-widest uppercase">
-              Archive 2.0
+              Course Dashboard
             </span>
           </div>
         </div>
@@ -48,17 +55,17 @@ export default function Layout() {
         <div className="flex-1 h-full flex items-center justify-center relative overflow-hidden px-4">
           <div className="flex space-x-8 md:space-x-16 overflow-x-auto no-scrollbar items-end h-full pb-4">
             {[
-              'T-001',
-              'T-002',
-              'T-003',
-              'T-004',
-              'REAL RESULTS',
-              'T-006',
-              'T-007',
-              'T-008',
-              'T-009',
+              'MOD-01',
+              'MOD-02',
+              'MOD-03',
+              'QUIZ-1',
+              'LIVE SEMINAR',
+              'MOD-05',
+              'MOD-06',
+              'EXAM',
+              'CERT',
             ].map((marker, i) => {
-              const isActive = marker === 'REAL RESULTS'
+              const isActive = marker === 'LIVE SEMINAR'
               return (
                 <div
                   key={i}
@@ -89,11 +96,11 @@ export default function Layout() {
         </div>
 
         {/* System Status */}
-        <div className="hidden md:flex w-[256px] h-full items-center justify-end px-6 border-l border-brand-sea shrink-0">
+        <div className="hidden xl:flex w-[256px] h-full items-center justify-end px-6 border-l border-brand-sea shrink-0">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-brand-green animate-pulse-slow" />
             <span className="font-mono text-sm text-brand-green">
-              LIVE SYSTEM
+              ONLINE CAMPUS
             </span>
           </div>
         </div>
@@ -101,29 +108,31 @@ export default function Layout() {
 
       {/* Main Container */}
       <div className="flex pt-[64px] min-h-screen relative">
+        {/* Left Sidebar */}
+        <AppSidebar />
+
         {/* Main Content */}
-        <main className="flex-1 flex flex-col relative w-full xl:w-[calc(100%-256px)] xl:border-r border-brand-sea">
+        <main className="flex-1 flex flex-col relative w-full lg:pl-[256px] xl:pr-[256px] transition-all duration-300">
           <Outlet />
 
           {/* Global Footer (Visible md+) */}
-          <footer className="hidden md:block absolute bottom-6 left-8 z-10 pointer-events-none mix-blend-difference">
+          <footer className="hidden md:block absolute bottom-6 left-8 lg:left-[calc(256px+2rem)] z-10 pointer-events-none mix-blend-difference">
             <div className="text-[10px] text-brand-slate leading-relaxed max-w-md">
-              <p>CONFIDENTIAL PERFORMANCE REPORT</p>
+              <p>BETSMARTER ACADEMY</p>
               <p className="mt-1 opacity-60">
-                All data displayed herein is verified on-chain. Past performance
-                does not guarantee future results. System version v2.0.4.
-                Authorized personnel only.
+                All course materials are intellectual property of BetSmarter.
+                Unauthorized distribution is prohibited. Platform v2.1.0.
               </p>
             </div>
           </footer>
         </main>
 
         {/* Right Sidebar (Desktop XL only) */}
-        <aside className="hidden xl:flex w-[256px] flex-col fixed right-0 top-[64px] bottom-0 bg-brand-forest z-40">
+        <aside className="hidden xl:flex w-[256px] flex-col fixed right-0 top-[64px] bottom-0 bg-brand-forest z-40 border-l border-brand-sea">
           {/* Sidebar Header */}
-          <div className="h-12 border-b border-brand-sea flex items-center px-4 shrink-0">
+          <div className="h-12 border-b border-brand-sea flex items-center px-4 shrink-0 bg-brand-forest/50">
             <h3 className="font-grotesk font-medium text-sm text-brand-slate uppercase tracking-wider">
-              Recent Activity (Participants)
+              Student Activity
             </h3>
           </div>
 
@@ -155,11 +164,11 @@ export default function Layout() {
                 </div>
                 <span
                   className={cn(
-                    'font-mono text-sm',
+                    'font-mono text-xs font-bold uppercase',
                     item.highlight ? 'text-brand-yellow' : 'text-brand-green',
                   )}
                 >
-                  +{item.amount}€
+                  {item.amount}
                 </span>
               </div>
             ))}
@@ -167,9 +176,7 @@ export default function Layout() {
 
           {/* Supervisors Footer */}
           <div className="h-auto border-t border-brand-sea bg-brand-forest p-4 shrink-0">
-            <p className="text-[10px] text-brand-sea uppercase mb-2">
-              Supervisors
-            </p>
+            <p className="text-[10px] text-brand-sea uppercase mb-2">Mentors</p>
             <div className="flex flex-col gap-1">
               <div className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 bg-brand-slate rounded-full opacity-50" />
