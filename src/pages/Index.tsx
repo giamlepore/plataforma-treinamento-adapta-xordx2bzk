@@ -202,6 +202,20 @@ const Index = () => {
       {/* Course Grid */}
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full border-b border-brand-sea bg-brand-forest">
         <CourseCard
+          id="COURSE_FIGMA"
+          label="Product Design"
+          title="Mastering Figma in 7 days unleashed"
+          instructor="Albert Flores"
+          duration="4h 12m"
+          imageQuery="figma interface design"
+          imageColor="orange"
+          isHighlight={true}
+          delay={50}
+          className="border-r border-brand-sea"
+          progress={12}
+        />
+
+        <CourseCard
           id="COURSE_01"
           label="Fundamentals"
           title="Smart Betting 101"
@@ -234,7 +248,7 @@ const Index = () => {
           imageQuery="brain synapses abstract"
           imageColor="black"
           delay={300}
-          className="border-r-0 border-brand-sea"
+          className="border-r-0 border-brand-sea lg:border-r lg:border-brand-sea"
         />
 
         <CourseCard
@@ -256,7 +270,6 @@ const Index = () => {
           duration="12h 45m"
           imageQuery="financial safe vault"
           imageColor="yellow"
-          isHighlight={true}
           delay={500}
           className="border-r border-brand-sea"
         />
