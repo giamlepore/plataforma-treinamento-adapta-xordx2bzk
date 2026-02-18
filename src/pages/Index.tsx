@@ -23,8 +23,7 @@ interface CourseCardProps {
   title: string
   instructor?: string
   duration?: string
-  imageQuery: string
-  imageColor?: string
+  bgColor: string
   isHighlight?: boolean
   className?: string
   delay?: number
@@ -37,19 +36,13 @@ const CourseCard = ({
   title,
   instructor,
   duration,
-  imageQuery,
-  imageColor = 'green',
+  bgColor,
   isHighlight = false,
   className,
   delay = 0,
   progress = 0,
 }: CourseCardProps) => {
   const [isHovered, setIsHovered] = useState(false)
-
-  // Construct image URL based on specs
-  const imgUrl = isHighlight
-    ? `https://img.usecurling.com/p/600/600?q=${imageQuery}&color=yellow`
-    : `https://img.usecurling.com/p/600/600?q=${imageQuery}&color=${imageColor}`
 
   return (
     <Link
@@ -64,26 +57,21 @@ const CourseCard = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Background Image */}
+      {/* Background Color */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <img
-          src={imgUrl}
-          alt={title}
+        <div
           className={cn(
-            'w-full h-full object-cover transition-all duration-700 ease-out',
-            isHighlight
-              ? 'mix-blend-multiply opacity-80'
-              : 'opacity-40 grayscale-[20%] contrast-[110%]',
-            isHovered && !isHighlight && 'scale-105 grayscale-0 opacity-60',
-            isHighlight && isHovered && 'scale-105 opacity-90',
+            'w-full h-full transition-transform duration-700 ease-out',
+            bgColor,
+            isHovered && 'scale-105',
           )}
         />
-        {/* Overlay */}
+        {/* Subtle Overlay for depth */}
         <div
           className={cn(
             'absolute inset-0 transition-opacity duration-500',
-            isHighlight ? 'bg-brand-yellow/10' : 'bg-black/60',
-            isHovered && !isHighlight && 'bg-black/40',
+            isHighlight ? 'bg-white/10' : 'bg-black/10',
+            isHovered && 'opacity-50',
           )}
         />
       </div>
@@ -106,7 +94,7 @@ const CourseCard = ({
           {isHighlight ? (
             <PlayCircle className="w-6 h-6 text-black opacity-80 group-hover:scale-110 transition-transform duration-300" />
           ) : (
-            <ArrowUpRight className="w-5 h-5 text-brand-green opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+            <ArrowUpRight className="w-5 h-5 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform group-hover:translate-x-1 group-hover:-translate-y-1" />
           )}
         </div>
 
@@ -115,7 +103,7 @@ const CourseCard = ({
           <h3
             className={cn(
               'text-xs uppercase tracking-wider mb-3 font-inter flex items-center gap-2',
-              isHighlight ? 'text-black/70' : 'text-brand-slate',
+              isHighlight ? 'text-black/70' : 'text-white/70',
             )}
           >
             {label}
@@ -136,7 +124,7 @@ const CourseCard = ({
               'flex items-center gap-4 text-xs font-mono border-t pt-3',
               isHighlight
                 ? 'border-black/20 text-black/80'
-                : 'border-white/20 text-brand-green',
+                : 'border-white/20 text-white/80',
             )}
           >
             {duration && (
@@ -160,11 +148,6 @@ const CourseCard = ({
           </div>
         </div>
       </div>
-
-      {/* Highlight Background Color override */}
-      {isHighlight && (
-        <div className="absolute inset-0 bg-brand-yellow -z-10" />
-      )}
     </Link>
   )
 }
@@ -207,8 +190,7 @@ const Index = () => {
           title="Mastering Figma in 7 days unleashed"
           instructor="Albert Flores"
           duration="4h 12m"
-          imageQuery="figma interface design"
-          imageColor="orange"
+          bgColor="bg-brand-yellow"
           isHighlight={true}
           delay={50}
           className="border-r border-brand-sea"
@@ -221,7 +203,7 @@ const Index = () => {
           title="Smart Betting 101"
           instructor="A. Silva"
           duration="4h 30m"
-          imageQuery="library books study"
+          bgColor="bg-emerald-600"
           delay={100}
           className="border-r border-brand-sea"
           progress={100}
@@ -233,7 +215,7 @@ const Index = () => {
           title="Data-Driven Decisions"
           instructor="Dr. Ray"
           duration="6h 15m"
-          imageQuery="stock market chart"
+          bgColor="bg-blue-600"
           delay={200}
           className="border-r border-brand-sea"
           progress={45}
@@ -245,8 +227,7 @@ const Index = () => {
           title="Mindset of a Winner"
           instructor="S. De Haan"
           duration="3h 20m"
-          imageQuery="brain synapses abstract"
-          imageColor="black"
+          bgColor="bg-purple-600"
           delay={300}
           className="border-r-0 border-brand-sea lg:border-r lg:border-brand-sea"
         />
@@ -257,7 +238,7 @@ const Index = () => {
           title="Arbitrage & Value"
           instructor="M. Kneebone"
           duration="8h 00m"
-          imageQuery="chess strategy board"
+          bgColor="bg-rose-600"
           delay={400}
           className="border-r border-brand-sea"
         />
@@ -268,8 +249,7 @@ const Index = () => {
           title="Professional Risk Management"
           instructor="N. Mihaljevic"
           duration="12h 45m"
-          imageQuery="financial safe vault"
-          imageColor="yellow"
+          bgColor="bg-orange-600"
           delay={500}
           className="border-r border-brand-sea"
         />
@@ -280,7 +260,7 @@ const Index = () => {
           title="Automated Systems"
           instructor="Bot Labs"
           duration="5h 30m"
-          imageQuery="futuristic hud interface"
+          bgColor="bg-cyan-600"
           delay={600}
           className="border-r-0 border-brand-sea"
         />

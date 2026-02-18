@@ -23747,75 +23747,66 @@ var TooltipContent = import_react.forwardRef(({ className, sideOffset = 4, ...pr
 	...props
 }));
 TooltipContent.displayName = Content2$1.displayName;
-var CourseCard = ({ id, label, title, instructor, duration, imageQuery, imageColor = "green", isHighlight = false, className, delay = 0, progress = 0 }) => {
+var CourseCard = ({ id, label, title, instructor, duration, bgColor, isHighlight = false, className, delay = 0, progress = 0 }) => {
 	const [isHovered, setIsHovered] = (0, import_react.useState)(false);
-	const imgUrl = isHighlight ? `https://img.usecurling.com/p/600/600?q=${imageQuery}&color=yellow` : `https://img.usecurling.com/p/600/600?q=${imageQuery}&color=${imageColor}`;
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
 		to: `/course/${id}`,
 		className: cn("relative group overflow-hidden border-b border-brand-sea min-h-[320px] md:min-h-[400px] p-6 flex flex-col justify-between transition-all duration-500 animate-fade-in-up", "md:border-r last:border-r-0 md:[&:nth-child(2n)]:border-r-0 lg:[&:nth-child(3n)]:border-r-0 lg:[&:nth-child(2n)]:border-r", "hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-yellow/50 focus:ring-inset", className),
 		style: { animationDelay: `${delay}ms` },
 		onMouseEnter: () => setIsHovered(true),
 		onMouseLeave: () => setIsHovered(false),
-		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "absolute inset-0 z-0 overflow-hidden",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-					src: imgUrl,
-					alt: title,
-					className: cn("w-full h-full object-cover transition-all duration-700 ease-out", isHighlight ? "mix-blend-multiply opacity-80" : "opacity-40 grayscale-[20%] contrast-[110%]", isHovered && !isHighlight && "scale-105 grayscale-0 opacity-60", isHighlight && isHovered && "scale-105 opacity-90")
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: cn("absolute inset-0 transition-opacity duration-500", isHighlight ? "bg-brand-yellow/10" : "bg-black/60", isHovered && !isHighlight && "bg-black/40") })]
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "relative z-10 flex flex-col h-full justify-between",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "absolute inset-0 z-0 overflow-hidden",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: cn("w-full h-full transition-transform duration-700 ease-out", bgColor, isHovered && "scale-105") }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: cn("absolute inset-0 transition-opacity duration-500", isHighlight ? "bg-white/10" : "bg-black/10", isHovered && "opacity-50") })]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "relative z-10 flex flex-col h-full justify-between",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex justify-between items-start",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "flex justify-between items-start",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: cn("border px-2 py-1 text-[10px] uppercase tracking-widest font-mono font-medium flex items-center gap-2", isHighlight ? "border-black text-black" : "border-white/30 text-white/80"),
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: id }), progress > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-							className: "opacity-60",
-							children: [
-								"| ",
-								progress,
-								"%"
-							]
-						})]
-					}), isHighlight ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CirclePlay, { className: "w-6 h-6 text-black opacity-80 group-hover:scale-110 transition-transform duration-300" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowUpRight, { className: "w-5 h-5 text-brand-green opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform group-hover:translate-x-1 group-hover:-translate-y-1" })]
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "mt-auto",
-					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-							className: cn("text-xs uppercase tracking-wider mb-3 font-inter flex items-center gap-2", isHighlight ? "text-black/70" : "text-brand-slate"),
-							children: label
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							className: "flex items-baseline gap-2 mb-4",
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: cn("text-3xl md:text-3xl lg:text-4xl font-grotesk font-bold tracking-tight leading-none line-clamp-3", isHighlight ? "text-black" : "text-white"),
-								children: title
-							})
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: cn("flex items-center gap-4 text-xs font-mono border-t pt-3", isHighlight ? "border-black/20 text-black/80" : "border-white/20 text-brand-green"),
-							children: [
-								duration && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-									className: "flex items-center gap-1.5",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Clock, { className: "w-3 h-3" }), duration]
-								}),
-								instructor && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-									className: "flex items-center gap-1.5",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(User, { className: "w-3 h-3" }), instructor]
-								}),
-								isHighlight && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-									className: "flex items-center gap-1.5 ml-auto",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Star, { className: "w-3 h-3 fill-black/20" }), "Featured"]
-								})
-							]
+					className: cn("border px-2 py-1 text-[10px] uppercase tracking-widest font-mono font-medium flex items-center gap-2", isHighlight ? "border-black text-black" : "border-white/30 text-white/80"),
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: id }), progress > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+						className: "opacity-60",
+						children: [
+							"| ",
+							progress,
+							"%"
+						]
+					})]
+				}), isHighlight ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CirclePlay, { className: "w-6 h-6 text-black opacity-80 group-hover:scale-110 transition-transform duration-300" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowUpRight, { className: "w-5 h-5 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform group-hover:translate-x-1 group-hover:-translate-y-1" })]
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "mt-auto",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+						className: cn("text-xs uppercase tracking-wider mb-3 font-inter flex items-center gap-2", isHighlight ? "text-black/70" : "text-white/70"),
+						children: label
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "flex items-baseline gap-2 mb-4",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: cn("text-3xl md:text-3xl lg:text-4xl font-grotesk font-bold tracking-tight leading-none line-clamp-3", isHighlight ? "text-black" : "text-white"),
+							children: title
 						})
-					]
-				})]
-			}),
-			isHighlight && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-brand-yellow -z-10" })
-		]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: cn("flex items-center gap-4 text-xs font-mono border-t pt-3", isHighlight ? "border-black/20 text-black/80" : "border-white/20 text-white/80"),
+						children: [
+							duration && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "flex items-center gap-1.5",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Clock, { className: "w-3 h-3" }), duration]
+							}),
+							instructor && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "flex items-center gap-1.5",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(User, { className: "w-3 h-3" }), instructor]
+							}),
+							isHighlight && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "flex items-center gap-1.5 ml-auto",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Star, { className: "w-3 h-3 fill-black/20" }), "Featured"]
+							})
+						]
+					})
+				]
+			})]
+		})]
 	});
 };
 var Index = () => {
@@ -23860,8 +23851,7 @@ var Index = () => {
 						title: "Mastering Figma in 7 days unleashed",
 						instructor: "Albert Flores",
 						duration: "4h 12m",
-						imageQuery: "figma interface design",
-						imageColor: "orange",
+						bgColor: "bg-brand-yellow",
 						isHighlight: true,
 						delay: 50,
 						className: "border-r border-brand-sea",
@@ -23873,7 +23863,7 @@ var Index = () => {
 						title: "Smart Betting 101",
 						instructor: "A. Silva",
 						duration: "4h 30m",
-						imageQuery: "library books study",
+						bgColor: "bg-emerald-600",
 						delay: 100,
 						className: "border-r border-brand-sea",
 						progress: 100
@@ -23884,7 +23874,7 @@ var Index = () => {
 						title: "Data-Driven Decisions",
 						instructor: "Dr. Ray",
 						duration: "6h 15m",
-						imageQuery: "stock market chart",
+						bgColor: "bg-blue-600",
 						delay: 200,
 						className: "border-r border-brand-sea",
 						progress: 45
@@ -23895,8 +23885,7 @@ var Index = () => {
 						title: "Mindset of a Winner",
 						instructor: "S. De Haan",
 						duration: "3h 20m",
-						imageQuery: "brain synapses abstract",
-						imageColor: "black",
+						bgColor: "bg-purple-600",
 						delay: 300,
 						className: "border-r-0 border-brand-sea lg:border-r lg:border-brand-sea"
 					}),
@@ -23906,7 +23895,7 @@ var Index = () => {
 						title: "Arbitrage & Value",
 						instructor: "M. Kneebone",
 						duration: "8h 00m",
-						imageQuery: "chess strategy board",
+						bgColor: "bg-rose-600",
 						delay: 400,
 						className: "border-r border-brand-sea"
 					}),
@@ -23916,8 +23905,7 @@ var Index = () => {
 						title: "Professional Risk Management",
 						instructor: "N. Mihaljevic",
 						duration: "12h 45m",
-						imageQuery: "financial safe vault",
-						imageColor: "yellow",
+						bgColor: "bg-orange-600",
 						delay: 500,
 						className: "border-r border-brand-sea"
 					}),
@@ -23927,7 +23915,7 @@ var Index = () => {
 						title: "Automated Systems",
 						instructor: "Bot Labs",
 						duration: "5h 30m",
-						imageQuery: "futuristic hud interface",
+						bgColor: "bg-cyan-600",
 						delay: 600,
 						className: "border-r-0 border-brand-sea"
 					})
@@ -25474,86 +25462,6 @@ function LessonPlayer() {
 		})]
 	});
 }
-var recentActivityData = [
-	{
-		name: "L. Cruz",
-		amount: "Started",
-		time: "2m ago"
-	},
-	{
-		name: "D. Engström",
-		amount: "Completed",
-		time: "5m ago",
-		highlight: true
-	},
-	{
-		name: "I. Gers",
-		amount: "Joined",
-		time: "12m ago"
-	},
-	{
-		name: "Y. Gorlovotsky",
-		amount: "Started",
-		time: "15m ago"
-	},
-	{
-		name: "E. Grazzi",
-		amount: "Completed",
-		time: "18m ago"
-	},
-	{
-		name: "S. De Haan",
-		amount: "Started",
-		time: "22m ago"
-	},
-	{
-		name: "F. Harb",
-		amount: "Joined",
-		time: "25m ago"
-	},
-	{
-		name: "C. Hoffelner",
-		amount: "Completed",
-		time: "28m ago",
-		highlight: true
-	},
-	{
-		name: "M. Kneebone",
-		amount: "Started",
-		time: "32m ago"
-	},
-	{
-		name: "I. Marengo",
-		amount: "Joined",
-		time: "35m ago"
-	},
-	{
-		name: "N. Mihaljevic",
-		amount: "Cert.",
-		time: "38m ago",
-		highlight: true
-	},
-	{
-		name: "P. Milicki",
-		amount: "Started",
-		time: "41m ago"
-	},
-	{
-		name: "P. Moraes",
-		amount: "Joined",
-		time: "45m ago"
-	},
-	{
-		name: "A. Silva",
-		amount: "Started",
-		time: "48m ago"
-	},
-	{
-		name: "R. Kowalski",
-		amount: "Completed",
-		time: "52m ago"
-	}
-];
 function Layout() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "flex flex-col min-h-screen bg-brand-forest text-white font-sans selection:bg-brand-yellow selection:text-black overflow-hidden",
@@ -25610,10 +25518,10 @@ function Layout() {
 					})
 				})
 			]
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 			className: "flex pt-[64px] min-h-screen relative",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", {
-				className: cn("flex-1 flex flex-col relative w-full transition-all duration-300", "xl:pr-[256px]"),
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", {
+				className: cn("flex-1 flex flex-col relative w-full transition-all duration-300"),
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("footer", {
 					className: "hidden md:block absolute bottom-6 left-8 z-10 pointer-events-none mix-blend-difference",
 					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -25624,60 +25532,7 @@ function Layout() {
 						})]
 					})
 				})]
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("aside", {
-				className: "hidden xl:flex w-[256px] flex-col fixed right-0 top-[64px] bottom-0 bg-brand-forest z-40 border-l border-brand-sea",
-				children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						className: "h-12 border-b border-brand-sea flex items-center px-4 shrink-0 bg-brand-forest/50",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-							className: "font-grotesk font-medium text-sm text-brand-slate uppercase tracking-wider",
-							children: "Student Activity"
-						})
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						className: "flex-1 overflow-y-auto custom-scrollbar p-0",
-						children: recentActivityData.map((item, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: cn("flex items-center justify-between px-4 py-3 border-b border-brand-sea/30 transition-all duration-200 hover:bg-white/5 cursor-default group", item.highlight && "bg-brand-sea/50 hover:bg-brand-sea/70"),
-							style: { animationDelay: `${idx * 50}ms` },
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex flex-col",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: cn("text-sm font-medium", item.highlight ? "text-white" : "text-brand-slate group-hover:text-white"),
-									children: item.name
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "text-[10px] text-brand-sea font-mono",
-									children: item.time
-								})]
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: cn("font-mono text-xs font-bold uppercase", item.highlight ? "text-brand-yellow" : "text-brand-green"),
-								children: item.amount
-							})]
-						}, idx))
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "h-auto border-t border-brand-sea bg-brand-forest p-4 shrink-0",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							className: "text-[10px] text-brand-sea uppercase mb-2",
-							children: "Mentors"
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "flex flex-col gap-1",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex items-center gap-2",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "w-1.5 h-1.5 bg-brand-slate rounded-full opacity-50" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "text-xs text-brand-slate",
-									children: "Karel Martens"
-								})]
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex items-center gap-2",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "w-1.5 h-1.5 bg-brand-slate rounded-full opacity-50" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "text-xs text-brand-slate",
-									children: "Armand Mevis"
-								})]
-							})]
-						})]
-					})
-				]
-			})]
+			})
 		})]
 	});
 }
@@ -25714,4 +25569,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-BpQyfBEF.js.map
+//# sourceMappingURL=index-D9fu4eN2.js.map

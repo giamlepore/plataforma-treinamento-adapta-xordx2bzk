@@ -5,32 +5,8 @@ import { cn } from '@/lib/utils'
   Layout Component:
   - Fixed Header (64px)
   - Main Content Area (Full width)
-  - Right Sidebar (Activity - XL breakpoint)
   - Footer (Medium screens+)
 */
-
-const recentActivityData = [
-  { name: 'L. Cruz', amount: 'Started', time: '2m ago' },
-  { name: 'D. Engström', amount: 'Completed', time: '5m ago', highlight: true },
-  { name: 'I. Gers', amount: 'Joined', time: '12m ago' },
-  { name: 'Y. Gorlovotsky', amount: 'Started', time: '15m ago' },
-  { name: 'E. Grazzi', amount: 'Completed', time: '18m ago' },
-  { name: 'S. De Haan', amount: 'Started', time: '22m ago' },
-  { name: 'F. Harb', amount: 'Joined', time: '25m ago' },
-  {
-    name: 'C. Hoffelner',
-    amount: 'Completed',
-    time: '28m ago',
-    highlight: true,
-  },
-  { name: 'M. Kneebone', amount: 'Started', time: '32m ago' },
-  { name: 'I. Marengo', amount: 'Joined', time: '35m ago' },
-  { name: 'N. Mihaljevic', amount: 'Cert.', time: '38m ago', highlight: true },
-  { name: 'P. Milicki', amount: 'Started', time: '41m ago' },
-  { name: 'P. Moraes', amount: 'Joined', time: '45m ago' },
-  { name: 'A. Silva', amount: 'Started', time: '48m ago' },
-  { name: 'R. Kowalski', amount: 'Completed', time: '52m ago' },
-]
 
 export default function Layout() {
   return (
@@ -110,7 +86,7 @@ export default function Layout() {
         <main
           className={cn(
             'flex-1 flex flex-col relative w-full transition-all duration-300',
-            'xl:pr-[256px]', // Keep right padding for right sidebar
+            // Sidebar padding removed for full width layout
           )}
         >
           <Outlet />
@@ -126,69 +102,6 @@ export default function Layout() {
             </div>
           </footer>
         </main>
-
-        {/* Right Sidebar (Desktop XL only) */}
-        <aside className="hidden xl:flex w-[256px] flex-col fixed right-0 top-[64px] bottom-0 bg-brand-forest z-40 border-l border-brand-sea">
-          {/* Sidebar Header */}
-          <div className="h-12 border-b border-brand-sea flex items-center px-4 shrink-0 bg-brand-forest/50">
-            <h3 className="font-grotesk font-medium text-sm text-brand-slate uppercase tracking-wider">
-              Student Activity
-            </h3>
-          </div>
-
-          {/* Scrollable Feed */}
-          <div className="flex-1 overflow-y-auto custom-scrollbar p-0">
-            {recentActivityData.map((item, idx) => (
-              <div
-                key={idx}
-                className={cn(
-                  'flex items-center justify-between px-4 py-3 border-b border-brand-sea/30 transition-all duration-200 hover:bg-white/5 cursor-default group',
-                  item.highlight && 'bg-brand-sea/50 hover:bg-brand-sea/70',
-                )}
-                style={{ animationDelay: `${idx * 50}ms` }}
-              >
-                <div className="flex flex-col">
-                  <span
-                    className={cn(
-                      'text-sm font-medium',
-                      item.highlight
-                        ? 'text-white'
-                        : 'text-brand-slate group-hover:text-white',
-                    )}
-                  >
-                    {item.name}
-                  </span>
-                  <span className="text-[10px] text-brand-sea font-mono">
-                    {item.time}
-                  </span>
-                </div>
-                <span
-                  className={cn(
-                    'font-mono text-xs font-bold uppercase',
-                    item.highlight ? 'text-brand-yellow' : 'text-brand-green',
-                  )}
-                >
-                  {item.amount}
-                </span>
-              </div>
-            ))}
-          </div>
-
-          {/* Supervisors Footer */}
-          <div className="h-auto border-t border-brand-sea bg-brand-forest p-4 shrink-0">
-            <p className="text-[10px] text-brand-sea uppercase mb-2">Mentors</p>
-            <div className="flex flex-col gap-1">
-              <div className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 bg-brand-slate rounded-full opacity-50" />
-                <span className="text-xs text-brand-slate">Karel Martens</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 bg-brand-slate rounded-full opacity-50" />
-                <span className="text-xs text-brand-slate">Armand Mevis</span>
-              </div>
-            </div>
-          </div>
-        </aside>
       </div>
     </div>
   )
