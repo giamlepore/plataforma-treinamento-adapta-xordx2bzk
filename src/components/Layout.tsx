@@ -1,12 +1,10 @@
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { cn } from '@/lib/utils'
-import { AppSidebar } from './AppSidebar'
 
 /* 
   Layout Component:
   - Fixed Header (64px)
-  - Left Sidebar (Navigation - LG breakpoint)
-  - Main Content Area
+  - Main Content Area (Full width)
   - Right Sidebar (Activity - XL breakpoint)
   - Footer (Medium screens+)
 */
@@ -35,11 +33,6 @@ const recentActivityData = [
 ]
 
 export default function Layout() {
-  const location = useLocation()
-  // Hide sidebar on course and lesson pages (routes starting with /course/)
-  // Using /course/ ensures we don't accidentally hide it on /courses (catalog) if that route existed
-  const isCoursePage = location.pathname.startsWith('/course/')
-
   return (
     <div className="flex flex-col min-h-screen bg-brand-forest text-white font-sans selection:bg-brand-yellow selection:text-black overflow-hidden">
       {/* Fixed Header */}
@@ -113,26 +106,17 @@ export default function Layout() {
 
       {/* Main Container */}
       <div className="flex pt-[64px] min-h-screen relative">
-        {/* Left Sidebar - Hidden on course pages */}
-        {!isCoursePage && <AppSidebar />}
-
         {/* Main Content */}
         <main
           className={cn(
             'flex-1 flex flex-col relative w-full transition-all duration-300',
-            !isCoursePage && 'lg:pl-[256px]', // Remove padding when sidebar is hidden
             'xl:pr-[256px]', // Keep right padding for right sidebar
           )}
         >
           <Outlet />
 
           {/* Global Footer (Visible md+) */}
-          <footer
-            className={cn(
-              'hidden md:block absolute bottom-6 left-8 z-10 pointer-events-none mix-blend-difference',
-              !isCoursePage && 'lg:left-[calc(256px+2rem)]', // Adjust position based on sidebar presence
-            )}
-          >
+          <footer className="hidden md:block absolute bottom-6 left-8 z-10 pointer-events-none mix-blend-difference">
             <div className="text-[10px] text-brand-slate leading-relaxed max-w-md">
               <p>BETSMARTER ACADEMY</p>
               <p className="mt-1 opacity-60">

@@ -18913,13 +18913,6 @@ var BookOpen = createLucideIcon("book-open", [["path", {
 	d: "M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z",
 	key: "ruj8y"
 }]]);
-var ChartLine = createLucideIcon("chart-line", [["path", {
-	d: "M3 3v16a2 2 0 0 0 2 2h16",
-	key: "c24i48"
-}], ["path", {
-	d: "m19 9-5 5-4-4-3 3",
-	key: "2osh9i"
-}]]);
 var ChevronDown = createLucideIcon("chevron-down", [["path", {
 	d: "m6 9 6 6 6-6",
 	key: "qrunsl"
@@ -18937,22 +18930,6 @@ var CirclePlay = createLucideIcon("circle-play", [["path", {
 	r: "10",
 	key: "1mglay"
 }]]);
-var CircleQuestionMark = createLucideIcon("circle-question-mark", [
-	["circle", {
-		cx: "12",
-		cy: "12",
-		r: "10",
-		key: "1mglay"
-	}],
-	["path", {
-		d: "M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3",
-		key: "1u773s"
-	}],
-	["path", {
-		d: "M12 17h.01",
-		key: "p32p05"
-	}]
-]);
 var Clock = createLucideIcon("clock", [["path", {
 	d: "M12 6v6l4 2",
 	key: "mmk7yg"
@@ -19008,54 +18985,6 @@ var Flag = createLucideIcon("flag", [["path", {
 	d: "M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528",
 	key: "1jaruq"
 }]]);
-var GraduationCap = createLucideIcon("graduation-cap", [
-	["path", {
-		d: "M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z",
-		key: "j76jl0"
-	}],
-	["path", {
-		d: "M22 10v6",
-		key: "1lu8f3"
-	}],
-	["path", {
-		d: "M6 12.5V16a6 3 0 0 0 12 0v-3.5",
-		key: "1r8lef"
-	}]
-]);
-var LayoutDashboard = createLucideIcon("layout-dashboard", [
-	["rect", {
-		width: "7",
-		height: "9",
-		x: "3",
-		y: "3",
-		rx: "1",
-		key: "10lvy0"
-	}],
-	["rect", {
-		width: "7",
-		height: "5",
-		x: "14",
-		y: "3",
-		rx: "1",
-		key: "16une8"
-	}],
-	["rect", {
-		width: "7",
-		height: "9",
-		x: "14",
-		y: "12",
-		rx: "1",
-		key: "1hutg5"
-	}],
-	["rect", {
-		width: "7",
-		height: "5",
-		x: "3",
-		y: "16",
-		rx: "1",
-		key: "ldoo1y"
-	}]
-]);
 var Lock = createLucideIcon("lock", [["rect", {
 	width: "18",
 	height: "11",
@@ -19071,15 +19000,6 @@ var Lock = createLucideIcon("lock", [["rect", {
 var Play = createLucideIcon("play", [["path", {
 	d: "M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z",
 	key: "10ikf1"
-}]]);
-var Settings = createLucideIcon("settings", [["path", {
-	d: "M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915",
-	key: "1i5ecw"
-}], ["circle", {
-	cx: "12",
-	cy: "12",
-	r: "3",
-	key: "1v7zrd"
 }]]);
 var Share2 = createLucideIcon("share-2", [
 	["circle", {
@@ -19119,32 +19039,6 @@ var Star = createLucideIcon("star", [["path", {
 	d: "M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z",
 	key: "r04s7s"
 }]]);
-var Trophy = createLucideIcon("trophy", [
-	["path", {
-		d: "M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978",
-		key: "1n3hpd"
-	}],
-	["path", {
-		d: "M14 14.66v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978",
-		key: "rfe1zi"
-	}],
-	["path", {
-		d: "M18 9h1.5a1 1 0 0 0 0-5H18",
-		key: "7xy6bh"
-	}],
-	["path", {
-		d: "M4 22h16",
-		key: "57wxv0"
-	}],
-	["path", {
-		d: "M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z",
-		key: "1mhfuq"
-	}],
-	["path", {
-		d: "M6 9H4.5a1 1 0 0 1 0-5H6",
-		key: "tex48p"
-	}]
-]);
 var User = createLucideIcon("user", [["path", {
 	d: "M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2",
 	key: "975kel"
@@ -19153,33 +19047,6 @@ var User = createLucideIcon("user", [["path", {
 	cy: "7",
 	r: "4",
 	key: "17ys0d"
-}]]);
-var Users = createLucideIcon("users", [
-	["path", {
-		d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2",
-		key: "1yyitq"
-	}],
-	["path", {
-		d: "M16 3.128a4 4 0 0 1 0 7.744",
-		key: "16gr8j"
-	}],
-	["path", {
-		d: "M22 21v-2a4 4 0 0 0-3-3.87",
-		key: "kshegd"
-	}],
-	["circle", {
-		cx: "9",
-		cy: "7",
-		r: "4",
-		key: "nufk8"
-	}]
-]);
-var Wallet = createLucideIcon("wallet", [["path", {
-	d: "M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1",
-	key: "18etb6"
-}], ["path", {
-	d: "M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4",
-	key: "xoc0q4"
 }]]);
 var X = createLucideIcon("x", [["path", {
 	d: "M18 6 6 18",
@@ -25607,132 +25474,6 @@ function LessonPlayer() {
 		})]
 	});
 }
-var menuItems = [
-	{
-		icon: LayoutDashboard,
-		label: "Dashboard",
-		path: "/"
-	},
-	{
-		icon: GraduationCap,
-		label: "My Courses",
-		path: "/courses",
-		active: true
-	},
-	{
-		icon: BookOpen,
-		label: "Course Catalog",
-		path: "/catalog"
-	},
-	{
-		icon: Trophy,
-		label: "Certificates",
-		path: "/certificates"
-	},
-	{
-		icon: ChartLine,
-		label: "Performance",
-		path: "/performance"
-	},
-	{
-		icon: Users,
-		label: "Community",
-		path: "/community"
-	},
-	{
-		icon: Wallet,
-		label: "Scholarship",
-		path: "/wallet"
-	}
-];
-var bottomItems = [{
-	icon: Settings,
-	label: "Settings",
-	path: "/settings"
-}, {
-	icon: CircleQuestionMark,
-	label: "Support",
-	path: "/support"
-}];
-function AppSidebar() {
-	const location = useLocation();
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("aside", {
-		className: "hidden lg:flex w-[256px] flex-col fixed left-0 top-[64px] bottom-0 bg-brand-forest border-r border-brand-sea z-40",
-		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "h-12 border-b border-brand-sea flex items-center px-6 shrink-0 bg-brand-forest/50",
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-					className: "font-grotesk font-medium text-xs text-brand-slate uppercase tracking-widest",
-					children: "Main Navigation"
-				})
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "flex-1 overflow-y-auto custom-scrollbar py-6 px-4",
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "space-y-1",
-					children: menuItems.map((item) => {
-						const isActive = item.active || location.pathname === item.path;
-						return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
-							to: item.path,
-							className: cn("flex items-center gap-3 px-3 py-2.5 rounded-md transition-all duration-300 group relative overflow-hidden", isActive ? "text-white" : "text-brand-slate hover:text-white"),
-							children: [
-								isActive && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-brand-sea/40 border-l-2 border-brand-yellow/80" }),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(item.icon, { className: cn("w-4 h-4 z-10 transition-colors duration-300", isActive ? "text-brand-yellow" : "text-brand-slate group-hover:text-brand-yellow") }),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "font-medium text-sm tracking-wide z-10",
-									children: item.label
-								})
-							]
-						}, item.label);
-					})
-				})
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "p-4 border-t border-brand-sea bg-brand-forest",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "space-y-1 mb-6",
-					children: bottomItems.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
-						to: item.path,
-						className: "flex items-center gap-3 px-3 py-2.5 rounded-md text-brand-slate hover:bg-white/5 hover:text-white transition-all duration-200 group",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(item.icon, { className: "w-4 h-4 text-brand-slate group-hover:text-brand-yellow" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "font-medium text-sm tracking-wide",
-							children: item.label
-						})]
-					}, item.label))
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "bg-brand-sea/20 rounded-lg p-4 border border-brand-sea/50 relative overflow-hidden group",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-brand-yellow/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "relative z-10",
-						children: [
-							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex justify-between items-start mb-2",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-									className: "text-[10px] text-brand-slate uppercase tracking-wider",
-									children: "Current Plan"
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "bg-brand-yellow text-black text-[9px] font-bold px-1.5 py-0.5 rounded-sm",
-									children: "PRO"
-								})]
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-								className: "text-sm font-bold text-white mb-2 font-grotesk",
-								children: "BetSmarter Elite"
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								className: "w-full bg-black/30 h-1.5 rounded-full overflow-hidden",
-								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "bg-brand-green h-full w-[65%]" })
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-								className: "text-[10px] text-brand-slate mt-2 text-right",
-								children: "65% Completed"
-							})
-						]
-					})]
-				})]
-			})
-		]
-	});
-}
 var recentActivityData = [
 	{
 		name: "L. Cruz",
@@ -25814,7 +25555,6 @@ var recentActivityData = [
 	}
 ];
 function Layout() {
-	const isCoursePage = useLocation().pathname.startsWith("/course/");
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "flex flex-col min-h-screen bg-brand-forest text-white font-sans selection:bg-brand-yellow selection:text-black overflow-hidden",
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
@@ -25872,76 +25612,72 @@ function Layout() {
 			]
 		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 			className: "flex pt-[64px] min-h-screen relative",
-			children: [
-				!isCoursePage && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AppSidebar, {}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", {
-					className: cn("flex-1 flex flex-col relative w-full transition-all duration-300", !isCoursePage && "lg:pl-[256px]", "xl:pr-[256px]"),
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("footer", {
-						className: cn("hidden md:block absolute bottom-6 left-8 z-10 pointer-events-none mix-blend-difference", !isCoursePage && "lg:left-[calc(256px+2rem)]"),
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "text-[10px] text-brand-slate leading-relaxed max-w-md",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: "BETSMARTER ACADEMY" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-								className: "mt-1 opacity-60",
-								children: "All course materials are intellectual property of BetSmarter. Unauthorized distribution is prohibited. Platform v2.1.0."
-							})]
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", {
+				className: cn("flex-1 flex flex-col relative w-full transition-all duration-300", "xl:pr-[256px]"),
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("footer", {
+					className: "hidden md:block absolute bottom-6 left-8 z-10 pointer-events-none mix-blend-difference",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "text-[10px] text-brand-slate leading-relaxed max-w-md",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: "BETSMARTER ACADEMY" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "mt-1 opacity-60",
+							children: "All course materials are intellectual property of BetSmarter. Unauthorized distribution is prohibited. Platform v2.1.0."
+						})]
+					})
+				})]
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("aside", {
+				className: "hidden xl:flex w-[256px] flex-col fixed right-0 top-[64px] bottom-0 bg-brand-forest z-40 border-l border-brand-sea",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "h-12 border-b border-brand-sea flex items-center px-4 shrink-0 bg-brand-forest/50",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+							className: "font-grotesk font-medium text-sm text-brand-slate uppercase tracking-wider",
+							children: "Student Activity"
 						})
-					})]
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("aside", {
-					className: "hidden xl:flex w-[256px] flex-col fixed right-0 top-[64px] bottom-0 bg-brand-forest z-40 border-l border-brand-sea",
-					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							className: "h-12 border-b border-brand-sea flex items-center px-4 shrink-0 bg-brand-forest/50",
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-								className: "font-grotesk font-medium text-sm text-brand-slate uppercase tracking-wider",
-								children: "Student Activity"
-							})
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							className: "flex-1 overflow-y-auto custom-scrollbar p-0",
-							children: recentActivityData.map((item, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: cn("flex items-center justify-between px-4 py-3 border-b border-brand-sea/30 transition-all duration-200 hover:bg-white/5 cursor-default group", item.highlight && "bg-brand-sea/50 hover:bg-brand-sea/70"),
-								style: { animationDelay: `${idx * 50}ms` },
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									className: "flex flex-col",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: cn("text-sm font-medium", item.highlight ? "text-white" : "text-brand-slate group-hover:text-white"),
-										children: item.name
-									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: "text-[10px] text-brand-sea font-mono",
-										children: item.time
-									})]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "flex-1 overflow-y-auto custom-scrollbar p-0",
+						children: recentActivityData.map((item, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: cn("flex items-center justify-between px-4 py-3 border-b border-brand-sea/30 transition-all duration-200 hover:bg-white/5 cursor-default group", item.highlight && "bg-brand-sea/50 hover:bg-brand-sea/70"),
+							style: { animationDelay: `${idx * 50}ms` },
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex flex-col",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: cn("text-sm font-medium", item.highlight ? "text-white" : "text-brand-slate group-hover:text-white"),
+									children: item.name
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: cn("font-mono text-xs font-bold uppercase", item.highlight ? "text-brand-yellow" : "text-brand-green"),
-									children: item.amount
+									className: "text-[10px] text-brand-sea font-mono",
+									children: item.time
 								})]
-							}, idx))
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "h-auto border-t border-brand-sea bg-brand-forest p-4 shrink-0",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-								className: "text-[10px] text-brand-sea uppercase mb-2",
-								children: "Mentors"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: cn("font-mono text-xs font-bold uppercase", item.highlight ? "text-brand-yellow" : "text-brand-green"),
+								children: item.amount
+							})]
+						}, idx))
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "h-auto border-t border-brand-sea bg-brand-forest p-4 shrink-0",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-[10px] text-brand-sea uppercase mb-2",
+							children: "Mentors"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex flex-col gap-1",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-center gap-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "w-1.5 h-1.5 bg-brand-slate rounded-full opacity-50" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "text-xs text-brand-slate",
+									children: "Karel Martens"
+								})]
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex flex-col gap-1",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									className: "flex items-center gap-2",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "w-1.5 h-1.5 bg-brand-slate rounded-full opacity-50" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: "text-xs text-brand-slate",
-										children: "Karel Martens"
-									})]
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									className: "flex items-center gap-2",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "w-1.5 h-1.5 bg-brand-slate rounded-full opacity-50" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: "text-xs text-brand-slate",
-										children: "Armand Mevis"
-									})]
+								className: "flex items-center gap-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "w-1.5 h-1.5 bg-brand-slate rounded-full opacity-50" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "text-xs text-brand-slate",
+									children: "Armand Mevis"
 								})]
 							})]
-						})
-					]
-				})
-			]
+						})]
+					})
+				]
+			})]
 		})]
 	});
 }
@@ -25978,4 +25714,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-Dj9QXcS0.js.map
+//# sourceMappingURL=index-BpQyfBEF.js.map
