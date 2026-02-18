@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { cn } from '@/lib/utils'
 import {
   ArrowUpRight,
@@ -51,10 +52,12 @@ const CourseCard = ({
     : `https://img.usecurling.com/p/600/600?q=${imageQuery}&color=${imageColor}`
 
   return (
-    <div
+    <Link
+      to={`/course/${id}`}
       className={cn(
         'relative group overflow-hidden border-b border-brand-sea min-h-[320px] md:min-h-[400px] p-6 flex flex-col justify-between transition-all duration-500 animate-fade-in-up',
         'md:border-r last:border-r-0 md:[&:nth-child(2n)]:border-r-0 lg:[&:nth-child(3n)]:border-r-0 lg:[&:nth-child(2n)]:border-r',
+        'hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-yellow/50 focus:ring-inset',
         className,
       )}
       style={{ animationDelay: `${delay}ms` }}
@@ -162,7 +165,7 @@ const CourseCard = ({
       {isHighlight && (
         <div className="absolute inset-0 bg-brand-yellow -z-10" />
       )}
-    </div>
+    </Link>
   )
 }
 
