@@ -1,7 +1,9 @@
 import { Outlet, useLocation, matchPath, Link } from 'react-router-dom'
 import { cn } from '@/lib/utils'
-import { courses } from '@/data/mockData'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { supabase } from '@/lib/supabase/client'
+import { useAuth } from '@/hooks/use-auth'
+import { LogOut } from 'lucide-react'
 
 /* 
   Layout Component:
@@ -14,10 +16,24 @@ export default function Layout() {
   const location = useLocation()
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const itemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map())
+  const [courses, setCourses] = useState<any[]>([])
+  const { user, signOut } = useAuth()
 
   // Determine active course from URL
   const match = matchPath('/course/:courseId/*', location.pathname)
   const activeCourseId = match?.params.courseId
+
+  useEffect(() => {
+    async function loadCourses() {
+      if (!user) return
+      const { data } = await supabase
+        .from('courses')
+        .select('id, title')
+        .order('created_at')
+      if (data) setCourses(data)
+    }
+    loadCourses()
+  }, [user])
 
   // Auto-scroll to active course on mount/change
   useEffect(() => {
@@ -29,7 +45,11 @@ export default function Layout() {
         block: 'nearest',
       })
     }
-  }, [activeCourseId])
+  }, [activeCourseId, courses])
+
+  const handleLogout = async () => {
+    await signOut()
+  }
 
   return (
     <div className="flex flex-col min-h-screen bg-brand-forest text-white font-sans selection:bg-brand-yellow selection:text-black overflow-hidden">
@@ -107,14 +127,15 @@ export default function Layout() {
           </div>
         </div>
 
-        {/* System Status */}
+        {/* System Status / Logout */}
         <div className="hidden xl:flex w-[256px] h-full items-center justify-end px-6 border-l border-brand-sea shrink-0">
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-brand-green animate-pulse-slow shadow-[0_0_8px_rgba(34,197,94,0.5)]" />
-            <span className="font-mono text-sm text-brand-green">
-              ONLINE CAMPUS
-            </span>
-          </div>
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 text-brand-slate hover:text-white transition-colors"
+          >
+            <span className="font-mono text-xs uppercase">Logout</span>
+            <LogOut className="w-4 h-4" />
+          </button>
         </div>
       </header>
 

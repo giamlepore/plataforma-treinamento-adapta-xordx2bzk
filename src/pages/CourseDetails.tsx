@@ -1,31 +1,76 @@
 import { useParams, Navigate } from 'react-router-dom'
-import { courses } from '@/data/mockData'
+import { useEffect, useState } from 'react'
+import { supabase } from '@/lib/supabase/client'
+import { Loader2 } from 'lucide-react'
 import NotFound from './NotFound'
 
 /* 
   CourseDetails Page:
-  - This now serves as a redirect to the first lesson of the course, 
-  - OR it could render the LessonPlayer without a specific lesson ID selected (which LessonPlayer handles).
-  - To maintain the "Single Page View" feel requested by the user story, we simply reuse the LessonPlayer structure.
+  - Fetches the first lesson ID of the course and redirects.
 */
 
 export default function CourseDetails() {
   const { courseId } = useParams()
-  const course = courses.find((c) => c.id === courseId)
+  const [firstLessonId, setFirstLessonId] = useState<string | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
 
-  if (!course) {
-    return <NotFound />
-  }
+  useEffect(() => {
+    async function fetchFirstLesson() {
+      if (!courseId) {
+        setError(true)
+        setLoading(false)
+        return
+      }
 
-  // Find the first lesson to redirect to
-  const firstLessonId = course.modules[0]?.lessons[0]?.id
+      // Fetch first module
+      const { data: modules, error: modError } = await supabase
+        .from('modules')
+        .select('id')
+        .eq('course_id', courseId)
+        .order('order_index', { ascending: true })
+        .limit(1)
 
-  if (firstLessonId) {
+      if (modError || !modules || modules.length === 0) {
+        setError(true)
+        setLoading(false)
+        return
+      }
+
+      const firstModuleId = modules[0].id
+
+      // Fetch first lesson
+      const { data: lessons, error: lessError } = await supabase
+        .from('lessons')
+        .select('id')
+        .eq('module_id', firstModuleId)
+        .order('order_index', { ascending: true })
+        .limit(1)
+
+      if (lessError || !lessons || lessons.length === 0) {
+        setError(true)
+        setLoading(false)
+        return
+      }
+
+      setFirstLessonId(lessons[0].id)
+      setLoading(false)
+    }
+
+    fetchFirstLesson()
+  }, [courseId])
+
+  if (loading) {
     return (
-      <Navigate to={`/course/${courseId}/lesson/${firstLessonId}`} replace />
+      <div className="flex h-screen w-full items-center justify-center bg-gray-50">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
     )
   }
 
-  // Fallback if no lessons (should not happen with valid data)
-  return <NotFound />
+  if (error || !firstLessonId) {
+    return <NotFound />
+  }
+
+  return <Navigate to={`/course/${courseId}/lesson/${firstLessonId}`} replace />
 }

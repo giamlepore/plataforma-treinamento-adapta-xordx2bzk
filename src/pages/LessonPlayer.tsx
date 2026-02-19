@@ -7,78 +7,199 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
-import {
-  Clock,
-  Play,
-  Share2,
-  Star,
-  Lock,
-  Flag,
-  PlayCircle,
-  FileText,
-} from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { courses } from '@/data/mockData'
-import NotFound from './NotFound'
-import { useState } from 'react'
+import { Clock, Share2, Star, FileText, CheckCircle } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { LessonSidebar } from '@/components/LessonSidebar'
+import { LessonVideoPlayer } from '@/components/LessonVideoPlayer'
+import { supabase } from '@/lib/supabase/client'
+import { useAuth } from '@/hooks/use-auth'
+import { toast } from 'sonner'
+import { Loader2 } from 'lucide-react'
+
+// Define DB types locally or import if available
+interface Course {
+  id: string
+  title: string
+  description: string
+  instructor_name: string
+  instructor_avatar: string
+  duration_text: string
+  image_query: string
+  image_color: string
+  label: string
+  rating: number
+  reviews: number
+}
+
+interface Module {
+  id: string
+  title: string
+  lessons: Lesson[]
+}
+
+interface Lesson {
+  id: string
+  title: string
+  duration: string
+  is_test: boolean
+  is_locked: boolean
+  order_index: number
+  is_completed?: boolean
+}
 
 export default function LessonPlayer() {
   const { courseId, lessonId } = useParams()
-  const navigate = useNavigate()
+  const { user } = useAuth()
   const [isPlaying, setIsPlaying] = useState(false)
+  const [course, setCourse] = useState<Course | null>(null)
+  const [modules, setModules] = useState<Module[]>([])
+  const [loading, setLoading] = useState(true)
+  const [activeModuleId, setActiveModuleId] = useState<string | null>(null)
+  const [activeLesson, setActiveLesson] = useState<Lesson | null>(null)
+  const [progressMap, setProgressMap] = useState<Record<string, boolean>>({})
 
-  const course = courses.find((c) => c.id === courseId)
-  if (!course) return <NotFound />
+  useEffect(() => {
+    async function fetchData() {
+      if (!courseId || !user) return
+      setLoading(true)
 
-  // Find current lesson and module
-  let currentLesson = null
-  let currentModule = null
+      // Fetch course
+      const { data: courseData, error: courseError } = await supabase
+        .from('courses')
+        .select('*')
+        .eq('id', courseId)
+        .single()
 
-  // Flatten lessons to find current
-  const allLessons: {
-    lesson: any
-    module: any
-    url: string
-  }[] = []
+      if (courseError) {
+        toast.error('Failed to load course')
+        setLoading(false)
+        return
+      }
 
-  course.modules.forEach((mod) => {
-    mod.lessons.forEach((less) => {
-      allLessons.push({
-        lesson: less,
-        module: mod,
-        url: `/course/${course.id}/lesson/${less.id}`,
+      setCourse(courseData)
+
+      // Fetch modules and lessons
+      const { data: modulesData, error: modulesError } = await supabase
+        .from('modules')
+        .select(
+          `
+          id,
+          title,
+          lessons (
+            id, title, duration, is_test, is_locked, order_index
+          )
+        `,
+        )
+        .eq('course_id', courseId)
+        .order('order_index')
+
+      if (modulesError) {
+        toast.error('Failed to load modules')
+        setLoading(false)
+        return
+      }
+
+      // Sort lessons
+      const processedModules = modulesData.map((m: any) => ({
+        ...m,
+        lessons: m.lessons.sort(
+          (a: any, b: any) => a.order_index - b.order_index,
+        ),
+      }))
+
+      setModules(processedModules)
+
+      // Fetch progress
+      const { data: progressData } = await supabase
+        .from('user_progress')
+        .select('lesson_id, is_completed')
+        .eq('profile_id', user.id)
+
+      const pMap: Record<string, boolean> = {}
+      progressData?.forEach((p) => {
+        pMap[p.lesson_id] = p.is_completed
       })
-    })
-  })
+      setProgressMap(pMap)
 
-  const currentIndex = allLessons.findIndex((l) => l.lesson?.id === lessonId)
-  if (currentIndex !== -1) {
-    currentLesson = allLessons[currentIndex].lesson
-    currentModule = allLessons[currentIndex].module
-  } else if (lessonId) {
-    return <NotFound />
+      setLoading(false)
+    }
+
+    fetchData()
+  }, [courseId, user])
+
+  useEffect(() => {
+    if (lessonId && modules.length > 0) {
+      // Find active module and lesson
+      for (const mod of modules) {
+        const lesson = mod.lessons.find((l) => l.id === lessonId)
+        if (lesson) {
+          setActiveLesson(lesson)
+          setActiveModuleId(mod.id)
+          break
+        }
+      }
+    } else if (modules.length > 0 && modules[0].lessons.length > 0) {
+      // Default to first
+      setActiveModuleId(modules[0].id)
+      setActiveLesson(modules[0].lessons[0])
+    }
+  }, [lessonId, modules])
+
+  const handleToggleComplete = async () => {
+    if (!activeLesson || !user) return
+
+    const newStatus = !progressMap[activeLesson.id]
+
+    // Update local state immediately
+    setProgressMap((prev) => ({ ...prev, [activeLesson.id]: newStatus }))
+
+    const { error } = await supabase.from('user_progress').upsert(
+      {
+        profile_id: user.id,
+        lesson_id: activeLesson.id,
+        is_completed: newStatus,
+        last_watched_at: new Date().toISOString(),
+      },
+      {
+        onConflict: 'profile_id,lesson_id',
+      },
+    )
+
+    if (error) {
+      toast.error('Failed to save progress')
+      // Revert local state
+      setProgressMap((prev) => ({ ...prev, [activeLesson.id]: !newStatus }))
+    } else {
+      if (newStatus) {
+        toast.success('Lesson marked as completed')
+      }
+    }
   }
 
-  // Calculate stats
-  const completedLessons = course.modules.reduce(
-    (acc, m) => acc + m.lessons.filter((l) => l.isCompleted).length,
-    0,
-  )
-  const totalLessons = course.modules.reduce(
-    (acc, m) => acc + m.lessons.length,
-    0,
-  )
+  if (loading) {
+    return (
+      <div className="w-full min-h-[calc(100vh-64px)] flex items-center justify-center bg-[#2B2B2B]">
+        <Loader2 className="w-8 h-8 animate-spin text-white" />
+      </div>
+    )
+  }
 
-  const activeLessonId = currentLesson?.id || allLessons[0]?.lesson.id
-  const activeModuleId = currentModule?.id || course.modules[0]?.id
+  if (!course) return <div>Course not found</div>
+
+  // Enhance modules with progress for sidebar
+  const modulesWithProgress = modules.map((m) => ({
+    ...m,
+    lessons: m.lessons.map((l) => ({
+      ...l,
+      is_completed: progressMap[l.id],
+    })),
+  }))
+
+  const completedCount = Object.values(progressMap).filter(Boolean).length
+  const totalCount = modules.reduce((acc, m) => acc + m.lessons.length, 0)
+
+  const currentModuleTitle = modules.find((m) => m.id === activeModuleId)?.title
 
   return (
     <div className="w-full min-h-[calc(100vh-64px)] bg-[#2B2B2B] flex flex-col font-sans">
@@ -89,14 +210,14 @@ export default function LessonPlayer() {
           <div className="flex items-center gap-3 mb-4">
             <img
               src={
-                course.instructorAvatar ||
+                course.instructor_avatar ||
                 'https://img.usecurling.com/ppl/thumbnail?gender=male'
               }
-              alt={course.instructor}
+              alt={course.instructor_name}
               className="w-8 h-8 rounded-full border border-white/10"
             />
             <span className="text-sm font-medium text-white/90">
-              {course.instructor}
+              {course.instructor_name}
             </span>
           </div>
 
@@ -109,16 +230,12 @@ export default function LessonPlayer() {
               <div className="flex flex-wrap items-center gap-4 text-sm text-white/70 font-mono">
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4" />
-                  {course.duration}
+                  {course.duration_text}
                 </div>
                 <div className="w-1 h-1 bg-white/30 rounded-full" />
                 <div className="flex items-center gap-2">
                   <FileText className="w-4 h-4" />
-                  {course.modules.reduce(
-                    (acc, m) => acc + m.lessons.length,
-                    0,
-                  )}{' '}
-                  lessons
+                  {totalCount} lessons
                 </div>
                 {course.rating && (
                   <>
@@ -144,9 +261,19 @@ export default function LessonPlayer() {
 
             {/* Actions */}
             <div className="flex items-center gap-3">
-              <Button className="bg-[#FF6B6B] hover:bg-[#FF6B6B]/90 text-white font-medium px-8 h-12 text-base rounded-lg">
-                Enroll Course
-              </Button>
+              {activeLesson && (
+                <Button
+                  onClick={handleToggleComplete}
+                  className={
+                    progressMap[activeLesson.id]
+                      ? 'bg-green-600 hover:bg-green-700 text-white'
+                      : 'bg-[#FF6B6B] hover:bg-[#FF6B6B]/90 text-white'
+                  }
+                >
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                  {progressMap[activeLesson.id] ? 'Completed' : 'Mark Complete'}
+                </Button>
+              )}
               <Button
                 variant="outline"
                 className="border-white/20 bg-transparent text-white hover:bg-white/10 h-12 px-6 rounded-lg gap-2"
@@ -162,132 +289,15 @@ export default function LessonPlayer() {
       {/* Main Content Area - White Card */}
       <div className="flex-1 px-6 pb-12 md:px-12">
         <div className="max-w-[1400px] mx-auto bg-white rounded-2xl shadow-xl overflow-hidden min-h-[600px] flex flex-col lg:flex-row">
-          {/* Sidebar */}
-          <div className="w-full lg:w-[400px] border-r border-gray-100 flex flex-col bg-white shrink-0">
-            {/* Sidebar Header */}
-            <div className="p-6 border-b border-gray-100">
-              <div className="flex items-center gap-4 mb-3">
-                <div className="w-10 h-10 bg-[#FFEFEF] rounded-lg flex items-center justify-center shrink-0">
-                  <div className="w-5 h-5 text-[#FF6B6B] font-bold text-xs flex items-center justify-center border border-[#FF6B6B] rounded">
-                    {'</>'}
-                  </div>
-                </div>
-                <h3 className="font-semibold text-gray-900 text-sm line-clamp-2 leading-tight">
-                  {course.title}
-                </h3>
-              </div>
-              <p className="text-xs text-[#FF6B6B] font-medium flex items-center gap-2">
-                <span className="w-2 h-2">✨</span>
-                {completedLessons}/{totalLessons} completed
-              </p>
-            </div>
-
-            {/* Modules List */}
-            <div className="flex-1 overflow-y-auto">
-              <Accordion
-                type="multiple"
-                defaultValue={[activeModuleId]}
-                className="w-full"
-              >
-                {course.modules.map((module) => (
-                  <AccordionItem
-                    key={module.id}
-                    value={module.id}
-                    className="border-b border-gray-50 last:border-0"
-                  >
-                    <AccordionTrigger className="px-6 py-4 hover:bg-gray-50 hover:no-underline group">
-                      <span
-                        className={cn(
-                          'font-medium text-sm text-left',
-                          activeModuleId === module.id
-                            ? 'text-[#FF6B6B]'
-                            : 'text-gray-700',
-                        )}
-                      >
-                        {module.title}
-                      </span>
-                    </AccordionTrigger>
-                    <AccordionContent className="pt-0 pb-0">
-                      <div className="flex flex-col">
-                        {module.lessons.map((lesson) => {
-                          const isActive = lesson.id === activeLessonId
-                          return (
-                            <Link
-                              key={lesson.id}
-                              to={`/course/${course.id}/lesson/${lesson.id}`}
-                              className={cn(
-                                'flex items-start gap-3 px-6 py-4 transition-colors relative',
-                                isActive ? 'bg-[#FFF5F5]' : 'hover:bg-gray-50',
-                              )}
-                            >
-                              {isActive && (
-                                <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#FF6B6B]" />
-                              )}
-
-                              <div className="mt-0.5 shrink-0">
-                                {lesson.isTest ? (
-                                  <div className="w-5 h-5 flex items-center justify-center">
-                                    <Flag className="w-4 h-4 text-[#FF6B6B]" />
-                                  </div>
-                                ) : (
-                                  <div
-                                    className={cn(
-                                      'w-5 h-5 rounded-full border flex items-center justify-center',
-                                      isActive
-                                        ? 'border-[#FF6B6B]'
-                                        : 'border-gray-300',
-                                    )}
-                                  >
-                                    <Play
-                                      className={cn(
-                                        'w-2 h-2 fill-current',
-                                        isActive
-                                          ? 'text-[#FF6B6B]'
-                                          : 'text-gray-300',
-                                      )}
-                                    />
-                                  </div>
-                                )}
-                              </div>
-
-                              <div className="flex-1 min-w-0">
-                                {lesson.isTest && (
-                                  <span className="inline-block px-1.5 py-0.5 rounded bg-[#FF6B6B] text-white text-[9px] font-bold uppercase tracking-wider mb-1">
-                                    Test
-                                  </span>
-                                )}
-                                <h4
-                                  className={cn(
-                                    'text-sm font-medium mb-1 truncate',
-                                    isActive
-                                      ? 'text-gray-900'
-                                      : 'text-gray-600',
-                                  )}
-                                >
-                                  {lesson.title}
-                                </h4>
-                                <div className="flex items-center gap-2 text-xs text-gray-400 font-mono">
-                                  <span>{lesson.duration}</span>
-                                </div>
-                              </div>
-
-                              <div className="mt-0.5 shrink-0">
-                                {lesson.isLocked ? (
-                                  <Lock className="w-4 h-4 text-gray-300" />
-                                ) : (
-                                  <div className="w-4 h-4" />
-                                )}
-                              </div>
-                            </Link>
-                          )
-                        })}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </div>
-          </div>
+          <LessonSidebar
+            courseTitle={course.title}
+            modules={modulesWithProgress}
+            activeModuleId={activeModuleId}
+            activeLessonId={lessonId || null}
+            completedLessons={completedCount}
+            totalLessons={totalCount}
+            courseId={course.id}
+          />
 
           {/* Player Area */}
           <div className="flex-1 flex flex-col min-w-0 bg-white">
@@ -302,7 +312,7 @@ export default function LessonPlayer() {
                 <BreadcrumbList className="text-xs text-gray-500 font-medium">
                   <BreadcrumbItem>
                     <BreadcrumbLink href="#" className="hover:text-[#FF6B6B]">
-                      {course.instructor}
+                      {course.instructor_name}
                     </BreadcrumbLink>
                   </BreadcrumbItem>
                   <BreadcrumbSeparator />
@@ -314,92 +324,24 @@ export default function LessonPlayer() {
                   <BreadcrumbSeparator />
                   <BreadcrumbItem>
                     <BreadcrumbLink href="#" className="hover:text-[#FF6B6B]">
-                      {currentModule?.title.split(':')[0] || 'Module'}
+                      {currentModuleTitle?.split(':')[0] || 'Module'}
                     </BreadcrumbLink>
                   </BreadcrumbItem>
                   <BreadcrumbSeparator />
                   <BreadcrumbPage className="text-gray-900">
-                    {currentLesson?.title || 'Overview'}
+                    {activeLesson?.title || 'Overview'}
                   </BreadcrumbPage>
                 </BreadcrumbList>
               </Breadcrumb>
             </div>
 
-            <div className="p-6 md:p-8 flex-1 flex flex-col">
-              {/* Video Player Placeholder */}
-              <div className="w-full aspect-video bg-black rounded-lg overflow-hidden relative group shadow-lg mb-8">
-                {isPlaying ? (
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-                    title="Video player"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="w-full h-full"
-                  />
-                ) : (
-                  <>
-                    <img
-                      src={`https://img.usecurling.com/p/1200/675?q=${course.imageQuery}&color=${course.imageColor || 'orange'}`}
-                      alt="Video Thumbnail"
-                      className="w-full h-full object-cover opacity-80"
-                    />
-                    <div className="absolute inset-0 bg-black/20" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <button
-                        onClick={() => setIsPlaying(true)}
-                        className="w-16 h-16 md:w-20 md:h-20 bg-[#FF6B6B] rounded-full flex items-center justify-center shadow-lg hover:scale-105 transition-transform"
-                      >
-                        <Play className="w-6 h-6 md:w-8 md:h-8 text-white fill-white ml-1" />
-                      </button>
-                    </div>
-                  </>
-                )}
-
-                {/* Progress Bar */}
-                <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-white/20">
-                  <div className="h-full w-[35%] bg-[#FF6B6B]" />
-                </div>
-              </div>
-
-              {/* Tabs */}
-              <Tabs defaultValue="description" className="w-full">
-                <TabsList className="bg-transparent border-b border-gray-100 w-full justify-start h-auto p-0 rounded-none mb-6">
-                  <TabsTrigger
-                    value="description"
-                    className="rounded-none border-b-2 border-transparent data-[state=active]:border-gray-900 data-[state=active]:bg-transparent data-[state=active]:shadow-none py-3 px-0 mr-8 text-gray-500 data-[state=active]:text-gray-900 font-semibold text-sm"
-                  >
-                    Description
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="reviews"
-                    className="rounded-none border-b-2 border-transparent data-[state=active]:border-gray-900 data-[state=active]:bg-transparent data-[state=active]:shadow-none py-3 px-0 text-gray-500 data-[state=active]:text-gray-900 font-semibold text-sm"
-                  >
-                    Rating and review
-                  </TabsTrigger>
-                </TabsList>
-
-                <TabsContent value="description" className="mt-0">
-                  <div className="prose prose-sm max-w-none text-gray-600 leading-relaxed">
-                    <p className="mb-4">{course.description}</p>
-                    <p>
-                      This immersive course is designed for aspiring developers,
-                      creative minds, and tech enthusiasts ready to unlock the
-                      full potential of the front-end landscape. You will learn
-                      to navigate the Figma interface, create scalable
-                      components, and build a complete design system from
-                      scratch.
-                    </p>
-                  </div>
-                </TabsContent>
-                <TabsContent value="reviews" className="mt-0">
-                  <div className="text-gray-500 text-sm">
-                    Reviews section content would appear here.
-                  </div>
-                </TabsContent>
-              </Tabs>
-            </div>
+            <LessonVideoPlayer
+              isPlaying={isPlaying}
+              setIsPlaying={setIsPlaying}
+              imageQuery={course.image_query}
+              imageColor={course.image_color}
+              courseDescription={course.description}
+            />
           </div>
         </div>
       </div>

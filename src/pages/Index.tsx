@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { cn } from '@/lib/utils'
 import {
@@ -9,13 +9,10 @@ import {
   User,
   Star,
   BookOpen,
+  Loader2,
 } from 'lucide-react'
-
-/* 
-  Index Page:
-  - Hero Section (Learning Focus)
-  - Course Grid (Replaces Metrics)
-*/
+import { supabase } from '@/lib/supabase/client'
+import { useAuth } from '@/hooks/use-auth'
 
 interface CourseCardProps {
   id: string
@@ -88,7 +85,7 @@ const CourseCard = ({
                 : 'border-white/30 text-white/80',
             )}
           >
-            <span>{id}</span>
+            <span>ID: {id.slice(0, 4)}</span>
             {progress > 0 && <span className="opacity-60">| {progress}%</span>}
           </div>
           {isHighlight ? (
@@ -153,6 +150,36 @@ const CourseCard = ({
 }
 
 const Index = () => {
+  const [courses, setCourses] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+  const { user } = useAuth()
+
+  useEffect(() => {
+    async function fetchCourses() {
+      if (!user) return
+
+      const { data, error } = await supabase
+        .from('courses')
+        .select('*')
+        .order('created_at', { ascending: true })
+
+      if (!error && data) {
+        setCourses(data)
+      }
+      setLoading(false)
+    }
+
+    fetchCourses()
+  }, [user])
+
+  if (loading) {
+    return (
+      <div className="w-full h-full min-h-[calc(100vh-64px)] flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-brand-green" />
+      </div>
+    )
+  }
+
   return (
     <div className="w-full h-full min-h-[calc(100vh-64px)]">
       {/* Hero Section */}
@@ -184,86 +211,24 @@ const Index = () => {
 
       {/* Course Grid */}
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full border-b border-brand-sea bg-brand-forest">
-        <CourseCard
-          id="COURSE_FIGMA"
-          label="Product Design"
-          title="Mastering Figma in 7 days unleashed"
-          instructor="Albert Flores"
-          duration="4h 12m"
-          bgColor="bg-brand-yellow"
-          isHighlight={true}
-          delay={50}
-          className="border-r border-brand-sea"
-          progress={12}
-        />
-
-        <CourseCard
-          id="COURSE_01"
-          label="Fundamentals"
-          title="Smart Betting 101"
-          instructor="A. Silva"
-          duration="4h 30m"
-          bgColor="bg-emerald-600"
-          delay={100}
-          className="border-r border-brand-sea"
-          progress={100}
-        />
-
-        <CourseCard
-          id="COURSE_02"
-          label="Analytics"
-          title="Data-Driven Decisions"
-          instructor="Dr. Ray"
-          duration="6h 15m"
-          bgColor="bg-blue-600"
-          delay={200}
-          className="border-r border-brand-sea"
-          progress={45}
-        />
-
-        <CourseCard
-          id="COURSE_03"
-          label="Psychology"
-          title="Mindset of a Winner"
-          instructor="S. De Haan"
-          duration="3h 20m"
-          bgColor="bg-purple-600"
-          delay={300}
-          className="border-r-0 border-brand-sea lg:border-r lg:border-brand-sea"
-        />
-
-        <CourseCard
-          id="COURSE_04"
-          label="Advanced Strategy"
-          title="Arbitrage & Value"
-          instructor="M. Kneebone"
-          duration="8h 00m"
-          bgColor="bg-rose-600"
-          delay={400}
-          className="border-r border-brand-sea"
-        />
-
-        <CourseCard
-          id="COURSE_05"
-          label="Featured Masterclass"
-          title="Professional Risk Management"
-          instructor="N. Mihaljevic"
-          duration="12h 45m"
-          bgColor="bg-orange-600"
-          delay={500}
-          className="border-r border-brand-sea"
-        />
-
-        <CourseCard
-          id="COURSE_06"
-          label="Technology"
-          title="Automated Systems"
-          instructor="Bot Labs"
-          duration="5h 30m"
-          bgColor="bg-cyan-600"
-          delay={600}
-          className="border-r-0 border-brand-sea"
-        />
+        {courses.map((course, index) => (
+          <CourseCard
+            key={course.id}
+            id={course.id}
+            label={course.label || 'Course'}
+            title={course.title}
+            instructor={course.instructor_name}
+            duration={course.duration_text}
+            bgColor={course.image_color || 'bg-brand-sea'}
+            isHighlight={index === 0}
+            delay={(index + 1) * 50}
+            className={cn(
+              'border-r border-brand-sea',
+              (index + 1) % 3 === 0 ? 'lg:border-r-0' : '', // Simple grid fix
+            )}
+            progress={0} // TODO: Calculate progress if needed for grid
+          />
+        ))}
       </section>
 
       {/* Mobile-only Activity Teaser */}
