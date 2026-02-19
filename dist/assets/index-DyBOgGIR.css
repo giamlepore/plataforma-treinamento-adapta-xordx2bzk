@@ -1658,6 +1658,9 @@ body{
 .max-w-\[420px\]{
   max-width: 420px;
 }
+.max-w-full{
+  max-width: 100%;
+}
 .max-w-lg{
   max-width: 32rem;
 }
@@ -2187,6 +2190,10 @@ body{
 }
 .bg-gray-50\/50{
   background-color: rgb(249 250 251 / 0.5);
+}
+.bg-gray-900{
+  --tw-bg-opacity: 1;
+  background-color: rgb(17 24 39 / var(--tw-bg-opacity, 1));
 }
 .bg-green-500{
   --tw-bg-opacity: 1;

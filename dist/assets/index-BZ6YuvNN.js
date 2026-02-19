@@ -18951,6 +18951,28 @@ var ChevronRight = createLucideIcon("chevron-right", [["path", {
 	d: "m9 18 6-6-6-6",
 	key: "mthhwq"
 }]]);
+var CircleAlert = createLucideIcon("circle-alert", [
+	["circle", {
+		cx: "12",
+		cy: "12",
+		r: "10",
+		key: "1mglay"
+	}],
+	["line", {
+		x1: "12",
+		x2: "12",
+		y1: "8",
+		y2: "12",
+		key: "1pkeuh"
+	}],
+	["line", {
+		x1: "12",
+		x2: "12.01",
+		y1: "16",
+		y2: "16",
+		key: "4dfq90"
+	}]
+]);
 var CircleCheckBig = createLucideIcon("circle-check-big", [["path", {
 	d: "M21.801 10A10 10 0 1 1 17 3.335",
 	key: "yps3ct"
@@ -33624,9 +33646,11 @@ var TabsContent = import_react.forwardRef(({ className, ...props }, ref) => /* @
 TabsContent.displayName = Content$1.displayName;
 function LessonVideoPlayer({ isPlaying, setIsPlaying, imageQuery, imageColor, courseDescription, videoUrl, title }) {
 	const getVimeoSrc = (url) => {
+		if (!url) return null;
 		try {
-			const match = url.match(/video\/(\d+)/);
+			const match = url.match(/(?:vimeo\.com\/(?:.*\/)?|player\.vimeo\.com\/video\/)(\d+)/);
 			if (match && match[1]) return `https://player.vimeo.com/video/${match[1]}?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1`;
+			if (/^\d+$/.test(url.trim())) return `https://player.vimeo.com/video/${url.trim()}?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1`;
 			return null;
 		} catch (error) {
 			console.error("Error parsing Vimeo URL:", error);
@@ -33644,14 +33668,23 @@ function LessonVideoPlayer({ isPlaying, setIsPlaying, imageQuery, imageColor, co
 				className: "w-full h-full absolute top-0 left-0",
 				title: title || "Lesson Video",
 				allowFullScreen: true
-			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("iframe", {
-				width: "100%",
-				height: "100%",
-				src: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1",
-				title: "Video player",
-				allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
-				allowFullScreen: true,
-				className: "w-full h-full"
+			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "w-full h-full flex flex-col items-center justify-center bg-gray-900 text-white p-6 text-center",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleAlert, { className: "w-12 h-12 text-gray-500 mb-4" }),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+						className: "text-lg font-medium mb-2",
+						children: "Video Unavailable"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "text-gray-400 text-sm max-w-md",
+						children: "We encountered an issue loading the video. The video URL might be invalid or not properly formatted."
+					}),
+					videoUrl && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "text-gray-600 text-xs mt-4 font-mono truncate max-w-full px-4",
+						children: videoUrl
+					})
+				]
 			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
 					src: `https://img.usecurling.com/p/1200/675?q=${imageQuery || "abstract"}&color=${imageColor?.replace("bg-", "") || "orange"}`,
@@ -33663,7 +33696,7 @@ function LessonVideoPlayer({ isPlaying, setIsPlaying, imageQuery, imageColor, co
 					className: "absolute inset-0 flex items-center justify-center",
 					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
 						onClick: () => setIsPlaying(true),
-						className: "w-16 h-16 md:w-20 md:h-20 bg-[#FF6B6B] rounded-full flex items-center justify-center shadow-lg hover:scale-105 transition-transform",
+						className: "w-16 h-16 md:w-20 md:h-20 bg-[#FF6B6B] rounded-full flex items-center justify-center shadow-lg hover:scale-105 transition-transform group-hover:scale-110",
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Play, { className: "w-6 h-6 md:w-8 md:h-8 text-white fill-white ml-1" })
 					})
 				})
@@ -36811,4 +36844,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { chil
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-C4yrRRvS.js.map
+//# sourceMappingURL=index-BZ6YuvNN.js.map

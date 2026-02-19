@@ -1,5 +1,4 @@
-import { Play } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Play, AlertCircle } from 'lucide-react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 interface LessonVideoPlayerProps {
@@ -22,10 +21,15 @@ export function LessonVideoPlayer({
   title,
 }: LessonVideoPlayerProps) {
   const getVimeoSrc = (url: string) => {
-    // Expected format: https://player.vimeo.com/video/[ID]
-    // We extract the ID which is the numeric part after /video/
+    if (!url) return null
     try {
-      const regex = /video\/(\d+)/
+      // Regex to extract Vimeo ID from various URL formats
+      // Supports:
+      // - https://vimeo.com/123456789
+      // - https://player.vimeo.com/video/123456789
+      // - https://vimeo.com/channels/staffpicks/123456789
+      // - https://vimeo.com/groups/name/videos/123456789
+      const regex = /(?:vimeo\.com\/(?:.*\/)?|player\.vimeo\.com\/video\/)(\d+)/
       const match = url.match(regex)
 
       if (match && match[1]) {
@@ -34,6 +38,12 @@ export function LessonVideoPlayer({
         // Added autoplay=1 for better UX after clicking play overlay
         return `https://player.vimeo.com/video/${videoId}?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1`
       }
+
+      // Fallback for direct IDs if someone just pastes the ID?
+      if (/^\d+$/.test(url.trim())) {
+        return `https://player.vimeo.com/video/${url.trim()}?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1`
+      }
+
       return null
     } catch (error) {
       console.error('Error parsing Vimeo URL:', error)
@@ -57,15 +67,19 @@ export function LessonVideoPlayer({
               allowFullScreen
             />
           ) : (
-            <iframe
-              width="100%"
-              height="100%"
-              src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-              title="Video player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="w-full h-full"
-            />
+            <div className="w-full h-full flex flex-col items-center justify-center bg-gray-900 text-white p-6 text-center">
+              <AlertCircle className="w-12 h-12 text-gray-500 mb-4" />
+              <h3 className="text-lg font-medium mb-2">Video Unavailable</h3>
+              <p className="text-gray-400 text-sm max-w-md">
+                We encountered an issue loading the video. The video URL might
+                be invalid or not properly formatted.
+              </p>
+              {videoUrl && (
+                <p className="text-gray-600 text-xs mt-4 font-mono truncate max-w-full px-4">
+                  {videoUrl}
+                </p>
+              )}
+            </div>
           )
         ) : (
           <>
@@ -78,7 +92,7 @@ export function LessonVideoPlayer({
             <div className="absolute inset-0 flex items-center justify-center">
               <button
                 onClick={() => setIsPlaying(true)}
-                className="w-16 h-16 md:w-20 md:h-20 bg-[#FF6B6B] rounded-full flex items-center justify-center shadow-lg hover:scale-105 transition-transform"
+                className="w-16 h-16 md:w-20 md:h-20 bg-[#FF6B6B] rounded-full flex items-center justify-center shadow-lg hover:scale-105 transition-transform group-hover:scale-110"
               >
                 <Play className="w-6 h-6 md:w-8 md:h-8 text-white fill-white ml-1" />
               </button>
