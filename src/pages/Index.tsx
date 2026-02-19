@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 import { supabase } from '@/lib/supabase/client'
 import { useAuth } from '@/hooks/use-auth'
+import { useOrganization } from '@/context/OrganizationContext'
 
 interface CourseCardProps {
   id: string
@@ -59,10 +60,17 @@ const CourseCard = ({
         <div
           className={cn(
             'w-full h-full transition-transform duration-700 ease-out',
-            bgColor,
             isHovered && 'scale-105',
           )}
-        />
+          style={{
+            backgroundColor: bgColor.startsWith('#') ? bgColor : undefined,
+          }} // Support hex or fallback to class
+        >
+          {/* If it's a class (not hex), apply it */}
+          <div
+            className={cn('w-full h-full', !bgColor.startsWith('#') && bgColor)}
+          />
+        </div>
         {/* Subtle Overlay for depth */}
         <div
           className={cn(
@@ -153,6 +161,7 @@ const Index = () => {
   const [courses, setCourses] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const { user } = useAuth()
+  const { organization } = useOrganization()
 
   useEffect(() => {
     async function fetchCourses() {
@@ -186,14 +195,13 @@ const Index = () => {
       <section className="relative px-6 py-12 md:py-16 lg:py-20 border-b border-brand-sea animate-fade-in-up">
         <div className="max-w-5xl">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-grotesk font-medium leading-[1.1] md:leading-[1.1] tracking-tight mb-8">
-            Advance Your <br className="hidden md:block" />
-            <span className="text-brand-slate/60">Betting Knowledge</span>
+            {organization?.hero_title || 'Advance Your Betting Knowledge'}
           </h1>
           <div className="flex flex-col md:flex-row gap-6 md:items-center max-w-2xl">
             <div className="w-12 h-[1px] bg-brand-green hidden md:block" />
             <p className="text-brand-slate text-lg md:text-xl font-light leading-relaxed">
-              Access professional-grade courses and validated strategies. Master
-              the mathematics, psychology, and systems of profitable betting.
+              {organization?.hero_subtitle ||
+                'Access professional-grade courses and validated strategies. Master the mathematics, psychology, and systems of profitable betting.'}
             </p>
           </div>
         </div>
@@ -210,7 +218,12 @@ const Index = () => {
       </section>
 
       {/* Course Grid */}
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full border-b border-brand-sea bg-brand-forest">
+      <section
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full border-b border-brand-sea"
+        style={{
+          backgroundColor: organization?.platform_bg_color || undefined,
+        }}
+      >
         {courses.map((course, index) => (
           <CourseCard
             key={course.id}

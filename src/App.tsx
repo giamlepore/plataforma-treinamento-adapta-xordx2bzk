@@ -9,35 +9,50 @@ import CourseDetails from './pages/CourseDetails'
 import LessonPlayer from './pages/LessonPlayer'
 import Login from './pages/Login'
 import Layout from './components/Layout'
+import AdminDashboard from './pages/admin/AdminDashboard'
+import AdminCourseEdit from './pages/admin/AdminCourseEdit'
 import { AuthProvider } from './hooks/use-auth'
+import { OrganizationProvider } from './context/OrganizationContext'
 import { ProtectedRoute } from './components/ProtectedRoute'
+import { AdminRoute } from './components/AdminRoute'
 
 const App = () => (
   <AuthProvider>
-    <BrowserRouter
-      future={{ v7_startTransition: false, v7_relativeSplatPath: false }}
-    >
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <Routes>
-          <Route path="/login" element={<Login />} />
+    <OrganizationProvider>
+      <BrowserRouter
+        future={{ v7_startTransition: false, v7_relativeSplatPath: false }}
+      >
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <Routes>
+            <Route path="/login" element={<Login />} />
 
-          <Route element={<ProtectedRoute />}>
-            <Route element={<Layout />}>
-              <Route path="/" element={<Index />} />
-              <Route path="/course/:courseId" element={<CourseDetails />} />
-              <Route
-                path="/course/:courseId/lesson/:lessonId"
-                element={<LessonPlayer />}
-              />
+            <Route element={<ProtectedRoute />}>
+              <Route element={<Layout />}>
+                <Route path="/" element={<Index />} />
+                <Route path="/course/:courseId" element={<CourseDetails />} />
+                <Route
+                  path="/course/:courseId/lesson/:lessonId"
+                  element={<LessonPlayer />}
+                />
+
+                {/* Admin Routes - Nested inside Layout to keep header, or could be separate layout */}
+                <Route element={<AdminRoute />}>
+                  <Route path="/admin" element={<AdminDashboard />} />
+                  <Route
+                    path="/admin/courses/:courseId"
+                    element={<AdminCourseEdit />}
+                  />
+                </Route>
+              </Route>
             </Route>
-          </Route>
 
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </TooltipProvider>
-    </BrowserRouter>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </TooltipProvider>
+      </BrowserRouter>
+    </OrganizationProvider>
   </AuthProvider>
 )
 

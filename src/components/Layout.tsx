@@ -3,7 +3,8 @@ import { cn } from '@/lib/utils'
 import { useEffect, useRef, useState } from 'react'
 import { supabase } from '@/lib/supabase/client'
 import { useAuth } from '@/hooks/use-auth'
-import { LogOut } from 'lucide-react'
+import { LogOut, Settings } from 'lucide-react'
+import { useOrganization } from '@/context/OrganizationContext'
 
 /* 
   Layout Component:
@@ -18,21 +19,31 @@ export default function Layout() {
   const itemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map())
   const [courses, setCourses] = useState<any[]>([])
   const { user, signOut } = useAuth()
+  const { organization } = useOrganization()
+  const [isAdmin, setIsAdmin] = useState(false)
 
   // Determine active course from URL
   const match = matchPath('/course/:courseId/*', location.pathname)
   const activeCourseId = match?.params.courseId
 
   useEffect(() => {
-    async function loadCourses() {
+    async function loadData() {
       if (!user) return
       const { data } = await supabase
         .from('courses')
         .select('id, title')
         .order('created_at')
       if (data) setCourses(data)
+
+      // Check admin role for settings button
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .single()
+      if (profile?.role === 'admin') setIsAdmin(true)
     }
-    loadCourses()
+    loadData()
   }, [user])
 
   // Auto-scroll to active course on mount/change
@@ -51,10 +62,18 @@ export default function Layout() {
     await signOut()
   }
 
+  const bgColor = organization?.platform_bg_color || '#1a5c48'
+
   return (
-    <div className="flex flex-col min-h-screen bg-brand-forest text-white font-sans selection:bg-brand-yellow selection:text-black overflow-hidden">
+    <div
+      className="flex flex-col min-h-screen text-white font-sans selection:bg-brand-yellow selection:text-black overflow-hidden transition-colors duration-500"
+      style={{ backgroundColor: bgColor }}
+    >
       {/* Fixed Header */}
-      <header className="h-[64px] border-b border-brand-sea flex items-center fixed top-0 w-full z-50 bg-brand-forest/95 backdrop-blur-sm">
+      <header
+        className="h-[64px] border-b border-brand-sea flex items-center fixed top-0 w-full z-50 bg-inherit/95 backdrop-blur-sm"
+        style={{ backgroundColor: bgColor }} // Ensure header matches
+      >
         {/* Branding Section */}
         <Link
           to="/"
@@ -62,19 +81,29 @@ export default function Layout() {
         >
           <div className="flex flex-col">
             <span className="font-grotesk font-bold text-xl tracking-tight leading-none">
-              BETSMARTER
+              {organization?.header_title || 'BETSMARTER'}
             </span>
             <span className="text-[10px] text-brand-slate tracking-widest uppercase">
-              Course Dashboard
+              {organization?.header_subtitle || 'Course Dashboard'}
             </span>
           </div>
         </Link>
 
         {/* Dial/Timeline Section */}
         <div className="flex-1 h-full flex items-center justify-start relative overflow-hidden">
-          {/* Fade Gradients for Dial Effect */}
-          <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-brand-forest to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-brand-forest to-transparent z-10 pointer-events-none" />
+          {/* Fade Gradients for Dial Effect - using inline styles to match dynamic bg */}
+          <div
+            className="absolute left-0 top-0 bottom-0 w-12 z-10 pointer-events-none"
+            style={{
+              background: `linear-gradient(to right, ${bgColor}, transparent)`,
+            }}
+          />
+          <div
+            className="absolute right-0 top-0 bottom-0 w-12 z-10 pointer-events-none"
+            style={{
+              background: `linear-gradient(to left, ${bgColor}, transparent)`,
+            }}
+          />
 
           {/* Scrollable Course List */}
           <div
@@ -128,7 +157,16 @@ export default function Layout() {
         </div>
 
         {/* System Status / Logout */}
-        <div className="hidden xl:flex w-[256px] h-full items-center justify-end px-6 border-l border-brand-sea shrink-0">
+        <div className="hidden xl:flex w-[256px] h-full items-center justify-end px-6 border-l border-brand-sea shrink-0 gap-4">
+          {isAdmin && (
+            <Link
+              to="/admin"
+              className="flex items-center gap-2 text-brand-slate hover:text-white transition-colors"
+              title="Admin Dashboard"
+            >
+              <Settings className="w-4 h-4" />
+            </Link>
+          )}
           <button
             onClick={handleLogout}
             className="flex items-center gap-2 text-brand-slate hover:text-white transition-colors"
@@ -148,10 +186,11 @@ export default function Layout() {
           {/* Global Footer (Visible md+) */}
           <footer className="hidden md:block absolute bottom-6 left-8 z-10 pointer-events-none mix-blend-difference">
             <div className="text-[10px] text-brand-slate leading-relaxed max-w-md">
-              <p>BETSMARTER ACADEMY</p>
+              <p>{organization?.header_title || 'BETSMARTER'} ACADEMY</p>
               <p className="mt-1 opacity-60">
-                All course materials are intellectual property of BetSmarter.
-                Unauthorized distribution is prohibited. Platform v2.1.0.
+                All course materials are intellectual property of{' '}
+                {organization?.header_title || 'BetSmarter'}. Unauthorized
+                distribution is prohibited. Platform v2.2.0.
               </p>
             </div>
           </footer>

@@ -243,9 +243,9 @@ var require_scheduler_development = /* @__PURE__ */ __commonJSMin(((exports) => 
 				currentPriorityLevel = previousPriorityLevel;
 			}
 		};
-		exports.unstable_scheduleCallback = function(priorityLevel, callback, options) {
+		exports.unstable_scheduleCallback = function(priorityLevel, callback, options$1) {
 			var currentTime = exports.unstable_now();
-			"object" === typeof options && null !== options ? (options = options.delay, options = "number" === typeof options && 0 < options ? currentTime + options : currentTime) : options = currentTime;
+			"object" === typeof options$1 && null !== options$1 ? (options$1 = options$1.delay, options$1 = "number" === typeof options$1 && 0 < options$1 ? currentTime + options$1 : currentTime) : options$1 = currentTime;
 			switch (priorityLevel) {
 				case 1:
 					var timeout = -1;
@@ -261,16 +261,16 @@ var require_scheduler_development = /* @__PURE__ */ __commonJSMin(((exports) => 
 					break;
 				default: timeout = 5e3;
 			}
-			timeout = options + timeout;
+			timeout = options$1 + timeout;
 			priorityLevel = {
 				id: taskIdCounter++,
 				callback,
 				priorityLevel,
-				startTime: options,
+				startTime: options$1,
 				expirationTime: timeout,
 				sortIndex: -1
 			};
-			options > currentTime ? (priorityLevel.sortIndex = options, push(timerQueue, priorityLevel), null === peek(taskQueue) && priorityLevel === peek(timerQueue) && (isHostTimeoutScheduled ? (localClearTimeout(taskTimeoutID), taskTimeoutID = -1) : isHostTimeoutScheduled = !0, requestHostTimeout(handleTimeout, options - currentTime))) : (priorityLevel.sortIndex = timeout, push(taskQueue, priorityLevel), isHostCallbackScheduled || isPerformingWork || (isHostCallbackScheduled = !0, isMessageLoopRunning || (isMessageLoopRunning = !0, schedulePerformWorkUntilDeadline())));
+			options$1 > currentTime ? (priorityLevel.sortIndex = options$1, push(timerQueue, priorityLevel), null === peek(taskQueue) && priorityLevel === peek(timerQueue) && (isHostTimeoutScheduled ? (localClearTimeout(taskTimeoutID), taskTimeoutID = -1) : isHostTimeoutScheduled = !0, requestHostTimeout(handleTimeout, options$1 - currentTime))) : (priorityLevel.sortIndex = timeout, push(taskQueue, priorityLevel), isHostCallbackScheduled || isPerformingWork || (isHostCallbackScheduled = !0, isMessageLoopRunning || (isMessageLoopRunning = !0, schedulePerformWorkUntilDeadline())));
 			return priorityLevel;
 		};
 		exports.unstable_shouldYield = shouldYieldToHost;
@@ -544,9 +544,9 @@ var require_react_development = /* @__PURE__ */ __commonJSMin(((exports, module)
 		}
 		function mapChildren(children, func, context) {
 			if (null == children) return children;
-			var result = [], count$2 = 0;
+			var result = [], count$3 = 0;
 			mapIntoArray(children, result, "", "", function(child) {
-				return func.call(context, child, count$2++);
+				return func.call(context, child, count$3++);
 			});
 			return result;
 		}
@@ -1132,23 +1132,23 @@ var require_react_dom_development = /* @__PURE__ */ __commonJSMin(((exports) => 
 				ReactSharedInternals.T = previousTransition, Internals.p = previousUpdatePriority, Internals.d.f() && console.error("flushSync was called from inside a lifecycle method. React cannot flush when React is already rendering. Consider moving this call to a scheduler task or micro task.");
 			}
 		};
-		exports.preconnect = function(href, options) {
-			"string" === typeof href && href ? null != options && "object" !== typeof options ? console.error("ReactDOM.preconnect(): Expected the `options` argument (second) to be an object but encountered %s instead. The only supported option at this time is `crossOrigin` which accepts a string.", getValueDescriptorExpectingEnumForWarning(options)) : null != options && "string" !== typeof options.crossOrigin && console.error("ReactDOM.preconnect(): Expected the `crossOrigin` option (second argument) to be a string but encountered %s instead. Try removing this option or passing a string value instead.", getValueDescriptorExpectingObjectForWarning(options.crossOrigin)) : console.error("ReactDOM.preconnect(): Expected the `href` argument (first) to be a non-empty string but encountered %s instead.", getValueDescriptorExpectingObjectForWarning(href));
-			"string" === typeof href && (options ? (options = options.crossOrigin, options = "string" === typeof options ? "use-credentials" === options ? options : "" : void 0) : options = null, Internals.d.C(href, options));
+		exports.preconnect = function(href, options$1) {
+			"string" === typeof href && href ? null != options$1 && "object" !== typeof options$1 ? console.error("ReactDOM.preconnect(): Expected the `options` argument (second) to be an object but encountered %s instead. The only supported option at this time is `crossOrigin` which accepts a string.", getValueDescriptorExpectingEnumForWarning(options$1)) : null != options$1 && "string" !== typeof options$1.crossOrigin && console.error("ReactDOM.preconnect(): Expected the `crossOrigin` option (second argument) to be a string but encountered %s instead. Try removing this option or passing a string value instead.", getValueDescriptorExpectingObjectForWarning(options$1.crossOrigin)) : console.error("ReactDOM.preconnect(): Expected the `href` argument (first) to be a non-empty string but encountered %s instead.", getValueDescriptorExpectingObjectForWarning(href));
+			"string" === typeof href && (options$1 ? (options$1 = options$1.crossOrigin, options$1 = "string" === typeof options$1 ? "use-credentials" === options$1 ? options$1 : "" : void 0) : options$1 = null, Internals.d.C(href, options$1));
 		};
 		exports.prefetchDNS = function(href) {
 			if ("string" !== typeof href || !href) console.error("ReactDOM.prefetchDNS(): Expected the `href` argument (first) to be a non-empty string but encountered %s instead.", getValueDescriptorExpectingObjectForWarning(href));
 			else if (1 < arguments.length) {
-				var options = arguments[1];
-				"object" === typeof options && options.hasOwnProperty("crossOrigin") ? console.error("ReactDOM.prefetchDNS(): Expected only one argument, `href`, but encountered %s as a second argument instead. This argument is reserved for future options and is currently disallowed. It looks like the you are attempting to set a crossOrigin property for this DNS lookup hint. Browsers do not perform DNS queries using CORS and setting this attribute on the resource hint has no effect. Try calling ReactDOM.prefetchDNS() with just a single string argument, `href`.", getValueDescriptorExpectingEnumForWarning(options)) : console.error("ReactDOM.prefetchDNS(): Expected only one argument, `href`, but encountered %s as a second argument instead. This argument is reserved for future options and is currently disallowed. Try calling ReactDOM.prefetchDNS() with just a single string argument, `href`.", getValueDescriptorExpectingEnumForWarning(options));
+				var options$1 = arguments[1];
+				"object" === typeof options$1 && options$1.hasOwnProperty("crossOrigin") ? console.error("ReactDOM.prefetchDNS(): Expected only one argument, `href`, but encountered %s as a second argument instead. This argument is reserved for future options and is currently disallowed. It looks like the you are attempting to set a crossOrigin property for this DNS lookup hint. Browsers do not perform DNS queries using CORS and setting this attribute on the resource hint has no effect. Try calling ReactDOM.prefetchDNS() with just a single string argument, `href`.", getValueDescriptorExpectingEnumForWarning(options$1)) : console.error("ReactDOM.prefetchDNS(): Expected only one argument, `href`, but encountered %s as a second argument instead. This argument is reserved for future options and is currently disallowed. Try calling ReactDOM.prefetchDNS() with just a single string argument, `href`.", getValueDescriptorExpectingEnumForWarning(options$1));
 			}
 			"string" === typeof href && Internals.d.D(href);
 		};
-		exports.preinit = function(href, options) {
-			"string" === typeof href && href ? null == options || "object" !== typeof options ? console.error("ReactDOM.preinit(): Expected the `options` argument (second) to be an object with an `as` property describing the type of resource to be preinitialized but encountered %s instead.", getValueDescriptorExpectingEnumForWarning(options)) : "style" !== options.as && "script" !== options.as && console.error("ReactDOM.preinit(): Expected the `as` property in the `options` argument (second) to contain a valid value describing the type of resource to be preinitialized but encountered %s instead. Valid values for `as` are \"style\" and \"script\".", getValueDescriptorExpectingEnumForWarning(options.as)) : console.error("ReactDOM.preinit(): Expected the `href` argument (first) to be a non-empty string but encountered %s instead.", getValueDescriptorExpectingObjectForWarning(href));
-			if ("string" === typeof href && options && "string" === typeof options.as) {
-				var as = options.as, crossOrigin = getCrossOriginStringAs(as, options.crossOrigin), integrity = "string" === typeof options.integrity ? options.integrity : void 0, fetchPriority = "string" === typeof options.fetchPriority ? options.fetchPriority : void 0;
-				"style" === as ? Internals.d.S(href, "string" === typeof options.precedence ? options.precedence : void 0, {
+		exports.preinit = function(href, options$1) {
+			"string" === typeof href && href ? null == options$1 || "object" !== typeof options$1 ? console.error("ReactDOM.preinit(): Expected the `options` argument (second) to be an object with an `as` property describing the type of resource to be preinitialized but encountered %s instead.", getValueDescriptorExpectingEnumForWarning(options$1)) : "style" !== options$1.as && "script" !== options$1.as && console.error("ReactDOM.preinit(): Expected the `as` property in the `options` argument (second) to contain a valid value describing the type of resource to be preinitialized but encountered %s instead. Valid values for `as` are \"style\" and \"script\".", getValueDescriptorExpectingEnumForWarning(options$1.as)) : console.error("ReactDOM.preinit(): Expected the `href` argument (first) to be a non-empty string but encountered %s instead.", getValueDescriptorExpectingObjectForWarning(href));
+			if ("string" === typeof href && options$1 && "string" === typeof options$1.as) {
+				var as = options$1.as, crossOrigin = getCrossOriginStringAs(as, options$1.crossOrigin), integrity = "string" === typeof options$1.integrity ? options$1.integrity : void 0, fetchPriority = "string" === typeof options$1.fetchPriority ? options$1.fetchPriority : void 0;
+				"style" === as ? Internals.d.S(href, "string" === typeof options$1.precedence ? options$1.precedence : void 0, {
 					crossOrigin,
 					integrity,
 					fetchPriority
@@ -1156,57 +1156,57 @@ var require_react_dom_development = /* @__PURE__ */ __commonJSMin(((exports) => 
 					crossOrigin,
 					integrity,
 					fetchPriority,
-					nonce: "string" === typeof options.nonce ? options.nonce : void 0
+					nonce: "string" === typeof options$1.nonce ? options$1.nonce : void 0
 				});
 			}
 		};
-		exports.preinitModule = function(href, options) {
+		exports.preinitModule = function(href, options$1) {
 			var encountered = "";
 			"string" === typeof href && href || (encountered += " The `href` argument encountered was " + getValueDescriptorExpectingObjectForWarning(href) + ".");
-			void 0 !== options && "object" !== typeof options ? encountered += " The `options` argument encountered was " + getValueDescriptorExpectingObjectForWarning(options) + "." : options && "as" in options && "script" !== options.as && (encountered += " The `as` option encountered was " + getValueDescriptorExpectingEnumForWarning(options.as) + ".");
+			void 0 !== options$1 && "object" !== typeof options$1 ? encountered += " The `options` argument encountered was " + getValueDescriptorExpectingObjectForWarning(options$1) + "." : options$1 && "as" in options$1 && "script" !== options$1.as && (encountered += " The `as` option encountered was " + getValueDescriptorExpectingEnumForWarning(options$1.as) + ".");
 			if (encountered) console.error("ReactDOM.preinitModule(): Expected up to two arguments, a non-empty `href` string and, optionally, an `options` object with a valid `as` property.%s", encountered);
-			else switch (encountered = options && "string" === typeof options.as ? options.as : "script", encountered) {
+			else switch (encountered = options$1 && "string" === typeof options$1.as ? options$1.as : "script", encountered) {
 				case "script": break;
 				default: encountered = getValueDescriptorExpectingEnumForWarning(encountered), console.error("ReactDOM.preinitModule(): Currently the only supported \"as\" type for this function is \"script\" but received \"%s\" instead. This warning was generated for `href` \"%s\". In the future other module types will be supported, aligning with the import-attributes proposal. Learn more here: (https://github.com/tc39/proposal-import-attributes)", encountered, href);
 			}
-			if ("string" === typeof href) if ("object" === typeof options && null !== options) {
-				if (null == options.as || "script" === options.as) encountered = getCrossOriginStringAs(options.as, options.crossOrigin), Internals.d.M(href, {
+			if ("string" === typeof href) if ("object" === typeof options$1 && null !== options$1) {
+				if (null == options$1.as || "script" === options$1.as) encountered = getCrossOriginStringAs(options$1.as, options$1.crossOrigin), Internals.d.M(href, {
 					crossOrigin: encountered,
-					integrity: "string" === typeof options.integrity ? options.integrity : void 0,
-					nonce: "string" === typeof options.nonce ? options.nonce : void 0
+					integrity: "string" === typeof options$1.integrity ? options$1.integrity : void 0,
+					nonce: "string" === typeof options$1.nonce ? options$1.nonce : void 0
 				});
-			} else options ?? Internals.d.M(href);
+			} else options$1 ?? Internals.d.M(href);
 		};
-		exports.preload = function(href, options) {
+		exports.preload = function(href, options$1) {
 			var encountered = "";
 			"string" === typeof href && href || (encountered += " The `href` argument encountered was " + getValueDescriptorExpectingObjectForWarning(href) + ".");
-			null == options || "object" !== typeof options ? encountered += " The `options` argument encountered was " + getValueDescriptorExpectingObjectForWarning(options) + "." : "string" === typeof options.as && options.as || (encountered += " The `as` option encountered was " + getValueDescriptorExpectingObjectForWarning(options.as) + ".");
+			null == options$1 || "object" !== typeof options$1 ? encountered += " The `options` argument encountered was " + getValueDescriptorExpectingObjectForWarning(options$1) + "." : "string" === typeof options$1.as && options$1.as || (encountered += " The `as` option encountered was " + getValueDescriptorExpectingObjectForWarning(options$1.as) + ".");
 			encountered && console.error("ReactDOM.preload(): Expected two arguments, a non-empty `href` string and an `options` object with an `as` property valid for a `<link rel=\"preload\" as=\"...\" />` tag.%s", encountered);
-			if ("string" === typeof href && "object" === typeof options && null !== options && "string" === typeof options.as) {
-				encountered = options.as;
-				var crossOrigin = getCrossOriginStringAs(encountered, options.crossOrigin);
+			if ("string" === typeof href && "object" === typeof options$1 && null !== options$1 && "string" === typeof options$1.as) {
+				encountered = options$1.as;
+				var crossOrigin = getCrossOriginStringAs(encountered, options$1.crossOrigin);
 				Internals.d.L(href, encountered, {
 					crossOrigin,
-					integrity: "string" === typeof options.integrity ? options.integrity : void 0,
-					nonce: "string" === typeof options.nonce ? options.nonce : void 0,
-					type: "string" === typeof options.type ? options.type : void 0,
-					fetchPriority: "string" === typeof options.fetchPriority ? options.fetchPriority : void 0,
-					referrerPolicy: "string" === typeof options.referrerPolicy ? options.referrerPolicy : void 0,
-					imageSrcSet: "string" === typeof options.imageSrcSet ? options.imageSrcSet : void 0,
-					imageSizes: "string" === typeof options.imageSizes ? options.imageSizes : void 0,
-					media: "string" === typeof options.media ? options.media : void 0
+					integrity: "string" === typeof options$1.integrity ? options$1.integrity : void 0,
+					nonce: "string" === typeof options$1.nonce ? options$1.nonce : void 0,
+					type: "string" === typeof options$1.type ? options$1.type : void 0,
+					fetchPriority: "string" === typeof options$1.fetchPriority ? options$1.fetchPriority : void 0,
+					referrerPolicy: "string" === typeof options$1.referrerPolicy ? options$1.referrerPolicy : void 0,
+					imageSrcSet: "string" === typeof options$1.imageSrcSet ? options$1.imageSrcSet : void 0,
+					imageSizes: "string" === typeof options$1.imageSizes ? options$1.imageSizes : void 0,
+					media: "string" === typeof options$1.media ? options$1.media : void 0
 				});
 			}
 		};
-		exports.preloadModule = function(href, options) {
+		exports.preloadModule = function(href, options$1) {
 			var encountered = "";
 			"string" === typeof href && href || (encountered += " The `href` argument encountered was " + getValueDescriptorExpectingObjectForWarning(href) + ".");
-			void 0 !== options && "object" !== typeof options ? encountered += " The `options` argument encountered was " + getValueDescriptorExpectingObjectForWarning(options) + "." : options && "as" in options && "string" !== typeof options.as && (encountered += " The `as` option encountered was " + getValueDescriptorExpectingObjectForWarning(options.as) + ".");
+			void 0 !== options$1 && "object" !== typeof options$1 ? encountered += " The `options` argument encountered was " + getValueDescriptorExpectingObjectForWarning(options$1) + "." : options$1 && "as" in options$1 && "string" !== typeof options$1.as && (encountered += " The `as` option encountered was " + getValueDescriptorExpectingObjectForWarning(options$1.as) + ".");
 			encountered && console.error("ReactDOM.preloadModule(): Expected two arguments, a non-empty `href` string and, optionally, an `options` object with an `as` property valid for a `<link rel=\"modulepreload\" as=\"...\" />` tag.%s", encountered);
-			"string" === typeof href && (options ? (encountered = getCrossOriginStringAs(options.as, options.crossOrigin), Internals.d.m(href, {
-				as: "string" === typeof options.as && "script" !== options.as ? options.as : void 0,
+			"string" === typeof href && (options$1 ? (encountered = getCrossOriginStringAs(options$1.as, options$1.crossOrigin), Internals.d.m(href, {
+				as: "string" === typeof options$1.as && "script" !== options$1.as ? options$1.as : void 0,
 				crossOrigin: encountered,
-				integrity: "string" === typeof options.integrity ? options.integrity : void 0
+				integrity: "string" === typeof options$1.integrity ? options$1.integrity : void 0
 			})) : Internals.d.m(href));
 		};
 		exports.requestFormReset = function(form) {
@@ -3604,8 +3604,8 @@ var require_react_dom_client_development = /* @__PURE__ */ __commonJSMin(((expor
 			sourceFiber.lanes |= lane;
 			var alternate = sourceFiber.alternate;
 			null !== alternate && (alternate.lanes |= lane);
-			for (var isHidden = !1, parent = sourceFiber.return; null !== parent;) parent.childLanes |= lane, alternate = parent.alternate, null !== alternate && (alternate.childLanes |= lane), 22 === parent.tag && (sourceFiber = parent.stateNode, null === sourceFiber || sourceFiber._visibility & OffscreenVisible || (isHidden = !0)), sourceFiber = parent, parent = parent.return;
-			return 3 === sourceFiber.tag ? (parent = sourceFiber.stateNode, isHidden && null !== update && (isHidden = 31 - clz32(lane), sourceFiber = parent.hiddenUpdates, alternate = sourceFiber[isHidden], null === alternate ? sourceFiber[isHidden] = [update] : alternate.push(update), update.lane = lane | 536870912), parent) : null;
+			for (var isHidden$1 = !1, parent = sourceFiber.return; null !== parent;) parent.childLanes |= lane, alternate = parent.alternate, null !== alternate && (alternate.childLanes |= lane), 22 === parent.tag && (sourceFiber = parent.stateNode, null === sourceFiber || sourceFiber._visibility & OffscreenVisible || (isHidden$1 = !0)), sourceFiber = parent, parent = parent.return;
+			return 3 === sourceFiber.tag ? (parent = sourceFiber.stateNode, isHidden$1 && null !== update && (isHidden$1 = 31 - clz32(lane), sourceFiber = parent.hiddenUpdates, alternate = sourceFiber[isHidden$1], null === alternate ? sourceFiber[isHidden$1] = [update] : alternate.push(update), update.lane = lane | 536870912), parent) : null;
 		}
 		function getRootForUpdatedFiber(sourceFiber) {
 			if (nestedUpdateCount > NESTED_UPDATE_LIMIT) throw nestedPassiveUpdateCount = nestedUpdateCount = 0, rootWithPassiveNestedUpdates = rootWithNestedUpdates = null, Error("Maximum update depth exceeded. This can happen when a component repeatedly calls setState inside componentWillUpdate or componentDidUpdate. React limits the number of nested updates to prevent infinite loops.");
@@ -11456,7 +11456,7 @@ var require_react_dom_client_development = /* @__PURE__ */ __commonJSMin(((expor
 		}
 		function estimateBandwidth() {
 			if ("function" === typeof performance.getEntriesByType) {
-				for (var count$2 = 0, bits = 0, resourceEntries = performance.getEntriesByType("resource"), i = 0; i < resourceEntries.length; i++) {
+				for (var count$3 = 0, bits = 0, resourceEntries = performance.getEntriesByType("resource"), i = 0; i < resourceEntries.length; i++) {
 					var entry = resourceEntries[i], transferSize = entry.transferSize, initiatorType = entry.initiatorType, duration = entry.duration;
 					if (transferSize && duration && isLikelyStaticResource(initiatorType)) {
 						initiatorType = 0;
@@ -11469,13 +11469,13 @@ var require_react_dom_client_development = /* @__PURE__ */ __commonJSMin(((expor
 						}
 						--i;
 						bits += 8 * (transferSize + initiatorType) / (entry.duration / 1e3);
-						count$2++;
-						if (10 < count$2) break;
+						count$3++;
+						if (10 < count$3) break;
 					}
 				}
-				if (0 < count$2) return bits / count$2 / 1e6;
+				if (0 < count$3) return bits / count$3 / 1e6;
 			}
-			return navigator.connection && (count$2 = navigator.connection.downlink, "number" === typeof count$2) ? count$2 : 5;
+			return navigator.connection && (count$3 = navigator.connection.downlink, "number" === typeof count$3) ? count$3 : 5;
 		}
 		function getOwnerDocumentFromRootContainer(rootContainerElement) {
 			return 9 === rootContainerElement.nodeType ? rootContainerElement : rootContainerElement.ownerDocument;
@@ -11592,12 +11592,12 @@ var require_react_dom_client_development = /* @__PURE__ */ __commonJSMin(((expor
 			} while (node);
 			retryIfBlockedOn(hydrationInstance);
 		}
-		function hideOrUnhideDehydratedBoundary(suspenseInstance, isHidden) {
+		function hideOrUnhideDehydratedBoundary(suspenseInstance, isHidden$1) {
 			var node = suspenseInstance;
 			suspenseInstance = 0;
 			do {
 				var nextNode = node.nextSibling;
-				1 === node.nodeType ? isHidden ? (node._stashedDisplay = node.style.display, node.style.display = "none") : (node.style.display = node._stashedDisplay || "", "" === node.getAttribute("style") && node.removeAttribute("style")) : 3 === node.nodeType && (isHidden ? (node._stashedText = node.nodeValue, node.nodeValue = "") : node.nodeValue = node._stashedText || "");
+				1 === node.nodeType ? isHidden$1 ? (node._stashedDisplay = node.style.display, node.style.display = "none") : (node.style.display = node._stashedDisplay || "", "" === node.getAttribute("style") && node.removeAttribute("style")) : 3 === node.nodeType && (isHidden$1 ? (node._stashedText = node.nodeValue, node.nodeValue = "") : node.nodeValue = node._stashedText || "");
 				if (nextNode && 8 === nextNode.nodeType) if (node = nextNode.data, node === SUSPENSE_END_DATA) if (0 === suspenseInstance) break;
 				else suspenseInstance--;
 				else node !== SUSPENSE_START_DATA && node !== SUSPENSE_PENDING_START_DATA && node !== SUSPENSE_QUEUED_START_DATA && node !== SUSPENSE_FALLBACK_START_DATA || suspenseInstance++;
@@ -15049,12 +15049,12 @@ var require_react_dom_client_development = /* @__PURE__ */ __commonJSMin(((expor
 				previousDispatcher.C(href, crossOrigin);
 				preconnectAs("preconnect", href, crossOrigin);
 			},
-			L: function(href, as, options) {
-				previousDispatcher.L(href, as, options);
+			L: function(href, as, options$1) {
+				previousDispatcher.L(href, as, options$1);
 				var ownerDocument = globalDocument;
 				if (ownerDocument && href && as) {
 					var preloadSelector = "link[rel=\"preload\"][as=\"" + escapeSelectorAttributeValueInsideDoubleQuotes(as) + "\"]";
-					"image" === as ? options && options.imageSrcSet ? (preloadSelector += "[imagesrcset=\"" + escapeSelectorAttributeValueInsideDoubleQuotes(options.imageSrcSet) + "\"]", "string" === typeof options.imageSizes && (preloadSelector += "[imagesizes=\"" + escapeSelectorAttributeValueInsideDoubleQuotes(options.imageSizes) + "\"]")) : preloadSelector += "[href=\"" + escapeSelectorAttributeValueInsideDoubleQuotes(href) + "\"]" : preloadSelector += "[href=\"" + escapeSelectorAttributeValueInsideDoubleQuotes(href) + "\"]";
+					"image" === as ? options$1 && options$1.imageSrcSet ? (preloadSelector += "[imagesrcset=\"" + escapeSelectorAttributeValueInsideDoubleQuotes(options$1.imageSrcSet) + "\"]", "string" === typeof options$1.imageSizes && (preloadSelector += "[imagesizes=\"" + escapeSelectorAttributeValueInsideDoubleQuotes(options$1.imageSizes) + "\"]")) : preloadSelector += "[href=\"" + escapeSelectorAttributeValueInsideDoubleQuotes(href) + "\"]" : preloadSelector += "[href=\"" + escapeSelectorAttributeValueInsideDoubleQuotes(href) + "\"]";
 					var key = preloadSelector;
 					switch (as) {
 						case "style":
@@ -15064,16 +15064,16 @@ var require_react_dom_client_development = /* @__PURE__ */ __commonJSMin(((expor
 					}
 					preloadPropsMap.has(key) || (href = assign({
 						rel: "preload",
-						href: "image" === as && options && options.imageSrcSet ? void 0 : href,
+						href: "image" === as && options$1 && options$1.imageSrcSet ? void 0 : href,
 						as
-					}, options), preloadPropsMap.set(key, href), null !== ownerDocument.querySelector(preloadSelector) || "style" === as && ownerDocument.querySelector(getStylesheetSelectorFromKey(key)) || "script" === as && ownerDocument.querySelector(getScriptSelectorFromKey(key)) || (as = ownerDocument.createElement("link"), setInitialProperties(as, "link", href), markNodeAsHoistable(as), ownerDocument.head.appendChild(as)));
+					}, options$1), preloadPropsMap.set(key, href), null !== ownerDocument.querySelector(preloadSelector) || "style" === as && ownerDocument.querySelector(getStylesheetSelectorFromKey(key)) || "script" === as && ownerDocument.querySelector(getScriptSelectorFromKey(key)) || (as = ownerDocument.createElement("link"), setInitialProperties(as, "link", href), markNodeAsHoistable(as), ownerDocument.head.appendChild(as)));
 				}
 			},
-			m: function(href, options) {
-				previousDispatcher.m(href, options);
+			m: function(href, options$1) {
+				previousDispatcher.m(href, options$1);
 				var ownerDocument = globalDocument;
 				if (ownerDocument && href) {
-					var as = options && "string" === typeof options.as ? options.as : "script", preloadSelector = "link[rel=\"modulepreload\"][as=\"" + escapeSelectorAttributeValueInsideDoubleQuotes(as) + "\"][href=\"" + escapeSelectorAttributeValueInsideDoubleQuotes(href) + "\"]", key = preloadSelector;
+					var as = options$1 && "string" === typeof options$1.as ? options$1.as : "script", preloadSelector = "link[rel=\"modulepreload\"][as=\"" + escapeSelectorAttributeValueInsideDoubleQuotes(as) + "\"][href=\"" + escapeSelectorAttributeValueInsideDoubleQuotes(href) + "\"]", key = preloadSelector;
 					switch (as) {
 						case "audioworklet":
 						case "paintworklet":
@@ -15085,7 +15085,7 @@ var require_react_dom_client_development = /* @__PURE__ */ __commonJSMin(((expor
 					if (!preloadPropsMap.has(key) && (href = assign({
 						rel: "modulepreload",
 						href
-					}, options), preloadPropsMap.set(key, href), null === ownerDocument.querySelector(preloadSelector))) {
+					}, options$1), preloadPropsMap.set(key, href), null === ownerDocument.querySelector(preloadSelector))) {
 						switch (as) {
 							case "audioworklet":
 							case "paintworklet":
@@ -15101,15 +15101,15 @@ var require_react_dom_client_development = /* @__PURE__ */ __commonJSMin(((expor
 					}
 				}
 			},
-			X: function(src, options) {
-				previousDispatcher.X(src, options);
+			X: function(src, options$1) {
+				previousDispatcher.X(src, options$1);
 				var ownerDocument = globalDocument;
 				if (ownerDocument && src) {
 					var scripts = getResourcesFromRoot(ownerDocument).hoistableScripts, key = getScriptKey(src), resource = scripts.get(key);
 					resource || (resource = ownerDocument.querySelector(getScriptSelectorFromKey(key)), resource || (src = assign({
 						src,
 						async: !0
-					}, options), (options = preloadPropsMap.get(key)) && adoptPreloadPropsForScript(src, options), resource = ownerDocument.createElement("script"), markNodeAsHoistable(resource), setInitialProperties(resource, "link", src), ownerDocument.head.appendChild(resource)), resource = {
+					}, options$1), (options$1 = preloadPropsMap.get(key)) && adoptPreloadPropsForScript(src, options$1), resource = ownerDocument.createElement("script"), markNodeAsHoistable(resource), setInitialProperties(resource, "link", src), ownerDocument.head.appendChild(resource)), resource = {
 						type: "script",
 						instance: resource,
 						count: 1,
@@ -15117,8 +15117,8 @@ var require_react_dom_client_development = /* @__PURE__ */ __commonJSMin(((expor
 					}, scripts.set(key, resource));
 				}
 			},
-			S: function(href, precedence, options) {
-				previousDispatcher.S(href, precedence, options);
+			S: function(href, precedence, options$1) {
+				previousDispatcher.S(href, precedence, options$1);
 				var ownerDocument = globalDocument;
 				if (ownerDocument && href) {
 					var styles = getResourcesFromRoot(ownerDocument).hoistableStyles, key = getStyleKey(href);
@@ -15135,8 +15135,8 @@ var require_react_dom_client_development = /* @__PURE__ */ __commonJSMin(((expor
 								rel: "stylesheet",
 								href,
 								"data-precedence": precedence
-							}, options);
-							(options = preloadPropsMap.get(key)) && adoptPreloadPropsForStylesheet(href, options);
+							}, options$1);
+							(options$1 = preloadPropsMap.get(key)) && adoptPreloadPropsForStylesheet(href, options$1);
 							var link = resource = ownerDocument.createElement("link");
 							markNodeAsHoistable(link);
 							setInitialProperties(link, "link", href);
@@ -15163,8 +15163,8 @@ var require_react_dom_client_development = /* @__PURE__ */ __commonJSMin(((expor
 					}
 				}
 			},
-			M: function(src, options) {
-				previousDispatcher.M(src, options);
+			M: function(src, options$1) {
+				previousDispatcher.M(src, options$1);
 				var ownerDocument = globalDocument;
 				if (ownerDocument && src) {
 					var scripts = getResourcesFromRoot(ownerDocument).hoistableScripts, key = getScriptKey(src), resource = scripts.get(key);
@@ -15172,7 +15172,7 @@ var require_react_dom_client_development = /* @__PURE__ */ __commonJSMin(((expor
 						src,
 						async: !0,
 						type: "module"
-					}, options), (options = preloadPropsMap.get(key)) && adoptPreloadPropsForScript(src, options), resource = ownerDocument.createElement("script"), markNodeAsHoistable(resource), setInitialProperties(resource, "link", src), ownerDocument.head.appendChild(resource)), resource = {
+					}, options$1), (options$1 = preloadPropsMap.get(key)) && adoptPreloadPropsForScript(src, options$1), resource = ownerDocument.createElement("script"), markNodeAsHoistable(resource), setInitialProperties(resource, "link", src), ownerDocument.head.appendChild(resource)), resource = {
 						type: "script",
 						instance: resource,
 						count: 1,
@@ -15315,34 +15315,34 @@ var require_react_dom_client_development = /* @__PURE__ */ __commonJSMin(((expor
 			var protocol = window.location.protocol;
 			/^(https?|file):$/.test(protocol) && console.info("%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools" + ("file:" === protocol ? "\nYou might need to use a local HTTP server (instead of file://): https://react.dev/link/react-devtools-faq" : ""), "font-weight:bold");
 		}
-		exports.createRoot = function(container, options) {
+		exports.createRoot = function(container, options$1) {
 			if (!isValidContainer(container)) throw Error("Target container is not a DOM element.");
 			warnIfReactDOMContainerInDEV(container);
 			var isStrictMode = !1, identifierPrefix = "", onUncaughtError = defaultOnUncaughtError, onCaughtError = defaultOnCaughtError, onRecoverableError = defaultOnRecoverableError;
-			null !== options && void 0 !== options && (options.hydrate ? console.warn("hydrate through createRoot is deprecated. Use ReactDOMClient.hydrateRoot(container, <App />) instead.") : "object" === typeof options && null !== options && options.$$typeof === REACT_ELEMENT_TYPE && console.error("You passed a JSX element to createRoot. You probably meant to call root.render instead. Example usage:\n\n  let root = createRoot(domContainer);\n  root.render(<App />);"), !0 === options.unstable_strictMode && (isStrictMode = !0), void 0 !== options.identifierPrefix && (identifierPrefix = options.identifierPrefix), void 0 !== options.onUncaughtError && (onUncaughtError = options.onUncaughtError), void 0 !== options.onCaughtError && (onCaughtError = options.onCaughtError), void 0 !== options.onRecoverableError && (onRecoverableError = options.onRecoverableError));
-			options = createFiberRoot(container, 1, !1, null, null, isStrictMode, identifierPrefix, null, onUncaughtError, onCaughtError, onRecoverableError, defaultOnDefaultTransitionIndicator);
-			container[internalContainerInstanceKey] = options.current;
+			null !== options$1 && void 0 !== options$1 && (options$1.hydrate ? console.warn("hydrate through createRoot is deprecated. Use ReactDOMClient.hydrateRoot(container, <App />) instead.") : "object" === typeof options$1 && null !== options$1 && options$1.$$typeof === REACT_ELEMENT_TYPE && console.error("You passed a JSX element to createRoot. You probably meant to call root.render instead. Example usage:\n\n  let root = createRoot(domContainer);\n  root.render(<App />);"), !0 === options$1.unstable_strictMode && (isStrictMode = !0), void 0 !== options$1.identifierPrefix && (identifierPrefix = options$1.identifierPrefix), void 0 !== options$1.onUncaughtError && (onUncaughtError = options$1.onUncaughtError), void 0 !== options$1.onCaughtError && (onCaughtError = options$1.onCaughtError), void 0 !== options$1.onRecoverableError && (onRecoverableError = options$1.onRecoverableError));
+			options$1 = createFiberRoot(container, 1, !1, null, null, isStrictMode, identifierPrefix, null, onUncaughtError, onCaughtError, onRecoverableError, defaultOnDefaultTransitionIndicator);
+			container[internalContainerInstanceKey] = options$1.current;
 			listenToAllSupportedEvents(container);
-			return new ReactDOMRoot(options);
+			return new ReactDOMRoot(options$1);
 		};
-		exports.hydrateRoot = function(container, initialChildren, options) {
+		exports.hydrateRoot = function(container, initialChildren, options$1) {
 			if (!isValidContainer(container)) throw Error("Target container is not a DOM element.");
 			warnIfReactDOMContainerInDEV(container);
 			void 0 === initialChildren && console.error("Must provide initial children as second argument to hydrateRoot. Example usage: hydrateRoot(domContainer, <App />)");
 			var isStrictMode = !1, identifierPrefix = "", onUncaughtError = defaultOnUncaughtError, onCaughtError = defaultOnCaughtError, onRecoverableError = defaultOnRecoverableError, formState = null;
-			null !== options && void 0 !== options && (!0 === options.unstable_strictMode && (isStrictMode = !0), void 0 !== options.identifierPrefix && (identifierPrefix = options.identifierPrefix), void 0 !== options.onUncaughtError && (onUncaughtError = options.onUncaughtError), void 0 !== options.onCaughtError && (onCaughtError = options.onCaughtError), void 0 !== options.onRecoverableError && (onRecoverableError = options.onRecoverableError), void 0 !== options.formState && (formState = options.formState));
-			initialChildren = createFiberRoot(container, 1, !0, initialChildren, null != options ? options : null, isStrictMode, identifierPrefix, formState, onUncaughtError, onCaughtError, onRecoverableError, defaultOnDefaultTransitionIndicator);
+			null !== options$1 && void 0 !== options$1 && (!0 === options$1.unstable_strictMode && (isStrictMode = !0), void 0 !== options$1.identifierPrefix && (identifierPrefix = options$1.identifierPrefix), void 0 !== options$1.onUncaughtError && (onUncaughtError = options$1.onUncaughtError), void 0 !== options$1.onCaughtError && (onCaughtError = options$1.onCaughtError), void 0 !== options$1.onRecoverableError && (onRecoverableError = options$1.onRecoverableError), void 0 !== options$1.formState && (formState = options$1.formState));
+			initialChildren = createFiberRoot(container, 1, !0, initialChildren, null != options$1 ? options$1 : null, isStrictMode, identifierPrefix, formState, onUncaughtError, onCaughtError, onRecoverableError, defaultOnDefaultTransitionIndicator);
 			initialChildren.context = getContextForSubtree(null);
-			options = initialChildren.current;
-			isStrictMode = requestUpdateLane(options);
+			options$1 = initialChildren.current;
+			isStrictMode = requestUpdateLane(options$1);
 			isStrictMode = getBumpedLaneForHydrationByLane(isStrictMode);
 			identifierPrefix = createUpdate(isStrictMode);
 			identifierPrefix.callback = null;
-			enqueueUpdate(options, identifierPrefix, isStrictMode);
+			enqueueUpdate(options$1, identifierPrefix, isStrictMode);
 			startUpdateTimerByLane(isStrictMode, "hydrateRoot()", null);
-			options = isStrictMode;
-			initialChildren.current.lanes = options;
-			markRootUpdated$1(initialChildren, options);
+			options$1 = isStrictMode;
+			initialChildren.current.lanes = options$1;
+			markRootUpdated$1(initialChildren, options$1);
 			ensureRootIsScheduled(initialChildren);
 			container[internalContainerInstanceKey] = initialChildren.current;
 			listenToAllSupportedEvents(container);
@@ -15415,7 +15415,7 @@ const __vitePreload = function preload(baseModule, deps, importerUrl) {
 };
 var import_react = /* @__PURE__ */ __toESM(require_react(), 1);
 var PopStateEventType = "popstate";
-function createBrowserHistory(options = {}) {
+function createBrowserHistory(options$1 = {}) {
 	function createBrowserLocation(window2, globalHistory) {
 		let { pathname, search, hash } = window2.location;
 		return createLocation("", {
@@ -15427,7 +15427,7 @@ function createBrowserHistory(options = {}) {
 	function createBrowserHref(window2, to) {
 		return typeof to === "string" ? to : createPath(to);
 	}
-	return getUrlBasedHistory(createBrowserLocation, createBrowserHref, null, options);
+	return getUrlBasedHistory(createBrowserLocation, createBrowserHref, null, options$1);
 }
 function invariant(value, message) {
 	if (value === false || value === null || typeof value === "undefined") throw new Error(message);
@@ -15482,8 +15482,8 @@ function parsePath(path) {
 	}
 	return parsedPath;
 }
-function getUrlBasedHistory(getLocation, createHref2, validateLocation, options = {}) {
-	let { window: window2 = document.defaultView, v5Compat = false } = options;
+function getUrlBasedHistory(getLocation, createHref2, validateLocation, options$1 = {}) {
+	let { window: window2 = document.defaultView, v5Compat = false } = options$1;
 	let globalHistory = window2.history;
 	let action = "POP";
 	let listener = null;
@@ -15944,7 +15944,7 @@ function useLocation() {
 	return import_react.useContext(LocationContext).location;
 }
 var navigateEffectWarning = `You should call navigate() in a React.useEffect(), not when your component is first rendered.`;
-function useIsomorphicLayoutEffect(cb) {
+function useIsomorphicLayoutEffect$1(cb) {
 	if (!import_react.useContext(NavigationContext).static) import_react.useLayoutEffect(cb);
 }
 function useNavigate() {
@@ -15959,19 +15959,19 @@ function useNavigateUnstable() {
 	let { pathname: locationPathname } = useLocation();
 	let routePathnamesJson = JSON.stringify(getResolveToMatches(matches));
 	let activeRef = import_react.useRef(false);
-	useIsomorphicLayoutEffect(() => {
+	useIsomorphicLayoutEffect$1(() => {
 		activeRef.current = true;
 	});
-	return import_react.useCallback((to, options = {}) => {
+	return import_react.useCallback((to, options$1 = {}) => {
 		warning(activeRef.current, navigateEffectWarning);
 		if (!activeRef.current) return;
 		if (typeof to === "number") {
 			navigator$1.go(to);
 			return;
 		}
-		let path = resolveTo(to, JSON.parse(routePathnamesJson), locationPathname, options.relative === "path");
+		let path = resolveTo(to, JSON.parse(routePathnamesJson), locationPathname, options$1.relative === "path");
 		if (dataRouterContext == null && basename !== "/") path.pathname = path.pathname === "/" ? basename : joinPaths([basename, path.pathname]);
-		(!!options.replace ? navigator$1.replace : navigator$1.push)(path, options.state, options);
+		(!!options$1.replace ? navigator$1.replace : navigator$1.push)(path, options$1.state, options$1);
 	}, [
 		basename,
 		navigator$1,
@@ -16278,16 +16278,16 @@ function useNavigateStable() {
 	let { router } = useDataRouterContext("useNavigate");
 	let id = useCurrentRouteId("useNavigate");
 	let activeRef = import_react.useRef(false);
-	useIsomorphicLayoutEffect(() => {
+	useIsomorphicLayoutEffect$1(() => {
 		activeRef.current = true;
 	});
-	return import_react.useCallback(async (to, options = {}) => {
+	return import_react.useCallback(async (to, options$1 = {}) => {
 		warning(activeRef.current, navigateEffectWarning);
 		if (!activeRef.current) return;
 		if (typeof to === "number") await router.navigate(to);
 		else await router.navigate(to, {
 			fromRouteId: id,
-			...options
+			...options$1
 		});
 	}, [router, id]);
 }
@@ -17078,29 +17078,29 @@ function useSubmit() {
 	let currentRouteId = useRouteId();
 	let routerFetch = router.fetch;
 	let routerNavigate = router.navigate;
-	return import_react.useCallback(async (target, options = {}) => {
+	return import_react.useCallback(async (target, options$1 = {}) => {
 		let { action, method, encType, formData, body } = getFormSubmissionInfo(target, basename);
-		if (options.navigate === false) await routerFetch(options.fetcherKey || getUniqueFetcherId(), currentRouteId, options.action || action, {
-			unstable_defaultShouldRevalidate: options.unstable_defaultShouldRevalidate,
-			preventScrollReset: options.preventScrollReset,
+		if (options$1.navigate === false) await routerFetch(options$1.fetcherKey || getUniqueFetcherId(), currentRouteId, options$1.action || action, {
+			unstable_defaultShouldRevalidate: options$1.unstable_defaultShouldRevalidate,
+			preventScrollReset: options$1.preventScrollReset,
 			formData,
 			body,
-			formMethod: options.method || method,
-			formEncType: options.encType || encType,
-			flushSync: options.flushSync
+			formMethod: options$1.method || method,
+			formEncType: options$1.encType || encType,
+			flushSync: options$1.flushSync
 		});
-		else await routerNavigate(options.action || action, {
-			unstable_defaultShouldRevalidate: options.unstable_defaultShouldRevalidate,
-			preventScrollReset: options.preventScrollReset,
+		else await routerNavigate(options$1.action || action, {
+			unstable_defaultShouldRevalidate: options$1.unstable_defaultShouldRevalidate,
+			preventScrollReset: options$1.preventScrollReset,
 			formData,
 			body,
-			formMethod: options.method || method,
-			formEncType: options.encType || encType,
-			replace: options.replace,
-			state: options.state,
+			formMethod: options$1.method || method,
+			formEncType: options$1.encType || encType,
+			replace: options$1.replace,
+			state: options$1.state,
 			fromRouteId: currentRouteId,
-			flushSync: options.flushSync,
-			viewTransition: options.viewTransition
+			flushSync: options$1.flushSync,
+			viewTransition: options$1.viewTransition
 		});
 	}, [
 		routerFetch,
@@ -17216,8 +17216,8 @@ function useScrollRestoration({ getKey, storageKey } = {}) {
 		]);
 	}
 }
-function usePageHide(callback, options) {
-	let { capture } = options || {};
+function usePageHide(callback, options$1) {
+	let { capture } = options$1 || {};
 	import_react.useEffect(() => {
 		let opts = capture != null ? { capture } : void 0;
 		window.addEventListener("pagehide", callback, opts);
@@ -17239,10 +17239,10 @@ function useViewTransitionState(to, { relative } = {}) {
 var import_client = require_client();
 var TOAST_LIMIT = 1;
 var TOAST_REMOVE_DELAY = 1e6;
-var count$1 = 0;
+var count$2 = 0;
 function genId() {
-	count$1 = (count$1 + 1) % Number.MAX_SAFE_INTEGER;
-	return count$1.toString();
+	count$2 = (count$2 + 1) % Number.MAX_SAFE_INTEGER;
+	return count$2.toString();
 }
 var toastTimeouts = /* @__PURE__ */ new Map();
 var addToRemoveQueue = (toastId) => {
@@ -17582,6 +17582,25 @@ var require_react_jsx_runtime_development = /* @__PURE__ */ __commonJSMin(((expo
 var import_jsx_runtime = /* @__PURE__ */ __toESM((/* @__PURE__ */ __commonJSMin(((exports, module) => {
 	module.exports = require_react_jsx_runtime_development();
 })))(), 1);
+function createContext2(rootComponentName, defaultContext) {
+	const Context = import_react.createContext(defaultContext);
+	const Provider$2 = (props) => {
+		const { children, ...context } = props;
+		const value = import_react.useMemo(() => context, Object.values(context));
+		return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Context.Provider, {
+			value,
+			children
+		});
+	};
+	Provider$2.displayName = rootComponentName + "Provider";
+	function useContext2(consumerName) {
+		const context = import_react.useContext(Context);
+		if (context) return context;
+		if (defaultContext !== void 0) return defaultContext;
+		throw new Error(`\`${consumerName}\` must be used within \`${rootComponentName}\``);
+	}
+	return [Provider$2, useContext2];
+}
 function createContextScope(scopeName, createContextScopeDeps = []) {
 	let defaultContexts = [];
 	function createContext3(rootComponentName, defaultContext) {
@@ -17645,7 +17664,7 @@ function composeContextScopes(...scopes) {
 	return createScope;
 }
 /* @__NO_SIDE_EFFECTS__ */
-function createSlot$1(ownerName) {
+function createSlot(ownerName) {
 	const SlotClone = /* @__PURE__ */ createSlotClone$1(ownerName);
 	const Slot2 = import_react.forwardRef((props, forwardedRef) => {
 		const { children, ...slotProps } = props;
@@ -17754,7 +17773,7 @@ function createCollection(name) {
 	};
 	CollectionProvider.displayName = PROVIDER_NAME$2;
 	const COLLECTION_SLOT_NAME = name + "CollectionSlot";
-	const CollectionSlotImpl = /* @__PURE__ */ createSlot$1(COLLECTION_SLOT_NAME);
+	const CollectionSlotImpl = /* @__PURE__ */ createSlot(COLLECTION_SLOT_NAME);
 	const CollectionSlot = import_react.forwardRef((props, forwardedRef) => {
 		const { scope, children } = props;
 		return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CollectionSlotImpl, {
@@ -17765,7 +17784,7 @@ function createCollection(name) {
 	CollectionSlot.displayName = COLLECTION_SLOT_NAME;
 	const ITEM_SLOT_NAME = name + "CollectionItemSlot";
 	const ITEM_DATA_ATTR = "data-radix-collection-item";
-	const CollectionItemSlotImpl = /* @__PURE__ */ createSlot$1(ITEM_SLOT_NAME);
+	const CollectionItemSlotImpl = /* @__PURE__ */ createSlot(ITEM_SLOT_NAME);
 	const CollectionItemSlot = import_react.forwardRef((props, forwardedRef) => {
 		const { scope, children, ...itemData } = props;
 		const ref = import_react.useRef(null);
@@ -17804,7 +17823,7 @@ function createCollection(name) {
 		createCollectionScope$3
 	];
 }
-var Primitive$1 = [
+var Primitive = [
 	"a",
 	"button",
 	"div",
@@ -17823,10 +17842,10 @@ var Primitive$1 = [
 	"svg",
 	"ul"
 ].reduce((primitive, node) => {
-	const Slot$1 = /* @__PURE__ */ createSlot$1(`Primitive.${node}`);
+	const Slot$2 = /* @__PURE__ */ createSlot(`Primitive.${node}`);
 	const Node$1 = import_react.forwardRef((props, forwardedRef) => {
 		const { asChild, ...primitiveProps } = props;
-		const Comp = asChild ? Slot$1 : node;
+		const Comp = asChild ? Slot$2 : node;
 		if (typeof window !== "undefined") window[Symbol.for("radix-ui")] = true;
 		return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Comp, {
 			...primitiveProps,
@@ -17842,7 +17861,7 @@ var Primitive$1 = [
 function dispatchDiscreteCustomEvent(target, event) {
 	if (target) import_react_dom$5.flushSync(() => target.dispatchEvent(event));
 }
-function useCallbackRef(callback) {
+function useCallbackRef$1(callback) {
 	const callbackRef = import_react.useRef(callback);
 	import_react.useEffect(() => {
 		callbackRef.current = callback;
@@ -17850,7 +17869,7 @@ function useCallbackRef(callback) {
 	return import_react.useMemo(() => (...args) => callbackRef.current?.(...args), []);
 }
 function useEscapeKeydown(onEscapeKeyDownProp, ownerDocument = globalThis?.document) {
-	const onEscapeKeyDown = useCallbackRef(onEscapeKeyDownProp);
+	const onEscapeKeyDown = useCallbackRef$1(onEscapeKeyDownProp);
 	import_react.useEffect(() => {
 		const handleKeyDown = (event) => {
 			if (event.key === "Escape") onEscapeKeyDown(event);
@@ -17938,7 +17957,7 @@ var DismissableLayer = import_react.forwardRef((props, forwardedRef) => {
 		document.addEventListener(CONTEXT_UPDATE, handleUpdate);
 		return () => document.removeEventListener(CONTEXT_UPDATE, handleUpdate);
 	}, []);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
 		...layerProps,
 		ref: composedRefs,
 		style: {
@@ -17965,14 +17984,14 @@ var DismissableLayerBranch = import_react.forwardRef((props, forwardedRef) => {
 			};
 		}
 	}, [context.branches]);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
 		...props,
 		ref: composedRefs
 	});
 });
 DismissableLayerBranch.displayName = BRANCH_NAME;
 function usePointerDownOutside(onPointerDownOutside, ownerDocument = globalThis?.document) {
-	const handlePointerDownOutside = useCallbackRef(onPointerDownOutside);
+	const handlePointerDownOutside = useCallbackRef$1(onPointerDownOutside);
 	const isPointerInsideReactTreeRef = import_react.useRef(false);
 	const handleClickRef = import_react.useRef(() => {});
 	import_react.useEffect(() => {
@@ -18002,7 +18021,7 @@ function usePointerDownOutside(onPointerDownOutside, ownerDocument = globalThis?
 	return { onPointerDownCapture: () => isPointerInsideReactTreeRef.current = true };
 }
 function useFocusOutside(onFocusOutside, ownerDocument = globalThis?.document) {
-	const handleFocusOutside = useCallbackRef(onFocusOutside);
+	const handleFocusOutside = useCallbackRef$1(onFocusOutside);
 	const isFocusInsideReactTreeRef = import_react.useRef(false);
 	import_react.useEffect(() => {
 		const handleFocus = (event) => {
@@ -18031,22 +18050,22 @@ function handleAndDispatchCustomEvent$1(name, handler, detail, { discrete }) {
 	if (discrete) dispatchDiscreteCustomEvent(target, event);
 	else target.dispatchEvent(event);
 }
-var Root$6 = DismissableLayer;
+var Root$7 = DismissableLayer;
 var Branch = DismissableLayerBranch;
 var useLayoutEffect2 = globalThis?.document ? import_react.useLayoutEffect : () => {};
 var import_react_dom$4 = /* @__PURE__ */ __toESM(require_react_dom(), 1);
-var PORTAL_NAME$1 = "Portal";
+var PORTAL_NAME$2 = "Portal";
 var Portal = import_react.forwardRef((props, forwardedRef) => {
 	const { container: containerProp, ...portalProps } = props;
 	const [mounted, setMounted] = import_react.useState(false);
 	useLayoutEffect2(() => setMounted(true), []);
 	const container = containerProp || mounted && globalThis?.document?.body;
-	return container ? import_react_dom$4.createPortal(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+	return container ? import_react_dom$4.createPortal(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
 		...portalProps,
 		ref: forwardedRef
 	}), container) : null;
 });
-Portal.displayName = PORTAL_NAME$1;
+Portal.displayName = PORTAL_NAME$2;
 function useStateMachine$1(initialState, machine) {
 	return import_react.useReducer((state, event) => {
 		return machine[state][event] ?? state;
@@ -18166,7 +18185,7 @@ function useControllableState({ prop, defaultProp, onChange = () => {}, caller }
 	}
 	return [value, import_react.useCallback((nextValue) => {
 		if (isControlled) {
-			const value2 = isFunction(nextValue) ? nextValue(prop) : nextValue;
+			const value2 = isFunction$1(nextValue) ? nextValue(prop) : nextValue;
 			if (value2 !== prop) onChangeRef.current?.(value2);
 		} else setUncontrolledProp(nextValue);
 	}, [
@@ -18195,7 +18214,7 @@ function useUncontrolledState({ defaultProp, onChange }) {
 		onChangeRef
 	];
 }
-function isFunction(value) {
+function isFunction$1(value) {
 	return typeof value === "function";
 }
 var VISUALLY_HIDDEN_STYLES = Object.freeze({
@@ -18212,7 +18231,7 @@ var VISUALLY_HIDDEN_STYLES = Object.freeze({
 });
 var NAME$2 = "VisuallyHidden";
 var VisuallyHidden = import_react.forwardRef((props, forwardedRef) => {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.span, {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.span, {
 		...props,
 		ref: forwardedRef,
 		style: {
@@ -18222,7 +18241,7 @@ var VisuallyHidden = import_react.forwardRef((props, forwardedRef) => {
 	});
 });
 VisuallyHidden.displayName = NAME$2;
-var Root$5 = VisuallyHidden;
+var Root$6 = VisuallyHidden;
 var import_react_dom$3 = /* @__PURE__ */ __toESM(require_react_dom(), 1);
 var PROVIDER_NAME$1 = "ToastProvider";
 var [Collection$2, useCollection$2, createCollectionScope$2] = createCollection("Toast");
@@ -18320,7 +18339,7 @@ var ToastViewport$1 = import_react.forwardRef((props, forwardedRef) => {
 	const getSortedTabbableCandidates = import_react.useCallback(({ tabbingDirection }) => {
 		const tabbableCandidates = getItems().map((toastItem) => {
 			const toastNode = toastItem.ref.current;
-			const toastTabbableCandidates = [toastNode, ...getTabbableCandidates(toastNode)];
+			const toastTabbableCandidates = [toastNode, ...getTabbableCandidates$1(toastNode)];
 			return tabbingDirection === "forwards" ? toastTabbableCandidates : toastTabbableCandidates.reverse();
 		});
 		return (tabbingDirection === "forwards" ? tabbableCandidates.reverse() : tabbableCandidates).flat();
@@ -18339,7 +18358,7 @@ var ToastViewport$1 = import_react.forwardRef((props, forwardedRef) => {
 					}
 					const sortedCandidates = getSortedTabbableCandidates({ tabbingDirection: isTabbingBackwards ? "backwards" : "forwards" });
 					const index$1 = sortedCandidates.findIndex((candidate) => candidate === focusedElement);
-					if (focusFirst$1(sortedCandidates.slice(index$1 + 1))) event.preventDefault();
+					if (focusFirst$2(sortedCandidates.slice(index$1 + 1))) event.preventDefault();
 					else isTabbingBackwards ? headFocusProxyRef.current?.focus() : tailFocusProxyRef.current?.focus();
 				}
 			};
@@ -18357,12 +18376,12 @@ var ToastViewport$1 = import_react.forwardRef((props, forwardedRef) => {
 			hasToasts && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(FocusProxy, {
 				ref: headFocusProxyRef,
 				onFocusFromOutsideViewport: () => {
-					focusFirst$1(getSortedTabbableCandidates({ tabbingDirection: "forwards" }));
+					focusFirst$2(getSortedTabbableCandidates({ tabbingDirection: "forwards" }));
 				}
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Collection$2.Slot, {
 				scope: __scopeToast,
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.ol, {
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.ol, {
 					tabIndex: -1,
 					...viewportProps,
 					ref: composedRefs
@@ -18371,7 +18390,7 @@ var ToastViewport$1 = import_react.forwardRef((props, forwardedRef) => {
 			hasToasts && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(FocusProxy, {
 				ref: tailFocusProxyRef,
 				onFocusFromOutsideViewport: () => {
-					focusFirst$1(getSortedTabbableCandidates({ tabbingDirection: "backwards" }));
+					focusFirst$2(getSortedTabbableCandidates({ tabbingDirection: "backwards" }));
 				}
 			})
 		]
@@ -18414,8 +18433,8 @@ var Toast$2 = import_react.forwardRef((props, forwardedRef) => {
 			...toastProps,
 			ref: forwardedRef,
 			onClose: () => setOpen(false),
-			onPause: useCallbackRef(props.onPause),
-			onResume: useCallbackRef(props.onResume),
+			onPause: useCallbackRef$1(props.onPause),
+			onResume: useCallbackRef$1(props.onResume),
 			onSwipeStart: composeEventHandlers(props.onSwipeStart, (event) => {
 				event.currentTarget.setAttribute("data-swipe", "start");
 			}),
@@ -18458,7 +18477,7 @@ var ToastImpl = import_react.forwardRef((props, forwardedRef) => {
 	const closeTimerRemainingTimeRef = import_react.useRef(duration);
 	const closeTimerRef = import_react.useRef(0);
 	const { onToastAdd, onToastRemove } = context;
-	const handleClose = useCallbackRef(() => {
+	const handleClose = useCallbackRef$1(() => {
 		if (node?.contains(document.activeElement)) context.viewport?.focus();
 		onClose();
 	});
@@ -18521,13 +18540,13 @@ var ToastImpl = import_react.forwardRef((props, forwardedRef) => {
 		onClose: handleClose,
 		children: import_react_dom$3.createPortal(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Collection$2.ItemSlot, {
 			scope: __scopeToast,
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$6, {
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$7, {
 				asChild: true,
 				onEscapeKeyDown: composeEventHandlers(onEscapeKeyDown, () => {
 					if (!context.isFocusedToastEscapeKeyDownRef.current) handleClose();
 					context.isFocusedToastEscapeKeyDownRef.current = false;
 				}),
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.li, {
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.li, {
 					tabIndex: 0,
 					"data-state": open ? "open" : "closed",
 					"data-swipe-direction": context.swipeDirection,
@@ -18624,24 +18643,24 @@ var ToastAnnounce = (props) => {
 		})
 	});
 };
-var TITLE_NAME = "ToastTitle";
+var TITLE_NAME$1 = "ToastTitle";
 var ToastTitle$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeToast, ...titleProps } = props;
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
 		...titleProps,
 		ref: forwardedRef
 	});
 });
-ToastTitle$1.displayName = TITLE_NAME;
-var DESCRIPTION_NAME = "ToastDescription";
+ToastTitle$1.displayName = TITLE_NAME$1;
+var DESCRIPTION_NAME$1 = "ToastDescription";
 var ToastDescription$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeToast, ...descriptionProps } = props;
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
 		...descriptionProps,
 		ref: forwardedRef
 	});
 });
-ToastDescription$1.displayName = DESCRIPTION_NAME;
+ToastDescription$1.displayName = DESCRIPTION_NAME$1;
 var ACTION_NAME = "ToastAction";
 var ToastAction$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { altText, ...actionProps } = props;
@@ -18659,13 +18678,13 @@ var ToastAction$1 = import_react.forwardRef((props, forwardedRef) => {
 	});
 });
 ToastAction$1.displayName = ACTION_NAME;
-var CLOSE_NAME = "ToastClose";
+var CLOSE_NAME$1 = "ToastClose";
 var ToastClose$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeToast, ...closeProps } = props;
-	const interactiveContext = useToastInteractiveContext(CLOSE_NAME, __scopeToast);
+	const interactiveContext = useToastInteractiveContext(CLOSE_NAME$1, __scopeToast);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ToastAnnounceExclude, {
 		asChild: true,
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.button, {
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.button, {
 			type: "button",
 			...closeProps,
 			ref: forwardedRef,
@@ -18673,10 +18692,10 @@ var ToastClose$1 = import_react.forwardRef((props, forwardedRef) => {
 		})
 	});
 });
-ToastClose$1.displayName = CLOSE_NAME;
+ToastClose$1.displayName = CLOSE_NAME$1;
 var ToastAnnounceExclude = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeToast, altText, ...announceExcludeProps } = props;
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
 		"data-radix-toast-announce-exclude": "",
 		"data-radix-toast-announce-alt": altText || void 0,
 		...announceExcludeProps,
@@ -18688,9 +18707,9 @@ function getAnnounceTextContent(container) {
 	Array.from(container.childNodes).forEach((node) => {
 		if (node.nodeType === node.TEXT_NODE && node.textContent) textContent.push(node.textContent);
 		if (isHTMLElement$1(node)) {
-			const isHidden = node.ariaHidden || node.hidden || node.style.display === "none";
+			const isHidden$1 = node.ariaHidden || node.hidden || node.style.display === "none";
 			const isExcluded = node.dataset.radixToastAnnounceExclude === "";
-			if (!isHidden) if (isExcluded) {
+			if (!isHidden$1) if (isExcluded) {
 				const altText = node.dataset.radixToastAnnounceAlt;
 				if (altText) textContent.push(altText);
 			} else textContent.push(...getAnnounceTextContent(node));
@@ -18717,7 +18736,7 @@ var isDeltaInDirection = (delta, direction, threshold = 0) => {
 	else return !isDeltaX && deltaY > threshold;
 };
 function useNextFrame(callback = () => {}) {
-	const fn = useCallbackRef(callback);
+	const fn = useCallbackRef$1(callback);
 	useLayoutEffect2(() => {
 		let raf1 = 0;
 		let raf2 = 0;
@@ -18731,7 +18750,7 @@ function useNextFrame(callback = () => {}) {
 function isHTMLElement$1(node) {
 	return node.nodeType === node.ELEMENT_NODE;
 }
-function getTabbableCandidates(container) {
+function getTabbableCandidates$1(container) {
 	const nodes = [];
 	const walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT, { acceptNode: (node) => {
 		const isHiddenInput = node.tagName === "INPUT" && node.type === "hidden";
@@ -18741,7 +18760,7 @@ function getTabbableCandidates(container) {
 	while (walker.nextNode()) nodes.push(walker.currentNode);
 	return nodes;
 }
-function focusFirst$1(candidates) {
+function focusFirst$2(candidates) {
 	const previouslyFocusedElement = document.activeElement;
 	return candidates.some((candidate) => {
 		if (candidate === previouslyFocusedElement) return true;
@@ -18752,10 +18771,10 @@ function focusFirst$1(candidates) {
 var Provider$1 = ToastProvider$1;
 var Viewport$1 = ToastViewport$1;
 var Root2$3 = Toast$2;
-var Title = ToastTitle$1;
-var Description = ToastDescription$1;
+var Title$1 = ToastTitle$1;
+var Description$1 = ToastDescription$1;
 var Action = ToastAction$1;
-var Close = ToastClose$1;
+var Close$1 = ToastClose$1;
 function r(e) {
 	var t, f, n = "";
 	if ("string" == typeof e || "number" == typeof e) n += e;
@@ -18899,6 +18918,13 @@ var createLucideIcon = (iconName, iconNode) => {
 	Component.displayName = toPascalCase(iconName);
 	return Component;
 };
+var ArrowLeft = createLucideIcon("arrow-left", [["path", {
+	d: "m12 19-7-7 7-7",
+	key: "1l729n"
+}], ["path", {
+	d: "M19 12H5",
+	key: "x3x0zl"
+}]]);
 var ArrowUpRight = createLucideIcon("arrow-up-right", [["path", {
 	d: "M7 7h10v10",
 	key: "1tivn9"
@@ -18912,6 +18938,10 @@ var BookOpen = createLucideIcon("book-open", [["path", {
 }], ["path", {
 	d: "M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z",
 	key: "ruj8y"
+}]]);
+var Check = createLucideIcon("check", [["path", {
+	d: "M20 6 9 17l-5-5",
+	key: "1gmf2c"
 }]]);
 var ChevronDown = createLucideIcon("chevron-down", [["path", {
 	d: "m6 9 6 6 6-6",
@@ -19035,6 +19065,22 @@ var Play = createLucideIcon("play", [["path", {
 	d: "M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z",
 	key: "10ikf1"
 }]]);
+var Plus = createLucideIcon("plus", [["path", {
+	d: "M5 12h14",
+	key: "1ays0h"
+}], ["path", {
+	d: "M12 5v14",
+	key: "s699le"
+}]]);
+var Settings = createLucideIcon("settings", [["path", {
+	d: "M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915",
+	key: "1i5ecw"
+}], ["circle", {
+	cx: "12",
+	cy: "12",
+	r: "3",
+	key: "1v7zrd"
+}]]);
 var Share2 = createLucideIcon("share-2", [
 	["circle", {
 		cx: "18",
@@ -19069,10 +19115,53 @@ var Share2 = createLucideIcon("share-2", [
 		key: "1n3mei"
 	}]
 ]);
+var SquarePen = createLucideIcon("square-pen", [["path", {
+	d: "M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7",
+	key: "1m0v6g"
+}], ["path", {
+	d: "M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z",
+	key: "ohrbg2"
+}]]);
 var Star = createLucideIcon("star", [["path", {
 	d: "M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z",
 	key: "r04s7s"
 }]]);
+var Trash2 = createLucideIcon("trash-2", [
+	["path", {
+		d: "M10 11v6",
+		key: "nco0om"
+	}],
+	["path", {
+		d: "M14 11v6",
+		key: "outv1u"
+	}],
+	["path", {
+		d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6",
+		key: "miytrc"
+	}],
+	["path", {
+		d: "M3 6h18",
+		key: "d0wm0j"
+	}],
+	["path", {
+		d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2",
+		key: "e791ji"
+	}]
+]);
+var Trash = createLucideIcon("trash", [
+	["path", {
+		d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6",
+		key: "miytrc"
+	}],
+	["path", {
+		d: "M3 6h18",
+		key: "d0wm0j"
+	}],
+	["path", {
+		d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2",
+		key: "e791ji"
+	}]
+]);
 var User = createLucideIcon("user", [["path", {
 	d: "M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2",
 	key: "975kel"
@@ -20505,26 +20594,26 @@ var ToastAction = import_react.forwardRef(({ className, ...props }, ref) => /* @
 	...props
 }));
 ToastAction.displayName = Action.displayName;
-var ToastClose = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Close, {
+var ToastClose = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Close$1, {
 	ref,
 	className: cn("absolute right-2 top-2 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-2 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.destructive]:hover:text-red-50 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600", className),
 	"toast-close": "",
 	...props,
 	children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "h-4 w-4" })
 }));
-ToastClose.displayName = Close.displayName;
-var ToastTitle = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Title, {
+ToastClose.displayName = Close$1.displayName;
+var ToastTitle = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Title$1, {
 	ref,
 	className: cn("text-sm font-semibold", className),
 	...props
 }));
-ToastTitle.displayName = Title.displayName;
-var ToastDescription = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Description, {
+ToastTitle.displayName = Title$1.displayName;
+var ToastDescription = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Description$1, {
 	ref,
 	className: cn("text-sm opacity-90", className),
 	...props
 }));
-ToastDescription.displayName = Description.displayName;
+ToastDescription.displayName = Description$1.displayName;
 function Toaster() {
 	const { toasts } = useToast();
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(ToastProvider, { children: [toasts.map(function({ id, title, description, action, ...props }) {
@@ -20878,10 +20967,10 @@ var Observer = class {
 			if (typeof id !== "string" && typeof id !== "number") return { unwrap };
 			else return Object.assign(id, { unwrap });
 		};
-		this.custom = (jsx$20, data) => {
+		this.custom = (jsx$23, data) => {
 			const id = (data == null ? void 0 : data.id) || toastsCounter++;
 			this.create({
-				jsx: jsx$20(id),
+				jsx: jsx$23(id),
 				id,
 				...data
 			});
@@ -21502,11 +21591,11 @@ var Toaster$1 = ({ ...props }) => {
 	});
 };
 var useReactId = import_react[" useId ".trim().toString()] || (() => void 0);
-var count = 0;
+var count$1 = 0;
 function useId(deterministicId) {
 	const [id, setId] = import_react.useState(useReactId());
 	useLayoutEffect2(() => {
-		if (!deterministicId) setId((reactId) => reactId ?? String(count++));
+		if (!deterministicId) setId((reactId) => reactId ?? String(count$1++));
 	}, [deterministicId]);
 	return deterministicId || (id ? `radix-${id}` : "");
 }
@@ -21687,11 +21776,11 @@ function computeCoordsFromPlacement(_ref, placement, rtl) {
 	}
 	return coords;
 }
-async function detectOverflow$1(state, options) {
+async function detectOverflow$1(state, options$1) {
 	var _await$platform$isEle;
-	if (options === void 0) options = {};
+	if (options$1 === void 0) options$1 = {};
 	const { x: x$1, y, platform: platform$1, rects, elements, strategy } = state;
-	const { boundary = "clippingAncestors", rootBoundary = "viewport", elementContext = "floating", altBoundary = false, padding = 0 } = evaluate(options, state);
+	const { boundary = "clippingAncestors", rootBoundary = "viewport", elementContext = "floating", altBoundary = false, padding = 0 } = evaluate(options$1, state);
 	const paddingObject = getPaddingObject(padding);
 	const element = elements[altBoundary ? elementContext === "floating" ? "reference" : "floating" : elementContext];
 	const clippingClientRect = rectToClientRect(await platform$1.getClippingRect({
@@ -21791,12 +21880,12 @@ var computePosition$1 = async (reference, floating, config) => {
 		middlewareData
 	};
 };
-var arrow$2 = (options) => ({
+var arrow$2 = (options$1) => ({
 	name: "arrow",
-	options,
+	options: options$1,
 	async fn(state) {
 		const { x: x$1, y, placement, rects, platform: platform$1, elements, middlewareData } = state;
-		const { element, padding = 0 } = evaluate(options, state) || {};
+		const { element, padding = 0 } = evaluate(options$1, state) || {};
 		if (element == null) return {};
 		const paddingObject = getPaddingObject(padding);
 		const coords = {
@@ -21836,15 +21925,15 @@ var arrow$2 = (options) => ({
 		};
 	}
 });
-var flip$2 = function(options) {
-	if (options === void 0) options = {};
+var flip$2 = function(options$1) {
+	if (options$1 === void 0) options$1 = {};
 	return {
 		name: "flip",
-		options,
+		options: options$1,
 		async fn(state) {
 			var _middlewareData$arrow, _middlewareData$flip;
 			const { placement, middlewareData, rects, initialPlacement, platform: platform$1, elements } = state;
-			const { mainAxis: checkMainAxis = true, crossAxis: checkCrossAxis = true, fallbackPlacements: specifiedFallbackPlacements, fallbackStrategy = "bestFit", fallbackAxisSideDirection = "none", flipAlignment = true, ...detectOverflowOptions } = evaluate(options, state);
+			const { mainAxis: checkMainAxis = true, crossAxis: checkCrossAxis = true, fallbackPlacements: specifiedFallbackPlacements, fallbackStrategy = "bestFit", fallbackAxisSideDirection = "none", flipAlignment = true, ...detectOverflowOptions } = evaluate(options$1, state);
 			if ((_middlewareData$arrow = middlewareData.arrow) != null && _middlewareData$arrow.alignmentOffset) return {};
 			const side = getSide(placement);
 			const initialSideAxis = getSideAxis(initialPlacement);
@@ -21914,14 +22003,14 @@ function getSideOffsets(overflow, rect) {
 function isAnySideFullyClipped(overflow) {
 	return sides.some((side) => overflow[side] >= 0);
 }
-var hide$2 = function(options) {
-	if (options === void 0) options = {};
+var hide$2 = function(options$1) {
+	if (options$1 === void 0) options$1 = {};
 	return {
 		name: "hide",
-		options,
+		options: options$1,
 		async fn(state) {
 			const { rects, platform: platform$1 } = state;
-			const { strategy = "referenceHidden", ...detectOverflowOptions } = evaluate(options, state);
+			const { strategy = "referenceHidden", ...detectOverflowOptions } = evaluate(options$1, state);
 			switch (strategy) {
 				case "referenceHidden": {
 					const offsets = getSideOffsets(await platform$1.detectOverflow(state, {
@@ -21949,7 +22038,7 @@ var hide$2 = function(options) {
 	};
 };
 var originSides = /* @__PURE__ */ new Set(["left", "top"]);
-async function convertValueToCoords(state, options) {
+async function convertValueToCoords(state, options$1) {
 	const { placement, platform: platform$1, elements } = state;
 	const rtl = await (platform$1.isRTL == null ? void 0 : platform$1.isRTL(elements.floating));
 	const side = getSide(placement);
@@ -21957,7 +22046,7 @@ async function convertValueToCoords(state, options) {
 	const isVertical = getSideAxis(placement) === "y";
 	const mainAxisMulti = originSides.has(side) ? -1 : 1;
 	const crossAxisMulti = rtl && isVertical ? -1 : 1;
-	const rawValue = evaluate(options, state);
+	const rawValue = evaluate(options$1, state);
 	let { mainAxis, crossAxis, alignmentAxis } = typeof rawValue === "number" ? {
 		mainAxis: rawValue,
 		crossAxis: 0,
@@ -21976,15 +22065,15 @@ async function convertValueToCoords(state, options) {
 		y: crossAxis * crossAxisMulti
 	};
 }
-var offset$2 = function(options) {
-	if (options === void 0) options = 0;
+var offset$2 = function(options$1) {
+	if (options$1 === void 0) options$1 = 0;
 	return {
 		name: "offset",
-		options,
+		options: options$1,
 		async fn(state) {
 			var _middlewareData$offse, _middlewareData$arrow;
 			const { x: x$1, y, placement, middlewareData } = state;
-			const diffCoords = await convertValueToCoords(state, options);
+			const diffCoords = await convertValueToCoords(state, options$1);
 			if (placement === ((_middlewareData$offse = middlewareData.offset) == null ? void 0 : _middlewareData$offse.placement) && (_middlewareData$arrow = middlewareData.arrow) != null && _middlewareData$arrow.alignmentOffset) return {};
 			return {
 				x: x$1 + diffCoords.x,
@@ -21997,11 +22086,11 @@ var offset$2 = function(options) {
 		}
 	};
 };
-var shift$2 = function(options) {
-	if (options === void 0) options = {};
+var shift$2 = function(options$1) {
+	if (options$1 === void 0) options$1 = {};
 	return {
 		name: "shift",
-		options,
+		options: options$1,
 		async fn(state) {
 			const { x: x$1, y, placement, platform: platform$1 } = state;
 			const { mainAxis: checkMainAxis = true, crossAxis: checkCrossAxis = false, limiter = { fn: (_ref) => {
@@ -22010,7 +22099,7 @@ var shift$2 = function(options) {
 					x: x$2,
 					y: y$1
 				};
-			} }, ...detectOverflowOptions } = evaluate(options, state);
+			} }, ...detectOverflowOptions } = evaluate(options$1, state);
 			const coords = {
 				x: x$1,
 				y
@@ -22053,13 +22142,13 @@ var shift$2 = function(options) {
 		}
 	};
 };
-var limitShift$2 = function(options) {
-	if (options === void 0) options = {};
+var limitShift$2 = function(options$1) {
+	if (options$1 === void 0) options$1 = {};
 	return {
-		options,
+		options: options$1,
 		fn(state) {
 			const { x: x$1, y, placement, rects, middlewareData } = state;
-			const { offset: offset$3 = 0, mainAxis: checkMainAxis = true, crossAxis: checkCrossAxis = true } = evaluate(options, state);
+			const { offset: offset$3 = 0, mainAxis: checkMainAxis = true, crossAxis: checkCrossAxis = true } = evaluate(options$1, state);
 			const coords = {
 				x: x$1,
 				y
@@ -22100,15 +22189,15 @@ var limitShift$2 = function(options) {
 		}
 	};
 };
-var size$2 = function(options) {
-	if (options === void 0) options = {};
+var size$2 = function(options$1) {
+	if (options$1 === void 0) options$1 = {};
 	return {
 		name: "size",
-		options,
+		options: options$1,
 		async fn(state) {
 			var _state$middlewareData, _state$middlewareData2;
 			const { placement, rects, platform: platform$1, elements } = state;
-			const { apply = () => {}, ...detectOverflowOptions } = evaluate(options, state);
+			const { apply = () => {}, ...detectOverflowOptions } = evaluate(options$1, state);
 			const overflow = await platform$1.detectOverflow(state, detectOverflowOptions);
 			const side = getSide(placement);
 			const alignment = getAlignment(placement);
@@ -22666,7 +22755,7 @@ function observeMove(element, onMove) {
 		const insetRight = floor(root.clientWidth - (left + width));
 		const insetBottom = floor(root.clientHeight - (top + height));
 		const insetLeft = floor(left);
-		const options = {
+		const options$1 = {
 			rootMargin: -insetTop + "px " + -insetRight + "px " + -insetBottom + "px " + -insetLeft + "px",
 			threshold: max(0, min(1, threshold)) || 1
 		};
@@ -22685,20 +22774,20 @@ function observeMove(element, onMove) {
 		}
 		try {
 			io = new IntersectionObserver(handleObserve, {
-				...options,
+				...options$1,
 				root: root.ownerDocument
 			});
 		} catch (_e) {
-			io = new IntersectionObserver(handleObserve, options);
+			io = new IntersectionObserver(handleObserve, options$1);
 		}
 		io.observe(element);
 	}
 	refresh(true);
 	return cleanup;
 }
-function autoUpdate(reference, floating, update, options) {
-	if (options === void 0) options = {};
-	const { ancestorScroll = true, ancestorResize = true, elementResize = typeof ResizeObserver === "function", layoutShift = typeof IntersectionObserver === "function", animationFrame = false } = options;
+function autoUpdate(reference, floating, update, options$1) {
+	if (options$1 === void 0) options$1 = {};
+	const { ancestorScroll = true, ancestorResize = true, elementResize = typeof ResizeObserver === "function", layoutShift = typeof IntersectionObserver === "function", animationFrame = false } = options$1;
 	const referenceEl = unwrapElement(reference);
 	const ancestors = ancestorScroll || ancestorResize ? [...referenceEl ? getOverflowAncestors(referenceEl) : [], ...getOverflowAncestors(floating)] : [];
 	ancestors.forEach((ancestor) => {
@@ -22753,11 +22842,11 @@ var size$1 = size$2;
 var hide$1 = hide$2;
 var arrow$1 = arrow$2;
 var limitShift$1 = limitShift$2;
-var computePosition = (reference, floating, options) => {
+var computePosition = (reference, floating, options$1) => {
 	const cache = /* @__PURE__ */ new Map();
 	const mergedOptions = {
 		platform,
-		...options
+		...options$1
 	};
 	const platformWithCache = {
 		...mergedOptions.platform,
@@ -22812,9 +22901,9 @@ function useLatestRef(value) {
 	});
 	return ref;
 }
-function useFloating(options) {
-	if (options === void 0) options = {};
-	const { placement = "bottom", strategy = "absolute", middleware = [], platform: platform$1, elements: { reference: externalReference, floating: externalFloating } = {}, transform = true, whileElementsMounted, open } = options;
+function useFloating(options$1) {
+	if (options$1 === void 0) options$1 = {};
+	const { placement = "bottom", strategy = "absolute", middleware = [], platform: platform$1, elements: { reference: externalReference, floating: externalFloating } = {}, transform = true, whileElementsMounted, open } = options$1;
 	const [data, setData] = import_react.useState({
 		x: 0,
 		y: 0,
@@ -22955,15 +23044,15 @@ function useFloating(options) {
 		floatingStyles
 	]);
 }
-var arrow$1$1 = (options) => {
+var arrow$1$1 = (options$1) => {
 	function isRef(value) {
 		return {}.hasOwnProperty.call(value, "current");
 	}
 	return {
 		name: "arrow",
-		options,
+		options: options$1,
 		fn(state) {
-			const { element, padding } = typeof options === "function" ? options(state) : options;
+			const { element, padding } = typeof options$1 === "function" ? options$1(state) : options$1;
 			if (element && isRef(element)) {
 				if (element.current != null) return arrow$1({
 					element: element.current,
@@ -22979,38 +23068,38 @@ var arrow$1$1 = (options) => {
 		}
 	};
 };
-var offset = (options, deps) => ({
-	...offset$1(options),
-	options: [options, deps]
+var offset = (options$1, deps) => ({
+	...offset$1(options$1),
+	options: [options$1, deps]
 });
-var shift = (options, deps) => ({
-	...shift$1(options),
-	options: [options, deps]
+var shift = (options$1, deps) => ({
+	...shift$1(options$1),
+	options: [options$1, deps]
 });
-var limitShift = (options, deps) => ({
-	...limitShift$1(options),
-	options: [options, deps]
+var limitShift = (options$1, deps) => ({
+	...limitShift$1(options$1),
+	options: [options$1, deps]
 });
-var flip = (options, deps) => ({
-	...flip$1(options),
-	options: [options, deps]
+var flip = (options$1, deps) => ({
+	...flip$1(options$1),
+	options: [options$1, deps]
 });
-var size = (options, deps) => ({
-	...size$1(options),
-	options: [options, deps]
+var size = (options$1, deps) => ({
+	...size$1(options$1),
+	options: [options$1, deps]
 });
-var hide = (options, deps) => ({
-	...hide$1(options),
-	options: [options, deps]
+var hide = (options$1, deps) => ({
+	...hide$1(options$1),
+	options: [options$1, deps]
 });
-var arrow = (options, deps) => ({
-	...arrow$1$1(options),
-	options: [options, deps]
+var arrow = (options$1, deps) => ({
+	...arrow$1$1(options$1),
+	options: [options$1, deps]
 });
 var NAME$1 = "Arrow";
 var Arrow$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { children, width = 10, height = 5, ...arrowProps } = props;
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.svg, {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.svg, {
 		...arrowProps,
 		ref: forwardedRef,
 		width,
@@ -23021,7 +23110,7 @@ var Arrow$1 = import_react.forwardRef((props, forwardedRef) => {
 	});
 });
 Arrow$1.displayName = NAME$1;
-var Root$4 = Arrow$1;
+var Root$5 = Arrow$1;
 function useSize(element) {
 	const [size$3, setSize] = import_react.useState(void 0);
 	useLayoutEffect2(() => {
@@ -23082,17 +23171,17 @@ var PopperAnchor = import_react.forwardRef((props, forwardedRef) => {
 		anchorRef.current = virtualRef?.current || ref.current;
 		if (previousAnchor !== anchorRef.current) context.onAnchorChange(anchorRef.current);
 	});
-	return virtualRef ? null : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+	return virtualRef ? null : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
 		...anchorProps,
 		ref: composedRefs
 	});
 });
 PopperAnchor.displayName = ANCHOR_NAME;
-var CONTENT_NAME$4 = "PopperContent";
-var [PopperContentProvider, useContentContext] = createPopperContext(CONTENT_NAME$4);
+var CONTENT_NAME$5 = "PopperContent";
+var [PopperContentProvider, useContentContext] = createPopperContext(CONTENT_NAME$5);
 var PopperContent = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopePopper, side = "bottom", sideOffset = 0, align = "center", alignOffset = 0, arrowPadding = 0, avoidCollisions = true, collisionBoundary = [], collisionPadding: collisionPaddingProp = 0, sticky = "partial", hideWhenDetached = false, updatePositionStrategy = "optimized", onPlaced, ...contentProps } = props;
-	const context = usePopperContext(CONTENT_NAME$4, __scopePopper);
+	const context = usePopperContext(CONTENT_NAME$5, __scopePopper);
 	const [content, setContent] = import_react.useState(null);
 	const composedRefs = useComposedRefs(forwardedRef, (node) => setContent(node));
 	const [arrow$3, setArrow] = import_react.useState(null);
@@ -23159,7 +23248,7 @@ var PopperContent = import_react.forwardRef((props, forwardedRef) => {
 		]
 	});
 	const [placedSide, placedAlign] = getSideAndAlignFromPlacement(placement);
-	const handlePlaced = useCallbackRef(onPlaced);
+	const handlePlaced = useCallbackRef$1(onPlaced);
 	useLayoutEffect2(() => {
 		if (isPositioned) handlePlaced?.();
 	}, [isPositioned, handlePlaced]);
@@ -23192,7 +23281,7 @@ var PopperContent = import_react.forwardRef((props, forwardedRef) => {
 			arrowX,
 			arrowY,
 			shouldHideArrow: cannotCenterArrow,
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
 				"data-side": placedSide,
 				"data-align": placedAlign,
 				...contentProps,
@@ -23205,7 +23294,7 @@ var PopperContent = import_react.forwardRef((props, forwardedRef) => {
 		})
 	});
 });
-PopperContent.displayName = CONTENT_NAME$4;
+PopperContent.displayName = CONTENT_NAME$5;
 var ARROW_NAME$1 = "PopperArrow";
 var OPPOSITE_SIDE = {
 	top: "bottom",
@@ -23238,7 +23327,7 @@ var PopperArrow = import_react.forwardRef(function PopperArrow2(props, forwarded
 			}[contentContext.placedSide],
 			visibility: contentContext.shouldHideArrow ? "hidden" : void 0
 		},
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$4, {
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$5, {
 			...arrowProps,
 			ref: forwardedRef,
 			style: {
@@ -23252,14 +23341,14 @@ PopperArrow.displayName = ARROW_NAME$1;
 function isNotNull(value) {
 	return value !== null;
 }
-var transformOrigin = (options) => ({
+var transformOrigin = (options$1) => ({
 	name: "transformOrigin",
-	options,
+	options: options$1,
 	fn(data) {
 		const { placement, rects, middlewareData } = data;
 		const isArrowHidden = middlewareData.arrow?.centerOffset !== 0;
-		const arrowWidth = isArrowHidden ? 0 : options.arrowWidth;
-		const arrowHeight = isArrowHidden ? 0 : options.arrowHeight;
+		const arrowWidth = isArrowHidden ? 0 : options$1.arrowWidth;
+		const arrowHeight = isArrowHidden ? 0 : options$1.arrowHeight;
 		const [placedSide, placedAlign] = getSideAndAlignFromPlacement(placement);
 		const noArrowAlign = {
 			start: "0%",
@@ -23295,7 +23384,7 @@ function getSideAndAlignFromPlacement(placement) {
 }
 var Root2$2 = Popper;
 var Anchor = PopperAnchor;
-var Content$2 = PopperContent;
+var Content$3 = PopperContent;
 var Arrow = PopperArrow;
 var [createTooltipContext, createTooltipScope] = createContextScope("Tooltip", [createPopperScope]);
 var usePopperScope = createPopperScope();
@@ -23419,11 +23508,11 @@ var Tooltip$1 = (props) => {
 	});
 };
 Tooltip$1.displayName = TOOLTIP_NAME;
-var TRIGGER_NAME$3 = "TooltipTrigger";
+var TRIGGER_NAME$5 = "TooltipTrigger";
 var TooltipTrigger$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeTooltip, ...triggerProps } = props;
-	const context = useTooltipContext(TRIGGER_NAME$3, __scopeTooltip);
-	const providerContext = useTooltipProviderContext(TRIGGER_NAME$3, __scopeTooltip);
+	const context = useTooltipContext(TRIGGER_NAME$5, __scopeTooltip);
+	const providerContext = useTooltipProviderContext(TRIGGER_NAME$5, __scopeTooltip);
 	const popperScope = usePopperScope(__scopeTooltip);
 	const composedRefs = useComposedRefs(forwardedRef, import_react.useRef(null), context.onTriggerChange);
 	const isPointerDownRef = import_react.useRef(false);
@@ -23435,7 +23524,7 @@ var TooltipTrigger$1 = import_react.forwardRef((props, forwardedRef) => {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Anchor, {
 		asChild: true,
 		...popperScope,
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.button, {
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.button, {
 			"aria-describedby": context.open ? context.contentId : void 0,
 			"data-state": context.stateAttribute,
 			...triggerProps,
@@ -23464,13 +23553,13 @@ var TooltipTrigger$1 = import_react.forwardRef((props, forwardedRef) => {
 		})
 	});
 });
-TooltipTrigger$1.displayName = TRIGGER_NAME$3;
-var PORTAL_NAME = "TooltipPortal";
-var [PortalProvider, usePortalContext] = createTooltipContext(PORTAL_NAME, { forceMount: void 0 });
+TooltipTrigger$1.displayName = TRIGGER_NAME$5;
+var PORTAL_NAME$1 = "TooltipPortal";
+var [PortalProvider$1, usePortalContext$1] = createTooltipContext(PORTAL_NAME$1, { forceMount: void 0 });
 var TooltipPortal = (props) => {
 	const { __scopeTooltip, forceMount, children, container } = props;
-	const context = useTooltipContext(PORTAL_NAME, __scopeTooltip);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(PortalProvider, {
+	const context = useTooltipContext(PORTAL_NAME$1, __scopeTooltip);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(PortalProvider$1, {
 		scope: __scopeTooltip,
 		forceMount,
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Presence, {
@@ -23483,12 +23572,12 @@ var TooltipPortal = (props) => {
 		})
 	});
 };
-TooltipPortal.displayName = PORTAL_NAME;
-var CONTENT_NAME$3 = "TooltipContent";
+TooltipPortal.displayName = PORTAL_NAME$1;
+var CONTENT_NAME$4 = "TooltipContent";
 var TooltipContent$1 = import_react.forwardRef((props, forwardedRef) => {
-	const portalContext = usePortalContext(CONTENT_NAME$3, props.__scopeTooltip);
+	const portalContext = usePortalContext$1(CONTENT_NAME$4, props.__scopeTooltip);
 	const { forceMount = portalContext.forceMount, side = "top", ...contentProps } = props;
-	const context = useTooltipContext(CONTENT_NAME$3, props.__scopeTooltip);
+	const context = useTooltipContext(CONTENT_NAME$4, props.__scopeTooltip);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Presence, {
 		present: forceMount || context.open,
 		children: context.disableHoverableContent ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TooltipContentImpl, {
@@ -23503,8 +23592,8 @@ var TooltipContent$1 = import_react.forwardRef((props, forwardedRef) => {
 	});
 });
 var TooltipContentHoverable = import_react.forwardRef((props, forwardedRef) => {
-	const context = useTooltipContext(CONTENT_NAME$3, props.__scopeTooltip);
-	const providerContext = useTooltipProviderContext(CONTENT_NAME$3, props.__scopeTooltip);
+	const context = useTooltipContext(CONTENT_NAME$4, props.__scopeTooltip);
+	const providerContext = useTooltipProviderContext(CONTENT_NAME$4, props.__scopeTooltip);
 	const ref = import_react.useRef(null);
 	const composedRefs = useComposedRefs(forwardedRef, ref);
 	const [pointerGraceArea, setPointerGraceArea] = import_react.useState(null);
@@ -23581,7 +23670,7 @@ var [VisuallyHiddenContentContextProvider, useVisuallyHiddenContentContext] = cr
 var Slottable = /* @__PURE__ */ createSlottable("TooltipContent");
 var TooltipContentImpl = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeTooltip, children, "aria-label": ariaLabel, onEscapeKeyDown, onPointerDownOutside, ...contentProps } = props;
-	const context = useTooltipContext(CONTENT_NAME$3, __scopeTooltip);
+	const context = useTooltipContext(CONTENT_NAME$4, __scopeTooltip);
 	const popperScope = usePopperScope(__scopeTooltip);
 	const { onClose } = context;
 	import_react.useEffect(() => {
@@ -23590,11 +23679,11 @@ var TooltipContentImpl = import_react.forwardRef((props, forwardedRef) => {
 	}, [onClose]);
 	import_react.useEffect(() => {
 		if (context.trigger) {
-			const handleScroll = (event) => {
+			const handleScroll$1 = (event) => {
 				if (event.target?.contains(context.trigger)) onClose();
 			};
-			window.addEventListener("scroll", handleScroll, { capture: true });
-			return () => window.removeEventListener("scroll", handleScroll, { capture: true });
+			window.addEventListener("scroll", handleScroll$1, { capture: true });
+			return () => window.removeEventListener("scroll", handleScroll$1, { capture: true });
 		}
 	}, [context.trigger, onClose]);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DismissableLayer, {
@@ -23604,7 +23693,7 @@ var TooltipContentImpl = import_react.forwardRef((props, forwardedRef) => {
 		onPointerDownOutside,
 		onFocusOutside: (event) => event.preventDefault(),
 		onDismiss: onClose,
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Content$2, {
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Content$3, {
 			"data-state": context.stateAttribute,
 			...popperScope,
 			...contentProps,
@@ -23620,7 +23709,7 @@ var TooltipContentImpl = import_react.forwardRef((props, forwardedRef) => {
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Slottable, { children }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(VisuallyHiddenContentContextProvider, {
 				scope: __scopeTooltip,
 				isInside: true,
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$5, {
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$6, {
 					id: context.contentId,
 					role: "tooltip",
 					children: ariaLabel || children
@@ -23629,7 +23718,7 @@ var TooltipContentImpl = import_react.forwardRef((props, forwardedRef) => {
 		})
 	});
 });
-TooltipContent$1.displayName = CONTENT_NAME$3;
+TooltipContent$1.displayName = CONTENT_NAME$4;
 var ARROW_NAME = "TooltipArrow";
 var TooltipArrow = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeTooltip, ...arrowProps } = props;
@@ -23781,6 +23870,16 @@ var TooltipContent = import_react.forwardRef(({ className, sideOffset = 4, ...pr
 	...props
 }));
 TooltipContent.displayName = Content2$1.displayName;
+var __assign = function() {
+	__assign = Object.assign || function __assign$1(t) {
+		for (var s, i = 1, n = arguments.length; i < n; i++) {
+			s = arguments[i];
+			for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+		}
+		return t;
+	};
+	return __assign.apply(this, arguments);
+};
 function __rest(s, e) {
 	var t = {};
 	for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
@@ -23815,6 +23914,15 @@ function __awaiter(thisArg, _arguments, P, generator) {
 		}
 		step((generator = generator.apply(thisArg, _arguments || [])).next());
 	});
+}
+function __spreadArray(to, from, pack) {
+	if (pack || arguments.length === 2) {
+		for (var i = 0, l = from.length, ar; i < l; i++) if (ar || !(i in from)) {
+			if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+			ar[i] = from[i];
+		}
+	}
+	return to.concat(ar || Array.prototype.slice.call(from));
 }
 const resolveFetch$3 = (customFetch) => {
 	if (customFetch) return (...args) => customFetch(...args);
@@ -23871,14 +23979,14 @@ var FunctionsClient = class {
 		this.headers.Authorization = `Bearer ${token}`;
 	}
 	invoke(functionName_1) {
-		return __awaiter(this, arguments, void 0, function* (functionName, options = {}) {
+		return __awaiter(this, arguments, void 0, function* (functionName, options$1 = {}) {
 			var _a;
 			let timeoutId;
 			let timeoutController;
 			try {
-				const { headers, method, body: functionArgs, signal, timeout } = options;
+				const { headers, method, body: functionArgs, signal, timeout } = options$1;
 				let _headers = {};
-				let { region } = options;
+				let { region } = options$1;
 				if (!region) region = this.region;
 				const url = new URL(`${this.url}/${functionName}`);
 				if (region && region !== "any") {
@@ -23991,7 +24099,7 @@ var PostgrestBuilder = class {
 		}).then(async (res$1) => {
 			let error = null;
 			let data = null;
-			let count$2 = null;
+			let count$3 = null;
 			let status = res$1.status;
 			let statusText = res$1.statusText;
 			if (res$1.ok) {
@@ -24005,7 +24113,7 @@ var PostgrestBuilder = class {
 				}
 				const countHeader = (_this$headers$get2 = _this.headers.get("Prefer")) === null || _this$headers$get2 === void 0 ? void 0 : _this$headers$get2.match(/count=(exact|planned|estimated)/);
 				const contentRange = (_res$headers$get = res$1.headers.get("content-range")) === null || _res$headers$get === void 0 ? void 0 : _res$headers$get.split("/");
-				if (countHeader && contentRange && contentRange.length > 1) count$2 = parseInt(contentRange[1]);
+				if (countHeader && contentRange && contentRange.length > 1) count$3 = parseInt(contentRange[1]);
 				if (_this.isMaybeSingle && _this.method === "GET" && Array.isArray(data)) if (data.length > 1) {
 					error = {
 						code: "PGRST116",
@@ -24014,7 +24122,7 @@ var PostgrestBuilder = class {
 						message: "JSON object requested, multiple (or no) rows returned"
 					};
 					data = null;
-					count$2 = null;
+					count$3 = null;
 					status = 406;
 					statusText = "Not Acceptable";
 				} else if (data.length === 1) data = data[0];
@@ -24046,7 +24154,7 @@ var PostgrestBuilder = class {
 			return {
 				error,
 				data,
-				count: count$2,
+				count: count$3,
 				status,
 				statusText
 			};
@@ -24120,9 +24228,9 @@ var PostgrestTransformBuilder = class extends PostgrestBuilder {
 		this.url.searchParams.set(key, `${existingOrder ? `${existingOrder},` : ""}${column}.${ascending ? "asc" : "desc"}${nullsFirst === void 0 ? "" : nullsFirst ? ".nullsfirst" : ".nullslast"}`);
 		return this;
 	}
-	limit(count$2, { foreignTable, referencedTable = foreignTable } = {}) {
+	limit(count$3, { foreignTable, referencedTable = foreignTable } = {}) {
 		const key = typeof referencedTable === "undefined" ? "limit" : `${referencedTable}.limit`;
-		this.url.searchParams.set(key, `${count$2}`);
+		this.url.searchParams.set(key, `${count$3}`);
 		return this;
 	}
 	range(from, to, { foreignTable, referencedTable = foreignTable } = {}) {
@@ -24156,7 +24264,7 @@ var PostgrestTransformBuilder = class extends PostgrestBuilder {
 	}
 	explain({ analyze = false, verbose = false, settings = false, buffers = false, wal = false, format = "text" } = {}) {
 		var _this$headers$get;
-		const options = [
+		const options$1 = [
 			analyze ? "analyze" : null,
 			verbose ? "verbose" : null,
 			settings ? "settings" : null,
@@ -24164,7 +24272,7 @@ var PostgrestTransformBuilder = class extends PostgrestBuilder {
 			wal ? "wal" : null
 		].filter(Boolean).join("|");
 		const forMediatype = (_this$headers$get = this.headers.get("Accept")) !== null && _this$headers$get !== void 0 ? _this$headers$get : "application/json";
-		this.headers.set("Accept", `application/vnd.pgrst.plan+${format}; for="${forMediatype}"; options=${options};`);
+		this.headers.set("Accept", `application/vnd.pgrst.plan+${format}; for="${forMediatype}"; options=${options$1};`);
 		if (format === "json") return this;
 		else return this;
 	}
@@ -24343,8 +24451,8 @@ var PostgrestQueryBuilder = class {
 			headers: new Headers(this.headers)
 		};
 	}
-	select(columns, options) {
-		const { head: head$1 = false, count: count$2 } = options !== null && options !== void 0 ? options : {};
+	select(columns, options$1) {
+		const { head: head$1 = false, count: count$3 } = options$1 !== null && options$1 !== void 0 ? options$1 : {};
 		const method = head$1 ? "HEAD" : "GET";
 		let quoted = false;
 		const cleanedColumns = (columns !== null && columns !== void 0 ? columns : "*").split("").map((c) => {
@@ -24354,7 +24462,7 @@ var PostgrestQueryBuilder = class {
 		}).join("");
 		const { url, headers } = this.cloneRequestState();
 		url.searchParams.set("select", cleanedColumns);
-		if (count$2) headers.append("Prefer", `count=${count$2}`);
+		if (count$3) headers.append("Prefer", `count=${count$3}`);
 		return new PostgrestFilterBuilder({
 			method,
 			url,
@@ -24364,11 +24472,11 @@ var PostgrestQueryBuilder = class {
 			urlLengthLimit: this.urlLengthLimit
 		});
 	}
-	insert(values, { count: count$2, defaultToNull = true } = {}) {
+	insert(values, { count: count$3, defaultToNull = true } = {}) {
 		var _this$fetch;
 		const method = "POST";
 		const { url, headers } = this.cloneRequestState();
-		if (count$2) headers.append("Prefer", `count=${count$2}`);
+		if (count$3) headers.append("Prefer", `count=${count$3}`);
 		if (!defaultToNull) headers.append("Prefer", `missing=default`);
 		if (Array.isArray(values)) {
 			const columns = values.reduce((acc, x$1) => acc.concat(Object.keys(x$1)), []);
@@ -24387,13 +24495,13 @@ var PostgrestQueryBuilder = class {
 			urlLengthLimit: this.urlLengthLimit
 		});
 	}
-	upsert(values, { onConflict, ignoreDuplicates = false, count: count$2, defaultToNull = true } = {}) {
+	upsert(values, { onConflict, ignoreDuplicates = false, count: count$3, defaultToNull = true } = {}) {
 		var _this$fetch2;
 		const method = "POST";
 		const { url, headers } = this.cloneRequestState();
 		headers.append("Prefer", `resolution=${ignoreDuplicates ? "ignore" : "merge"}-duplicates`);
 		if (onConflict !== void 0) url.searchParams.set("on_conflict", onConflict);
-		if (count$2) headers.append("Prefer", `count=${count$2}`);
+		if (count$3) headers.append("Prefer", `count=${count$3}`);
 		if (!defaultToNull) headers.append("Prefer", "missing=default");
 		if (Array.isArray(values)) {
 			const columns = values.reduce((acc, x$1) => acc.concat(Object.keys(x$1)), []);
@@ -24412,11 +24520,11 @@ var PostgrestQueryBuilder = class {
 			urlLengthLimit: this.urlLengthLimit
 		});
 	}
-	update(values, { count: count$2 } = {}) {
+	update(values, { count: count$3 } = {}) {
 		var _this$fetch3;
 		const method = "PATCH";
 		const { url, headers } = this.cloneRequestState();
-		if (count$2) headers.append("Prefer", `count=${count$2}`);
+		if (count$3) headers.append("Prefer", `count=${count$3}`);
 		return new PostgrestFilterBuilder({
 			method,
 			url,
@@ -24427,11 +24535,11 @@ var PostgrestQueryBuilder = class {
 			urlLengthLimit: this.urlLengthLimit
 		});
 	}
-	delete({ count: count$2 } = {}) {
+	delete({ count: count$3 } = {}) {
 		var _this$fetch4;
 		const method = "DELETE";
 		const { url, headers } = this.cloneRequestState();
-		if (count$2) headers.append("Prefer", `count=${count$2}`);
+		if (count$3) headers.append("Prefer", `count=${count$3}`);
 		return new PostgrestFilterBuilder({
 			method,
 			url,
@@ -24540,7 +24648,7 @@ var PostgrestClient = class PostgrestClient$1 {
 			urlLengthLimit: this.urlLengthLimit
 		});
 	}
-	rpc(fn, args = {}, { head: head$1 = false, get: get$1 = false, count: count$2 } = {}) {
+	rpc(fn, args = {}, { head: head$1 = false, get: get$1 = false, count: count$3 } = {}) {
 		var _this$fetch;
 		let method;
 		const url = new URL(`${this.url}/rpc/${fn}`);
@@ -24560,8 +24668,8 @@ var PostgrestClient = class PostgrestClient$1 {
 			body = args;
 		}
 		const headers = new Headers(this.headers);
-		if (_hasObjectArg) headers.set("Prefer", count$2 ? `count=${count$2},return=minimal` : "return=minimal");
-		else if (count$2) headers.set("Prefer", `count=${count$2}`);
+		if (_hasObjectArg) headers.set("Prefer", count$3 ? `count=${count$3},return=minimal` : "return=minimal");
+		else if (count$3) headers.set("Prefer", `count=${count$3}`);
 		return new PostgrestFilterBuilder({
 			method,
 			url,
@@ -24872,9 +24980,9 @@ var PostgresTypes;
 	PostgresTypes$1["tsrange"] = "tsrange";
 	PostgresTypes$1["tstzrange"] = "tstzrange";
 })(PostgresTypes || (PostgresTypes = {}));
-const convertChangeData = (columns, record, options = {}) => {
+const convertChangeData = (columns, record, options$1 = {}) => {
 	var _a;
-	const skipTypes = (_a = options.skipTypes) !== null && _a !== void 0 ? _a : [];
+	const skipTypes = (_a = options$1.skipTypes) !== null && _a !== void 0 ? _a : [];
 	if (!record) return {};
 	return Object.keys(record).reduce((acc, rec_key) => {
 		acc[rec_key] = convertColumn(rec_key, columns, record, skipTypes);
@@ -25373,7 +25481,7 @@ var RealtimeChannel = class RealtimeChannel {
 			"Content-Type": "application/json"
 		};
 		if (this.socket.accessTokenValue) headers["Authorization"] = `Bearer ${this.socket.accessTokenValue}`;
-		const options = {
+		const options$1 = {
 			method: "POST",
 			headers,
 			body: JSON.stringify({ messages: [{
@@ -25383,7 +25491,7 @@ var RealtimeChannel = class RealtimeChannel {
 				private: this.private
 			}] })
 		};
-		const response = await this._fetchWithTimeout(this.broadcastEndpointURL, options, (_a = opts.timeout) !== null && _a !== void 0 ? _a : this.timeout);
+		const response = await this._fetchWithTimeout(this.broadcastEndpointURL, options$1, (_a = opts.timeout) !== null && _a !== void 0 ? _a : this.timeout);
 		if (response.status === 202) return { success: true };
 		let errorMessage = response.statusText;
 		try {
@@ -25402,7 +25510,7 @@ var RealtimeChannel = class RealtimeChannel {
 				"Content-Type": "application/json"
 			};
 			if (this.socket.accessTokenValue) headers["Authorization"] = `Bearer ${this.socket.accessTokenValue}`;
-			const options = {
+			const options$1 = {
 				method: "POST",
 				headers,
 				body: JSON.stringify({ messages: [{
@@ -25413,7 +25521,7 @@ var RealtimeChannel = class RealtimeChannel {
 				}] })
 			};
 			try {
-				const response = await this._fetchWithTimeout(this.broadcastEndpointURL, options, (_a = opts.timeout) !== null && _a !== void 0 ? _a : this.timeout);
+				const response = await this._fetchWithTimeout(this.broadcastEndpointURL, options$1, (_a = opts.timeout) !== null && _a !== void 0 ? _a : this.timeout);
 				await ((_b = response.body) === null || _b === void 0 ? void 0 : _b.cancel());
 				return response.ok ? "ok" : "error";
 			} catch (error) {
@@ -25465,10 +25573,10 @@ var RealtimeChannel = class RealtimeChannel {
 		this.state = CHANNEL_STATES.closed;
 		this.bindings = {};
 	}
-	async _fetchWithTimeout(url, options, timeout) {
+	async _fetchWithTimeout(url, options$1, timeout) {
 		const controller = new AbortController();
 		const id = setTimeout(() => controller.abort(), timeout);
-		const response = await this.socket.fetch(url, Object.assign(Object.assign({}, options), { signal: controller.signal }));
+		const response = await this.socket.fetch(url, Object.assign(Object.assign({}, options$1), { signal: controller.signal }));
 		clearTimeout(id);
 		return response;
 	}
@@ -25643,7 +25751,7 @@ var WORKER_SCRIPT = `
     }
   });`;
 var RealtimeClient = class {
-	constructor(endPoint, options) {
+	constructor(endPoint, options$1) {
 		var _a;
 		this.accessTokenValue = null;
 		this.apiKey = null;
@@ -25681,13 +25789,13 @@ var RealtimeClient = class {
 			if (customFetch) return (...args) => customFetch(...args);
 			return (...args) => fetch(...args);
 		};
-		if (!((_a = options === null || options === void 0 ? void 0 : options.params) === null || _a === void 0 ? void 0 : _a.apikey)) throw new Error("API key is required to connect to Realtime");
-		this.apiKey = options.params.apikey;
+		if (!((_a = options$1 === null || options$1 === void 0 ? void 0 : options$1.params) === null || _a === void 0 ? void 0 : _a.apikey)) throw new Error("API key is required to connect to Realtime");
+		this.apiKey = options$1.params.apikey;
 		this.endPoint = `${endPoint}/${TRANSPORTS.websocket}`;
 		this.httpEndpoint = httpEndpointURL(endPoint);
-		this._initializeOptions(options);
+		this._initializeOptions(options$1);
 		this._setupReconnectionTimer();
-		this.fetch = this._resolveFetch(options === null || options === void 0 ? void 0 : options.fetch);
+		this.fetch = this._resolveFetch(options$1 === null || options$1 === void 0 ? void 0 : options$1.fetch);
 	}
 	connect() {
 		if (this.isConnecting() || this.isDisconnecting() || this.conn !== null && this.isConnected()) return;
@@ -26063,42 +26171,42 @@ Option 2: Install and provide the "ws" package:
 			}, CONNECTION_TIMEOUTS.RECONNECT_DELAY);
 		}, this.reconnectAfterMs);
 	}
-	_initializeOptions(options) {
+	_initializeOptions(options$1) {
 		var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
-		this.transport = (_a = options === null || options === void 0 ? void 0 : options.transport) !== null && _a !== void 0 ? _a : null;
-		this.timeout = (_b = options === null || options === void 0 ? void 0 : options.timeout) !== null && _b !== void 0 ? _b : DEFAULT_TIMEOUT;
-		this.heartbeatIntervalMs = (_c = options === null || options === void 0 ? void 0 : options.heartbeatIntervalMs) !== null && _c !== void 0 ? _c : CONNECTION_TIMEOUTS.HEARTBEAT_INTERVAL;
-		this.worker = (_d = options === null || options === void 0 ? void 0 : options.worker) !== null && _d !== void 0 ? _d : false;
-		this.accessToken = (_e = options === null || options === void 0 ? void 0 : options.accessToken) !== null && _e !== void 0 ? _e : null;
-		this.heartbeatCallback = (_f = options === null || options === void 0 ? void 0 : options.heartbeatCallback) !== null && _f !== void 0 ? _f : noop;
-		this.vsn = (_g = options === null || options === void 0 ? void 0 : options.vsn) !== null && _g !== void 0 ? _g : DEFAULT_VSN;
-		if (options === null || options === void 0 ? void 0 : options.params) this.params = options.params;
-		if (options === null || options === void 0 ? void 0 : options.logger) this.logger = options.logger;
-		if ((options === null || options === void 0 ? void 0 : options.logLevel) || (options === null || options === void 0 ? void 0 : options.log_level)) {
-			this.logLevel = options.logLevel || options.log_level;
+		this.transport = (_a = options$1 === null || options$1 === void 0 ? void 0 : options$1.transport) !== null && _a !== void 0 ? _a : null;
+		this.timeout = (_b = options$1 === null || options$1 === void 0 ? void 0 : options$1.timeout) !== null && _b !== void 0 ? _b : DEFAULT_TIMEOUT;
+		this.heartbeatIntervalMs = (_c = options$1 === null || options$1 === void 0 ? void 0 : options$1.heartbeatIntervalMs) !== null && _c !== void 0 ? _c : CONNECTION_TIMEOUTS.HEARTBEAT_INTERVAL;
+		this.worker = (_d = options$1 === null || options$1 === void 0 ? void 0 : options$1.worker) !== null && _d !== void 0 ? _d : false;
+		this.accessToken = (_e = options$1 === null || options$1 === void 0 ? void 0 : options$1.accessToken) !== null && _e !== void 0 ? _e : null;
+		this.heartbeatCallback = (_f = options$1 === null || options$1 === void 0 ? void 0 : options$1.heartbeatCallback) !== null && _f !== void 0 ? _f : noop;
+		this.vsn = (_g = options$1 === null || options$1 === void 0 ? void 0 : options$1.vsn) !== null && _g !== void 0 ? _g : DEFAULT_VSN;
+		if (options$1 === null || options$1 === void 0 ? void 0 : options$1.params) this.params = options$1.params;
+		if (options$1 === null || options$1 === void 0 ? void 0 : options$1.logger) this.logger = options$1.logger;
+		if ((options$1 === null || options$1 === void 0 ? void 0 : options$1.logLevel) || (options$1 === null || options$1 === void 0 ? void 0 : options$1.log_level)) {
+			this.logLevel = options$1.logLevel || options$1.log_level;
 			this.params = Object.assign(Object.assign({}, this.params), { log_level: this.logLevel });
 		}
-		this.reconnectAfterMs = (_h = options === null || options === void 0 ? void 0 : options.reconnectAfterMs) !== null && _h !== void 0 ? _h : ((tries) => {
+		this.reconnectAfterMs = (_h = options$1 === null || options$1 === void 0 ? void 0 : options$1.reconnectAfterMs) !== null && _h !== void 0 ? _h : ((tries) => {
 			return RECONNECT_INTERVALS[tries - 1] || DEFAULT_RECONNECT_FALLBACK;
 		});
 		switch (this.vsn) {
 			case VSN_1_0_0:
-				this.encode = (_j = options === null || options === void 0 ? void 0 : options.encode) !== null && _j !== void 0 ? _j : ((payload, callback) => {
+				this.encode = (_j = options$1 === null || options$1 === void 0 ? void 0 : options$1.encode) !== null && _j !== void 0 ? _j : ((payload, callback) => {
 					return callback(JSON.stringify(payload));
 				});
-				this.decode = (_k = options === null || options === void 0 ? void 0 : options.decode) !== null && _k !== void 0 ? _k : ((payload, callback) => {
+				this.decode = (_k = options$1 === null || options$1 === void 0 ? void 0 : options$1.decode) !== null && _k !== void 0 ? _k : ((payload, callback) => {
 					return callback(JSON.parse(payload));
 				});
 				break;
 			case VSN_2_0_0:
-				this.encode = (_l = options === null || options === void 0 ? void 0 : options.encode) !== null && _l !== void 0 ? _l : this.serializer.encode.bind(this.serializer);
-				this.decode = (_m = options === null || options === void 0 ? void 0 : options.decode) !== null && _m !== void 0 ? _m : this.serializer.decode.bind(this.serializer);
+				this.encode = (_l = options$1 === null || options$1 === void 0 ? void 0 : options$1.encode) !== null && _l !== void 0 ? _l : this.serializer.encode.bind(this.serializer);
+				this.decode = (_m = options$1 === null || options$1 === void 0 ? void 0 : options$1.decode) !== null && _m !== void 0 ? _m : this.serializer.decode.bind(this.serializer);
 				break;
 			default: throw new Error(`Unsupported serializer version: ${this.vsn}`);
 		}
 		if (this.worker) {
 			if (typeof window !== "undefined" && !window.Worker) throw new Error("Web Worker is not supported");
-			this.workerUrl = options === null || options === void 0 ? void 0 : options.workerUrl;
+			this.workerUrl = options$1 === null || options$1 === void 0 ? void 0 : options$1.workerUrl;
 		}
 	}
 };
@@ -26140,11 +26248,11 @@ async function buildAuthHeaders(auth) {
 	if (auth.type === "custom") return await auth.getHeaders();
 	return {};
 }
-function createFetchClient(options) {
-	const fetchFn = options.fetchImpl ?? globalThis.fetch;
+function createFetchClient(options$1) {
+	const fetchFn = options$1.fetchImpl ?? globalThis.fetch;
 	return { async request({ method, path, query, body, headers }) {
-		const url = buildUrl(options.baseUrl, path, query);
-		const authHeaders = await buildAuthHeaders(options.auth);
+		const url = buildUrl(options$1.baseUrl, path, query);
+		const authHeaders = await buildAuthHeaders(options$1.auth);
 		const res = await fetchFn(url, {
 			method,
 			headers: {
@@ -26270,11 +26378,11 @@ var TableOperations = class {
 			metadata: response.data.metadata
 		};
 	}
-	async dropTable(id, options) {
+	async dropTable(id, options$1) {
 		await this.client.request({
 			method: "DELETE",
 			path: `${this.prefix}/namespaces/${namespaceToPath2(id.namespace)}/tables/${id.name}`,
-			query: { purgeRequested: String(options?.purge ?? false) }
+			query: { purgeRequested: String(options$1?.purge ?? false) }
 		});
 	}
 	async loadTable(id) {
@@ -26314,15 +26422,15 @@ var TableOperations = class {
 	}
 };
 var IcebergRestCatalog = class {
-	constructor(options) {
+	constructor(options$1) {
 		let prefix = "v1";
-		if (options.catalogName) prefix += `/${options.catalogName}`;
+		if (options$1.catalogName) prefix += `/${options$1.catalogName}`;
 		this.client = createFetchClient({
-			baseUrl: options.baseUrl.endsWith("/") ? options.baseUrl : `${options.baseUrl}/`,
-			auth: options.auth,
-			fetchImpl: options.fetch
+			baseUrl: options$1.baseUrl.endsWith("/") ? options$1.baseUrl : `${options$1.baseUrl}/`,
+			auth: options$1.auth,
+			fetchImpl: options$1.fetch
 		});
-		this.accessDelegation = options.accessDelegation?.join(",");
+		this.accessDelegation = options$1.accessDelegation?.join(",");
 		this.namespaceOps = new NamespaceOperations(this.client, prefix);
 		this.tableOps = new TableOperations(this.client, prefix, this.accessDelegation);
 	}
@@ -26347,8 +26455,8 @@ var IcebergRestCatalog = class {
 	async updateTable(id, request) {
 		return this.tableOps.updateTable(id, request);
 	}
-	async dropTable(id, options) {
-		await this.tableOps.dropTable(id, options);
+	async dropTable(id, options$1) {
+		await this.tableOps.dropTable(id, options$1);
 	}
 	async loadTable(id) {
 		return this.tableOps.loadTable(id);
@@ -26483,8 +26591,8 @@ var _getErrorMessage$1 = (err) => {
 	var _err$error;
 	return err.msg || err.message || err.error_description || (typeof err.error === "string" ? err.error : (_err$error = err.error) === null || _err$error === void 0 ? void 0 : _err$error.message) || JSON.stringify(err);
 };
-var handleError$1 = async (error, reject, options, namespace) => {
-	if (error && typeof error === "object" && "status" in error && "ok" in error && typeof error.status === "number" && !(options === null || options === void 0 ? void 0 : options.noResolveJson)) {
+var handleError$1 = async (error, reject, options$1, namespace) => {
+	if (error && typeof error === "object" && "status" in error && "ok" in error && typeof error.status === "number" && !(options$1 === null || options$1 === void 0 ? void 0 : options$1.noResolveJson)) {
 		const responseError = error;
 		const status = responseError.status || 500;
 		if (typeof responseError.json === "function") responseError.json().then((err) => {
@@ -26505,49 +26613,49 @@ var handleError$1 = async (error, reject, options, namespace) => {
 		}
 	} else reject(new StorageUnknownError(_getErrorMessage$1(error), error, namespace));
 };
-var _getRequestParams$1 = (method, options, parameters, body) => {
+var _getRequestParams$1 = (method, options$1, parameters, body) => {
 	const params = {
 		method,
-		headers: (options === null || options === void 0 ? void 0 : options.headers) || {}
+		headers: (options$1 === null || options$1 === void 0 ? void 0 : options$1.headers) || {}
 	};
 	if (method === "GET" || method === "HEAD" || !body) return _objectSpread2$1(_objectSpread2$1({}, params), parameters);
 	if (isPlainObject(body)) {
-		params.headers = _objectSpread2$1({ "Content-Type": "application/json" }, options === null || options === void 0 ? void 0 : options.headers);
+		params.headers = _objectSpread2$1({ "Content-Type": "application/json" }, options$1 === null || options$1 === void 0 ? void 0 : options$1.headers);
 		params.body = JSON.stringify(body);
 	} else params.body = body;
-	if (options === null || options === void 0 ? void 0 : options.duplex) params.duplex = options.duplex;
+	if (options$1 === null || options$1 === void 0 ? void 0 : options$1.duplex) params.duplex = options$1.duplex;
 	return _objectSpread2$1(_objectSpread2$1({}, params), parameters);
 };
-async function _handleRequest$1(fetcher, method, url, options, parameters, body, namespace) {
+async function _handleRequest$1(fetcher, method, url, options$1, parameters, body, namespace) {
 	return new Promise((resolve, reject) => {
-		fetcher(url, _getRequestParams$1(method, options, parameters, body)).then((result) => {
+		fetcher(url, _getRequestParams$1(method, options$1, parameters, body)).then((result) => {
 			if (!result.ok) throw result;
-			if (options === null || options === void 0 ? void 0 : options.noResolveJson) return result;
+			if (options$1 === null || options$1 === void 0 ? void 0 : options$1.noResolveJson) return result;
 			if (namespace === "vectors") {
 				const contentType = result.headers.get("content-type");
 				if (result.headers.get("content-length") === "0" || result.status === 204) return {};
 				if (!contentType || !contentType.includes("application/json")) return {};
 			}
 			return result.json();
-		}).then((data) => resolve(data)).catch((error) => handleError$1(error, reject, options, namespace));
+		}).then((data) => resolve(data)).catch((error) => handleError$1(error, reject, options$1, namespace));
 	});
 }
 function createFetchApi(namespace = "storage") {
 	return {
-		get: async (fetcher, url, options, parameters) => {
-			return _handleRequest$1(fetcher, "GET", url, options, parameters, void 0, namespace);
+		get: async (fetcher, url, options$1, parameters) => {
+			return _handleRequest$1(fetcher, "GET", url, options$1, parameters, void 0, namespace);
 		},
-		post: async (fetcher, url, body, options, parameters) => {
-			return _handleRequest$1(fetcher, "POST", url, options, parameters, body, namespace);
+		post: async (fetcher, url, body, options$1, parameters) => {
+			return _handleRequest$1(fetcher, "POST", url, options$1, parameters, body, namespace);
 		},
-		put: async (fetcher, url, body, options, parameters) => {
-			return _handleRequest$1(fetcher, "PUT", url, options, parameters, body, namespace);
+		put: async (fetcher, url, body, options$1, parameters) => {
+			return _handleRequest$1(fetcher, "PUT", url, options$1, parameters, body, namespace);
 		},
-		head: async (fetcher, url, options, parameters) => {
-			return _handleRequest$1(fetcher, "HEAD", url, _objectSpread2$1(_objectSpread2$1({}, options), {}, { noResolveJson: true }), parameters, void 0, namespace);
+		head: async (fetcher, url, options$1, parameters) => {
+			return _handleRequest$1(fetcher, "HEAD", url, _objectSpread2$1(_objectSpread2$1({}, options$1), {}, { noResolveJson: true }), parameters, void 0, namespace);
 		},
-		remove: async (fetcher, url, body, options, parameters) => {
-			return _handleRequest$1(fetcher, "DELETE", url, options, parameters, body, namespace);
+		remove: async (fetcher, url, body, options$1, parameters) => {
+			return _handleRequest$1(fetcher, "DELETE", url, options$1, parameters, body, namespace);
 		}
 	};
 }
@@ -26674,29 +26782,29 @@ var StorageFileApi = class extends BaseApiClient {
 		var _this = this;
 		return _this.handleOperation(async () => {
 			let body;
-			const options = _objectSpread2$1(_objectSpread2$1({}, DEFAULT_FILE_OPTIONS), fileOptions);
-			let headers = _objectSpread2$1(_objectSpread2$1({}, _this.headers), method === "POST" && { "x-upsert": String(options.upsert) });
-			const metadata = options.metadata;
+			const options$1 = _objectSpread2$1(_objectSpread2$1({}, DEFAULT_FILE_OPTIONS), fileOptions);
+			let headers = _objectSpread2$1(_objectSpread2$1({}, _this.headers), method === "POST" && { "x-upsert": String(options$1.upsert) });
+			const metadata = options$1.metadata;
 			if (typeof Blob !== "undefined" && fileBody instanceof Blob) {
 				body = new FormData();
-				body.append("cacheControl", options.cacheControl);
+				body.append("cacheControl", options$1.cacheControl);
 				if (metadata) body.append("metadata", _this.encodeMetadata(metadata));
 				body.append("", fileBody);
 			} else if (typeof FormData !== "undefined" && fileBody instanceof FormData) {
 				body = fileBody;
-				if (!body.has("cacheControl")) body.append("cacheControl", options.cacheControl);
+				if (!body.has("cacheControl")) body.append("cacheControl", options$1.cacheControl);
 				if (metadata && !body.has("metadata")) body.append("metadata", _this.encodeMetadata(metadata));
 			} else {
 				body = fileBody;
-				headers["cache-control"] = `max-age=${options.cacheControl}`;
-				headers["content-type"] = options.contentType;
+				headers["cache-control"] = `max-age=${options$1.cacheControl}`;
+				headers["content-type"] = options$1.contentType;
 				if (metadata) headers["x-metadata"] = _this.toBase64(_this.encodeMetadata(metadata));
-				if ((typeof ReadableStream !== "undefined" && body instanceof ReadableStream || body && typeof body === "object" && "pipe" in body && typeof body.pipe === "function") && !options.duplex) options.duplex = "half";
+				if ((typeof ReadableStream !== "undefined" && body instanceof ReadableStream || body && typeof body === "object" && "pipe" in body && typeof body.pipe === "function") && !options$1.duplex) options$1.duplex = "half";
 			}
 			if (fileOptions === null || fileOptions === void 0 ? void 0 : fileOptions.headers) headers = _objectSpread2$1(_objectSpread2$1({}, headers), fileOptions.headers);
 			const cleanPath = _this._removeEmptyFolders(path);
 			const _path = _this._getFinalPath(cleanPath);
-			const data = await (method == "PUT" ? put : post)(_this.fetch, `${_this.url}/object/${_path}`, body, _objectSpread2$1({ headers }, (options === null || options === void 0 ? void 0 : options.duplex) ? { duplex: options.duplex } : {}));
+			const data = await (method == "PUT" ? put : post)(_this.fetch, `${_this.url}/object/${_path}`, body, _objectSpread2$1({ headers }, (options$1 === null || options$1 === void 0 ? void 0 : options$1.duplex) ? { duplex: options$1.duplex } : {}));
 			return {
 				path: cleanPath,
 				id: data.Id,
@@ -26715,19 +26823,19 @@ var StorageFileApi = class extends BaseApiClient {
 		url.searchParams.set("token", token);
 		return _this3.handleOperation(async () => {
 			let body;
-			const options = _objectSpread2$1({ upsert: DEFAULT_FILE_OPTIONS.upsert }, fileOptions);
-			const headers = _objectSpread2$1(_objectSpread2$1({}, _this3.headers), { "x-upsert": String(options.upsert) });
+			const options$1 = _objectSpread2$1({ upsert: DEFAULT_FILE_OPTIONS.upsert }, fileOptions);
+			const headers = _objectSpread2$1(_objectSpread2$1({}, _this3.headers), { "x-upsert": String(options$1.upsert) });
 			if (typeof Blob !== "undefined" && fileBody instanceof Blob) {
 				body = new FormData();
-				body.append("cacheControl", options.cacheControl);
+				body.append("cacheControl", options$1.cacheControl);
 				body.append("", fileBody);
 			} else if (typeof FormData !== "undefined" && fileBody instanceof FormData) {
 				body = fileBody;
-				body.append("cacheControl", options.cacheControl);
+				body.append("cacheControl", options$1.cacheControl);
 			} else {
 				body = fileBody;
-				headers["cache-control"] = `max-age=${options.cacheControl}`;
-				headers["content-type"] = options.contentType;
+				headers["cache-control"] = `max-age=${options$1.cacheControl}`;
+				headers["content-type"] = options$1.contentType;
 			}
 			return {
 				path: cleanPath,
@@ -26735,12 +26843,12 @@ var StorageFileApi = class extends BaseApiClient {
 			};
 		});
 	}
-	async createSignedUploadUrl(path, options) {
+	async createSignedUploadUrl(path, options$1) {
 		var _this4 = this;
 		return _this4.handleOperation(async () => {
 			let _path = _this4._getFinalPath(path);
 			const headers = _objectSpread2$1({}, _this4.headers);
-			if (options === null || options === void 0 ? void 0 : options.upsert) headers["x-upsert"] = "true";
+			if (options$1 === null || options$1 === void 0 ? void 0 : options$1.upsert) headers["x-upsert"] = "true";
 			const data = await post(_this4.fetch, `${_this4.url}/object/upload/sign/${_path}`, {}, { headers });
 			const url = new URL(_this4.url + data.url);
 			const token = url.searchParams.get("token");
@@ -26755,51 +26863,51 @@ var StorageFileApi = class extends BaseApiClient {
 	async update(path, fileBody, fileOptions) {
 		return this.uploadOrUpdate("PUT", path, fileBody, fileOptions);
 	}
-	async move(fromPath, toPath, options) {
+	async move(fromPath, toPath, options$1) {
 		var _this6 = this;
 		return _this6.handleOperation(async () => {
 			return await post(_this6.fetch, `${_this6.url}/object/move`, {
 				bucketId: _this6.bucketId,
 				sourceKey: fromPath,
 				destinationKey: toPath,
-				destinationBucket: options === null || options === void 0 ? void 0 : options.destinationBucket
+				destinationBucket: options$1 === null || options$1 === void 0 ? void 0 : options$1.destinationBucket
 			}, { headers: _this6.headers });
 		});
 	}
-	async copy(fromPath, toPath, options) {
+	async copy(fromPath, toPath, options$1) {
 		var _this7 = this;
 		return _this7.handleOperation(async () => {
 			return { path: (await post(_this7.fetch, `${_this7.url}/object/copy`, {
 				bucketId: _this7.bucketId,
 				sourceKey: fromPath,
 				destinationKey: toPath,
-				destinationBucket: options === null || options === void 0 ? void 0 : options.destinationBucket
+				destinationBucket: options$1 === null || options$1 === void 0 ? void 0 : options$1.destinationBucket
 			}, { headers: _this7.headers })).Key };
 		});
 	}
-	async createSignedUrl(path, expiresIn, options) {
+	async createSignedUrl(path, expiresIn, options$1) {
 		var _this8 = this;
 		return _this8.handleOperation(async () => {
 			let _path = _this8._getFinalPath(path);
-			let data = await post(_this8.fetch, `${_this8.url}/object/sign/${_path}`, _objectSpread2$1({ expiresIn }, (options === null || options === void 0 ? void 0 : options.transform) ? { transform: options.transform } : {}), { headers: _this8.headers });
-			const downloadQueryParam = (options === null || options === void 0 ? void 0 : options.download) ? `&download=${options.download === true ? "" : options.download}` : "";
+			let data = await post(_this8.fetch, `${_this8.url}/object/sign/${_path}`, _objectSpread2$1({ expiresIn }, (options$1 === null || options$1 === void 0 ? void 0 : options$1.transform) ? { transform: options$1.transform } : {}), { headers: _this8.headers });
+			const downloadQueryParam = (options$1 === null || options$1 === void 0 ? void 0 : options$1.download) ? `&download=${options$1.download === true ? "" : options$1.download}` : "";
 			return { signedUrl: encodeURI(`${_this8.url}${data.signedURL}${downloadQueryParam}`) };
 		});
 	}
-	async createSignedUrls(paths, expiresIn, options) {
+	async createSignedUrls(paths, expiresIn, options$1) {
 		var _this9 = this;
 		return _this9.handleOperation(async () => {
 			const data = await post(_this9.fetch, `${_this9.url}/object/sign/${_this9.bucketId}`, {
 				expiresIn,
 				paths
 			}, { headers: _this9.headers });
-			const downloadQueryParam = (options === null || options === void 0 ? void 0 : options.download) ? `&download=${options.download === true ? "" : options.download}` : "";
+			const downloadQueryParam = (options$1 === null || options$1 === void 0 ? void 0 : options$1.download) ? `&download=${options$1.download === true ? "" : options$1.download}` : "";
 			return data.map((datum) => _objectSpread2$1(_objectSpread2$1({}, datum), {}, { signedUrl: datum.signedURL ? encodeURI(`${_this9.url}${datum.signedURL}${downloadQueryParam}`) : null }));
 		});
 	}
-	download(path, options, parameters) {
-		const renderPath = typeof (options === null || options === void 0 ? void 0 : options.transform) !== "undefined" ? "render/image/authenticated" : "object";
-		const transformationQuery = this.transformOptsToQueryString((options === null || options === void 0 ? void 0 : options.transform) || {});
+	download(path, options$1, parameters) {
+		const renderPath = typeof (options$1 === null || options$1 === void 0 ? void 0 : options$1.transform) !== "undefined" ? "render/image/authenticated" : "object";
+		const transformationQuery = this.transformOptsToQueryString((options$1 === null || options$1 === void 0 ? void 0 : options$1.transform) || {});
 		const queryString = transformationQuery ? `?${transformationQuery}` : "";
 		const _path = this._getFinalPath(path);
 		const downloadFn = () => get(this.fetch, `${this.url}/${renderPath}/${_path}${queryString}`, {
@@ -26836,13 +26944,13 @@ var StorageFileApi = class extends BaseApiClient {
 			throw error;
 		}
 	}
-	getPublicUrl(path, options) {
+	getPublicUrl(path, options$1) {
 		const _path = this._getFinalPath(path);
 		const _queryString = [];
-		const downloadQueryParam = (options === null || options === void 0 ? void 0 : options.download) ? `download=${options.download === true ? "" : options.download}` : "";
+		const downloadQueryParam = (options$1 === null || options$1 === void 0 ? void 0 : options$1.download) ? `download=${options$1.download === true ? "" : options$1.download}` : "";
 		if (downloadQueryParam !== "") _queryString.push(downloadQueryParam);
-		const renderPath = typeof (options === null || options === void 0 ? void 0 : options.transform) !== "undefined" ? "render/image" : "object";
-		const transformationQuery = this.transformOptsToQueryString((options === null || options === void 0 ? void 0 : options.transform) || {});
+		const renderPath = typeof (options$1 === null || options$1 === void 0 ? void 0 : options$1.transform) !== "undefined" ? "render/image" : "object";
+		const transformationQuery = this.transformOptsToQueryString((options$1 === null || options$1 === void 0 ? void 0 : options$1.transform) || {});
 		if (transformationQuery !== "") _queryString.push(transformationQuery);
 		let queryString = _queryString.join("&");
 		if (queryString !== "") queryString = `?${queryString}`;
@@ -26854,17 +26962,17 @@ var StorageFileApi = class extends BaseApiClient {
 			return await remove(_this12.fetch, `${_this12.url}/object/${_this12.bucketId}`, { prefixes: paths }, { headers: _this12.headers });
 		});
 	}
-	async list(path, options, parameters) {
+	async list(path, options$1, parameters) {
 		var _this13 = this;
 		return _this13.handleOperation(async () => {
-			const body = _objectSpread2$1(_objectSpread2$1(_objectSpread2$1({}, DEFAULT_SEARCH_OPTIONS), options), {}, { prefix: path || "" });
+			const body = _objectSpread2$1(_objectSpread2$1(_objectSpread2$1({}, DEFAULT_SEARCH_OPTIONS), options$1), {}, { prefix: path || "" });
 			return await post(_this13.fetch, `${_this13.url}/object/list/${_this13.bucketId}`, body, { headers: _this13.headers }, parameters);
 		});
 	}
-	async listV2(options, parameters) {
+	async listV2(options$1, parameters) {
 		var _this14 = this;
 		return _this14.handleOperation(async () => {
-			const body = _objectSpread2$1({}, options);
+			const body = _objectSpread2$1({}, options$1);
 			return await post(_this14.fetch, `${_this14.url}/object/list-v2/${_this14.bucketId}`, body, { headers: _this14.headers }, parameters);
 		});
 	}
@@ -26903,10 +27011,10 @@ var StorageBucketApi = class extends BaseApiClient {
 		const finalHeaders = _objectSpread2$1(_objectSpread2$1({}, DEFAULT_HEADERS$1), headers);
 		super(finalUrl, finalHeaders, fetch$1, "storage");
 	}
-	async listBuckets(options) {
+	async listBuckets(options$1) {
 		var _this = this;
 		return _this.handleOperation(async () => {
-			const queryString = _this.listBucketOptionsToQueryString(options);
+			const queryString = _this.listBucketOptionsToQueryString(options$1);
 			return await get(_this.fetch, `${_this.url}/bucket${queryString}`, { headers: _this.headers });
 		});
 	}
@@ -26916,28 +27024,28 @@ var StorageBucketApi = class extends BaseApiClient {
 			return await get(_this2.fetch, `${_this2.url}/bucket/${id}`, { headers: _this2.headers });
 		});
 	}
-	async createBucket(id, options = { public: false }) {
+	async createBucket(id, options$1 = { public: false }) {
 		var _this3 = this;
 		return _this3.handleOperation(async () => {
 			return await post(_this3.fetch, `${_this3.url}/bucket`, {
 				id,
 				name: id,
-				type: options.type,
-				public: options.public,
-				file_size_limit: options.fileSizeLimit,
-				allowed_mime_types: options.allowedMimeTypes
+				type: options$1.type,
+				public: options$1.public,
+				file_size_limit: options$1.fileSizeLimit,
+				allowed_mime_types: options$1.allowedMimeTypes
 			}, { headers: _this3.headers });
 		});
 	}
-	async updateBucket(id, options) {
+	async updateBucket(id, options$1) {
 		var _this4 = this;
 		return _this4.handleOperation(async () => {
 			return await put(_this4.fetch, `${_this4.url}/bucket/${id}`, {
 				id,
 				name: id,
-				public: options.public,
-				file_size_limit: options.fileSizeLimit,
-				allowed_mime_types: options.allowedMimeTypes
+				public: options$1.public,
+				file_size_limit: options$1.fileSizeLimit,
+				allowed_mime_types: options$1.allowedMimeTypes
 			}, { headers: _this4.headers });
 		});
 	}
@@ -26953,14 +27061,14 @@ var StorageBucketApi = class extends BaseApiClient {
 			return await remove(_this6.fetch, `${_this6.url}/bucket/${id}`, {}, { headers: _this6.headers });
 		});
 	}
-	listBucketOptionsToQueryString(options) {
+	listBucketOptionsToQueryString(options$1) {
 		const params = {};
-		if (options) {
-			if ("limit" in options) params.limit = String(options.limit);
-			if ("offset" in options) params.offset = String(options.offset);
-			if (options.search) params.search = options.search;
-			if (options.sortColumn) params.sortColumn = options.sortColumn;
-			if (options.sortOrder) params.sortOrder = options.sortOrder;
+		if (options$1) {
+			if ("limit" in options$1) params.limit = String(options$1.limit);
+			if ("offset" in options$1) params.offset = String(options$1.offset);
+			if (options$1.search) params.search = options$1.search;
+			if (options$1.sortColumn) params.sortColumn = options$1.sortColumn;
+			if (options$1.sortOrder) params.sortOrder = options$1.sortOrder;
 		}
 		return Object.keys(params).length > 0 ? "?" + new URLSearchParams(params).toString() : "";
 	}
@@ -26977,15 +27085,15 @@ var StorageAnalyticsClient = class extends BaseApiClient {
 			return await post(_this.fetch, `${_this.url}/bucket`, { name }, { headers: _this.headers });
 		});
 	}
-	async listBuckets(options) {
+	async listBuckets(options$1) {
 		var _this2 = this;
 		return _this2.handleOperation(async () => {
 			const queryParams = new URLSearchParams();
-			if ((options === null || options === void 0 ? void 0 : options.limit) !== void 0) queryParams.set("limit", options.limit.toString());
-			if ((options === null || options === void 0 ? void 0 : options.offset) !== void 0) queryParams.set("offset", options.offset.toString());
-			if (options === null || options === void 0 ? void 0 : options.sortColumn) queryParams.set("sortColumn", options.sortColumn);
-			if (options === null || options === void 0 ? void 0 : options.sortOrder) queryParams.set("sortOrder", options.sortOrder);
-			if (options === null || options === void 0 ? void 0 : options.search) queryParams.set("search", options.search);
+			if ((options$1 === null || options$1 === void 0 ? void 0 : options$1.limit) !== void 0) queryParams.set("limit", options$1.limit.toString());
+			if ((options$1 === null || options$1 === void 0 ? void 0 : options$1.offset) !== void 0) queryParams.set("offset", options$1.offset.toString());
+			if (options$1 === null || options$1 === void 0 ? void 0 : options$1.sortColumn) queryParams.set("sortColumn", options$1.sortColumn);
+			if (options$1 === null || options$1 === void 0 ? void 0 : options$1.sortOrder) queryParams.set("sortOrder", options$1.sortOrder);
+			if (options$1 === null || options$1 === void 0 ? void 0 : options$1.search) queryParams.set("search", options$1.search);
 			const queryString = queryParams.toString();
 			const url = queryString ? `${_this2.url}/bucket?${queryString}` : `${_this2.url}/bucket`;
 			return await get(_this2.fetch, url, { headers: _this2.headers });
@@ -27036,10 +27144,10 @@ var VectorIndexApi = class extends BaseApiClient {
 		const finalHeaders = _objectSpread2$1(_objectSpread2$1({}, DEFAULT_HEADERS$1), {}, { "Content-Type": "application/json" }, headers);
 		super(finalUrl, finalHeaders, fetch$1, "vectors");
 	}
-	async createIndex(options) {
+	async createIndex(options$1) {
 		var _this = this;
 		return _this.handleOperation(async () => {
-			return await vectorsApi.post(_this.fetch, `${_this.url}/CreateIndex`, options, { headers: _this.headers }) || {};
+			return await vectorsApi.post(_this.fetch, `${_this.url}/CreateIndex`, options$1, { headers: _this.headers }) || {};
 		});
 	}
 	async getIndex(vectorBucketName, indexName) {
@@ -27051,10 +27159,10 @@ var VectorIndexApi = class extends BaseApiClient {
 			}, { headers: _this2.headers });
 		});
 	}
-	async listIndexes(options) {
+	async listIndexes(options$1) {
 		var _this3 = this;
 		return _this3.handleOperation(async () => {
-			return await vectorsApi.post(_this3.fetch, `${_this3.url}/ListIndexes`, options, { headers: _this3.headers });
+			return await vectorsApi.post(_this3.fetch, `${_this3.url}/ListIndexes`, options$1, { headers: _this3.headers });
 		});
 	}
 	async deleteIndex(vectorBucketName, indexName) {
@@ -27073,42 +27181,42 @@ var VectorDataApi = class extends BaseApiClient {
 		const finalHeaders = _objectSpread2$1(_objectSpread2$1({}, DEFAULT_HEADERS$1), {}, { "Content-Type": "application/json" }, headers);
 		super(finalUrl, finalHeaders, fetch$1, "vectors");
 	}
-	async putVectors(options) {
+	async putVectors(options$1) {
 		var _this = this;
-		if (options.vectors.length < 1 || options.vectors.length > 500) throw new Error("Vector batch size must be between 1 and 500 items");
+		if (options$1.vectors.length < 1 || options$1.vectors.length > 500) throw new Error("Vector batch size must be between 1 and 500 items");
 		return _this.handleOperation(async () => {
-			return await vectorsApi.post(_this.fetch, `${_this.url}/PutVectors`, options, { headers: _this.headers }) || {};
+			return await vectorsApi.post(_this.fetch, `${_this.url}/PutVectors`, options$1, { headers: _this.headers }) || {};
 		});
 	}
-	async getVectors(options) {
+	async getVectors(options$1) {
 		var _this2 = this;
 		return _this2.handleOperation(async () => {
-			return await vectorsApi.post(_this2.fetch, `${_this2.url}/GetVectors`, options, { headers: _this2.headers });
+			return await vectorsApi.post(_this2.fetch, `${_this2.url}/GetVectors`, options$1, { headers: _this2.headers });
 		});
 	}
-	async listVectors(options) {
+	async listVectors(options$1) {
 		var _this3 = this;
-		if (options.segmentCount !== void 0) {
-			if (options.segmentCount < 1 || options.segmentCount > 16) throw new Error("segmentCount must be between 1 and 16");
-			if (options.segmentIndex !== void 0) {
-				if (options.segmentIndex < 0 || options.segmentIndex >= options.segmentCount) throw new Error(`segmentIndex must be between 0 and ${options.segmentCount - 1}`);
+		if (options$1.segmentCount !== void 0) {
+			if (options$1.segmentCount < 1 || options$1.segmentCount > 16) throw new Error("segmentCount must be between 1 and 16");
+			if (options$1.segmentIndex !== void 0) {
+				if (options$1.segmentIndex < 0 || options$1.segmentIndex >= options$1.segmentCount) throw new Error(`segmentIndex must be between 0 and ${options$1.segmentCount - 1}`);
 			}
 		}
 		return _this3.handleOperation(async () => {
-			return await vectorsApi.post(_this3.fetch, `${_this3.url}/ListVectors`, options, { headers: _this3.headers });
+			return await vectorsApi.post(_this3.fetch, `${_this3.url}/ListVectors`, options$1, { headers: _this3.headers });
 		});
 	}
-	async queryVectors(options) {
+	async queryVectors(options$1) {
 		var _this4 = this;
 		return _this4.handleOperation(async () => {
-			return await vectorsApi.post(_this4.fetch, `${_this4.url}/QueryVectors`, options, { headers: _this4.headers });
+			return await vectorsApi.post(_this4.fetch, `${_this4.url}/QueryVectors`, options$1, { headers: _this4.headers });
 		});
 	}
-	async deleteVectors(options) {
+	async deleteVectors(options$1) {
 		var _this5 = this;
-		if (options.keys.length < 1 || options.keys.length > 500) throw new Error("Keys batch size must be between 1 and 500 items");
+		if (options$1.keys.length < 1 || options$1.keys.length > 500) throw new Error("Keys batch size must be between 1 and 500 items");
 		return _this5.handleOperation(async () => {
-			return await vectorsApi.post(_this5.fetch, `${_this5.url}/DeleteVectors`, options, { headers: _this5.headers }) || {};
+			return await vectorsApi.post(_this5.fetch, `${_this5.url}/DeleteVectors`, options$1, { headers: _this5.headers }) || {};
 		});
 	}
 };
@@ -27130,10 +27238,10 @@ var VectorBucketApi = class extends BaseApiClient {
 			return await vectorsApi.post(_this2.fetch, `${_this2.url}/GetVectorBucket`, { vectorBucketName }, { headers: _this2.headers });
 		});
 	}
-	async listBuckets(options = {}) {
+	async listBuckets(options$1 = {}) {
 		var _this3 = this;
 		return _this3.handleOperation(async () => {
-			return await vectorsApi.post(_this3.fetch, `${_this3.url}/ListVectorBuckets`, options, { headers: _this3.headers });
+			return await vectorsApi.post(_this3.fetch, `${_this3.url}/ListVectorBuckets`, options$1, { headers: _this3.headers });
 		});
 	}
 	async deleteBucket(vectorBucketName) {
@@ -27144,8 +27252,8 @@ var VectorBucketApi = class extends BaseApiClient {
 	}
 };
 var StorageVectorsClient = class extends VectorBucketApi {
-	constructor(url, options = {}) {
-		super(url, options.headers || {}, options.fetch);
+	constructor(url, options$1 = {}) {
+		super(url, options$1.headers || {}, options$1.fetch);
 	}
 	from(vectorBucketName) {
 		return new VectorBucketScope(this.url, this.headers, vectorBucketName, this.fetch);
@@ -27158,9 +27266,9 @@ var StorageVectorsClient = class extends VectorBucketApi {
 		var _superprop_getGetBucket = () => super.getBucket, _this2 = this;
 		return _superprop_getGetBucket().call(_this2, vectorBucketName);
 	}
-	async listBuckets(options = {}) {
+	async listBuckets(options$1 = {}) {
 		var _superprop_getListBuckets = () => super.listBuckets, _this3 = this;
-		return _superprop_getListBuckets().call(_this3, options);
+		return _superprop_getListBuckets().call(_this3, options$1);
 	}
 	async deleteBucket(vectorBucketName) {
 		var _superprop_getDeleteBucket = () => super.deleteBucket, _this4 = this;
@@ -27172,13 +27280,13 @@ var VectorBucketScope = class extends VectorIndexApi {
 		super(url, headers, fetch$1);
 		this.vectorBucketName = vectorBucketName;
 	}
-	async createIndex(options) {
+	async createIndex(options$1) {
 		var _superprop_getCreateIndex = () => super.createIndex, _this5 = this;
-		return _superprop_getCreateIndex().call(_this5, _objectSpread2$1(_objectSpread2$1({}, options), {}, { vectorBucketName: _this5.vectorBucketName }));
+		return _superprop_getCreateIndex().call(_this5, _objectSpread2$1(_objectSpread2$1({}, options$1), {}, { vectorBucketName: _this5.vectorBucketName }));
 	}
-	async listIndexes(options = {}) {
+	async listIndexes(options$1 = {}) {
 		var _superprop_getListIndexes = () => super.listIndexes, _this6 = this;
-		return _superprop_getListIndexes().call(_this6, _objectSpread2$1(_objectSpread2$1({}, options), {}, { vectorBucketName: _this6.vectorBucketName }));
+		return _superprop_getListIndexes().call(_this6, _objectSpread2$1(_objectSpread2$1({}, options$1), {}, { vectorBucketName: _this6.vectorBucketName }));
 	}
 	async getIndex(indexName) {
 		var _superprop_getGetIndex = () => super.getIndex, _this7 = this;
@@ -27198,37 +27306,37 @@ var VectorIndexScope = class extends VectorDataApi {
 		this.vectorBucketName = vectorBucketName;
 		this.indexName = indexName;
 	}
-	async putVectors(options) {
+	async putVectors(options$1) {
 		var _superprop_getPutVectors = () => super.putVectors, _this9 = this;
-		return _superprop_getPutVectors().call(_this9, _objectSpread2$1(_objectSpread2$1({}, options), {}, {
+		return _superprop_getPutVectors().call(_this9, _objectSpread2$1(_objectSpread2$1({}, options$1), {}, {
 			vectorBucketName: _this9.vectorBucketName,
 			indexName: _this9.indexName
 		}));
 	}
-	async getVectors(options) {
+	async getVectors(options$1) {
 		var _superprop_getGetVectors = () => super.getVectors, _this10 = this;
-		return _superprop_getGetVectors().call(_this10, _objectSpread2$1(_objectSpread2$1({}, options), {}, {
+		return _superprop_getGetVectors().call(_this10, _objectSpread2$1(_objectSpread2$1({}, options$1), {}, {
 			vectorBucketName: _this10.vectorBucketName,
 			indexName: _this10.indexName
 		}));
 	}
-	async listVectors(options = {}) {
+	async listVectors(options$1 = {}) {
 		var _superprop_getListVectors = () => super.listVectors, _this11 = this;
-		return _superprop_getListVectors().call(_this11, _objectSpread2$1(_objectSpread2$1({}, options), {}, {
+		return _superprop_getListVectors().call(_this11, _objectSpread2$1(_objectSpread2$1({}, options$1), {}, {
 			vectorBucketName: _this11.vectorBucketName,
 			indexName: _this11.indexName
 		}));
 	}
-	async queryVectors(options) {
+	async queryVectors(options$1) {
 		var _superprop_getQueryVectors = () => super.queryVectors, _this12 = this;
-		return _superprop_getQueryVectors().call(_this12, _objectSpread2$1(_objectSpread2$1({}, options), {}, {
+		return _superprop_getQueryVectors().call(_this12, _objectSpread2$1(_objectSpread2$1({}, options$1), {}, {
 			vectorBucketName: _this12.vectorBucketName,
 			indexName: _this12.indexName
 		}));
 	}
-	async deleteVectors(options) {
+	async deleteVectors(options$1) {
 		var _superprop_getDeleteVectors = () => super.deleteVectors, _this13 = this;
-		return _superprop_getDeleteVectors().call(_this13, _objectSpread2$1(_objectSpread2$1({}, options), {}, {
+		return _superprop_getDeleteVectors().call(_this13, _objectSpread2$1(_objectSpread2$1({}, options$1), {}, {
 			vectorBucketName: _this13.vectorBucketName,
 			indexName: _this13.indexName
 		}));
@@ -27761,34 +27869,34 @@ async function handleError(error) {
 	else if (errorCode === "session_not_found") throw new AuthSessionMissingError();
 	throw new AuthApiError(_getErrorMessage(data), error.status || 500, errorCode);
 }
-var _getRequestParams = (method, options, parameters, body) => {
+var _getRequestParams = (method, options$1, parameters, body) => {
 	const params = {
 		method,
-		headers: (options === null || options === void 0 ? void 0 : options.headers) || {}
+		headers: (options$1 === null || options$1 === void 0 ? void 0 : options$1.headers) || {}
 	};
 	if (method === "GET") return params;
-	params.headers = Object.assign({ "Content-Type": "application/json;charset=UTF-8" }, options === null || options === void 0 ? void 0 : options.headers);
+	params.headers = Object.assign({ "Content-Type": "application/json;charset=UTF-8" }, options$1 === null || options$1 === void 0 ? void 0 : options$1.headers);
 	params.body = JSON.stringify(body);
 	return Object.assign(Object.assign({}, params), parameters);
 };
-async function _request(fetcher, method, url, options) {
+async function _request(fetcher, method, url, options$1) {
 	var _a;
-	const headers = Object.assign({}, options === null || options === void 0 ? void 0 : options.headers);
+	const headers = Object.assign({}, options$1 === null || options$1 === void 0 ? void 0 : options$1.headers);
 	if (!headers["X-Supabase-Api-Version"]) headers[API_VERSION_HEADER_NAME] = API_VERSIONS["2024-01-01"].name;
-	if (options === null || options === void 0 ? void 0 : options.jwt) headers["Authorization"] = `Bearer ${options.jwt}`;
-	const qs = (_a = options === null || options === void 0 ? void 0 : options.query) !== null && _a !== void 0 ? _a : {};
-	if (options === null || options === void 0 ? void 0 : options.redirectTo) qs["redirect_to"] = options.redirectTo;
+	if (options$1 === null || options$1 === void 0 ? void 0 : options$1.jwt) headers["Authorization"] = `Bearer ${options$1.jwt}`;
+	const qs = (_a = options$1 === null || options$1 === void 0 ? void 0 : options$1.query) !== null && _a !== void 0 ? _a : {};
+	if (options$1 === null || options$1 === void 0 ? void 0 : options$1.redirectTo) qs["redirect_to"] = options$1.redirectTo;
 	const data = await _handleRequest(fetcher, method, url + (Object.keys(qs).length ? "?" + new URLSearchParams(qs).toString() : ""), {
 		headers,
-		noResolveJson: options === null || options === void 0 ? void 0 : options.noResolveJson
-	}, {}, options === null || options === void 0 ? void 0 : options.body);
-	return (options === null || options === void 0 ? void 0 : options.xform) ? options === null || options === void 0 ? void 0 : options.xform(data) : {
+		noResolveJson: options$1 === null || options$1 === void 0 ? void 0 : options$1.noResolveJson
+	}, {}, options$1 === null || options$1 === void 0 ? void 0 : options$1.body);
+	return (options$1 === null || options$1 === void 0 ? void 0 : options$1.xform) ? options$1 === null || options$1 === void 0 ? void 0 : options$1.xform(data) : {
 		data: Object.assign({}, data),
 		error: null
 	};
 }
-async function _handleRequest(fetcher, method, url, options, parameters, body) {
-	const requestParams = _getRequestParams(method, options, parameters, body);
+async function _handleRequest(fetcher, method, url, options$1, parameters, body) {
+	const requestParams = _getRequestParams(method, options$1, parameters, body);
 	let result;
 	try {
 		result = await fetcher(url, Object.assign({}, requestParams));
@@ -27797,7 +27905,7 @@ async function _handleRequest(fetcher, method, url, options, parameters, body) {
 		throw new AuthRetryableFetchError(_getErrorMessage(e), 0);
 	}
 	if (!result.ok) await handleError(result);
-	if (options === null || options === void 0 ? void 0 : options.noResolveJson) return result;
+	if (options$1 === null || options$1 === void 0 ? void 0 : options$1.noResolveJson) return result;
 	try {
 		return await result.json();
 	} catch (e) {
@@ -27909,15 +28017,15 @@ var GoTrueAdminApi = class {
 			throw error;
 		}
 	}
-	async inviteUserByEmail(email, options = {}) {
+	async inviteUserByEmail(email, options$1 = {}) {
 		try {
 			return await _request(this.fetch, "POST", `${this.url}/invite`, {
 				body: {
 					email,
-					data: options.data
+					data: options$1.data
 				},
 				headers: this.headers,
-				redirectTo: options.redirectTo,
+				redirectTo: options$1.redirectTo,
 				xform: _userResponse
 			});
 		} catch (error) {
@@ -27930,8 +28038,8 @@ var GoTrueAdminApi = class {
 	}
 	async generateLink(params) {
 		try {
-			const { options } = params, rest = __rest(params, ["options"]);
-			const body = Object.assign(Object.assign({}, rest), options);
+			const { options: options$1 } = params, rest = __rest(params, ["options"]);
+			const body = Object.assign(Object.assign({}, rest), options$1);
 			if ("newEmail" in rest) {
 				body.new_email = rest === null || rest === void 0 ? void 0 : rest.newEmail;
 				delete body["newEmail"];
@@ -27940,7 +28048,7 @@ var GoTrueAdminApi = class {
 				body,
 				headers: this.headers,
 				xform: _generateLinkResponse,
-				redirectTo: options === null || options === void 0 ? void 0 : options.redirectTo
+				redirectTo: options$1 === null || options$1 === void 0 ? void 0 : options$1.redirectTo
 			});
 		} catch (error) {
 			if (isAuthError(error)) return {
@@ -28368,12 +28476,12 @@ var WebAuthnUnknownError = class extends WebAuthnError {
 		this.originalError = originalError;
 	}
 };
-function identifyRegistrationError({ error, options }) {
+function identifyRegistrationError({ error, options: options$1 }) {
 	var _a, _b, _c;
-	const { publicKey } = options;
+	const { publicKey } = options$1;
 	if (!publicKey) throw Error("options was missing required publicKey property");
 	if (error.name === "AbortError") {
-		if (options.signal instanceof AbortSignal) return new WebAuthnError({
+		if (options$1.signal instanceof AbortSignal) return new WebAuthnError({
 			message: "Registration ceremony was sent an abort signal",
 			code: "ERROR_CEREMONY_ABORTED",
 			cause: error
@@ -28384,7 +28492,7 @@ function identifyRegistrationError({ error, options }) {
 			code: "ERROR_AUTHENTICATOR_MISSING_DISCOVERABLE_CREDENTIAL_SUPPORT",
 			cause: error
 		});
-		else if (options.mediation === "conditional" && ((_b = publicKey.authenticatorSelection) === null || _b === void 0 ? void 0 : _b.userVerification) === "required") return new WebAuthnError({
+		else if (options$1.mediation === "conditional" && ((_b = publicKey.authenticatorSelection) === null || _b === void 0 ? void 0 : _b.userVerification) === "required") return new WebAuthnError({
 			message: "User verification was required during automatic registration but it could not be performed",
 			code: "ERROR_AUTO_REGISTER_USER_VERIFICATION_FAILURE",
 			cause: error
@@ -28444,11 +28552,11 @@ function identifyRegistrationError({ error, options }) {
 		cause: error
 	});
 }
-function identifyAuthenticationError({ error, options }) {
-	const { publicKey } = options;
+function identifyAuthenticationError({ error, options: options$1 }) {
+	const { publicKey } = options$1;
 	if (!publicKey) throw Error("options was missing required publicKey property");
 	if (error.name === "AbortError") {
-		if (options.signal instanceof AbortSignal) return new WebAuthnError({
+		if (options$1.signal instanceof AbortSignal) return new WebAuthnError({
 			message: "Authentication ceremony was sent an abort signal",
 			code: "ERROR_CEREMONY_ABORTED",
 			cause: error
@@ -28502,10 +28610,10 @@ var WebAuthnAbortService = class {
 	}
 };
 const webAuthnAbortService = new WebAuthnAbortService();
-function deserializeCredentialCreationOptions(options) {
-	if (!options) throw new Error("Credential creation options are required");
-	if (typeof PublicKeyCredential !== "undefined" && "parseCreationOptionsFromJSON" in PublicKeyCredential && typeof PublicKeyCredential.parseCreationOptionsFromJSON === "function") return PublicKeyCredential.parseCreationOptionsFromJSON(options);
-	const { challenge: challengeStr, user: userOpts, excludeCredentials } = options, restOptions = __rest(options, [
+function deserializeCredentialCreationOptions(options$1) {
+	if (!options$1) throw new Error("Credential creation options are required");
+	if (typeof PublicKeyCredential !== "undefined" && "parseCreationOptionsFromJSON" in PublicKeyCredential && typeof PublicKeyCredential.parseCreationOptionsFromJSON === "function") return PublicKeyCredential.parseCreationOptionsFromJSON(options$1);
+	const { challenge: challengeStr, user: userOpts, excludeCredentials } = options$1, restOptions = __rest(options$1, [
 		"challenge",
 		"user",
 		"excludeCredentials"
@@ -28529,10 +28637,10 @@ function deserializeCredentialCreationOptions(options) {
 	}
 	return result;
 }
-function deserializeCredentialRequestOptions(options) {
-	if (!options) throw new Error("Credential request options are required");
-	if (typeof PublicKeyCredential !== "undefined" && "parseRequestOptionsFromJSON" in PublicKeyCredential && typeof PublicKeyCredential.parseRequestOptionsFromJSON === "function") return PublicKeyCredential.parseRequestOptionsFromJSON(options);
-	const { challenge: challengeStr, allowCredentials } = options, restOptions = __rest(options, ["challenge", "allowCredentials"]);
+function deserializeCredentialRequestOptions(options$1) {
+	if (!options$1) throw new Error("Credential request options are required");
+	if (typeof PublicKeyCredential !== "undefined" && "parseRequestOptionsFromJSON" in PublicKeyCredential && typeof PublicKeyCredential.parseRequestOptionsFromJSON === "function") return PublicKeyCredential.parseRequestOptionsFromJSON(options$1);
+	const { challenge: challengeStr, allowCredentials } = options$1, restOptions = __rest(options$1, ["challenge", "allowCredentials"]);
 	const challenge = base64UrlToUint8Array(challengeStr).buffer;
 	const result = Object.assign(Object.assign({}, restOptions), { challenge });
 	if (allowCredentials && allowCredentials.length > 0) {
@@ -28591,9 +28699,9 @@ function browserSupportsWebAuthn() {
 	var _a, _b;
 	return !!(isBrowser() && "PublicKeyCredential" in window && window.PublicKeyCredential && "credentials" in navigator && typeof ((_a = navigator === null || navigator === void 0 ? void 0 : navigator.credentials) === null || _a === void 0 ? void 0 : _a.create) === "function" && typeof ((_b = navigator === null || navigator === void 0 ? void 0 : navigator.credentials) === null || _b === void 0 ? void 0 : _b.get) === "function");
 }
-async function createCredential(options) {
+async function createCredential(options$1) {
 	try {
-		const response = await navigator.credentials.create(options);
+		const response = await navigator.credentials.create(options$1);
 		if (!response) return {
 			data: null,
 			error: new WebAuthnUnknownError("Empty credential response", response)
@@ -28611,14 +28719,14 @@ async function createCredential(options) {
 			data: null,
 			error: identifyRegistrationError({
 				error: err,
-				options
+				options: options$1
 			})
 		};
 	}
 }
-async function getCredential(options) {
+async function getCredential(options$1) {
 	try {
-		const response = await navigator.credentials.get(options);
+		const response = await navigator.credentials.get(options$1);
 		if (!response) return {
 			data: null,
 			error: new WebAuthnUnknownError("Empty credential response", response)
@@ -28636,7 +28744,7 @@ async function getCredential(options) {
 			data: null,
 			error: identifyAuthenticationError({
 				error: err,
-				options
+				options: options$1
 			})
 		};
 	}
@@ -28741,9 +28849,9 @@ var WebAuthnApi = class {
 					};
 				}
 				case "request": {
-					const options = mergeCredentialRequestOptions(challengeResponse.webauthn.credential_options.publicKey, overrides === null || overrides === void 0 ? void 0 : overrides.request);
+					const options$1 = mergeCredentialRequestOptions(challengeResponse.webauthn.credential_options.publicKey, overrides === null || overrides === void 0 ? void 0 : overrides.request);
 					const { data, error } = await getCredential(Object.assign(Object.assign({}, challengeResponse.webauthn.credential_options), {
-						publicKey: options,
+						publicKey: options$1,
 						signal: abortSignal
 					}));
 					if (data) return {
@@ -28915,7 +29023,7 @@ var GoTrueClient = class GoTrueClient {
 	set jwks_cached_at(value) {
 		GLOBAL_JWKS[this.storageKey] = Object.assign(Object.assign({}, GLOBAL_JWKS[this.storageKey]), { cachedAt: value });
 	}
-	constructor(options) {
+	constructor(options$1) {
 		var _a, _b, _c;
 		this.userStorage = null;
 		this.memoryStorage = null;
@@ -28932,7 +29040,7 @@ var GoTrueClient = class GoTrueClient {
 		this.pendingInLock = [];
 		this.broadcastChannel = null;
 		this.logger = console.log;
-		const settings = Object.assign(Object.assign({}, DEFAULT_OPTIONS), options);
+		const settings = Object.assign(Object.assign({}, DEFAULT_OPTIONS), options$1);
 		this.storageKey = settings.storageKey;
 		this.instanceID = (_a = GoTrueClient.nextInstanceID[this.storageKey]) !== null && _a !== void 0 ? _a : 0;
 		GoTrueClient.nextInstanceID[this.storageKey] = this.instanceID + 1;
@@ -29123,33 +29231,33 @@ var GoTrueClient = class GoTrueClient {
 		try {
 			let res;
 			if ("email" in credentials) {
-				const { email, password, options } = credentials;
+				const { email, password, options: options$1 } = credentials;
 				let codeChallenge = null;
 				let codeChallengeMethod = null;
 				if (this.flowType === "pkce") [codeChallenge, codeChallengeMethod] = await getCodeChallengeAndMethod(this.storage, this.storageKey);
 				res = await _request(this.fetch, "POST", `${this.url}/signup`, {
 					headers: this.headers,
-					redirectTo: options === null || options === void 0 ? void 0 : options.emailRedirectTo,
+					redirectTo: options$1 === null || options$1 === void 0 ? void 0 : options$1.emailRedirectTo,
 					body: {
 						email,
 						password,
-						data: (_a = options === null || options === void 0 ? void 0 : options.data) !== null && _a !== void 0 ? _a : {},
-						gotrue_meta_security: { captcha_token: options === null || options === void 0 ? void 0 : options.captchaToken },
+						data: (_a = options$1 === null || options$1 === void 0 ? void 0 : options$1.data) !== null && _a !== void 0 ? _a : {},
+						gotrue_meta_security: { captcha_token: options$1 === null || options$1 === void 0 ? void 0 : options$1.captchaToken },
 						code_challenge: codeChallenge,
 						code_challenge_method: codeChallengeMethod
 					},
 					xform: _sessionResponse
 				});
 			} else if ("phone" in credentials) {
-				const { phone, password, options } = credentials;
+				const { phone, password, options: options$1 } = credentials;
 				res = await _request(this.fetch, "POST", `${this.url}/signup`, {
 					headers: this.headers,
 					body: {
 						phone,
 						password,
-						data: (_b = options === null || options === void 0 ? void 0 : options.data) !== null && _b !== void 0 ? _b : {},
-						channel: (_c = options === null || options === void 0 ? void 0 : options.channel) !== null && _c !== void 0 ? _c : "sms",
-						gotrue_meta_security: { captcha_token: options === null || options === void 0 ? void 0 : options.captchaToken }
+						data: (_b = options$1 === null || options$1 === void 0 ? void 0 : options$1.data) !== null && _b !== void 0 ? _b : {},
+						channel: (_c = options$1 === null || options$1 === void 0 ? void 0 : options$1.channel) !== null && _c !== void 0 ? _c : "sms",
+						gotrue_meta_security: { captcha_token: options$1 === null || options$1 === void 0 ? void 0 : options$1.captchaToken }
 					},
 					xform: _sessionResponse
 				});
@@ -29194,24 +29302,24 @@ var GoTrueClient = class GoTrueClient {
 		try {
 			let res;
 			if ("email" in credentials) {
-				const { email, password, options } = credentials;
+				const { email, password, options: options$1 } = credentials;
 				res = await _request(this.fetch, "POST", `${this.url}/token?grant_type=password`, {
 					headers: this.headers,
 					body: {
 						email,
 						password,
-						gotrue_meta_security: { captcha_token: options === null || options === void 0 ? void 0 : options.captchaToken }
+						gotrue_meta_security: { captcha_token: options$1 === null || options$1 === void 0 ? void 0 : options$1.captchaToken }
 					},
 					xform: _sessionResponsePassword
 				});
 			} else if ("phone" in credentials) {
-				const { phone, password, options } = credentials;
+				const { phone, password, options: options$1 } = credentials;
 				res = await _request(this.fetch, "POST", `${this.url}/token?grant_type=password`, {
 					headers: this.headers,
 					body: {
 						phone,
 						password,
-						gotrue_meta_security: { captcha_token: options === null || options === void 0 ? void 0 : options.captchaToken }
+						gotrue_meta_security: { captcha_token: options$1 === null || options$1 === void 0 ? void 0 : options$1.captchaToken }
 					},
 					xform: _sessionResponsePassword
 				});
@@ -29287,10 +29395,10 @@ var GoTrueClient = class GoTrueClient {
 			message = credentials.message;
 			signature = credentials.signature;
 		} else {
-			const { chain, wallet, statement, options } = credentials;
+			const { chain, wallet, statement, options: options$1 } = credentials;
 			let resolvedWallet;
 			if (!isBrowser()) {
-				if (typeof wallet !== "object" || !(options === null || options === void 0 ? void 0 : options.url)) throw new Error("@supabase/auth-js: Both wallet and url must be specified in non-browser environments.");
+				if (typeof wallet !== "object" || !(options$1 === null || options$1 === void 0 ? void 0 : options$1.url)) throw new Error("@supabase/auth-js: Both wallet and url must be specified in non-browser environments.");
 				resolvedWallet = wallet;
 			} else if (typeof wallet === "object") resolvedWallet = wallet;
 			else {
@@ -29298,13 +29406,13 @@ var GoTrueClient = class GoTrueClient {
 				if ("ethereum" in windowAny && typeof windowAny.ethereum === "object" && "request" in windowAny.ethereum && typeof windowAny.ethereum.request === "function") resolvedWallet = windowAny.ethereum;
 				else throw new Error(`@supabase/auth-js: No compatible Ethereum wallet interface on the window object (window.ethereum) detected. Make sure the user already has a wallet installed and connected for this app. Prefer passing the wallet interface object directly to signInWithWeb3({ chain: 'ethereum', wallet: resolvedUserWallet }) instead.`);
 			}
-			const url = new URL((_a = options === null || options === void 0 ? void 0 : options.url) !== null && _a !== void 0 ? _a : window.location.href);
+			const url = new URL((_a = options$1 === null || options$1 === void 0 ? void 0 : options$1.url) !== null && _a !== void 0 ? _a : window.location.href);
 			const accounts = await resolvedWallet.request({ method: "eth_requestAccounts" }).then((accs) => accs).catch(() => {
 				throw new Error(`@supabase/auth-js: Wallet method eth_requestAccounts is missing or invalid`);
 			});
 			if (!accounts || accounts.length === 0) throw new Error(`@supabase/auth-js: No accounts available. Please ensure the wallet is connected.`);
 			const address = getAddress(accounts[0]);
-			let chainId = (_b = options === null || options === void 0 ? void 0 : options.signInWithEthereum) === null || _b === void 0 ? void 0 : _b.chainId;
+			let chainId = (_b = options$1 === null || options$1 === void 0 ? void 0 : options$1.signInWithEthereum) === null || _b === void 0 ? void 0 : _b.chainId;
 			if (!chainId) chainId = fromHex(await resolvedWallet.request({ method: "eth_chainId" }));
 			message = createSiweMessage({
 				domain: url.host,
@@ -29313,12 +29421,12 @@ var GoTrueClient = class GoTrueClient {
 				uri: url.href,
 				version: "1",
 				chainId,
-				nonce: (_c = options === null || options === void 0 ? void 0 : options.signInWithEthereum) === null || _c === void 0 ? void 0 : _c.nonce,
-				issuedAt: (_e = (_d = options === null || options === void 0 ? void 0 : options.signInWithEthereum) === null || _d === void 0 ? void 0 : _d.issuedAt) !== null && _e !== void 0 ? _e : /* @__PURE__ */ new Date(),
-				expirationTime: (_f = options === null || options === void 0 ? void 0 : options.signInWithEthereum) === null || _f === void 0 ? void 0 : _f.expirationTime,
-				notBefore: (_g = options === null || options === void 0 ? void 0 : options.signInWithEthereum) === null || _g === void 0 ? void 0 : _g.notBefore,
-				requestId: (_h = options === null || options === void 0 ? void 0 : options.signInWithEthereum) === null || _h === void 0 ? void 0 : _h.requestId,
-				resources: (_j = options === null || options === void 0 ? void 0 : options.signInWithEthereum) === null || _j === void 0 ? void 0 : _j.resources
+				nonce: (_c = options$1 === null || options$1 === void 0 ? void 0 : options$1.signInWithEthereum) === null || _c === void 0 ? void 0 : _c.nonce,
+				issuedAt: (_e = (_d = options$1 === null || options$1 === void 0 ? void 0 : options$1.signInWithEthereum) === null || _d === void 0 ? void 0 : _d.issuedAt) !== null && _e !== void 0 ? _e : /* @__PURE__ */ new Date(),
+				expirationTime: (_f = options$1 === null || options$1 === void 0 ? void 0 : options$1.signInWithEthereum) === null || _f === void 0 ? void 0 : _f.expirationTime,
+				notBefore: (_g = options$1 === null || options$1 === void 0 ? void 0 : options$1.signInWithEthereum) === null || _g === void 0 ? void 0 : _g.notBefore,
+				requestId: (_h = options$1 === null || options$1 === void 0 ? void 0 : options$1.signInWithEthereum) === null || _h === void 0 ? void 0 : _h.requestId,
+				resources: (_j = options$1 === null || options$1 === void 0 ? void 0 : options$1.signInWithEthereum) === null || _j === void 0 ? void 0 : _j.resources
 			});
 			signature = await resolvedWallet.request({
 				method: "personal_sign",
@@ -29373,10 +29481,10 @@ var GoTrueClient = class GoTrueClient {
 			message = credentials.message;
 			signature = credentials.signature;
 		} else {
-			const { chain, wallet, statement, options } = credentials;
+			const { chain, wallet, statement, options: options$1 } = credentials;
 			let resolvedWallet;
 			if (!isBrowser()) {
-				if (typeof wallet !== "object" || !(options === null || options === void 0 ? void 0 : options.url)) throw new Error("@supabase/auth-js: Both wallet and url must be specified in non-browser environments.");
+				if (typeof wallet !== "object" || !(options$1 === null || options$1 === void 0 ? void 0 : options$1.url)) throw new Error("@supabase/auth-js: Both wallet and url must be specified in non-browser environments.");
 				resolvedWallet = wallet;
 			} else if (typeof wallet === "object") resolvedWallet = wallet;
 			else {
@@ -29384,9 +29492,9 @@ var GoTrueClient = class GoTrueClient {
 				if ("solana" in windowAny && typeof windowAny.solana === "object" && ("signIn" in windowAny.solana && typeof windowAny.solana.signIn === "function" || "signMessage" in windowAny.solana && typeof windowAny.solana.signMessage === "function")) resolvedWallet = windowAny.solana;
 				else throw new Error(`@supabase/auth-js: No compatible Solana wallet interface on the window object (window.solana) detected. Make sure the user already has a wallet installed and connected for this app. Prefer passing the wallet interface object directly to signInWithWeb3({ chain: 'solana', wallet: resolvedUserWallet }) instead.`);
 			}
-			const url = new URL((_a = options === null || options === void 0 ? void 0 : options.url) !== null && _a !== void 0 ? _a : window.location.href);
+			const url = new URL((_a = options$1 === null || options$1 === void 0 ? void 0 : options$1.url) !== null && _a !== void 0 ? _a : window.location.href);
 			if ("signIn" in resolvedWallet && resolvedWallet.signIn) {
-				const output = await resolvedWallet.signIn(Object.assign(Object.assign(Object.assign({ issuedAt: (/* @__PURE__ */ new Date()).toISOString() }, options === null || options === void 0 ? void 0 : options.signInWithSolana), {
+				const output = await resolvedWallet.signIn(Object.assign(Object.assign(Object.assign({ issuedAt: (/* @__PURE__ */ new Date()).toISOString() }, options$1 === null || options$1 === void 0 ? void 0 : options$1.signInWithSolana), {
 					version: "1",
 					domain: url.host,
 					uri: url.href
@@ -29411,13 +29519,13 @@ var GoTrueClient = class GoTrueClient {
 					] : [""],
 					"Version: 1",
 					`URI: ${url.href}`,
-					`Issued At: ${(_c = (_b = options === null || options === void 0 ? void 0 : options.signInWithSolana) === null || _b === void 0 ? void 0 : _b.issuedAt) !== null && _c !== void 0 ? _c : (/* @__PURE__ */ new Date()).toISOString()}`,
-					...((_d = options === null || options === void 0 ? void 0 : options.signInWithSolana) === null || _d === void 0 ? void 0 : _d.notBefore) ? [`Not Before: ${options.signInWithSolana.notBefore}`] : [],
-					...((_e = options === null || options === void 0 ? void 0 : options.signInWithSolana) === null || _e === void 0 ? void 0 : _e.expirationTime) ? [`Expiration Time: ${options.signInWithSolana.expirationTime}`] : [],
-					...((_f = options === null || options === void 0 ? void 0 : options.signInWithSolana) === null || _f === void 0 ? void 0 : _f.chainId) ? [`Chain ID: ${options.signInWithSolana.chainId}`] : [],
-					...((_g = options === null || options === void 0 ? void 0 : options.signInWithSolana) === null || _g === void 0 ? void 0 : _g.nonce) ? [`Nonce: ${options.signInWithSolana.nonce}`] : [],
-					...((_h = options === null || options === void 0 ? void 0 : options.signInWithSolana) === null || _h === void 0 ? void 0 : _h.requestId) ? [`Request ID: ${options.signInWithSolana.requestId}`] : [],
-					...((_k = (_j = options === null || options === void 0 ? void 0 : options.signInWithSolana) === null || _j === void 0 ? void 0 : _j.resources) === null || _k === void 0 ? void 0 : _k.length) ? ["Resources", ...options.signInWithSolana.resources.map((resource) => `- ${resource}`)] : []
+					`Issued At: ${(_c = (_b = options$1 === null || options$1 === void 0 ? void 0 : options$1.signInWithSolana) === null || _b === void 0 ? void 0 : _b.issuedAt) !== null && _c !== void 0 ? _c : (/* @__PURE__ */ new Date()).toISOString()}`,
+					...((_d = options$1 === null || options$1 === void 0 ? void 0 : options$1.signInWithSolana) === null || _d === void 0 ? void 0 : _d.notBefore) ? [`Not Before: ${options$1.signInWithSolana.notBefore}`] : [],
+					...((_e = options$1 === null || options$1 === void 0 ? void 0 : options$1.signInWithSolana) === null || _e === void 0 ? void 0 : _e.expirationTime) ? [`Expiration Time: ${options$1.signInWithSolana.expirationTime}`] : [],
+					...((_f = options$1 === null || options$1 === void 0 ? void 0 : options$1.signInWithSolana) === null || _f === void 0 ? void 0 : _f.chainId) ? [`Chain ID: ${options$1.signInWithSolana.chainId}`] : [],
+					...((_g = options$1 === null || options$1 === void 0 ? void 0 : options$1.signInWithSolana) === null || _g === void 0 ? void 0 : _g.nonce) ? [`Nonce: ${options$1.signInWithSolana.nonce}`] : [],
+					...((_h = options$1 === null || options$1 === void 0 ? void 0 : options$1.signInWithSolana) === null || _h === void 0 ? void 0 : _h.requestId) ? [`Request ID: ${options$1.signInWithSolana.requestId}`] : [],
+					...((_k = (_j = options$1 === null || options$1 === void 0 ? void 0 : options$1.signInWithSolana) === null || _j === void 0 ? void 0 : _j.resources) === null || _k === void 0 ? void 0 : _k.length) ? ["Resources", ...options$1.signInWithSolana.resources.map((resource) => `- ${resource}`)] : []
 				].join("\n");
 				const maybeSignature = await resolvedWallet.signMessage(new TextEncoder().encode(message), "utf8");
 				if (!maybeSignature || !(maybeSignature instanceof Uint8Array)) throw new Error("@supabase/auth-js: Wallet signMessage() API returned an recognized value");
@@ -29513,7 +29621,7 @@ var GoTrueClient = class GoTrueClient {
 	}
 	async signInWithIdToken(credentials) {
 		try {
-			const { options, provider, token, access_token, nonce } = credentials;
+			const { options: options$1, provider, token, access_token, nonce } = credentials;
 			const { data, error } = await _request(this.fetch, "POST", `${this.url}/token?grant_type=id_token`, {
 				headers: this.headers,
 				body: {
@@ -29521,7 +29629,7 @@ var GoTrueClient = class GoTrueClient {
 					id_token: token,
 					access_token,
 					nonce,
-					gotrue_meta_security: { captcha_token: options === null || options === void 0 ? void 0 : options.captchaToken }
+					gotrue_meta_security: { captcha_token: options$1 === null || options$1 === void 0 ? void 0 : options$1.captchaToken }
 				},
 				xform: _sessionResponse
 			});
@@ -29565,7 +29673,7 @@ var GoTrueClient = class GoTrueClient {
 		var _a, _b, _c, _d, _e;
 		try {
 			if ("email" in credentials) {
-				const { email, options } = credentials;
+				const { email, options: options$1 } = credentials;
 				let codeChallenge = null;
 				let codeChallengeMethod = null;
 				if (this.flowType === "pkce") [codeChallenge, codeChallengeMethod] = await getCodeChallengeAndMethod(this.storage, this.storageKey);
@@ -29573,13 +29681,13 @@ var GoTrueClient = class GoTrueClient {
 					headers: this.headers,
 					body: {
 						email,
-						data: (_a = options === null || options === void 0 ? void 0 : options.data) !== null && _a !== void 0 ? _a : {},
-						create_user: (_b = options === null || options === void 0 ? void 0 : options.shouldCreateUser) !== null && _b !== void 0 ? _b : true,
-						gotrue_meta_security: { captcha_token: options === null || options === void 0 ? void 0 : options.captchaToken },
+						data: (_a = options$1 === null || options$1 === void 0 ? void 0 : options$1.data) !== null && _a !== void 0 ? _a : {},
+						create_user: (_b = options$1 === null || options$1 === void 0 ? void 0 : options$1.shouldCreateUser) !== null && _b !== void 0 ? _b : true,
+						gotrue_meta_security: { captcha_token: options$1 === null || options$1 === void 0 ? void 0 : options$1.captchaToken },
 						code_challenge: codeChallenge,
 						code_challenge_method: codeChallengeMethod
 					},
-					redirectTo: options === null || options === void 0 ? void 0 : options.emailRedirectTo
+					redirectTo: options$1 === null || options$1 === void 0 ? void 0 : options$1.emailRedirectTo
 				});
 				return this._returnResult({
 					data: {
@@ -29590,15 +29698,15 @@ var GoTrueClient = class GoTrueClient {
 				});
 			}
 			if ("phone" in credentials) {
-				const { phone, options } = credentials;
+				const { phone, options: options$1 } = credentials;
 				const { data, error } = await _request(this.fetch, "POST", `${this.url}/otp`, {
 					headers: this.headers,
 					body: {
 						phone,
-						data: (_c = options === null || options === void 0 ? void 0 : options.data) !== null && _c !== void 0 ? _c : {},
-						create_user: (_d = options === null || options === void 0 ? void 0 : options.shouldCreateUser) !== null && _d !== void 0 ? _d : true,
-						gotrue_meta_security: { captcha_token: options === null || options === void 0 ? void 0 : options.captchaToken },
-						channel: (_e = options === null || options === void 0 ? void 0 : options.channel) !== null && _e !== void 0 ? _e : "sms"
+						data: (_c = options$1 === null || options$1 === void 0 ? void 0 : options$1.data) !== null && _c !== void 0 ? _c : {},
+						create_user: (_d = options$1 === null || options$1 === void 0 ? void 0 : options$1.shouldCreateUser) !== null && _d !== void 0 ? _d : true,
+						gotrue_meta_security: { captcha_token: options$1 === null || options$1 === void 0 ? void 0 : options$1.captchaToken },
+						channel: (_e = options$1 === null || options$1 === void 0 ? void 0 : options$1.channel) !== null && _e !== void 0 ? _e : "sms"
 					}
 				});
 				return this._returnResult({
@@ -29729,15 +29837,15 @@ var GoTrueClient = class GoTrueClient {
 		try {
 			const endpoint = `${this.url}/resend`;
 			if ("email" in credentials) {
-				const { email, type, options } = credentials;
+				const { email, type, options: options$1 } = credentials;
 				const { error } = await _request(this.fetch, "POST", endpoint, {
 					headers: this.headers,
 					body: {
 						email,
 						type,
-						gotrue_meta_security: { captcha_token: options === null || options === void 0 ? void 0 : options.captchaToken }
+						gotrue_meta_security: { captcha_token: options$1 === null || options$1 === void 0 ? void 0 : options$1.captchaToken }
 					},
-					redirectTo: options === null || options === void 0 ? void 0 : options.emailRedirectTo
+					redirectTo: options$1 === null || options$1 === void 0 ? void 0 : options$1.emailRedirectTo
 				});
 				return this._returnResult({
 					data: {
@@ -29747,13 +29855,13 @@ var GoTrueClient = class GoTrueClient {
 					error
 				});
 			} else if ("phone" in credentials) {
-				const { phone, type, options } = credentials;
+				const { phone, type, options: options$1 } = credentials;
 				const { data, error } = await _request(this.fetch, "POST", endpoint, {
 					headers: this.headers,
 					body: {
 						phone,
 						type,
-						gotrue_meta_security: { captcha_token: options === null || options === void 0 ? void 0 : options.captchaToken }
+						gotrue_meta_security: { captcha_token: options$1 === null || options$1 === void 0 ? void 0 : options$1.captchaToken }
 					}
 				});
 				return this._returnResult({
@@ -29926,13 +30034,13 @@ var GoTrueClient = class GoTrueClient {
 			throw error;
 		}
 	}
-	async updateUser(attributes, options = {}) {
+	async updateUser(attributes, options$1 = {}) {
 		await this.initializePromise;
 		return await this._acquireLock(this.lockAcquireTimeout, async () => {
-			return await this._updateUser(attributes, options);
+			return await this._updateUser(attributes, options$1);
 		});
 	}
-	async _updateUser(attributes, options = {}) {
+	async _updateUser(attributes, options$1 = {}) {
 		try {
 			return await this._useSession(async (result) => {
 				const { data: sessionData, error: sessionError } = result;
@@ -29944,7 +30052,7 @@ var GoTrueClient = class GoTrueClient {
 				if (this.flowType === "pkce" && attributes.email != null) [codeChallenge, codeChallengeMethod] = await getCodeChallengeAndMethod(this.storage, this.storageKey);
 				const { data, error: userError } = await _request(this.fetch, "PUT", `${this.url}/user`, {
 					headers: this.headers,
-					redirectTo: options === null || options === void 0 ? void 0 : options.emailRedirectTo,
+					redirectTo: options$1 === null || options$1 === void 0 ? void 0 : options$1.emailRedirectTo,
 					body: Object.assign(Object.assign({}, attributes), {
 						code_challenge: codeChallenge,
 						code_challenge_method: codeChallengeMethod
@@ -30176,10 +30284,10 @@ var GoTrueClient = class GoTrueClient {
 		const currentStorageContent = await getItemAsync(this.storage, `${this.storageKey}-code-verifier`);
 		return !!(params.code && currentStorageContent);
 	}
-	async signOut(options = { scope: "global" }) {
+	async signOut(options$1 = { scope: "global" }) {
 		await this.initializePromise;
 		return await this._acquireLock(this.lockAcquireTimeout, async () => {
-			return await this._signOut(options);
+			return await this._signOut(options$1);
 		});
 	}
 	async _signOut({ scope } = { scope: "global" }) {
@@ -30236,7 +30344,7 @@ var GoTrueClient = class GoTrueClient {
 			}
 		});
 	}
-	async resetPasswordForEmail(email, options = {}) {
+	async resetPasswordForEmail(email, options$1 = {}) {
 		let codeChallenge = null;
 		let codeChallengeMethod = null;
 		if (this.flowType === "pkce") [codeChallenge, codeChallengeMethod] = await getCodeChallengeAndMethod(this.storage, this.storageKey, true);
@@ -30246,10 +30354,10 @@ var GoTrueClient = class GoTrueClient {
 					email,
 					code_challenge: codeChallenge,
 					code_challenge_method: codeChallengeMethod,
-					gotrue_meta_security: { captcha_token: options.captchaToken }
+					gotrue_meta_security: { captcha_token: options$1.captchaToken }
 				},
 				headers: this.headers,
-				redirectTo: options.redirectTo
+				redirectTo: options$1.redirectTo
 			});
 		} catch (error) {
 			await removeItemAsync(this.storage, `${this.storageKey}-code-verifier`);
@@ -30325,7 +30433,7 @@ var GoTrueClient = class GoTrueClient {
 			try {
 				const { error: sessionError, data: { session } } = result;
 				if (sessionError) throw sessionError;
-				const { options, provider, token, access_token, nonce } = credentials;
+				const { options: options$1, provider, token, access_token, nonce } = credentials;
 				const { data, error } = await _request(this.fetch, "POST", `${this.url}/token?grant_type=id_token`, {
 					headers: this.headers,
 					jwt: (_a = session === null || session === void 0 ? void 0 : session.access_token) !== null && _a !== void 0 ? _a : void 0,
@@ -30335,7 +30443,7 @@ var GoTrueClient = class GoTrueClient {
 						access_token,
 						nonce,
 						link_identity: true,
-						gotrue_meta_security: { captcha_token: options === null || options === void 0 ? void 0 : options.captchaToken }
+						gotrue_meta_security: { captcha_token: options$1 === null || options$1 === void 0 ? void 0 : options$1.captchaToken }
 					},
 					xform: _sessionResponse
 				});
@@ -30427,14 +30535,14 @@ var GoTrueClient = class GoTrueClient {
 	_isValidSession(maybeSession) {
 		return typeof maybeSession === "object" && maybeSession !== null && "access_token" in maybeSession && "refresh_token" in maybeSession && "expires_at" in maybeSession;
 	}
-	async _handleProviderSignIn(provider, options) {
+	async _handleProviderSignIn(provider, options$1) {
 		const url = await this._getUrlForProvider(`${this.url}/authorize`, provider, {
-			redirectTo: options.redirectTo,
-			scopes: options.scopes,
-			queryParams: options.queryParams
+			redirectTo: options$1.redirectTo,
+			scopes: options$1.scopes,
+			queryParams: options$1.queryParams
 		});
-		this._debug("#_handleProviderSignIn()", "provider", provider, "options", options, "url", url);
-		if (isBrowser() && !options.skipBrowserRedirect) window.location.assign(url);
+		this._debug("#_handleProviderSignIn()", "provider", provider, "options", options$1, "url", url);
+		if (isBrowser() && !options$1.skipBrowserRedirect) window.location.assign(url);
 		return {
 			data: {
 				provider,
@@ -30704,10 +30812,10 @@ var GoTrueClient = class GoTrueClient {
 			if (this.autoRefreshToken) this._stopAutoRefresh();
 		}
 	}
-	async _getUrlForProvider(url, provider, options) {
+	async _getUrlForProvider(url, provider, options$1) {
 		const urlParams = [`provider=${encodeURIComponent(provider)}`];
-		if (options === null || options === void 0 ? void 0 : options.redirectTo) urlParams.push(`redirect_to=${encodeURIComponent(options.redirectTo)}`);
-		if (options === null || options === void 0 ? void 0 : options.scopes) urlParams.push(`scopes=${encodeURIComponent(options.scopes)}`);
+		if (options$1 === null || options$1 === void 0 ? void 0 : options$1.redirectTo) urlParams.push(`redirect_to=${encodeURIComponent(options$1.redirectTo)}`);
+		if (options$1 === null || options$1 === void 0 ? void 0 : options$1.scopes) urlParams.push(`scopes=${encodeURIComponent(options$1.scopes)}`);
 		if (this.flowType === "pkce") {
 			const [codeChallenge, codeChallengeMethod] = await getCodeChallengeAndMethod(this.storage, this.storageKey);
 			const flowParams = new URLSearchParams({
@@ -30716,11 +30824,11 @@ var GoTrueClient = class GoTrueClient {
 			});
 			urlParams.push(flowParams.toString());
 		}
-		if (options === null || options === void 0 ? void 0 : options.queryParams) {
-			const query = new URLSearchParams(options.queryParams);
+		if (options$1 === null || options$1 === void 0 ? void 0 : options$1.queryParams) {
+			const query = new URLSearchParams(options$1.queryParams);
 			urlParams.push(query.toString());
 		}
-		if (options === null || options === void 0 ? void 0 : options.skipBrowserRedirect) urlParams.push(`skip_http_redirect=${options.skipBrowserRedirect}`);
+		if (options$1 === null || options$1 === void 0 ? void 0 : options$1.skipBrowserRedirect) urlParams.push(`skip_http_redirect=${options$1.skipBrowserRedirect}`);
 		return `${url}?${urlParams.join("&")}`;
 	}
 	async _unenroll(params) {
@@ -30978,7 +31086,7 @@ var GoTrueClient = class GoTrueClient {
 			throw error;
 		}
 	}
-	async _approveAuthorization(authorizationId, options) {
+	async _approveAuthorization(authorizationId, options$1) {
 		try {
 			return await this._useSession(async (result) => {
 				const { data: { session }, error: sessionError } = result;
@@ -31000,7 +31108,7 @@ var GoTrueClient = class GoTrueClient {
 					})
 				});
 				if (response.data && response.data.redirect_url) {
-					if (isBrowser() && !(options === null || options === void 0 ? void 0 : options.skipBrowserRedirect)) window.location.assign(response.data.redirect_url);
+					if (isBrowser() && !(options$1 === null || options$1 === void 0 ? void 0 : options$1.skipBrowserRedirect)) window.location.assign(response.data.redirect_url);
 				}
 				return response;
 			});
@@ -31012,7 +31120,7 @@ var GoTrueClient = class GoTrueClient {
 			throw error;
 		}
 	}
-	async _denyAuthorization(authorizationId, options) {
+	async _denyAuthorization(authorizationId, options$1) {
 		try {
 			return await this._useSession(async (result) => {
 				const { data: { session }, error: sessionError } = result;
@@ -31034,7 +31142,7 @@ var GoTrueClient = class GoTrueClient {
 					})
 				});
 				if (response.data && response.data.redirect_url) {
-					if (isBrowser() && !(options === null || options === void 0 ? void 0 : options.skipBrowserRedirect)) window.location.assign(response.data.redirect_url);
+					if (isBrowser() && !(options$1 === null || options$1 === void 0 ? void 0 : options$1.skipBrowserRedirect)) window.location.assign(response.data.redirect_url);
 				}
 				return response;
 			});
@@ -31075,7 +31183,7 @@ var GoTrueClient = class GoTrueClient {
 			throw error;
 		}
 	}
-	async _revokeOAuthGrant(options) {
+	async _revokeOAuthGrant(options$1) {
 		try {
 			return await this._useSession(async (result) => {
 				const { data: { session }, error: sessionError } = result;
@@ -31090,7 +31198,7 @@ var GoTrueClient = class GoTrueClient {
 				await _request(this.fetch, "DELETE", `${this.url}/user/oauth/grants`, {
 					headers: this.headers,
 					jwt: session.access_token,
-					query: { client_id: options.clientId },
+					query: { client_id: options$1.clientId },
 					noResolveJson: true
 				});
 				return {
@@ -31121,7 +31229,7 @@ var GoTrueClient = class GoTrueClient {
 		if (!jwk) return null;
 		return jwk;
 	}
-	async getClaims(jwt, options = {}) {
+	async getClaims(jwt, options$1 = {}) {
 		try {
 			let token = jwt;
 			if (!token) {
@@ -31133,8 +31241,8 @@ var GoTrueClient = class GoTrueClient {
 				token = data.session.access_token;
 			}
 			const { header, payload, signature, raw: { header: rawHeader, payload: rawPayload } } = decodeJWT(token);
-			if (!(options === null || options === void 0 ? void 0 : options.allowExpired)) validateExp(payload.exp);
-			const signingKey = !header.alg || header.alg.startsWith("HS") || !header.kid || !("crypto" in globalThis && "subtle" in globalThis.crypto) ? null : await this.fetchJwk(header.kid, (options === null || options === void 0 ? void 0 : options.keys) ? { keys: options.keys } : options === null || options === void 0 ? void 0 : options.jwks);
+			if (!(options$1 === null || options$1 === void 0 ? void 0 : options$1.allowExpired)) validateExp(payload.exp);
+			const signingKey = !header.alg || header.alg.startsWith("HS") || !header.kid || !("crypto" in globalThis && "subtle" in globalThis.crypto) ? null : await this.fetchJwk(header.kid, (options$1 === null || options$1 === void 0 ? void 0 : options$1.keys) ? { keys: options$1.keys } : options$1 === null || options$1 === void 0 ? void 0 : options$1.jwks);
 			if (!signingKey) {
 				const { error } = await this.getUser(token);
 				if (error) throw error;
@@ -31257,9 +31365,9 @@ var fetchWithAuth = (supabaseKey, getAccessToken, customFetch) => {
 function ensureTrailingSlash(url) {
 	return url.endsWith("/") ? url : url + "/";
 }
-function applySettingDefaults(options, defaults) {
+function applySettingDefaults(options$1, defaults) {
 	var _DEFAULT_GLOBAL_OPTIO, _globalOptions$header;
-	const { db: dbOptions, auth: authOptions, realtime: realtimeOptions, global: globalOptions } = options;
+	const { db: dbOptions, auth: authOptions, realtime: realtimeOptions, global: globalOptions } = options$1;
 	const { db: DEFAULT_DB_OPTIONS$1, auth: DEFAULT_AUTH_OPTIONS$1, realtime: DEFAULT_REALTIME_OPTIONS$1, global: DEFAULT_GLOBAL_OPTIONS$1 } = defaults;
 	const result = {
 		db: _objectSpread2(_objectSpread2({}, DEFAULT_DB_OPTIONS$1), dbOptions),
@@ -31269,7 +31377,7 @@ function applySettingDefaults(options, defaults) {
 		global: _objectSpread2(_objectSpread2(_objectSpread2({}, DEFAULT_GLOBAL_OPTIONS$1), globalOptions), {}, { headers: _objectSpread2(_objectSpread2({}, (_DEFAULT_GLOBAL_OPTIO = DEFAULT_GLOBAL_OPTIONS$1 === null || DEFAULT_GLOBAL_OPTIONS$1 === void 0 ? void 0 : DEFAULT_GLOBAL_OPTIONS$1.headers) !== null && _DEFAULT_GLOBAL_OPTIO !== void 0 ? _DEFAULT_GLOBAL_OPTIO : {}), (_globalOptions$header = globalOptions === null || globalOptions === void 0 ? void 0 : globalOptions.headers) !== null && _globalOptions$header !== void 0 ? _globalOptions$header : {}) }),
 		accessToken: async () => ""
 	};
-	if (options.accessToken) result.accessToken = options.accessToken;
+	if (options$1.accessToken) result.accessToken = options$1.accessToken;
 	else delete result.accessToken;
 	return result;
 }
@@ -31284,12 +31392,12 @@ function validateSupabaseUrl(supabaseUrl) {
 	}
 }
 var SupabaseAuthClient = class extends AuthClient_default {
-	constructor(options) {
-		super(options);
+	constructor(options$1) {
+		super(options$1);
 	}
 };
 var SupabaseClient = class {
-	constructor(supabaseUrl, supabaseKey, options) {
+	constructor(supabaseUrl, supabaseKey, options$1) {
 		var _settings$auth$storag, _settings$global$head;
 		this.supabaseUrl = supabaseUrl;
 		this.supabaseKey = supabaseKey;
@@ -31307,7 +31415,7 @@ var SupabaseClient = class {
 			auth: _objectSpread2(_objectSpread2({}, DEFAULT_AUTH_OPTIONS), {}, { storageKey: defaultStorageKey }),
 			global: DEFAULT_GLOBAL_OPTIONS
 		};
-		const settings = applySettingDefaults(options !== null && options !== void 0 ? options : {}, DEFAULTS);
+		const settings = applySettingDefaults(options$1 !== null && options$1 !== void 0 ? options$1 : {}, DEFAULTS);
 		this.storageKey = (_settings$auth$storag = settings.auth.storageKey) !== null && _settings$auth$storag !== void 0 ? _settings$auth$storag : "";
 		this.headers = (_settings$global$head = settings.global.headers) !== null && _settings$global$head !== void 0 ? _settings$global$head : {};
 		if (!settings.accessToken) {
@@ -31332,7 +31440,7 @@ var SupabaseClient = class {
 			timeout: settings.db.timeout,
 			urlLengthLimit: settings.db.urlLengthLimit
 		});
-		this.storage = new StorageClient(this.storageUrl.href, this.headers, this.fetch, options === null || options === void 0 ? void 0 : options.storage);
+		this.storage = new StorageClient(this.storageUrl.href, this.headers, this.fetch, options$1 === null || options$1 === void 0 ? void 0 : options$1.storage);
 		if (!settings.accessToken) this._listenForAuthEvents();
 	}
 	get functions() {
@@ -31347,12 +31455,12 @@ var SupabaseClient = class {
 	schema(schema) {
 		return this.rest.schema(schema);
 	}
-	rpc(fn, args = {}, options = {
+	rpc(fn, args = {}, options$1 = {
 		head: false,
 		get: false,
 		count: void 0
 	}) {
-		return this.rest.rpc(fn, args, options);
+		return this.rest.rpc(fn, args, options$1);
 	}
 	channel(name, opts = { config: {} }) {
 		return this.realtime.channel(name, opts);
@@ -31395,8 +31503,8 @@ var SupabaseClient = class {
 			hasCustomAuthorizationHeader: Object.keys(this.headers).some((key) => key.toLowerCase() === "authorization")
 		});
 	}
-	_initRealtimeClient(options) {
-		return new RealtimeClient(this.realtimeUrl.href, _objectSpread2(_objectSpread2({}, options), {}, { params: _objectSpread2(_objectSpread2({}, { apikey: this.supabaseKey }), options === null || options === void 0 ? void 0 : options.params) }));
+	_initRealtimeClient(options$1) {
+		return new RealtimeClient(this.realtimeUrl.href, _objectSpread2(_objectSpread2({}, options$1), {}, { params: _objectSpread2(_objectSpread2({}, { apikey: this.supabaseKey }), options$1 === null || options$1 === void 0 ? void 0 : options$1.params) }));
 	}
 	_listenForAuthEvents() {
 		return this.auth.onAuthStateChange((event, session) => {
@@ -31414,8 +31522,8 @@ var SupabaseClient = class {
 		}
 	}
 };
-var createClient = (supabaseUrl, supabaseKey, options) => {
-	return new SupabaseClient(supabaseUrl, supabaseKey, options);
+var createClient = (supabaseUrl, supabaseKey, options$1) => {
+	return new SupabaseClient(supabaseUrl, supabaseKey, options$1);
 };
 function shouldShowDeprecationWarning() {
 	if (typeof window !== "undefined") return false;
@@ -31492,6 +31600,45 @@ const AuthProvider = ({ children }) => {
 		children
 	});
 };
+var OrganizationContext = (0, import_react.createContext)(void 0);
+const useOrganization = () => {
+	const context = (0, import_react.useContext)(OrganizationContext);
+	if (context === void 0) throw new Error("useOrganization must be used within an OrganizationProvider");
+	return context;
+};
+const OrganizationProvider = ({ children }) => {
+	const { user } = useAuth();
+	const [organization, setOrganization] = (0, import_react.useState)(null);
+	const [loading, setLoading] = (0, import_react.useState)(true);
+	const fetchOrganization = async () => {
+		if (!user) {
+			setLoading(false);
+			return;
+		}
+		try {
+			const { data: profile } = await supabase.from("profiles").select("organization_id").eq("id", user.id).single();
+			if (profile?.organization_id) {
+				const { data: org } = await supabase.from("organizations").select("*").eq("id", profile.organization_id).single();
+				if (org) setOrganization(org);
+			}
+		} catch (error) {
+			console.error("Error fetching organization:", error);
+		} finally {
+			setLoading(false);
+		}
+	};
+	(0, import_react.useEffect)(() => {
+		fetchOrganization();
+	}, [user]);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(OrganizationContext.Provider, {
+		value: {
+			organization,
+			loading,
+			refreshOrganization: fetchOrganization
+		},
+		children
+	});
+};
 var CourseCard = ({ id, label, title, instructor, duration, bgColor, isHighlight = false, className, delay = 0, progress = 0 }) => {
 	const [isHovered, setIsHovered] = (0, import_react.useState)(false);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
@@ -31502,7 +31649,11 @@ var CourseCard = ({ id, label, title, instructor, duration, bgColor, isHighlight
 		onMouseLeave: () => setIsHovered(false),
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 			className: "absolute inset-0 z-0 overflow-hidden",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: cn("w-full h-full transition-transform duration-700 ease-out", bgColor, isHovered && "scale-105") }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: cn("absolute inset-0 transition-opacity duration-500", isHighlight ? "bg-white/10" : "bg-black/10", isHovered && "opacity-50") })]
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: cn("w-full h-full transition-transform duration-700 ease-out", isHovered && "scale-105"),
+				style: { backgroundColor: bgColor.startsWith("#") ? bgColor : void 0 },
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: cn("w-full h-full", !bgColor.startsWith("#") && bgColor) })
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: cn("absolute inset-0 transition-opacity duration-500", isHighlight ? "bg-white/10" : "bg-black/10", isHovered && "opacity-50") })]
 		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 			className: "relative z-10 flex flex-col h-full justify-between",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -31558,6 +31709,7 @@ var Index = () => {
 	const [courses, setCourses] = (0, import_react.useState)([]);
 	const [loading, setLoading] = (0, import_react.useState)(true);
 	const { user } = useAuth();
+	const { organization } = useOrganization();
 	(0, import_react.useEffect)(() => {
 		async function fetchCourses() {
 			if (!user) return;
@@ -31578,21 +31730,14 @@ var Index = () => {
 				className: "relative px-6 py-12 md:py-16 lg:py-20 border-b border-brand-sea animate-fade-in-up",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "max-w-5xl",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", {
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
 						className: "text-4xl md:text-6xl lg:text-7xl font-grotesk font-medium leading-[1.1] md:leading-[1.1] tracking-tight mb-8",
-						children: [
-							"Advance Your ",
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", { className: "hidden md:block" }),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "text-brand-slate/60",
-								children: "Betting Knowledge"
-							})
-						]
+						children: organization?.hero_title || "Advance Your Betting Knowledge"
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "flex flex-col md:flex-row gap-6 md:items-center max-w-2xl",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "w-12 h-[1px] bg-brand-green hidden md:block" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 							className: "text-brand-slate text-lg md:text-xl font-light leading-relaxed",
-							children: "Access professional-grade courses and validated strategies. Master the mathematics, psychology, and systems of profitable betting."
+							children: organization?.hero_subtitle || "Access professional-grade courses and validated strategies. Master the mathematics, psychology, and systems of profitable betting."
 						})]
 					})]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
@@ -31604,7 +31749,8 @@ var Index = () => {
 				})]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
-				className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full border-b border-brand-sea bg-brand-forest",
+				className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full border-b border-brand-sea",
+				style: { backgroundColor: organization?.platform_bg_color || void 0 },
 				children: courses.map((course, index$1) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CourseCard, {
 					id: course.id,
 					label: course.label || "Course",
@@ -31724,7 +31870,7 @@ function isLazyComponent(element) {
 	return element != null && typeof element === "object" && "$$typeof" in element && element.$$typeof === REACT_LAZY_TYPE && "_payload" in element && isPromiseLike(element._payload);
 }
 /* @__NO_SIDE_EFFECTS__ */
-function createSlot(ownerName) {
+function createSlot$1(ownerName) {
 	const SlotClone = /* @__PURE__ */ createSlotClone(ownerName);
 	const Slot2 = import_react.forwardRef((props, forwardedRef) => {
 		let { children, ...slotProps } = props;
@@ -31754,7 +31900,7 @@ function createSlot(ownerName) {
 	Slot2.displayName = `${ownerName}.Slot`;
 	return Slot2;
 }
-var Slot = /* @__PURE__ */ createSlot("Slot");
+var Slot$1 = /* @__PURE__ */ createSlot$1("Slot");
 /* @__NO_SIDE_EFFECTS__ */
 function createSlotClone(ownerName) {
 	const SlotClone = import_react.forwardRef((props, forwardedRef) => {
@@ -31826,7 +31972,7 @@ var BreadcrumbItem = import_react.forwardRef(({ className, ...props }, ref) => /
 }));
 BreadcrumbItem.displayName = "BreadcrumbItem";
 var BreadcrumbLink = import_react.forwardRef(({ asChild, className, ...props }, ref) => {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(asChild ? Slot : "a", {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(asChild ? Slot$1 : "a", {
 		ref,
 		className: cn("transition-colors hover:text-foreground", className),
 		...props
@@ -31884,7 +32030,7 @@ var buttonVariants = cva("inline-flex items-center justify-center gap-2 whitespa
 	}
 });
 var Button = import_react.forwardRef(({ className, variant, size: size$3, asChild = false, ...props }, ref) => {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(asChild ? Slot : "button", {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(asChild ? Slot$1 : "button", {
 		className: cn(buttonVariants({
 			variant,
 			size: size$3,
@@ -31912,8 +32058,8 @@ var Collapsible = import_react.forwardRef((props, forwardedRef) => {
 		contentId: useId(),
 		open,
 		onOpenToggle: import_react.useCallback(() => setOpen((prevOpen) => !prevOpen), [setOpen]),
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
-			"data-state": getState$1(open),
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
+			"data-state": getState$3(open),
 			"data-disabled": disabled ? "" : void 0,
 			...collapsibleProps,
 			ref: forwardedRef
@@ -31921,15 +32067,15 @@ var Collapsible = import_react.forwardRef((props, forwardedRef) => {
 	});
 });
 Collapsible.displayName = COLLAPSIBLE_NAME;
-var TRIGGER_NAME$2 = "CollapsibleTrigger";
+var TRIGGER_NAME$4 = "CollapsibleTrigger";
 var CollapsibleTrigger = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeCollapsible, ...triggerProps } = props;
-	const context = useCollapsibleContext(TRIGGER_NAME$2, __scopeCollapsible);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.button, {
+	const context = useCollapsibleContext(TRIGGER_NAME$4, __scopeCollapsible);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.button, {
 		type: "button",
 		"aria-controls": context.contentId,
 		"aria-expanded": context.open || false,
-		"data-state": getState$1(context.open),
+		"data-state": getState$3(context.open),
 		"data-disabled": context.disabled ? "" : void 0,
 		disabled: context.disabled,
 		...triggerProps,
@@ -31937,11 +32083,11 @@ var CollapsibleTrigger = import_react.forwardRef((props, forwardedRef) => {
 		onClick: composeEventHandlers(props.onClick, context.onOpenToggle)
 	});
 });
-CollapsibleTrigger.displayName = TRIGGER_NAME$2;
-var CONTENT_NAME$2 = "CollapsibleContent";
+CollapsibleTrigger.displayName = TRIGGER_NAME$4;
+var CONTENT_NAME$3 = "CollapsibleContent";
 var CollapsibleContent = import_react.forwardRef((props, forwardedRef) => {
 	const { forceMount, ...contentProps } = props;
-	const context = useCollapsibleContext(CONTENT_NAME$2, props.__scopeCollapsible);
+	const context = useCollapsibleContext(CONTENT_NAME$3, props.__scopeCollapsible);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Presence, {
 		present: forceMount || context.open,
 		children: ({ present }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CollapsibleContentImpl, {
@@ -31951,10 +32097,10 @@ var CollapsibleContent = import_react.forwardRef((props, forwardedRef) => {
 		})
 	});
 });
-CollapsibleContent.displayName = CONTENT_NAME$2;
+CollapsibleContent.displayName = CONTENT_NAME$3;
 var CollapsibleContentImpl = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeCollapsible, present, children, ...contentProps } = props;
-	const context = useCollapsibleContext(CONTENT_NAME$2, __scopeCollapsible);
+	const context = useCollapsibleContext(CONTENT_NAME$3, __scopeCollapsible);
 	const [isPresent, setIsPresent] = import_react.useState(present);
 	const ref = import_react.useRef(null);
 	const composedRefs = useComposedRefs(forwardedRef, ref);
@@ -31988,8 +32134,8 @@ var CollapsibleContentImpl = import_react.forwardRef((props, forwardedRef) => {
 			setIsPresent(present);
 		}
 	}, [context.open, present]);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
-		"data-state": getState$1(context.open),
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
+		"data-state": getState$3(context.open),
 		"data-disabled": context.disabled ? "" : void 0,
 		id: context.contentId,
 		hidden: !isOpen,
@@ -32003,12 +32149,12 @@ var CollapsibleContentImpl = import_react.forwardRef((props, forwardedRef) => {
 		children: isOpen && children
 	});
 });
-function getState$1(open) {
+function getState$3(open) {
 	return open ? "open" : "closed";
 }
-var Root$3 = Collapsible;
-var Trigger$1 = CollapsibleTrigger;
-var Content$1 = CollapsibleContent;
+var Root$4 = Collapsible;
+var Trigger$2 = CollapsibleTrigger;
+var Content$2 = CollapsibleContent;
 var DirectionContext = import_react.createContext(void 0);
 function useDirection(localDir) {
 	const globalDir = import_react.useContext(DirectionContext);
@@ -32148,7 +32294,7 @@ var AccordionImpl = import_react.forwardRef((props, forwardedRef) => {
 		orientation,
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Collection$1.Slot, {
 			scope: __scopeAccordion,
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
 				...accordionProps,
 				"data-orientation": orientation,
 				ref: composedRefs,
@@ -32172,9 +32318,9 @@ var AccordionItem$1 = import_react.forwardRef((props, forwardedRef) => {
 		open,
 		disabled,
 		triggerId,
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$3, {
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$4, {
 			"data-orientation": accordionContext.orientation,
-			"data-state": getState(open),
+			"data-state": getState$2(open),
 			...collapsibleScope,
 			...accordionItemProps,
 			ref: forwardedRef,
@@ -32193,25 +32339,25 @@ var AccordionHeader = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeAccordion, ...headerProps } = props;
 	const accordionContext = useAccordionContext(ACCORDION_NAME, __scopeAccordion);
 	const itemContext = useAccordionItemContext(HEADER_NAME, __scopeAccordion);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.h3, {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.h3, {
 		"data-orientation": accordionContext.orientation,
-		"data-state": getState(itemContext.open),
+		"data-state": getState$2(itemContext.open),
 		"data-disabled": itemContext.disabled ? "" : void 0,
 		...headerProps,
 		ref: forwardedRef
 	});
 });
 AccordionHeader.displayName = HEADER_NAME;
-var TRIGGER_NAME$1 = "AccordionTrigger";
+var TRIGGER_NAME$3 = "AccordionTrigger";
 var AccordionTrigger$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeAccordion, ...triggerProps } = props;
 	const accordionContext = useAccordionContext(ACCORDION_NAME, __scopeAccordion);
-	const itemContext = useAccordionItemContext(TRIGGER_NAME$1, __scopeAccordion);
-	const collapsibleContext = useAccordionCollapsibleContext(TRIGGER_NAME$1, __scopeAccordion);
+	const itemContext = useAccordionItemContext(TRIGGER_NAME$3, __scopeAccordion);
+	const collapsibleContext = useAccordionCollapsibleContext(TRIGGER_NAME$3, __scopeAccordion);
 	const collapsibleScope = useCollapsibleScope(__scopeAccordion);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Collection$1.ItemSlot, {
 		scope: __scopeAccordion,
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trigger$1, {
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trigger$2, {
 			"aria-disabled": itemContext.open && !collapsibleContext.collapsible || void 0,
 			"data-orientation": accordionContext.orientation,
 			id: itemContext.triggerId,
@@ -32221,14 +32367,14 @@ var AccordionTrigger$1 = import_react.forwardRef((props, forwardedRef) => {
 		})
 	});
 });
-AccordionTrigger$1.displayName = TRIGGER_NAME$1;
-var CONTENT_NAME$1 = "AccordionContent";
+AccordionTrigger$1.displayName = TRIGGER_NAME$3;
+var CONTENT_NAME$2 = "AccordionContent";
 var AccordionContent$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeAccordion, ...contentProps } = props;
 	const accordionContext = useAccordionContext(ACCORDION_NAME, __scopeAccordion);
-	const itemContext = useAccordionItemContext(CONTENT_NAME$1, __scopeAccordion);
+	const itemContext = useAccordionItemContext(CONTENT_NAME$2, __scopeAccordion);
 	const collapsibleScope = useCollapsibleScope(__scopeAccordion);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Content$1, {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Content$2, {
 		role: "region",
 		"aria-labelledby": itemContext.triggerId,
 		"data-orientation": accordionContext.orientation,
@@ -32242,8 +32388,8 @@ var AccordionContent$1 = import_react.forwardRef((props, forwardedRef) => {
 		}
 	});
 });
-AccordionContent$1.displayName = CONTENT_NAME$1;
-function getState(open) {
+AccordionContent$1.displayName = CONTENT_NAME$2;
+function getState$2(open) {
 	return open ? "open" : "closed";
 }
 var Root2$1 = Accordion$1;
@@ -32322,7 +32468,7 @@ var ScrollArea$1 = import_react.forwardRef((props, forwardedRef) => {
 		onScrollbarYEnabledChange: setScrollbarYEnabled,
 		onCornerWidthChange: setCornerWidth,
 		onCornerHeightChange: setCornerHeight,
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
 			dir: direction,
 			...scrollAreaProps,
 			ref: composedRefs,
@@ -32344,7 +32490,7 @@ var ScrollAreaViewport = import_react.forwardRef((props, forwardedRef) => {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("style", {
 		dangerouslySetInnerHTML: { __html: `[data-radix-scroll-area-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-scroll-area-viewport]::-webkit-scrollbar{display:none}` },
 		nonce
-	}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+	}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
 		"data-radix-scroll-area-viewport": "",
 		...viewportProps,
 		ref: composedRefs,
@@ -32467,7 +32613,7 @@ var ScrollAreaScrollbarScroll = import_react.forwardRef((props, forwardedRef) =>
 		const scrollDirection = isHorizontal ? "scrollLeft" : "scrollTop";
 		if (viewport) {
 			let prevScrollPos = viewport[scrollDirection];
-			const handleScroll = () => {
+			const handleScroll$1 = () => {
 				const scrollPos = viewport[scrollDirection];
 				if (prevScrollPos !== scrollPos) {
 					send("SCROLL");
@@ -32475,8 +32621,8 @@ var ScrollAreaScrollbarScroll = import_react.forwardRef((props, forwardedRef) =>
 				}
 				prevScrollPos = scrollPos;
 			};
-			viewport.addEventListener("scroll", handleScroll);
-			return () => viewport.removeEventListener("scroll", handleScroll);
+			viewport.addEventListener("scroll", handleScroll$1);
+			return () => viewport.removeEventListener("scroll", handleScroll$1);
 		}
 	}, [
 		context.viewport,
@@ -32678,8 +32824,8 @@ var ScrollAreaScrollbarImpl = import_react.forwardRef((props, forwardedRef) => {
 	const prevWebkitUserSelectRef = import_react.useRef("");
 	const viewport = context.viewport;
 	const maxScrollPos = sizes.content - sizes.viewport;
-	const handleWheelScroll = useCallbackRef(onWheelScroll);
-	const handleThumbPositionChange = useCallbackRef(onThumbPositionChange);
+	const handleWheelScroll = useCallbackRef$1(onWheelScroll);
+	const handleThumbPositionChange = useCallbackRef$1(onThumbPositionChange);
 	const handleResize = useDebounceCallback(onResize, 10);
 	function handleDragScroll(event) {
 		if (rectRef.current) onDragScroll({
@@ -32707,11 +32853,11 @@ var ScrollAreaScrollbarImpl = import_react.forwardRef((props, forwardedRef) => {
 		scope: __scopeScrollArea,
 		scrollbar,
 		hasThumb,
-		onThumbChange: useCallbackRef(onThumbChange),
-		onThumbPointerUp: useCallbackRef(onThumbPointerUp),
+		onThumbChange: useCallbackRef$1(onThumbChange),
+		onThumbPointerUp: useCallbackRef$1(onThumbPointerUp),
 		onThumbPositionChange: handleThumbPositionChange,
-		onThumbPointerDown: useCallbackRef(onThumbPointerDown),
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+		onThumbPointerDown: useCallbackRef$1(onThumbPointerDown),
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
 			...scrollbarProps,
 			ref: composeRefs$1,
 			style: {
@@ -32767,7 +32913,7 @@ var ScrollAreaThumbImpl = import_react.forwardRef((props, forwardedRef) => {
 	import_react.useEffect(() => {
 		const viewport = scrollAreaContext.viewport;
 		if (viewport) {
-			const handleScroll = () => {
+			const handleScroll$1 = () => {
 				debounceScrollEnd();
 				if (!removeUnlinkedScrollListenerRef.current) {
 					removeUnlinkedScrollListenerRef.current = addUnlinkedScrollListener(viewport, onThumbPositionChange);
@@ -32775,15 +32921,15 @@ var ScrollAreaThumbImpl = import_react.forwardRef((props, forwardedRef) => {
 				}
 			};
 			onThumbPositionChange();
-			viewport.addEventListener("scroll", handleScroll);
-			return () => viewport.removeEventListener("scroll", handleScroll);
+			viewport.addEventListener("scroll", handleScroll$1);
+			return () => viewport.removeEventListener("scroll", handleScroll$1);
 		}
 	}, [
 		scrollAreaContext.viewport,
 		debounceScrollEnd,
 		onThumbPositionChange
 	]);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
 		"data-state": scrollbarContext.hasThumb ? "visible" : "hidden",
 		...thumbProps,
 		ref: composedRef,
@@ -32831,7 +32977,7 @@ var ScrollAreaCornerImpl = import_react.forwardRef((props, forwardedRef) => {
 		context.onCornerWidthChange(width2);
 		setWidth(width2);
 	});
-	return hasSize ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+	return hasSize ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
 		...cornerProps,
 		ref: forwardedRef,
 		style: {
@@ -32908,7 +33054,7 @@ var addUnlinkedScrollListener = (node, handler = () => {}) => {
 	return () => window.cancelAnimationFrame(rAF);
 };
 function useDebounceCallback(callback, delay) {
-	const handleCallback = useCallbackRef(callback);
+	const handleCallback = useCallbackRef$1(callback);
 	const debounceTimerRef = import_react.useRef(0);
 	import_react.useEffect(() => () => window.clearTimeout(debounceTimerRef.current), []);
 	return import_react.useCallback(() => {
@@ -32917,7 +33063,7 @@ function useDebounceCallback(callback, delay) {
 	}, [handleCallback, delay]);
 }
 function useResizeObserver(element, onResize) {
-	const handleResize = useCallbackRef(onResize);
+	const handleResize = useCallbackRef$1(onResize);
 	useLayoutEffect2(() => {
 		let rAF = 0;
 		if (element) {
@@ -32933,10 +33079,10 @@ function useResizeObserver(element, onResize) {
 		}
 	}, [element, handleResize]);
 }
-var Root$2 = ScrollArea$1;
+var Root$3 = ScrollArea$1;
 var Viewport = ScrollAreaViewport;
 var Corner = ScrollAreaCorner;
-var ScrollArea = import_react.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Root$2, {
+var ScrollArea = import_react.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Root$3, {
 	ref,
 	className: cn("relative overflow-hidden", className),
 	...props,
@@ -32949,7 +33095,7 @@ var ScrollArea = import_react.forwardRef(({ className, children, ...props }, ref
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Corner, {})
 	]
 }));
-ScrollArea.displayName = Root$2.displayName;
+ScrollArea.displayName = Root$3.displayName;
 var ScrollBar = import_react.forwardRef(({ className, orientation = "vertical", ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ScrollAreaScrollbar, {
 	ref,
 	orientation,
@@ -33056,7 +33202,7 @@ function LessonSidebar({ courseTitle, modules, activeModuleId, activeLessonId, c
 	});
 }
 var ENTRY_FOCUS = "rovingFocusGroup.onEntryFocus";
-var EVENT_OPTIONS = {
+var EVENT_OPTIONS$1 = {
 	bubbles: false,
 	cancelable: true
 };
@@ -33089,7 +33235,7 @@ var RovingFocusGroupImpl = import_react.forwardRef((props, forwardedRef) => {
 		caller: GROUP_NAME
 	});
 	const [isTabbingBackOut, setIsTabbingBackOut] = import_react.useState(false);
-	const handleEntryFocus = useCallbackRef(onEntryFocus);
+	const handleEntryFocus = useCallbackRef$1(onEntryFocus);
 	const getItems = useCollection(__scopeRovingFocusGroup);
 	const isClickFocusRef = import_react.useRef(false);
 	const [focusableItemsCount, setFocusableItemsCount] = import_react.useState(0);
@@ -33110,7 +33256,7 @@ var RovingFocusGroupImpl = import_react.forwardRef((props, forwardedRef) => {
 		onItemShiftTab: import_react.useCallback(() => setIsTabbingBackOut(true), []),
 		onFocusableItemAdd: import_react.useCallback(() => setFocusableItemsCount((prevCount) => prevCount + 1), []),
 		onFocusableItemRemove: import_react.useCallback(() => setFocusableItemsCount((prevCount) => prevCount - 1), []),
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
 			tabIndex: isTabbingBackOut || focusableItemsCount === 0 ? -1 : 0,
 			"data-orientation": orientation,
 			...groupProps,
@@ -33125,11 +33271,11 @@ var RovingFocusGroupImpl = import_react.forwardRef((props, forwardedRef) => {
 			onFocus: composeEventHandlers(props.onFocus, (event) => {
 				const isKeyboardFocus = !isClickFocusRef.current;
 				if (event.target === event.currentTarget && isKeyboardFocus && !isTabbingBackOut) {
-					const entryFocusEvent = new CustomEvent(ENTRY_FOCUS, EVENT_OPTIONS);
+					const entryFocusEvent = new CustomEvent(ENTRY_FOCUS, EVENT_OPTIONS$1);
 					event.currentTarget.dispatchEvent(entryFocusEvent);
 					if (!entryFocusEvent.defaultPrevented) {
 						const items = getItems().filter((item) => item.focusable);
-						focusFirst([
+						focusFirst$1([
 							items.find((item) => item.active),
 							items.find((item) => item.id === currentTabStopId),
 							...items
@@ -33166,7 +33312,7 @@ var RovingFocusGroupItem = import_react.forwardRef((props, forwardedRef) => {
 		id,
 		focusable,
 		active,
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.span, {
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.span, {
 			tabIndex: isCurrentTabStop ? 0 : -1,
 			"data-orientation": context.orientation,
 			...itemProps,
@@ -33193,7 +33339,7 @@ var RovingFocusGroupItem = import_react.forwardRef((props, forwardedRef) => {
 						const currentIndex = candidateNodes.indexOf(event.currentTarget);
 						candidateNodes = context.loop ? wrapArray(candidateNodes, currentIndex + 1) : candidateNodes.slice(currentIndex + 1);
 					}
-					setTimeout(() => focusFirst(candidateNodes));
+					setTimeout(() => focusFirst$1(candidateNodes));
 				}
 			}),
 			children: typeof children === "function" ? children({
@@ -33224,7 +33370,7 @@ function getFocusIntent(event, orientation, dir) {
 	if (orientation === "horizontal" && ["ArrowUp", "ArrowDown"].includes(key)) return void 0;
 	return MAP_KEY_TO_FOCUS_INTENT[key];
 }
-function focusFirst(candidates, preventScroll = false) {
+function focusFirst$1(candidates, preventScroll = false) {
 	const PREVIOUSLY_FOCUSED_ELEMENT = document.activeElement;
 	for (const candidate of candidates) {
 		if (candidate === PREVIOUSLY_FOCUSED_ELEMENT) return;
@@ -33235,7 +33381,7 @@ function focusFirst(candidates, preventScroll = false) {
 function wrapArray(array, startIndex) {
 	return array.map((_$1, index$1) => array[(startIndex + index$1) % array.length]);
 }
-var Root$1 = RovingFocusGroup;
+var Root$2 = RovingFocusGroup;
 var Item = RovingFocusGroupItem;
 var TABS_NAME = "Tabs";
 var [createTabsContext, createTabsScope] = createContextScope(TABS_NAME, [createRovingFocusGroupScope]);
@@ -33258,7 +33404,7 @@ var Tabs$1 = import_react.forwardRef((props, forwardedRef) => {
 		orientation,
 		dir: direction,
 		activationMode,
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
 			dir: direction,
 			"data-orientation": orientation,
 			...tabsProps,
@@ -33272,13 +33418,13 @@ var TabsList$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeTabs, loop = true, ...listProps } = props;
 	const context = useTabsContext(TAB_LIST_NAME, __scopeTabs);
 	const rovingFocusGroupScope = useRovingFocusGroupScope(__scopeTabs);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$1, {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$2, {
 		asChild: true,
 		...rovingFocusGroupScope,
 		orientation: context.orientation,
 		dir: context.dir,
 		loop,
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
 			role: "tablist",
 			"aria-orientation": context.orientation,
 			...listProps,
@@ -33287,10 +33433,10 @@ var TabsList$1 = import_react.forwardRef((props, forwardedRef) => {
 	});
 });
 TabsList$1.displayName = TAB_LIST_NAME;
-var TRIGGER_NAME = "TabsTrigger";
+var TRIGGER_NAME$2 = "TabsTrigger";
 var TabsTrigger$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeTabs, value, disabled = false, ...triggerProps } = props;
-	const context = useTabsContext(TRIGGER_NAME, __scopeTabs);
+	const context = useTabsContext(TRIGGER_NAME$2, __scopeTabs);
 	const rovingFocusGroupScope = useRovingFocusGroupScope(__scopeTabs);
 	const triggerId = makeTriggerId(context.baseId, value);
 	const contentId = makeContentId(context.baseId, value);
@@ -33300,7 +33446,7 @@ var TabsTrigger$1 = import_react.forwardRef((props, forwardedRef) => {
 		...rovingFocusGroupScope,
 		focusable: !disabled,
 		active: isSelected,
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.button, {
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.button, {
 			type: "button",
 			role: "tab",
 			"aria-selected": isSelected,
@@ -33325,11 +33471,11 @@ var TabsTrigger$1 = import_react.forwardRef((props, forwardedRef) => {
 		})
 	});
 });
-TabsTrigger$1.displayName = TRIGGER_NAME;
-var CONTENT_NAME = "TabsContent";
+TabsTrigger$1.displayName = TRIGGER_NAME$2;
+var CONTENT_NAME$1 = "TabsContent";
 var TabsContent$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeTabs, value, forceMount, children, ...contentProps } = props;
-	const context = useTabsContext(CONTENT_NAME, __scopeTabs);
+	const context = useTabsContext(CONTENT_NAME$1, __scopeTabs);
 	const triggerId = makeTriggerId(context.baseId, value);
 	const contentId = makeContentId(context.baseId, value);
 	const isSelected = value === context.value;
@@ -33340,7 +33486,7 @@ var TabsContent$1 = import_react.forwardRef((props, forwardedRef) => {
 	}, []);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Presence, {
 		present: forceMount || isSelected,
-		children: ({ present }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+		children: ({ present }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
 			"data-state": isSelected ? "active" : "inactive",
 			"data-orientation": context.orientation,
 			role: "tabpanel",
@@ -33358,7 +33504,7 @@ var TabsContent$1 = import_react.forwardRef((props, forwardedRef) => {
 		})
 	});
 });
-TabsContent$1.displayName = CONTENT_NAME;
+TabsContent$1.displayName = CONTENT_NAME$1;
 function makeTriggerId(baseId, value) {
 	return `${baseId}-trigger-${value}`;
 }
@@ -33367,8 +33513,8 @@ function makeContentId(baseId, value) {
 }
 var Root2 = Tabs$1;
 var List = TabsList$1;
-var Trigger = TabsTrigger$1;
-var Content = TabsContent$1;
+var Trigger$1 = TabsTrigger$1;
+var Content$1 = TabsContent$1;
 var Tabs = Root2;
 var TabsList = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(List, {
 	ref,
@@ -33376,18 +33522,18 @@ var TabsList = import_react.forwardRef(({ className, ...props }, ref) => /* @__P
 	...props
 }));
 TabsList.displayName = List.displayName;
-var TabsTrigger = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trigger, {
+var TabsTrigger = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trigger$1, {
 	ref,
 	className: cn("inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm", className),
 	...props
 }));
-TabsTrigger.displayName = Trigger.displayName;
-var TabsContent = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Content, {
+TabsTrigger.displayName = Trigger$1.displayName;
+var TabsContent = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Content$1, {
 	ref,
 	className: cn("mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2", className),
 	...props
 }));
-TabsContent.displayName = Content.displayName;
+TabsContent.displayName = Content$1.displayName;
 function LessonVideoPlayer({ isPlaying, setIsPlaying, imageQuery, imageColor, courseDescription }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "p-6 md:p-8 flex-1 flex flex-col",
@@ -33701,7 +33847,7 @@ var Input = import_react.forwardRef(({ className, type, ...props }, ref) => {
 });
 Input.displayName = "Input";
 require_react_dom();
-var Primitive = [
+var Primitive$1 = [
 	"a",
 	"button",
 	"div",
@@ -33720,10 +33866,10 @@ var Primitive = [
 	"svg",
 	"ul"
 ].reduce((primitive, node) => {
-	const Slot$1 = /* @__PURE__ */ createSlot(`Primitive.${node}`);
+	const Slot$2 = /* @__PURE__ */ createSlot$1(`Primitive.${node}`);
 	const Node$1 = import_react.forwardRef((props, forwardedRef) => {
 		const { asChild, ...primitiveProps } = props;
-		const Comp = asChild ? Slot$1 : node;
+		const Comp = asChild ? Slot$2 : node;
 		if (typeof window !== "undefined") window[Symbol.for("radix-ui")] = true;
 		return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Comp, {
 			...primitiveProps,
@@ -33738,7 +33884,7 @@ var Primitive = [
 }, {});
 var NAME = "Label";
 var Label$1 = import_react.forwardRef((props, forwardedRef) => {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.label, {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.label, {
 		...props,
 		ref: forwardedRef,
 		onMouseDown: (event) => {
@@ -33749,14 +33895,14 @@ var Label$1 = import_react.forwardRef((props, forwardedRef) => {
 	});
 });
 Label$1.displayName = NAME;
-var Root = Label$1;
+var Root$1 = Label$1;
 var labelVariants = cva("text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70");
-var Label = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root, {
+var Label = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$1, {
 	ref,
 	className: cn(labelVariants(), className),
 	...props
 }));
-Label.displayName = Root.displayName;
+Label.displayName = Root$1.displayName;
 var Card = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 	ref,
 	className: cn("rounded-lg border bg-card text-card-foreground shadow-sm", className),
@@ -33973,14 +34119,18 @@ function Layout() {
 	const itemRefs = (0, import_react.useRef)(/* @__PURE__ */ new Map());
 	const [courses, setCourses] = (0, import_react.useState)([]);
 	const { user, signOut } = useAuth();
+	const { organization } = useOrganization();
+	const [isAdmin, setIsAdmin] = (0, import_react.useState)(false);
 	const activeCourseId = matchPath("/course/:courseId/*", location.pathname)?.params.courseId;
 	(0, import_react.useEffect)(() => {
-		async function loadCourses() {
+		async function loadData() {
 			if (!user) return;
 			const { data } = await supabase.from("courses").select("id, title").order("created_at");
 			if (data) setCourses(data);
+			const { data: profile } = await supabase.from("profiles").select("role").eq("id", user.id).single();
+			if (profile?.role === "admin") setIsAdmin(true);
 		}
-		loadCourses();
+		loadData();
 	}, [user]);
 	(0, import_react.useEffect)(() => {
 		if (activeCourseId && itemRefs.current.has(activeCourseId)) itemRefs.current.get(activeCourseId)?.scrollIntoView({
@@ -33992,10 +34142,13 @@ function Layout() {
 	const handleLogout = async () => {
 		await signOut();
 	};
+	const bgColor = organization?.platform_bg_color || "#1a5c48";
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		className: "flex flex-col min-h-screen bg-brand-forest text-white font-sans selection:bg-brand-yellow selection:text-black overflow-hidden",
+		className: "flex flex-col min-h-screen text-white font-sans selection:bg-brand-yellow selection:text-black overflow-hidden transition-colors duration-500",
+		style: { backgroundColor: bgColor },
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
-			className: "h-[64px] border-b border-brand-sea flex items-center fixed top-0 w-full z-50 bg-brand-forest/95 backdrop-blur-sm",
+			className: "h-[64px] border-b border-brand-sea flex items-center fixed top-0 w-full z-50 bg-inherit/95 backdrop-blur-sm",
+			style: { backgroundColor: bgColor },
 			children: [
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
 					to: "/",
@@ -34004,18 +34157,24 @@ function Layout() {
 						className: "flex flex-col",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 							className: "font-grotesk font-bold text-xl tracking-tight leading-none",
-							children: "BETSMARTER"
+							children: organization?.header_title || "BETSMARTER"
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 							className: "text-[10px] text-brand-slate tracking-widest uppercase",
-							children: "Course Dashboard"
+							children: organization?.header_subtitle || "Course Dashboard"
 						})]
 					})
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "flex-1 h-full flex items-center justify-start relative overflow-hidden",
 					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-brand-forest to-transparent z-10 pointer-events-none" }),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-brand-forest to-transparent z-10 pointer-events-none" }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "absolute left-0 top-0 bottom-0 w-12 z-10 pointer-events-none",
+							style: { background: `linear-gradient(to right, ${bgColor}, transparent)` }
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "absolute right-0 top-0 bottom-0 w-12 z-10 pointer-events-none",
+							style: { background: `linear-gradient(to left, ${bgColor}, transparent)` }
+						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 							ref: scrollContainerRef,
 							className: "flex items-end h-full w-full overflow-x-auto no-scrollbar pb-4 px-12 md:px-24 snap-x snap-mandatory",
@@ -34040,16 +34199,21 @@ function Layout() {
 						})
 					]
 				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "hidden xl:flex w-[256px] h-full items-center justify-end px-6 border-l border-brand-sea shrink-0",
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "hidden xl:flex w-[256px] h-full items-center justify-end px-6 border-l border-brand-sea shrink-0 gap-4",
+					children: [isAdmin && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
+						to: "/admin",
+						className: "flex items-center gap-2 text-brand-slate hover:text-white transition-colors",
+						title: "Admin Dashboard",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Settings, { className: "w-4 h-4" })
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
 						onClick: handleLogout,
 						className: "flex items-center gap-2 text-brand-slate hover:text-white transition-colors",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 							className: "font-mono text-xs uppercase",
 							children: "Logout"
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LogOut, { className: "w-4 h-4" })]
-					})
+					})]
 				})
 			]
 		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
@@ -34060,12 +34224,2117 @@ function Layout() {
 					className: "hidden md:block absolute bottom-6 left-8 z-10 pointer-events-none mix-blend-difference",
 					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "text-[10px] text-brand-slate leading-relaxed max-w-md",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: "BETSMARTER ACADEMY" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { children: [organization?.header_title || "BETSMARTER", " ACADEMY"] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
 							className: "mt-1 opacity-60",
-							children: "All course materials are intellectual property of BetSmarter. Unauthorized distribution is prohibited. Platform v2.1.0."
+							children: [
+								"All course materials are intellectual property of",
+								" ",
+								organization?.header_title || "BetSmarter",
+								". Unauthorized distribution is prohibited. Platform v2.2.0."
+							]
 						})]
 					})
 				})]
+			})
+		})]
+	});
+}
+var Textarea = import_react.forwardRef(({ className, ...props }, ref) => {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("textarea", {
+		className: cn("flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm", className),
+		ref,
+		...props
+	});
+});
+Textarea.displayName = "Textarea";
+function BrandingForm() {
+	const { organization, refreshOrganization } = useOrganization();
+	const [loading, setLoading] = (0, import_react.useState)(false);
+	const [formData, setFormData] = (0, import_react.useState)({
+		header_title: "",
+		header_subtitle: "",
+		hero_title: "",
+		hero_subtitle: "",
+		platform_bg_color: ""
+	});
+	(0, import_react.useEffect)(() => {
+		if (organization) setFormData({
+			header_title: organization.header_title || "",
+			header_subtitle: organization.header_subtitle || "",
+			hero_title: organization.hero_title || "",
+			hero_subtitle: organization.hero_subtitle || "",
+			platform_bg_color: organization.platform_bg_color || "#1a5c48"
+		});
+	}, [organization]);
+	const handleChange = (e) => {
+		setFormData((prev) => ({
+			...prev,
+			[e.target.name]: e.target.value
+		}));
+	};
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		if (!organization) return;
+		setLoading(true);
+		const { error } = await supabase.from("organizations").update(formData).eq("id", organization.id);
+		if (error) toast.error("Failed to update branding");
+		else {
+			toast.success("Branding updated successfully");
+			await refreshOrganization();
+		}
+		setLoading(false);
+	};
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardHeader, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, { children: "Organization Branding" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardDescription, { children: "Customize how your platform looks and feels." })] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardContent, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
+		onSubmit: handleSubmit,
+		className: "space-y-6",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "grid gap-4 md:grid-cols-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "space-y-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+						htmlFor: "header_title",
+						children: "Header Title"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+						id: "header_title",
+						name: "header_title",
+						value: formData.header_title,
+						onChange: handleChange,
+						placeholder: "BETSMARTER"
+					})]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "space-y-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+						htmlFor: "header_subtitle",
+						children: "Header Subtitle"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+						id: "header_subtitle",
+						name: "header_subtitle",
+						value: formData.header_subtitle,
+						onChange: handleChange,
+						placeholder: "Course Dashboard"
+					})]
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "space-y-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+					htmlFor: "hero_title",
+					children: "Hero Title"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+					id: "hero_title",
+					name: "hero_title",
+					value: formData.hero_title,
+					onChange: handleChange,
+					placeholder: "Advance Your Betting Knowledge"
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "space-y-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+					htmlFor: "hero_subtitle",
+					children: "Hero Subtitle"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Textarea, {
+					id: "hero_subtitle",
+					name: "hero_subtitle",
+					value: formData.hero_subtitle,
+					onChange: handleChange,
+					placeholder: "Access professional-grade courses..."
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "space-y-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+					htmlFor: "platform_bg_color",
+					children: "Platform Background Color"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex gap-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+						id: "platform_bg_color",
+						name: "platform_bg_color",
+						type: "color",
+						value: formData.platform_bg_color,
+						onChange: handleChange,
+						className: "w-12 h-10 p-1 cursor-pointer"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+						name: "platform_bg_color",
+						value: formData.platform_bg_color,
+						onChange: handleChange,
+						placeholder: "#1a5c48",
+						className: "flex-1"
+					})]
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+				type: "submit",
+				disabled: loading,
+				children: loading ? "Saving..." : "Save Changes"
+			})
+		]
+	}) })] });
+}
+var Table = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+	className: "relative w-full overflow-auto",
+	children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("table", {
+		ref,
+		className: cn("w-full caption-bottom text-sm", className),
+		...props
+	})
+}));
+Table.displayName = "Table";
+var TableHeader = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("thead", {
+	ref,
+	className: cn("[&_tr]:border-b", className),
+	...props
+}));
+TableHeader.displayName = "TableHeader";
+var TableBody = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("tbody", {
+	ref,
+	className: cn("[&_tr:last-child]:border-0", className),
+	...props
+}));
+TableBody.displayName = "TableBody";
+var TableFooter = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("tfoot", {
+	ref,
+	className: cn("border-t bg-muted/50 font-medium [&>tr]:last:border-b-0", className),
+	...props
+}));
+TableFooter.displayName = "TableFooter";
+var TableRow = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("tr", {
+	ref,
+	className: cn("border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted", className),
+	...props
+}));
+TableRow.displayName = "TableRow";
+var TableHead = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("th", {
+	ref,
+	className: cn("h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0", className),
+	...props
+}));
+TableHead.displayName = "TableHead";
+var TableCell = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("td", {
+	ref,
+	className: cn("p-4 align-middle [&:has([role=checkbox])]:pr-0", className),
+	...props
+}));
+TableCell.displayName = "TableCell";
+var TableCaption = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("caption", {
+	ref,
+	className: cn("mt-4 text-sm text-muted-foreground", className),
+	...props
+}));
+TableCaption.displayName = "TableCaption";
+function CoursesTable() {
+	const { organization } = useOrganization();
+	const [courses, setCourses] = (0, import_react.useState)([]);
+	const [loading, setLoading] = (0, import_react.useState)(true);
+	const fetchCourses = async () => {
+		if (!organization) return;
+		const { data, error } = await supabase.from("courses").select("*").eq("organization_id", organization.id).order("created_at", { ascending: false });
+		if (!error && data) setCourses(data);
+		setLoading(false);
+	};
+	(0, import_react.useEffect)(() => {
+		fetchCourses();
+	}, [organization]);
+	const handleDelete = async (id) => {
+		if (!confirm("Are you sure you want to delete this course?")) return;
+		const { error } = await supabase.from("courses").delete().eq("id", id);
+		if (error) toast.error("Failed to delete course");
+		else {
+			toast.success("Course deleted");
+			setCourses(courses.filter((c) => c.id !== id));
+		}
+	};
+	const handleCreate = async () => {
+		if (!organization) return;
+		const { data, error } = await supabase.from("courses").insert({
+			organization_id: organization.id,
+			title: "New Course",
+			description: "Course description",
+			label: "New"
+		}).select().single();
+		if (error) toast.error("Failed to create course");
+		else {
+			toast.success("Course created");
+			fetchCourses();
+		}
+	};
+	if (loading) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: "Loading courses..." });
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "space-y-4",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "flex justify-between items-center",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+				className: "text-xl font-semibold",
+				children: "Courses"
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+				onClick: handleCreate,
+				className: "gap-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { className: "w-4 h-4" }), " Add Course"]
+			})]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			className: "border rounded-md",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Table, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHeader, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableRow, { children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Title" }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Instructor" }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Label" }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
+					className: "text-right",
+					children: "Actions"
+				})
+			] }) }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableBody, { children: courses.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableRow, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
+				colSpan: 4,
+				className: "text-center py-4 text-muted-foreground",
+				children: "No courses found"
+			}) }) : courses.map((course) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableRow, { children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
+					className: "font-medium",
+					children: course.title
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, { children: course.instructor_name || "-" }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, { children: course.label || "-" }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
+					className: "text-right",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex justify-end gap-2",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
+							to: `/admin/courses/${course.id}`,
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+								variant: "outline",
+								size: "sm",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SquarePen, { className: "w-4 h-4" })
+							})
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+							variant: "destructive",
+							size: "sm",
+							onClick: () => handleDelete(course.id),
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trash2, { className: "w-4 h-4" })
+						})]
+					})
+				})
+			] }, course.id)) })] })
+		})]
+	});
+}
+function AdminDashboard() {
+	const { organization } = useOrganization();
+	if (!organization) return null;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "container mx-auto py-10 px-4",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "mb-8",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+				className: "text-3xl font-bold tracking-tight text-white mb-2",
+				children: "Admin Dashboard"
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-white/60",
+				children: "Manage your organization settings and content."
+			})]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Tabs, {
+			defaultValue: "branding",
+			className: "space-y-6",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TabsList, {
+					className: "bg-white/10 text-white border border-white/10",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsTrigger, {
+						value: "branding",
+						className: "data-[state=active]:bg-brand-green",
+						children: "Branding"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsTrigger, {
+						value: "courses",
+						className: "data-[state=active]:bg-brand-green",
+						children: "Courses"
+					})]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsContent, {
+					value: "branding",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrandingForm, {})
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsContent, {
+					value: "courses",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "bg-white rounded-lg p-6 shadow-sm",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CoursesTable, {})
+					})
+				})
+			]
+		})]
+	});
+}
+function CourseForm({ course, onUpdate }) {
+	const [formData, setFormData] = (0, import_react.useState)({
+		title: course.title || "",
+		description: course.description || "",
+		instructor_name: course.instructor_name || "",
+		instructor_avatar: course.instructor_avatar || "",
+		duration_text: course.duration_text || "",
+		image_color: course.image_color || "",
+		image_query: course.image_query || "",
+		label: course.label || ""
+	});
+	const [loading, setLoading] = (0, import_react.useState)(false);
+	const handleChange = (e) => {
+		setFormData((prev) => ({
+			...prev,
+			[e.target.name]: e.target.value
+		}));
+	};
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		setLoading(true);
+		const { error } = await supabase.from("courses").update(formData).eq("id", course.id);
+		if (error) toast.error("Failed to update course details");
+		else {
+			toast.success("Course details updated");
+			onUpdate();
+		}
+		setLoading(false);
+	};
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
+		onSubmit: handleSubmit,
+		className: "space-y-4",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "space-y-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+					htmlFor: "title",
+					children: "Course Title"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+					id: "title",
+					name: "title",
+					value: formData.title,
+					onChange: handleChange,
+					required: true
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "space-y-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+					htmlFor: "description",
+					children: "Description"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Textarea, {
+					id: "description",
+					name: "description",
+					value: formData.description,
+					onChange: handleChange
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "grid grid-cols-1 md:grid-cols-2 gap-4",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "space-y-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+						htmlFor: "instructor_name",
+						children: "Instructor Name"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+						id: "instructor_name",
+						name: "instructor_name",
+						value: formData.instructor_name,
+						onChange: handleChange
+					})]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "space-y-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+						htmlFor: "duration_text",
+						children: "Duration Text"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+						id: "duration_text",
+						name: "duration_text",
+						value: formData.duration_text,
+						onChange: handleChange,
+						placeholder: "e.g. 4h 30m"
+					})]
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "grid grid-cols-1 md:grid-cols-2 gap-4",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "space-y-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+						htmlFor: "image_color",
+						children: "Background Color Class"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+						id: "image_color",
+						name: "image_color",
+						value: formData.image_color,
+						onChange: handleChange,
+						placeholder: "e.g. bg-brand-yellow"
+					})]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "space-y-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+						htmlFor: "image_query",
+						children: "Image Query"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+						id: "image_query",
+						name: "image_query",
+						value: formData.image_query,
+						onChange: handleChange,
+						placeholder: "e.g. finance"
+					})]
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "space-y-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+					htmlFor: "label",
+					children: "Label"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+					id: "label",
+					name: "label",
+					value: formData.label,
+					onChange: handleChange,
+					placeholder: "e.g. Beginner"
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+				type: "submit",
+				disabled: loading,
+				children: loading ? "Saving..." : "Save Details"
+			})
+		]
+	});
+}
+var AUTOFOCUS_ON_MOUNT = "focusScope.autoFocusOnMount";
+var AUTOFOCUS_ON_UNMOUNT = "focusScope.autoFocusOnUnmount";
+var EVENT_OPTIONS = {
+	bubbles: false,
+	cancelable: true
+};
+var FOCUS_SCOPE_NAME = "FocusScope";
+var FocusScope = import_react.forwardRef((props, forwardedRef) => {
+	const { loop = false, trapped = false, onMountAutoFocus: onMountAutoFocusProp, onUnmountAutoFocus: onUnmountAutoFocusProp, ...scopeProps } = props;
+	const [container, setContainer] = import_react.useState(null);
+	const onMountAutoFocus = useCallbackRef$1(onMountAutoFocusProp);
+	const onUnmountAutoFocus = useCallbackRef$1(onUnmountAutoFocusProp);
+	const lastFocusedElementRef = import_react.useRef(null);
+	const composedRefs = useComposedRefs(forwardedRef, (node) => setContainer(node));
+	const focusScope = import_react.useRef({
+		paused: false,
+		pause() {
+			this.paused = true;
+		},
+		resume() {
+			this.paused = false;
+		}
+	}).current;
+	import_react.useEffect(() => {
+		if (trapped) {
+			let handleFocusIn2 = function(event) {
+				if (focusScope.paused || !container) return;
+				const target = event.target;
+				if (container.contains(target)) lastFocusedElementRef.current = target;
+				else focus(lastFocusedElementRef.current, { select: true });
+			}, handleFocusOut2 = function(event) {
+				if (focusScope.paused || !container) return;
+				const relatedTarget = event.relatedTarget;
+				if (relatedTarget === null) return;
+				if (!container.contains(relatedTarget)) focus(lastFocusedElementRef.current, { select: true });
+			}, handleMutations2 = function(mutations) {
+				if (document.activeElement !== document.body) return;
+				for (const mutation of mutations) if (mutation.removedNodes.length > 0) focus(container);
+			};
+			document.addEventListener("focusin", handleFocusIn2);
+			document.addEventListener("focusout", handleFocusOut2);
+			const mutationObserver = new MutationObserver(handleMutations2);
+			if (container) mutationObserver.observe(container, {
+				childList: true,
+				subtree: true
+			});
+			return () => {
+				document.removeEventListener("focusin", handleFocusIn2);
+				document.removeEventListener("focusout", handleFocusOut2);
+				mutationObserver.disconnect();
+			};
+		}
+	}, [
+		trapped,
+		container,
+		focusScope.paused
+	]);
+	import_react.useEffect(() => {
+		if (container) {
+			focusScopesStack.add(focusScope);
+			const previouslyFocusedElement = document.activeElement;
+			if (!container.contains(previouslyFocusedElement)) {
+				const mountEvent = new CustomEvent(AUTOFOCUS_ON_MOUNT, EVENT_OPTIONS);
+				container.addEventListener(AUTOFOCUS_ON_MOUNT, onMountAutoFocus);
+				container.dispatchEvent(mountEvent);
+				if (!mountEvent.defaultPrevented) {
+					focusFirst(removeLinks(getTabbableCandidates(container)), { select: true });
+					if (document.activeElement === previouslyFocusedElement) focus(container);
+				}
+			}
+			return () => {
+				container.removeEventListener(AUTOFOCUS_ON_MOUNT, onMountAutoFocus);
+				setTimeout(() => {
+					const unmountEvent = new CustomEvent(AUTOFOCUS_ON_UNMOUNT, EVENT_OPTIONS);
+					container.addEventListener(AUTOFOCUS_ON_UNMOUNT, onUnmountAutoFocus);
+					container.dispatchEvent(unmountEvent);
+					if (!unmountEvent.defaultPrevented) focus(previouslyFocusedElement ?? document.body, { select: true });
+					container.removeEventListener(AUTOFOCUS_ON_UNMOUNT, onUnmountAutoFocus);
+					focusScopesStack.remove(focusScope);
+				}, 0);
+			};
+		}
+	}, [
+		container,
+		onMountAutoFocus,
+		onUnmountAutoFocus,
+		focusScope
+	]);
+	const handleKeyDown = import_react.useCallback((event) => {
+		if (!loop && !trapped) return;
+		if (focusScope.paused) return;
+		const isTabKey = event.key === "Tab" && !event.altKey && !event.ctrlKey && !event.metaKey;
+		const focusedElement = document.activeElement;
+		if (isTabKey && focusedElement) {
+			const container2 = event.currentTarget;
+			const [first, last] = getTabbableEdges(container2);
+			if (!(first && last)) {
+				if (focusedElement === container2) event.preventDefault();
+			} else if (!event.shiftKey && focusedElement === last) {
+				event.preventDefault();
+				if (loop) focus(first, { select: true });
+			} else if (event.shiftKey && focusedElement === first) {
+				event.preventDefault();
+				if (loop) focus(last, { select: true });
+			}
+		}
+	}, [
+		loop,
+		trapped,
+		focusScope.paused
+	]);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
+		tabIndex: -1,
+		...scopeProps,
+		ref: composedRefs,
+		onKeyDown: handleKeyDown
+	});
+});
+FocusScope.displayName = FOCUS_SCOPE_NAME;
+function focusFirst(candidates, { select = false } = {}) {
+	const previouslyFocusedElement = document.activeElement;
+	for (const candidate of candidates) {
+		focus(candidate, { select });
+		if (document.activeElement !== previouslyFocusedElement) return;
+	}
+}
+function getTabbableEdges(container) {
+	const candidates = getTabbableCandidates(container);
+	return [findVisible(candidates, container), findVisible(candidates.reverse(), container)];
+}
+function getTabbableCandidates(container) {
+	const nodes = [];
+	const walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT, { acceptNode: (node) => {
+		const isHiddenInput = node.tagName === "INPUT" && node.type === "hidden";
+		if (node.disabled || node.hidden || isHiddenInput) return NodeFilter.FILTER_SKIP;
+		return node.tabIndex >= 0 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+	} });
+	while (walker.nextNode()) nodes.push(walker.currentNode);
+	return nodes;
+}
+function findVisible(elements, container) {
+	for (const element of elements) if (!isHidden(element, { upTo: container })) return element;
+}
+function isHidden(node, { upTo }) {
+	if (getComputedStyle(node).visibility === "hidden") return true;
+	while (node) {
+		if (upTo !== void 0 && node === upTo) return false;
+		if (getComputedStyle(node).display === "none") return true;
+		node = node.parentElement;
+	}
+	return false;
+}
+function isSelectableInput(element) {
+	return element instanceof HTMLInputElement && "select" in element;
+}
+function focus(element, { select = false } = {}) {
+	if (element && element.focus) {
+		const previouslyFocusedElement = document.activeElement;
+		element.focus({ preventScroll: true });
+		if (element !== previouslyFocusedElement && isSelectableInput(element) && select) element.select();
+	}
+}
+var focusScopesStack = createFocusScopesStack();
+function createFocusScopesStack() {
+	let stack = [];
+	return {
+		add(focusScope) {
+			const activeFocusScope = stack[0];
+			if (focusScope !== activeFocusScope) activeFocusScope?.pause();
+			stack = arrayRemove(stack, focusScope);
+			stack.unshift(focusScope);
+		},
+		remove(focusScope) {
+			stack = arrayRemove(stack, focusScope);
+			stack[0]?.resume();
+		}
+	};
+}
+function arrayRemove(array, item) {
+	const updatedArray = [...array];
+	const index$1 = updatedArray.indexOf(item);
+	if (index$1 !== -1) updatedArray.splice(index$1, 1);
+	return updatedArray;
+}
+function removeLinks(items) {
+	return items.filter((item) => item.tagName !== "A");
+}
+var count = 0;
+function useFocusGuards() {
+	import_react.useEffect(() => {
+		const edgeGuards = document.querySelectorAll("[data-radix-focus-guard]");
+		document.body.insertAdjacentElement("afterbegin", edgeGuards[0] ?? createFocusGuard());
+		document.body.insertAdjacentElement("beforeend", edgeGuards[1] ?? createFocusGuard());
+		count++;
+		return () => {
+			if (count === 1) document.querySelectorAll("[data-radix-focus-guard]").forEach((node) => node.remove());
+			count--;
+		};
+	}, []);
+}
+function createFocusGuard() {
+	const element = document.createElement("span");
+	element.setAttribute("data-radix-focus-guard", "");
+	element.tabIndex = 0;
+	element.style.outline = "none";
+	element.style.opacity = "0";
+	element.style.position = "fixed";
+	element.style.pointerEvents = "none";
+	return element;
+}
+var zeroRightClassName = "right-scroll-bar-position";
+var fullWidthClassName = "width-before-scroll-bar";
+var noScrollbarsClassName = "with-scroll-bars-hidden";
+var removedBarSizeVariable = "--removed-body-scroll-bar-size";
+function assignRef(ref, value) {
+	if (typeof ref === "function") ref(value);
+	else if (ref) ref.current = value;
+	return ref;
+}
+function useCallbackRef(initialValue, callback) {
+	var ref = (0, import_react.useState)(function() {
+		return {
+			value: initialValue,
+			callback,
+			facade: {
+				get current() {
+					return ref.value;
+				},
+				set current(value) {
+					var last = ref.value;
+					if (last !== value) {
+						ref.value = value;
+						ref.callback(value, last);
+					}
+				}
+			}
+		};
+	})[0];
+	ref.callback = callback;
+	return ref.facade;
+}
+var useIsomorphicLayoutEffect = typeof window !== "undefined" ? import_react.useLayoutEffect : import_react.useEffect;
+var currentValues = /* @__PURE__ */ new WeakMap();
+function useMergeRefs(refs, defaultValue) {
+	var callbackRef = useCallbackRef(defaultValue || null, function(newValue) {
+		return refs.forEach(function(ref) {
+			return assignRef(ref, newValue);
+		});
+	});
+	useIsomorphicLayoutEffect(function() {
+		var oldValue = currentValues.get(callbackRef);
+		if (oldValue) {
+			var prevRefs_1 = new Set(oldValue);
+			var nextRefs_1 = new Set(refs);
+			var current_1 = callbackRef.current;
+			prevRefs_1.forEach(function(ref) {
+				if (!nextRefs_1.has(ref)) assignRef(ref, null);
+			});
+			nextRefs_1.forEach(function(ref) {
+				if (!prevRefs_1.has(ref)) assignRef(ref, current_1);
+			});
+		}
+		currentValues.set(callbackRef, refs);
+	}, [refs]);
+	return callbackRef;
+}
+function ItoI(a) {
+	return a;
+}
+function innerCreateMedium(defaults, middleware) {
+	if (middleware === void 0) middleware = ItoI;
+	var buffer = [];
+	var assigned = false;
+	return {
+		read: function() {
+			if (assigned) throw new Error("Sidecar: could not `read` from an `assigned` medium. `read` could be used only with `useMedium`.");
+			if (buffer.length) return buffer[buffer.length - 1];
+			return defaults;
+		},
+		useMedium: function(data) {
+			var item = middleware(data, assigned);
+			buffer.push(item);
+			return function() {
+				buffer = buffer.filter(function(x$1) {
+					return x$1 !== item;
+				});
+			};
+		},
+		assignSyncMedium: function(cb) {
+			assigned = true;
+			while (buffer.length) {
+				var cbs = buffer;
+				buffer = [];
+				cbs.forEach(cb);
+			}
+			buffer = {
+				push: function(x$1) {
+					return cb(x$1);
+				},
+				filter: function() {
+					return buffer;
+				}
+			};
+		},
+		assignMedium: function(cb) {
+			assigned = true;
+			var pendingQueue = [];
+			if (buffer.length) {
+				var cbs = buffer;
+				buffer = [];
+				cbs.forEach(cb);
+				pendingQueue = buffer;
+			}
+			var executeQueue = function() {
+				var cbs$1 = pendingQueue;
+				pendingQueue = [];
+				cbs$1.forEach(cb);
+			};
+			var cycle = function() {
+				return Promise.resolve().then(executeQueue);
+			};
+			cycle();
+			buffer = {
+				push: function(x$1) {
+					pendingQueue.push(x$1);
+					cycle();
+				},
+				filter: function(filter) {
+					pendingQueue = pendingQueue.filter(filter);
+					return buffer;
+				}
+			};
+		}
+	};
+}
+function createSidecarMedium(options$1) {
+	if (options$1 === void 0) options$1 = {};
+	var medium = innerCreateMedium(null);
+	medium.options = __assign({
+		async: true,
+		ssr: false
+	}, options$1);
+	return medium;
+}
+var SideCar = function(_a) {
+	var sideCar = _a.sideCar, rest = __rest(_a, ["sideCar"]);
+	if (!sideCar) throw new Error("Sidecar: please provide `sideCar` property to import the right car");
+	var Target = sideCar.read();
+	if (!Target) throw new Error("Sidecar medium not found");
+	return import_react.createElement(Target, __assign({}, rest));
+};
+SideCar.isSideCarExport = true;
+function exportSidecar(medium, exported) {
+	medium.useMedium(exported);
+	return SideCar;
+}
+var effectCar = createSidecarMedium();
+var nothing = function() {};
+var RemoveScroll = import_react.forwardRef(function(props, parentRef) {
+	var ref = import_react.useRef(null);
+	var _a = import_react.useState({
+		onScrollCapture: nothing,
+		onWheelCapture: nothing,
+		onTouchMoveCapture: nothing
+	}), callbacks = _a[0], setCallbacks = _a[1];
+	var forwardProps = props.forwardProps, children = props.children, className = props.className, removeScrollBar = props.removeScrollBar, enabled = props.enabled, shards = props.shards, sideCar = props.sideCar, noRelative = props.noRelative, noIsolation = props.noIsolation, inert = props.inert, allowPinchZoom = props.allowPinchZoom, _b = props.as, Container = _b === void 0 ? "div" : _b, gapMode = props.gapMode, rest = __rest(props, [
+		"forwardProps",
+		"children",
+		"className",
+		"removeScrollBar",
+		"enabled",
+		"shards",
+		"sideCar",
+		"noRelative",
+		"noIsolation",
+		"inert",
+		"allowPinchZoom",
+		"as",
+		"gapMode"
+	]);
+	var SideCar$1 = sideCar;
+	var containerRef = useMergeRefs([ref, parentRef]);
+	var containerProps = __assign(__assign({}, rest), callbacks);
+	return import_react.createElement(import_react.Fragment, null, enabled && import_react.createElement(SideCar$1, {
+		sideCar: effectCar,
+		removeScrollBar,
+		shards,
+		noRelative,
+		noIsolation,
+		inert,
+		setCallbacks,
+		allowPinchZoom: !!allowPinchZoom,
+		lockRef: ref,
+		gapMode
+	}), forwardProps ? import_react.cloneElement(import_react.Children.only(children), __assign(__assign({}, containerProps), { ref: containerRef })) : import_react.createElement(Container, __assign({}, containerProps, {
+		className,
+		ref: containerRef
+	}), children));
+});
+RemoveScroll.defaultProps = {
+	enabled: true,
+	removeScrollBar: true,
+	inert: false
+};
+RemoveScroll.classNames = {
+	fullWidth: fullWidthClassName,
+	zeroRight: zeroRightClassName
+};
+var currentNonce;
+var getNonce = function() {
+	if (currentNonce) return currentNonce;
+	if (typeof __webpack_nonce__ !== "undefined") return __webpack_nonce__;
+};
+function makeStyleTag() {
+	if (!document) return null;
+	var tag = document.createElement("style");
+	tag.type = "text/css";
+	var nonce = getNonce();
+	if (nonce) tag.setAttribute("nonce", nonce);
+	return tag;
+}
+function injectStyles(tag, css) {
+	if (tag.styleSheet) tag.styleSheet.cssText = css;
+	else tag.appendChild(document.createTextNode(css));
+}
+function insertStyleTag(tag) {
+	(document.head || document.getElementsByTagName("head")[0]).appendChild(tag);
+}
+var stylesheetSingleton = function() {
+	var counter = 0;
+	var stylesheet = null;
+	return {
+		add: function(style) {
+			if (counter == 0) {
+				if (stylesheet = makeStyleTag()) {
+					injectStyles(stylesheet, style);
+					insertStyleTag(stylesheet);
+				}
+			}
+			counter++;
+		},
+		remove: function() {
+			counter--;
+			if (!counter && stylesheet) {
+				stylesheet.parentNode && stylesheet.parentNode.removeChild(stylesheet);
+				stylesheet = null;
+			}
+		}
+	};
+};
+var styleHookSingleton = function() {
+	var sheet = stylesheetSingleton();
+	return function(styles, isDynamic) {
+		import_react.useEffect(function() {
+			sheet.add(styles);
+			return function() {
+				sheet.remove();
+			};
+		}, [styles && isDynamic]);
+	};
+};
+var styleSingleton = function() {
+	var useStyle = styleHookSingleton();
+	var Sheet = function(_a) {
+		var styles = _a.styles, dynamic = _a.dynamic;
+		useStyle(styles, dynamic);
+		return null;
+	};
+	return Sheet;
+};
+var zeroGap = {
+	left: 0,
+	top: 0,
+	right: 0,
+	gap: 0
+};
+var parse = function(x$1) {
+	return parseInt(x$1 || "", 10) || 0;
+};
+var getOffset = function(gapMode) {
+	var cs = window.getComputedStyle(document.body);
+	var left = cs[gapMode === "padding" ? "paddingLeft" : "marginLeft"];
+	var top = cs[gapMode === "padding" ? "paddingTop" : "marginTop"];
+	var right = cs[gapMode === "padding" ? "paddingRight" : "marginRight"];
+	return [
+		parse(left),
+		parse(top),
+		parse(right)
+	];
+};
+var getGapWidth = function(gapMode) {
+	if (gapMode === void 0) gapMode = "margin";
+	if (typeof window === "undefined") return zeroGap;
+	var offsets = getOffset(gapMode);
+	var documentWidth = document.documentElement.clientWidth;
+	var windowWidth = window.innerWidth;
+	return {
+		left: offsets[0],
+		top: offsets[1],
+		right: offsets[2],
+		gap: Math.max(0, windowWidth - documentWidth + offsets[2] - offsets[0])
+	};
+};
+var Style = styleSingleton();
+var lockAttribute = "data-scroll-locked";
+var getStyles = function(_a, allowRelative, gapMode, important) {
+	var left = _a.left, top = _a.top, right = _a.right, gap = _a.gap;
+	if (gapMode === void 0) gapMode = "margin";
+	return "\n  .".concat(noScrollbarsClassName, " {\n   overflow: hidden ").concat(important, ";\n   padding-right: ").concat(gap, "px ").concat(important, ";\n  }\n  body[").concat(lockAttribute, "] {\n    overflow: hidden ").concat(important, ";\n    overscroll-behavior: contain;\n    ").concat([
+		allowRelative && "position: relative ".concat(important, ";"),
+		gapMode === "margin" && "\n    padding-left: ".concat(left, "px;\n    padding-top: ").concat(top, "px;\n    padding-right: ").concat(right, "px;\n    margin-left:0;\n    margin-top:0;\n    margin-right: ").concat(gap, "px ").concat(important, ";\n    "),
+		gapMode === "padding" && "padding-right: ".concat(gap, "px ").concat(important, ";")
+	].filter(Boolean).join(""), "\n  }\n  \n  .").concat(zeroRightClassName, " {\n    right: ").concat(gap, "px ").concat(important, ";\n  }\n  \n  .").concat(fullWidthClassName, " {\n    margin-right: ").concat(gap, "px ").concat(important, ";\n  }\n  \n  .").concat(zeroRightClassName, " .").concat(zeroRightClassName, " {\n    right: 0 ").concat(important, ";\n  }\n  \n  .").concat(fullWidthClassName, " .").concat(fullWidthClassName, " {\n    margin-right: 0 ").concat(important, ";\n  }\n  \n  body[").concat(lockAttribute, "] {\n    ").concat(removedBarSizeVariable, ": ").concat(gap, "px;\n  }\n");
+};
+var getCurrentUseCounter = function() {
+	var counter = parseInt(document.body.getAttribute("data-scroll-locked") || "0", 10);
+	return isFinite(counter) ? counter : 0;
+};
+var useLockAttribute = function() {
+	import_react.useEffect(function() {
+		document.body.setAttribute(lockAttribute, (getCurrentUseCounter() + 1).toString());
+		return function() {
+			var newCounter = getCurrentUseCounter() - 1;
+			if (newCounter <= 0) document.body.removeAttribute(lockAttribute);
+			else document.body.setAttribute(lockAttribute, newCounter.toString());
+		};
+	}, []);
+};
+var RemoveScrollBar = function(_a) {
+	var noRelative = _a.noRelative, noImportant = _a.noImportant, _b = _a.gapMode, gapMode = _b === void 0 ? "margin" : _b;
+	useLockAttribute();
+	var gap = import_react.useMemo(function() {
+		return getGapWidth(gapMode);
+	}, [gapMode]);
+	return import_react.createElement(Style, { styles: getStyles(gap, !noRelative, gapMode, !noImportant ? "!important" : "") });
+};
+var passiveSupported = false;
+if (typeof window !== "undefined") try {
+	var options = Object.defineProperty({}, "passive", { get: function() {
+		passiveSupported = true;
+		return true;
+	} });
+	window.addEventListener("test", options, options);
+	window.removeEventListener("test", options, options);
+} catch (err) {
+	passiveSupported = false;
+}
+var nonPassive = passiveSupported ? { passive: false } : false;
+var alwaysContainsScroll = function(node) {
+	return node.tagName === "TEXTAREA";
+};
+var elementCanBeScrolled = function(node, overflow) {
+	if (!(node instanceof Element)) return false;
+	var styles = window.getComputedStyle(node);
+	return styles[overflow] !== "hidden" && !(styles.overflowY === styles.overflowX && !alwaysContainsScroll(node) && styles[overflow] === "visible");
+};
+var elementCouldBeVScrolled = function(node) {
+	return elementCanBeScrolled(node, "overflowY");
+};
+var elementCouldBeHScrolled = function(node) {
+	return elementCanBeScrolled(node, "overflowX");
+};
+var locationCouldBeScrolled = function(axis, node) {
+	var ownerDocument = node.ownerDocument;
+	var current = node;
+	do {
+		if (typeof ShadowRoot !== "undefined" && current instanceof ShadowRoot) current = current.host;
+		if (elementCouldBeScrolled(axis, current)) {
+			var _a = getScrollVariables(axis, current);
+			if (_a[1] > _a[2]) return true;
+		}
+		current = current.parentNode;
+	} while (current && current !== ownerDocument.body);
+	return false;
+};
+var getVScrollVariables = function(_a) {
+	return [
+		_a.scrollTop,
+		_a.scrollHeight,
+		_a.clientHeight
+	];
+};
+var getHScrollVariables = function(_a) {
+	return [
+		_a.scrollLeft,
+		_a.scrollWidth,
+		_a.clientWidth
+	];
+};
+var elementCouldBeScrolled = function(axis, node) {
+	return axis === "v" ? elementCouldBeVScrolled(node) : elementCouldBeHScrolled(node);
+};
+var getScrollVariables = function(axis, node) {
+	return axis === "v" ? getVScrollVariables(node) : getHScrollVariables(node);
+};
+var getDirectionFactor = function(axis, direction) {
+	return axis === "h" && direction === "rtl" ? -1 : 1;
+};
+var handleScroll = function(axis, endTarget, event, sourceDelta, noOverscroll) {
+	var directionFactor = getDirectionFactor(axis, window.getComputedStyle(endTarget).direction);
+	var delta = directionFactor * sourceDelta;
+	var target = event.target;
+	var targetInLock = endTarget.contains(target);
+	var shouldCancelScroll = false;
+	var isDeltaPositive = delta > 0;
+	var availableScroll = 0;
+	var availableScrollTop = 0;
+	do {
+		if (!target) break;
+		var _a = getScrollVariables(axis, target), position = _a[0];
+		var elementScroll = _a[1] - _a[2] - directionFactor * position;
+		if (position || elementScroll) {
+			if (elementCouldBeScrolled(axis, target)) {
+				availableScroll += elementScroll;
+				availableScrollTop += position;
+			}
+		}
+		var parent_1 = target.parentNode;
+		target = parent_1 && parent_1.nodeType === Node.DOCUMENT_FRAGMENT_NODE ? parent_1.host : parent_1;
+	} while (!targetInLock && target !== document.body || targetInLock && (endTarget.contains(target) || endTarget === target));
+	if (isDeltaPositive && (noOverscroll && Math.abs(availableScroll) < 1 || !noOverscroll && delta > availableScroll)) shouldCancelScroll = true;
+	else if (!isDeltaPositive && (noOverscroll && Math.abs(availableScrollTop) < 1 || !noOverscroll && -delta > availableScrollTop)) shouldCancelScroll = true;
+	return shouldCancelScroll;
+};
+var getTouchXY = function(event) {
+	return "changedTouches" in event ? [event.changedTouches[0].clientX, event.changedTouches[0].clientY] : [0, 0];
+};
+var getDeltaXY = function(event) {
+	return [event.deltaX, event.deltaY];
+};
+var extractRef = function(ref) {
+	return ref && "current" in ref ? ref.current : ref;
+};
+var deltaCompare = function(x$1, y) {
+	return x$1[0] === y[0] && x$1[1] === y[1];
+};
+var generateStyle = function(id) {
+	return "\n  .block-interactivity-".concat(id, " {pointer-events: none;}\n  .allow-interactivity-").concat(id, " {pointer-events: all;}\n");
+};
+var idCounter = 0;
+var lockStack = [];
+function RemoveScrollSideCar(props) {
+	var shouldPreventQueue = import_react.useRef([]);
+	var touchStartRef = import_react.useRef([0, 0]);
+	var activeAxis = import_react.useRef();
+	var id = import_react.useState(idCounter++)[0];
+	var Style$1 = import_react.useState(styleSingleton)[0];
+	var lastProps = import_react.useRef(props);
+	import_react.useEffect(function() {
+		lastProps.current = props;
+	}, [props]);
+	import_react.useEffect(function() {
+		if (props.inert) {
+			document.body.classList.add("block-interactivity-".concat(id));
+			var allow_1 = __spreadArray([props.lockRef.current], (props.shards || []).map(extractRef), true).filter(Boolean);
+			allow_1.forEach(function(el) {
+				return el.classList.add("allow-interactivity-".concat(id));
+			});
+			return function() {
+				document.body.classList.remove("block-interactivity-".concat(id));
+				allow_1.forEach(function(el) {
+					return el.classList.remove("allow-interactivity-".concat(id));
+				});
+			};
+		}
+	}, [
+		props.inert,
+		props.lockRef.current,
+		props.shards
+	]);
+	var shouldCancelEvent = import_react.useCallback(function(event, parent) {
+		if ("touches" in event && event.touches.length === 2 || event.type === "wheel" && event.ctrlKey) return !lastProps.current.allowPinchZoom;
+		var touch = getTouchXY(event);
+		var touchStart = touchStartRef.current;
+		var deltaX = "deltaX" in event ? event.deltaX : touchStart[0] - touch[0];
+		var deltaY = "deltaY" in event ? event.deltaY : touchStart[1] - touch[1];
+		var currentAxis;
+		var target = event.target;
+		var moveDirection = Math.abs(deltaX) > Math.abs(deltaY) ? "h" : "v";
+		if ("touches" in event && moveDirection === "h" && target.type === "range") return false;
+		var selection = window.getSelection();
+		var anchorNode = selection && selection.anchorNode;
+		if (anchorNode ? anchorNode === target || anchorNode.contains(target) : false) return false;
+		var canBeScrolledInMainDirection = locationCouldBeScrolled(moveDirection, target);
+		if (!canBeScrolledInMainDirection) return true;
+		if (canBeScrolledInMainDirection) currentAxis = moveDirection;
+		else {
+			currentAxis = moveDirection === "v" ? "h" : "v";
+			canBeScrolledInMainDirection = locationCouldBeScrolled(moveDirection, target);
+		}
+		if (!canBeScrolledInMainDirection) return false;
+		if (!activeAxis.current && "changedTouches" in event && (deltaX || deltaY)) activeAxis.current = currentAxis;
+		if (!currentAxis) return true;
+		var cancelingAxis = activeAxis.current || currentAxis;
+		return handleScroll(cancelingAxis, parent, event, cancelingAxis === "h" ? deltaX : deltaY, true);
+	}, []);
+	var shouldPrevent = import_react.useCallback(function(_event) {
+		var event = _event;
+		if (!lockStack.length || lockStack[lockStack.length - 1] !== Style$1) return;
+		var delta = "deltaY" in event ? getDeltaXY(event) : getTouchXY(event);
+		var sourceEvent = shouldPreventQueue.current.filter(function(e) {
+			return e.name === event.type && (e.target === event.target || event.target === e.shadowParent) && deltaCompare(e.delta, delta);
+		})[0];
+		if (sourceEvent && sourceEvent.should) {
+			if (event.cancelable) event.preventDefault();
+			return;
+		}
+		if (!sourceEvent) {
+			var shardNodes = (lastProps.current.shards || []).map(extractRef).filter(Boolean).filter(function(node) {
+				return node.contains(event.target);
+			});
+			if (shardNodes.length > 0 ? shouldCancelEvent(event, shardNodes[0]) : !lastProps.current.noIsolation) {
+				if (event.cancelable) event.preventDefault();
+			}
+		}
+	}, []);
+	var shouldCancel = import_react.useCallback(function(name, delta, target, should) {
+		var event = {
+			name,
+			delta,
+			target,
+			should,
+			shadowParent: getOutermostShadowParent(target)
+		};
+		shouldPreventQueue.current.push(event);
+		setTimeout(function() {
+			shouldPreventQueue.current = shouldPreventQueue.current.filter(function(e) {
+				return e !== event;
+			});
+		}, 1);
+	}, []);
+	var scrollTouchStart = import_react.useCallback(function(event) {
+		touchStartRef.current = getTouchXY(event);
+		activeAxis.current = void 0;
+	}, []);
+	var scrollWheel = import_react.useCallback(function(event) {
+		shouldCancel(event.type, getDeltaXY(event), event.target, shouldCancelEvent(event, props.lockRef.current));
+	}, []);
+	var scrollTouchMove = import_react.useCallback(function(event) {
+		shouldCancel(event.type, getTouchXY(event), event.target, shouldCancelEvent(event, props.lockRef.current));
+	}, []);
+	import_react.useEffect(function() {
+		lockStack.push(Style$1);
+		props.setCallbacks({
+			onScrollCapture: scrollWheel,
+			onWheelCapture: scrollWheel,
+			onTouchMoveCapture: scrollTouchMove
+		});
+		document.addEventListener("wheel", shouldPrevent, nonPassive);
+		document.addEventListener("touchmove", shouldPrevent, nonPassive);
+		document.addEventListener("touchstart", scrollTouchStart, nonPassive);
+		return function() {
+			lockStack = lockStack.filter(function(inst) {
+				return inst !== Style$1;
+			});
+			document.removeEventListener("wheel", shouldPrevent, nonPassive);
+			document.removeEventListener("touchmove", shouldPrevent, nonPassive);
+			document.removeEventListener("touchstart", scrollTouchStart, nonPassive);
+		};
+	}, []);
+	var removeScrollBar = props.removeScrollBar, inert = props.inert;
+	return import_react.createElement(import_react.Fragment, null, inert ? import_react.createElement(Style$1, { styles: generateStyle(id) }) : null, removeScrollBar ? import_react.createElement(RemoveScrollBar, {
+		noRelative: props.noRelative,
+		gapMode: props.gapMode
+	}) : null);
+}
+function getOutermostShadowParent(node) {
+	var shadowParent = null;
+	while (node !== null) {
+		if (node instanceof ShadowRoot) {
+			shadowParent = node.host;
+			node = node.host;
+		}
+		node = node.parentNode;
+	}
+	return shadowParent;
+}
+var sidecar_default = exportSidecar(effectCar, RemoveScrollSideCar);
+var ReactRemoveScroll = import_react.forwardRef(function(props, ref) {
+	return import_react.createElement(RemoveScroll, __assign({}, props, {
+		ref,
+		sideCar: sidecar_default
+	}));
+});
+ReactRemoveScroll.classNames = RemoveScroll.classNames;
+var Combination_default = ReactRemoveScroll;
+var getDefaultParent = function(originalTarget) {
+	if (typeof document === "undefined") return null;
+	return (Array.isArray(originalTarget) ? originalTarget[0] : originalTarget).ownerDocument.body;
+};
+var counterMap = /* @__PURE__ */ new WeakMap();
+var uncontrolledNodes = /* @__PURE__ */ new WeakMap();
+var markerMap = {};
+var lockCount = 0;
+var unwrapHost = function(node) {
+	return node && (node.host || unwrapHost(node.parentNode));
+};
+var correctTargets = function(parent, targets) {
+	return targets.map(function(target) {
+		if (parent.contains(target)) return target;
+		var correctedTarget = unwrapHost(target);
+		if (correctedTarget && parent.contains(correctedTarget)) return correctedTarget;
+		console.error("aria-hidden", target, "in not contained inside", parent, ". Doing nothing");
+		return null;
+	}).filter(function(x$1) {
+		return Boolean(x$1);
+	});
+};
+var applyAttributeToOthers = function(originalTarget, parentNode, markerName, controlAttribute) {
+	var targets = correctTargets(parentNode, Array.isArray(originalTarget) ? originalTarget : [originalTarget]);
+	if (!markerMap[markerName]) markerMap[markerName] = /* @__PURE__ */ new WeakMap();
+	var markerCounter = markerMap[markerName];
+	var hiddenNodes = [];
+	var elementsToKeep = /* @__PURE__ */ new Set();
+	var elementsToStop = new Set(targets);
+	var keep = function(el) {
+		if (!el || elementsToKeep.has(el)) return;
+		elementsToKeep.add(el);
+		keep(el.parentNode);
+	};
+	targets.forEach(keep);
+	var deep = function(parent) {
+		if (!parent || elementsToStop.has(parent)) return;
+		Array.prototype.forEach.call(parent.children, function(node) {
+			if (elementsToKeep.has(node)) deep(node);
+			else try {
+				var attr = node.getAttribute(controlAttribute);
+				var alreadyHidden = attr !== null && attr !== "false";
+				var counterValue = (counterMap.get(node) || 0) + 1;
+				var markerValue = (markerCounter.get(node) || 0) + 1;
+				counterMap.set(node, counterValue);
+				markerCounter.set(node, markerValue);
+				hiddenNodes.push(node);
+				if (counterValue === 1 && alreadyHidden) uncontrolledNodes.set(node, true);
+				if (markerValue === 1) node.setAttribute(markerName, "true");
+				if (!alreadyHidden) node.setAttribute(controlAttribute, "true");
+			} catch (e) {
+				console.error("aria-hidden: cannot operate on ", node, e);
+			}
+		});
+	};
+	deep(parentNode);
+	elementsToKeep.clear();
+	lockCount++;
+	return function() {
+		hiddenNodes.forEach(function(node) {
+			var counterValue = counterMap.get(node) - 1;
+			var markerValue = markerCounter.get(node) - 1;
+			counterMap.set(node, counterValue);
+			markerCounter.set(node, markerValue);
+			if (!counterValue) {
+				if (!uncontrolledNodes.has(node)) node.removeAttribute(controlAttribute);
+				uncontrolledNodes.delete(node);
+			}
+			if (!markerValue) node.removeAttribute(markerName);
+		});
+		lockCount--;
+		if (!lockCount) {
+			counterMap = /* @__PURE__ */ new WeakMap();
+			counterMap = /* @__PURE__ */ new WeakMap();
+			uncontrolledNodes = /* @__PURE__ */ new WeakMap();
+			markerMap = {};
+		}
+	};
+};
+var hideOthers = function(originalTarget, parentNode, markerName) {
+	if (markerName === void 0) markerName = "data-aria-hidden";
+	var targets = Array.from(Array.isArray(originalTarget) ? originalTarget : [originalTarget]);
+	var activeParentNode = parentNode || getDefaultParent(originalTarget);
+	if (!activeParentNode) return function() {
+		return null;
+	};
+	targets.push.apply(targets, Array.from(activeParentNode.querySelectorAll("[aria-live], script")));
+	return applyAttributeToOthers(targets, activeParentNode, markerName, "aria-hidden");
+};
+var DIALOG_NAME = "Dialog";
+var [createDialogContext, createDialogScope] = createContextScope(DIALOG_NAME);
+var [DialogProvider, useDialogContext] = createDialogContext(DIALOG_NAME);
+var Dialog$1 = (props) => {
+	const { __scopeDialog, children, open: openProp, defaultOpen, onOpenChange, modal = true } = props;
+	const triggerRef = import_react.useRef(null);
+	const contentRef = import_react.useRef(null);
+	const [open, setOpen] = useControllableState({
+		prop: openProp,
+		defaultProp: defaultOpen ?? false,
+		onChange: onOpenChange,
+		caller: DIALOG_NAME
+	});
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogProvider, {
+		scope: __scopeDialog,
+		triggerRef,
+		contentRef,
+		contentId: useId(),
+		titleId: useId(),
+		descriptionId: useId(),
+		open,
+		onOpenChange: setOpen,
+		onOpenToggle: import_react.useCallback(() => setOpen((prevOpen) => !prevOpen), [setOpen]),
+		modal,
+		children
+	});
+};
+Dialog$1.displayName = DIALOG_NAME;
+var TRIGGER_NAME$1 = "DialogTrigger";
+var DialogTrigger$1 = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeDialog, ...triggerProps } = props;
+	const context = useDialogContext(TRIGGER_NAME$1, __scopeDialog);
+	const composedTriggerRef = useComposedRefs(forwardedRef, context.triggerRef);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.button, {
+		type: "button",
+		"aria-haspopup": "dialog",
+		"aria-expanded": context.open,
+		"aria-controls": context.contentId,
+		"data-state": getState$1(context.open),
+		...triggerProps,
+		ref: composedTriggerRef,
+		onClick: composeEventHandlers(props.onClick, context.onOpenToggle)
+	});
+});
+DialogTrigger$1.displayName = TRIGGER_NAME$1;
+var PORTAL_NAME = "DialogPortal";
+var [PortalProvider, usePortalContext] = createDialogContext(PORTAL_NAME, { forceMount: void 0 });
+var DialogPortal$1 = (props) => {
+	const { __scopeDialog, forceMount, children, container } = props;
+	const context = useDialogContext(PORTAL_NAME, __scopeDialog);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(PortalProvider, {
+		scope: __scopeDialog,
+		forceMount,
+		children: import_react.Children.map(children, (child) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Presence, {
+			present: forceMount || context.open,
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Portal, {
+				asChild: true,
+				container,
+				children: child
+			})
+		}))
+	});
+};
+DialogPortal$1.displayName = PORTAL_NAME;
+var OVERLAY_NAME = "DialogOverlay";
+var DialogOverlay$1 = import_react.forwardRef((props, forwardedRef) => {
+	const portalContext = usePortalContext(OVERLAY_NAME, props.__scopeDialog);
+	const { forceMount = portalContext.forceMount, ...overlayProps } = props;
+	const context = useDialogContext(OVERLAY_NAME, props.__scopeDialog);
+	return context.modal ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Presence, {
+		present: forceMount || context.open,
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogOverlayImpl, {
+			...overlayProps,
+			ref: forwardedRef
+		})
+	}) : null;
+});
+DialogOverlay$1.displayName = OVERLAY_NAME;
+var Slot = /* @__PURE__ */ createSlot("DialogOverlay.RemoveScroll");
+var DialogOverlayImpl = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeDialog, ...overlayProps } = props;
+	const context = useDialogContext(OVERLAY_NAME, __scopeDialog);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Combination_default, {
+		as: Slot,
+		allowPinchZoom: true,
+		shards: [context.contentRef],
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
+			"data-state": getState$1(context.open),
+			...overlayProps,
+			ref: forwardedRef,
+			style: {
+				pointerEvents: "auto",
+				...overlayProps.style
+			}
+		})
+	});
+});
+var CONTENT_NAME = "DialogContent";
+var DialogContent$1 = import_react.forwardRef((props, forwardedRef) => {
+	const portalContext = usePortalContext(CONTENT_NAME, props.__scopeDialog);
+	const { forceMount = portalContext.forceMount, ...contentProps } = props;
+	const context = useDialogContext(CONTENT_NAME, props.__scopeDialog);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Presence, {
+		present: forceMount || context.open,
+		children: context.modal ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogContentModal, {
+			...contentProps,
+			ref: forwardedRef
+		}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogContentNonModal, {
+			...contentProps,
+			ref: forwardedRef
+		})
+	});
+});
+DialogContent$1.displayName = CONTENT_NAME;
+var DialogContentModal = import_react.forwardRef((props, forwardedRef) => {
+	const context = useDialogContext(CONTENT_NAME, props.__scopeDialog);
+	const contentRef = import_react.useRef(null);
+	const composedRefs = useComposedRefs(forwardedRef, context.contentRef, contentRef);
+	import_react.useEffect(() => {
+		const content = contentRef.current;
+		if (content) return hideOthers(content);
+	}, []);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogContentImpl, {
+		...props,
+		ref: composedRefs,
+		trapFocus: context.open,
+		disableOutsidePointerEvents: true,
+		onCloseAutoFocus: composeEventHandlers(props.onCloseAutoFocus, (event) => {
+			event.preventDefault();
+			context.triggerRef.current?.focus();
+		}),
+		onPointerDownOutside: composeEventHandlers(props.onPointerDownOutside, (event) => {
+			const originalEvent = event.detail.originalEvent;
+			const ctrlLeftClick = originalEvent.button === 0 && originalEvent.ctrlKey === true;
+			if (originalEvent.button === 2 || ctrlLeftClick) event.preventDefault();
+		}),
+		onFocusOutside: composeEventHandlers(props.onFocusOutside, (event) => event.preventDefault())
+	});
+});
+var DialogContentNonModal = import_react.forwardRef((props, forwardedRef) => {
+	const context = useDialogContext(CONTENT_NAME, props.__scopeDialog);
+	const hasInteractedOutsideRef = import_react.useRef(false);
+	const hasPointerDownOutsideRef = import_react.useRef(false);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogContentImpl, {
+		...props,
+		ref: forwardedRef,
+		trapFocus: false,
+		disableOutsidePointerEvents: false,
+		onCloseAutoFocus: (event) => {
+			props.onCloseAutoFocus?.(event);
+			if (!event.defaultPrevented) {
+				if (!hasInteractedOutsideRef.current) context.triggerRef.current?.focus();
+				event.preventDefault();
+			}
+			hasInteractedOutsideRef.current = false;
+			hasPointerDownOutsideRef.current = false;
+		},
+		onInteractOutside: (event) => {
+			props.onInteractOutside?.(event);
+			if (!event.defaultPrevented) {
+				hasInteractedOutsideRef.current = true;
+				if (event.detail.originalEvent.type === "pointerdown") hasPointerDownOutsideRef.current = true;
+			}
+			const target = event.target;
+			if (context.triggerRef.current?.contains(target)) event.preventDefault();
+			if (event.detail.originalEvent.type === "focusin" && hasPointerDownOutsideRef.current) event.preventDefault();
+		}
+	});
+});
+var DialogContentImpl = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeDialog, trapFocus, onOpenAutoFocus, onCloseAutoFocus, ...contentProps } = props;
+	const context = useDialogContext(CONTENT_NAME, __scopeDialog);
+	const contentRef = import_react.useRef(null);
+	const composedRefs = useComposedRefs(forwardedRef, contentRef);
+	useFocusGuards();
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FocusScope, {
+		asChild: true,
+		loop: true,
+		trapped: trapFocus,
+		onMountAutoFocus: onOpenAutoFocus,
+		onUnmountAutoFocus: onCloseAutoFocus,
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DismissableLayer, {
+			role: "dialog",
+			id: context.contentId,
+			"aria-describedby": context.descriptionId,
+			"aria-labelledby": context.titleId,
+			"data-state": getState$1(context.open),
+			...contentProps,
+			ref: composedRefs,
+			onDismiss: () => context.onOpenChange(false)
+		})
+	}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TitleWarning, { titleId: context.titleId }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DescriptionWarning, {
+		contentRef,
+		descriptionId: context.descriptionId
+	})] })] });
+});
+var TITLE_NAME = "DialogTitle";
+var DialogTitle$1 = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeDialog, ...titleProps } = props;
+	const context = useDialogContext(TITLE_NAME, __scopeDialog);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.h2, {
+		id: context.titleId,
+		...titleProps,
+		ref: forwardedRef
+	});
+});
+DialogTitle$1.displayName = TITLE_NAME;
+var DESCRIPTION_NAME = "DialogDescription";
+var DialogDescription$1 = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeDialog, ...descriptionProps } = props;
+	const context = useDialogContext(DESCRIPTION_NAME, __scopeDialog);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.p, {
+		id: context.descriptionId,
+		...descriptionProps,
+		ref: forwardedRef
+	});
+});
+DialogDescription$1.displayName = DESCRIPTION_NAME;
+var CLOSE_NAME = "DialogClose";
+var DialogClose$1 = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeDialog, ...closeProps } = props;
+	const context = useDialogContext(CLOSE_NAME, __scopeDialog);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.button, {
+		type: "button",
+		...closeProps,
+		ref: forwardedRef,
+		onClick: composeEventHandlers(props.onClick, () => context.onOpenChange(false))
+	});
+});
+DialogClose$1.displayName = CLOSE_NAME;
+function getState$1(open) {
+	return open ? "open" : "closed";
+}
+var TITLE_WARNING_NAME = "DialogTitleWarning";
+var [WarningProvider, useWarningContext] = createContext2(TITLE_WARNING_NAME, {
+	contentName: CONTENT_NAME,
+	titleName: TITLE_NAME,
+	docsSlug: "dialog"
+});
+var TitleWarning = ({ titleId }) => {
+	const titleWarningContext = useWarningContext(TITLE_WARNING_NAME);
+	const MESSAGE = `\`${titleWarningContext.contentName}\` requires a \`${titleWarningContext.titleName}\` for the component to be accessible for screen reader users.
+
+If you want to hide the \`${titleWarningContext.titleName}\`, you can wrap it with our VisuallyHidden component.
+
+For more information, see https://radix-ui.com/primitives/docs/components/${titleWarningContext.docsSlug}`;
+	import_react.useEffect(() => {
+		if (titleId) {
+			if (!document.getElementById(titleId)) console.error(MESSAGE);
+		}
+	}, [MESSAGE, titleId]);
+	return null;
+};
+var DESCRIPTION_WARNING_NAME = "DialogDescriptionWarning";
+var DescriptionWarning = ({ contentRef, descriptionId }) => {
+	const MESSAGE = `Warning: Missing \`Description\` or \`aria-describedby={undefined}\` for {${useWarningContext(DESCRIPTION_WARNING_NAME).contentName}}.`;
+	import_react.useEffect(() => {
+		const describedById = contentRef.current?.getAttribute("aria-describedby");
+		if (descriptionId && describedById) {
+			if (!document.getElementById(descriptionId)) console.warn(MESSAGE);
+		}
+	}, [
+		MESSAGE,
+		contentRef,
+		descriptionId
+	]);
+	return null;
+};
+var Root = Dialog$1;
+var Portal$1 = DialogPortal$1;
+var Overlay = DialogOverlay$1;
+var Content = DialogContent$1;
+var Title = DialogTitle$1;
+var Description = DialogDescription$1;
+var Close = DialogClose$1;
+var Dialog = Root;
+var DialogPortal = Portal$1;
+var DialogOverlay = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Overlay, {
+	ref,
+	className: cn("fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0", className),
+	...props
+}));
+DialogOverlay.displayName = Overlay.displayName;
+var DialogContent = import_react.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogPortal, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogOverlay, {}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Content, {
+	ref,
+	className: cn("fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg overflow-y-auto max-h-screen", className),
+	...props,
+	children: [children, /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Close, {
+		className: "absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "h-4 w-4" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+			className: "sr-only",
+			children: "Close"
+		})]
+	})]
+})] }));
+DialogContent.displayName = Content.displayName;
+var DialogHeader = ({ className, ...props }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+	className: cn("flex flex-col space-y-1.5 text-center sm:text-left", className),
+	...props
+});
+DialogHeader.displayName = "DialogHeader";
+var DialogFooter = ({ className, ...props }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+	className: cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className),
+	...props
+});
+DialogFooter.displayName = "DialogFooter";
+var DialogTitle = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Title, {
+	ref,
+	className: cn("text-lg font-semibold leading-none tracking-tight", className),
+	...props
+}));
+DialogTitle.displayName = Title.displayName;
+var DialogDescription = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Description, {
+	ref,
+	className: cn("text-sm text-muted-foreground", className),
+	...props
+}));
+DialogDescription.displayName = Description.displayName;
+function usePrevious(value) {
+	const ref = import_react.useRef({
+		value,
+		previous: value
+	});
+	return import_react.useMemo(() => {
+		if (ref.current.value !== value) {
+			ref.current.previous = ref.current.value;
+			ref.current.value = value;
+		}
+		return ref.current.previous;
+	}, [value]);
+}
+var CHECKBOX_NAME = "Checkbox";
+var [createCheckboxContext, createCheckboxScope] = createContextScope(CHECKBOX_NAME);
+var [CheckboxProviderImpl, useCheckboxContext] = createCheckboxContext(CHECKBOX_NAME);
+function CheckboxProvider(props) {
+	const { __scopeCheckbox, checked: checkedProp, children, defaultChecked, disabled, form, name, onCheckedChange, required, value = "on", internal_do_not_use_render } = props;
+	const [checked, setChecked] = useControllableState({
+		prop: checkedProp,
+		defaultProp: defaultChecked ?? false,
+		onChange: onCheckedChange,
+		caller: CHECKBOX_NAME
+	});
+	const [control, setControl] = import_react.useState(null);
+	const [bubbleInput, setBubbleInput] = import_react.useState(null);
+	const hasConsumerStoppedPropagationRef = import_react.useRef(false);
+	const isFormControl = control ? !!form || !!control.closest("form") : true;
+	const context = {
+		checked,
+		disabled,
+		setChecked,
+		control,
+		setControl,
+		name,
+		form,
+		value,
+		hasConsumerStoppedPropagationRef,
+		required,
+		defaultChecked: isIndeterminate(defaultChecked) ? false : defaultChecked,
+		isFormControl,
+		bubbleInput,
+		setBubbleInput
+	};
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CheckboxProviderImpl, {
+		scope: __scopeCheckbox,
+		...context,
+		children: isFunction(internal_do_not_use_render) ? internal_do_not_use_render(context) : children
+	});
+}
+var TRIGGER_NAME = "CheckboxTrigger";
+var CheckboxTrigger = import_react.forwardRef(({ __scopeCheckbox, onKeyDown, onClick, ...checkboxProps }, forwardedRef) => {
+	const { control, value, disabled, checked, required, setControl, setChecked, hasConsumerStoppedPropagationRef, isFormControl, bubbleInput } = useCheckboxContext(TRIGGER_NAME, __scopeCheckbox);
+	const composedRefs = useComposedRefs(forwardedRef, setControl);
+	const initialCheckedStateRef = import_react.useRef(checked);
+	import_react.useEffect(() => {
+		const form = control?.form;
+		if (form) {
+			const reset = () => setChecked(initialCheckedStateRef.current);
+			form.addEventListener("reset", reset);
+			return () => form.removeEventListener("reset", reset);
+		}
+	}, [control, setChecked]);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.button, {
+		type: "button",
+		role: "checkbox",
+		"aria-checked": isIndeterminate(checked) ? "mixed" : checked,
+		"aria-required": required,
+		"data-state": getState(checked),
+		"data-disabled": disabled ? "" : void 0,
+		disabled,
+		value,
+		...checkboxProps,
+		ref: composedRefs,
+		onKeyDown: composeEventHandlers(onKeyDown, (event) => {
+			if (event.key === "Enter") event.preventDefault();
+		}),
+		onClick: composeEventHandlers(onClick, (event) => {
+			setChecked((prevChecked) => isIndeterminate(prevChecked) ? true : !prevChecked);
+			if (bubbleInput && isFormControl) {
+				hasConsumerStoppedPropagationRef.current = event.isPropagationStopped();
+				if (!hasConsumerStoppedPropagationRef.current) event.stopPropagation();
+			}
+		})
+	});
+});
+CheckboxTrigger.displayName = TRIGGER_NAME;
+var Checkbox$1 = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeCheckbox, name, checked, defaultChecked, required, disabled, value, onCheckedChange, form, ...checkboxProps } = props;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CheckboxProvider, {
+		__scopeCheckbox,
+		checked,
+		defaultChecked,
+		disabled,
+		required,
+		onCheckedChange,
+		name,
+		form,
+		value,
+		internal_do_not_use_render: ({ isFormControl }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CheckboxTrigger, {
+			...checkboxProps,
+			ref: forwardedRef,
+			__scopeCheckbox
+		}), isFormControl && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CheckboxBubbleInput, { __scopeCheckbox })] })
+	});
+});
+Checkbox$1.displayName = CHECKBOX_NAME;
+var INDICATOR_NAME = "CheckboxIndicator";
+var CheckboxIndicator = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeCheckbox, forceMount, ...indicatorProps } = props;
+	const context = useCheckboxContext(INDICATOR_NAME, __scopeCheckbox);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Presence, {
+		present: forceMount || isIndeterminate(context.checked) || context.checked === true,
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.span, {
+			"data-state": getState(context.checked),
+			"data-disabled": context.disabled ? "" : void 0,
+			...indicatorProps,
+			ref: forwardedRef,
+			style: {
+				pointerEvents: "none",
+				...props.style
+			}
+		})
+	});
+});
+CheckboxIndicator.displayName = INDICATOR_NAME;
+var BUBBLE_INPUT_NAME = "CheckboxBubbleInput";
+var CheckboxBubbleInput = import_react.forwardRef(({ __scopeCheckbox, ...props }, forwardedRef) => {
+	const { control, hasConsumerStoppedPropagationRef, checked, defaultChecked, required, disabled, name, value, form, bubbleInput, setBubbleInput } = useCheckboxContext(BUBBLE_INPUT_NAME, __scopeCheckbox);
+	const composedRefs = useComposedRefs(forwardedRef, setBubbleInput);
+	const prevChecked = usePrevious(checked);
+	const controlSize = useSize(control);
+	import_react.useEffect(() => {
+		const input = bubbleInput;
+		if (!input) return;
+		const inputProto = window.HTMLInputElement.prototype;
+		const setChecked = Object.getOwnPropertyDescriptor(inputProto, "checked").set;
+		const bubbles = !hasConsumerStoppedPropagationRef.current;
+		if (prevChecked !== checked && setChecked) {
+			const event = new Event("click", { bubbles });
+			input.indeterminate = isIndeterminate(checked);
+			setChecked.call(input, isIndeterminate(checked) ? false : checked);
+			input.dispatchEvent(event);
+		}
+	}, [
+		bubbleInput,
+		prevChecked,
+		checked,
+		hasConsumerStoppedPropagationRef
+	]);
+	const defaultCheckedRef = import_react.useRef(isIndeterminate(checked) ? false : checked);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.input, {
+		type: "checkbox",
+		"aria-hidden": true,
+		defaultChecked: defaultChecked ?? defaultCheckedRef.current,
+		required,
+		disabled,
+		name,
+		value,
+		form,
+		...props,
+		tabIndex: -1,
+		ref: composedRefs,
+		style: {
+			...props.style,
+			...controlSize,
+			position: "absolute",
+			pointerEvents: "none",
+			opacity: 0,
+			margin: 0,
+			transform: "translateX(-100%)"
+		}
+	});
+});
+CheckboxBubbleInput.displayName = BUBBLE_INPUT_NAME;
+function isFunction(value) {
+	return typeof value === "function";
+}
+function isIndeterminate(checked) {
+	return checked === "indeterminate";
+}
+function getState(checked) {
+	return isIndeterminate(checked) ? "indeterminate" : checked ? "checked" : "unchecked";
+}
+var Checkbox = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Checkbox$1, {
+	ref,
+	className: cn("peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground", className),
+	...props,
+	children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CheckboxIndicator, {
+		className: cn("flex items-center justify-center text-current"),
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { className: "h-4 w-4" })
+	})
+}));
+Checkbox.displayName = Checkbox$1.displayName;
+function CurriculumManager({ courseId }) {
+	const [modules, setModules] = (0, import_react.useState)([]);
+	const [loading, setLoading] = (0, import_react.useState)(true);
+	const [newModuleTitle, setNewModuleTitle] = (0, import_react.useState)("");
+	const [editingLesson, setEditingLesson] = (0, import_react.useState)(null);
+	const [activeModuleId, setActiveModuleId] = (0, import_react.useState)(null);
+	const fetchCurriculum = async () => {
+		const { data: mods, error } = await supabase.from("modules").select("*, lessons(*)").eq("course_id", courseId).order("order_index");
+		if (mods && !error) setModules(mods.map((m) => ({
+			...m,
+			lessons: m.lessons.sort((a, b$1) => a.order_index - b$1.order_index)
+		})));
+		setLoading(false);
+	};
+	(0, import_react.useEffect)(() => {
+		fetchCurriculum();
+	}, [courseId]);
+	const addModule = async () => {
+		if (!newModuleTitle) return;
+		await supabase.from("modules").insert({
+			course_id: courseId,
+			title: newModuleTitle,
+			order_index: modules.length
+		});
+		setNewModuleTitle("");
+		fetchCurriculum();
+	};
+	const deleteModule = async (id) => {
+		if (!confirm("Delete module?")) return;
+		await supabase.from("modules").delete().eq("id", id);
+		fetchCurriculum();
+	};
+	const saveLesson = async () => {
+		if (!editingLesson || !activeModuleId) return;
+		const payload = {
+			title: editingLesson.title,
+			duration: editingLesson.duration,
+			is_test: editingLesson.is_test,
+			video_url: editingLesson.video_url,
+			module_id: activeModuleId
+		};
+		if (editingLesson.id) await supabase.from("lessons").update(payload).eq("id", editingLesson.id);
+		else {
+			const currentLessons = modules.find((m) => m.id === activeModuleId)?.lessons || [];
+			await supabase.from("lessons").insert({
+				...payload,
+				order_index: currentLessons.length
+			});
+		}
+		setEditingLesson(null);
+		setActiveModuleId(null);
+		fetchCurriculum();
+	};
+	const deleteLesson = async (id) => {
+		if (!confirm("Delete lesson?")) return;
+		await supabase.from("lessons").delete().eq("id", id);
+		fetchCurriculum();
+	};
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "space-y-6",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex gap-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+					placeholder: "New Module Title",
+					value: newModuleTitle,
+					onChange: (e) => setNewModuleTitle(e.target.value)
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+					onClick: addModule,
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { className: "w-4 h-4 mr-2" }), " Add Module"]
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Accordion, {
+				type: "multiple",
+				className: "w-full space-y-2",
+				children: modules.map((module$1) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(AccordionItem, {
+					value: module$1.id,
+					className: "border rounded-lg bg-gray-50 px-4",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex items-center justify-between py-2",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(AccordionTrigger, {
+							className: "hover:no-underline",
+							children: module$1.title
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+							variant: "ghost",
+							size: "sm",
+							onClick: () => deleteModule(module$1.id),
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trash, { className: "w-4 h-4 text-red-500" })
+						})]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AccordionContent, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "space-y-2 pl-4 border-l-2 border-gray-200 ml-2 mb-4",
+						children: [module$1.lessons.map((lesson) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex items-center justify-between bg-white p-3 rounded shadow-sm",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex flex-col",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "font-medium",
+									children: lesson.title
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+									className: "text-xs text-gray-500",
+									children: [
+										lesson.duration,
+										" ",
+										lesson.is_test ? "(Test)" : ""
+									]
+								})]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex gap-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+									size: "sm",
+									variant: "ghost",
+									onClick: () => {
+										setEditingLesson(lesson);
+										setActiveModuleId(module$1.id);
+									},
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SquarePen, { className: "w-3 h-3" })
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+									size: "sm",
+									variant: "ghost",
+									onClick: () => deleteLesson(lesson.id),
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trash, { className: "w-3 h-3 text-red-500" })
+								})]
+							})]
+						}, lesson.id)), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+							variant: "outline",
+							size: "sm",
+							className: "w-full mt-2",
+							onClick: () => {
+								setEditingLesson({});
+								setActiveModuleId(module$1.id);
+							},
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { className: "w-3 h-3 mr-2" }), " Add Lesson"]
+						})]
+					}) })]
+				}, module$1.id))
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Dialog, {
+				open: !!editingLesson,
+				onOpenChange: (open) => !open && setEditingLesson(null),
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogContent, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogHeader, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogTitle, { children: editingLesson?.id ? "Edit Lesson" : "Add Lesson" }) }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "space-y-4 py-4",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "space-y-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Title" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+								value: editingLesson?.title || "",
+								onChange: (e) => setEditingLesson((prev) => ({
+									...prev,
+									title: e.target.value
+								}))
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "space-y-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Duration" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+								value: editingLesson?.duration || "",
+								onChange: (e) => setEditingLesson((prev) => ({
+									...prev,
+									duration: e.target.value
+								})),
+								placeholder: "00:00"
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "space-y-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Video URL" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+								value: editingLesson?.video_url || "",
+								onChange: (e) => setEditingLesson((prev) => ({
+									...prev,
+									video_url: e.target.value
+								}))
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex items-center space-x-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Checkbox, {
+								id: "is_test",
+								checked: editingLesson?.is_test || false,
+								onCheckedChange: (c) => setEditingLesson((prev) => ({
+									...prev,
+									is_test: !!c
+								}))
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+								htmlFor: "is_test",
+								children: "Is a Test/Quiz"
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+							onClick: saveLesson,
+							className: "w-full",
+							children: "Save Lesson"
+						})
+					]
+				})] })
+			})
+		]
+	});
+}
+function AdminCourseEdit() {
+	const { courseId } = useParams();
+	const [course, setCourse] = (0, import_react.useState)(null);
+	const [loading, setLoading] = (0, import_react.useState)(true);
+	const fetchCourse = async () => {
+		if (!courseId) return;
+		const { data } = await supabase.from("courses").select("*").eq("id", courseId).single();
+		if (data) setCourse(data);
+		setLoading(false);
+	};
+	(0, import_react.useEffect)(() => {
+		fetchCourse();
+	}, [courseId]);
+	if (loading) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: "Loading..." });
+	if (!course) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: "Course not found" });
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "container mx-auto py-10 px-4",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "mb-6",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
+				to: "/admin",
+				className: "text-white/60 hover:text-white flex items-center gap-2 mb-4",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowLeft, { className: "w-4 h-4" }), " Back to Dashboard"]
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", {
+				className: "text-2xl font-bold text-white",
+				children: ["Edit Course: ", course.title]
+			})]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			className: "bg-white rounded-lg p-6",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Tabs, {
+				defaultValue: "details",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TabsList, {
+						className: "mb-6",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsTrigger, {
+							value: "details",
+							children: "Details"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsTrigger, {
+							value: "curriculum",
+							children: "Curriculum"
+						})]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsContent, {
+						value: "details",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardHeader, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, { children: "Course Details" }) }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardContent, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CourseForm, {
+							course,
+							onUpdate: fetchCourse
+						}) })] })
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsContent, {
+						value: "curriculum",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardHeader, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, { children: "Curriculum" }) }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardContent, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CurriculumManager, { courseId: course.id }) })] })
+					})
+				]
 			})
 		})]
 	});
@@ -34082,7 +36351,36 @@ const ProtectedRoute = () => {
 	});
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {});
 };
-var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
+const AdminRoute = () => {
+	const { user, loading: authLoading } = useAuth();
+	const [isAdmin, setIsAdmin] = (0, import_react.useState)(null);
+	const [checking, setChecking] = (0, import_react.useState)(true);
+	(0, import_react.useEffect)(() => {
+		if (authLoading) return;
+		if (!user) {
+			setIsAdmin(false);
+			setChecking(false);
+			return;
+		}
+		const checkRole = async () => {
+			const { data, error } = await supabase.from("profiles").select("role").eq("id", user.id).single();
+			if (!error && data && data.role === "admin") setIsAdmin(true);
+			else setIsAdmin(false);
+			setChecking(false);
+		};
+		checkRole();
+	}, [user, authLoading]);
+	if (authLoading || checking) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		className: "flex h-screen w-full items-center justify-center bg-gray-50",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LoaderCircle, { className: "h-8 w-8 animate-spin text-primary" })
+	});
+	if (!isAdmin) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Navigate, {
+		to: "/",
+		replace: true
+	});
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {});
+};
+var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(OrganizationProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 	future: {
 		v7_startTransition: false,
 		v7_relativeSplatPath: false
@@ -34111,6 +36409,16 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { chil
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
 							path: "/course/:courseId/lesson/:lessonId",
 							element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LessonPlayer, {})
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Route, {
+							element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AdminRoute, {}),
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
+								path: "/admin",
+								element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AdminDashboard, {})
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
+								path: "/admin/courses/:courseId",
+								element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AdminCourseEdit, {})
+							})]
 						})
 					]
 				})
@@ -34121,8 +36429,8 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { chil
 			})
 		] })
 	] })
-}) });
+}) }) });
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-BC3FFsVi.js.map
+//# sourceMappingURL=index-mQ9AZNRo.js.map
