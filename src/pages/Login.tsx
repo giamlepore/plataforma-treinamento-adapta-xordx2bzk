@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { toast } from 'sonner'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Command, Loader2 } from 'lucide-react'
+import { Command, Loader2, AlertCircle } from 'lucide-react'
 import { supabase } from '@/lib/supabase/client'
 
 export default function Login() {
@@ -26,6 +26,7 @@ export default function Login() {
     name: string
   } | null>(null)
   const [isFetchingOrg, setIsFetchingOrg] = useState(!!orgSlug)
+  const [isInvalidSlug, setIsInvalidSlug] = useState(false)
 
   useEffect(() => {
     if (user) {
@@ -37,6 +38,8 @@ export default function Login() {
     async function fetchOrg() {
       if (!orgSlug) return
       setIsFetchingOrg(true)
+      setIsInvalidSlug(false)
+
       const { data, error } = await supabase
         .from('organizations')
         .select('id, name')
@@ -46,6 +49,8 @@ export default function Login() {
       if (!error && data) {
         setInviteOrg(data)
       } else {
+        setInviteOrg(null)
+        setIsInvalidSlug(true)
         toast.error('Invalid or expired invitation link.')
       }
       setIsFetchingOrg(false)
@@ -194,106 +199,132 @@ export default function Login() {
             </TabsContent>
 
             <TabsContent value="register" className="px-6 pb-6 pt-2">
-              <form onSubmit={handleRegister} className="space-y-6">
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <Label
-                      htmlFor="reg-name"
-                      className="font-jetbrains text-[9px] uppercase tracking-[0.1em] text-[#666666]"
-                    >
-                      Profile // Full Name
-                    </Label>
-                    <Input
-                      id="reg-name"
-                      type="text"
-                      placeholder="John Doe"
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
-                      required
-                      className="bg-[#F7F7F7] border-transparent focus-visible:ring-0 focus-visible:border-[#111111] text-[#111111] h-10 placeholder:text-[#666666]/50 rounded-md transition-colors"
-                    />
+              {isInvalidSlug ? (
+                <div className="flex flex-col items-center justify-center space-y-4 py-8 text-center animate-fade-in">
+                  <div className="rounded-full bg-red-100 p-3">
+                    <AlertCircle className="w-6 h-6 text-red-600" />
                   </div>
-
-                  {isFetchingOrg ? (
-                    <div className="flex items-center justify-center p-4">
-                      <Loader2 className="w-4 h-4 animate-spin text-[#666666]" />
-                    </div>
-                  ) : inviteOrg ? (
-                    <div className="space-y-2 p-3 bg-[#111111]/5 rounded-md border border-[#111111]/10">
-                      <p className="font-jetbrains text-[9px] uppercase tracking-[0.1em] text-[#666666]">
-                        Joining Workspace
-                      </p>
-                      <p className="font-sans font-medium text-[#111111]">
-                        {inviteOrg.name}
-                      </p>
-                    </div>
-                  ) : (
+                  <div className="space-y-2">
+                    <h3 className="font-medium text-[#111111]">
+                      Invalid Invitation
+                    </h3>
+                    <p className="text-sm text-[#666666] max-w-xs mx-auto">
+                      The organization link you used is invalid or has expired.
+                    </p>
+                  </div>
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      setIsInvalidSlug(false)
+                      navigate('/signup')
+                    }}
+                    className="mt-2 font-jetbrains text-[10px] uppercase tracking-wider"
+                  >
+                    Create New Organization
+                  </Button>
+                </div>
+              ) : (
+                <form onSubmit={handleRegister} className="space-y-6">
+                  <div className="space-y-4">
                     <div className="space-y-2">
                       <Label
-                        htmlFor="reg-org"
+                        htmlFor="reg-name"
                         className="font-jetbrains text-[9px] uppercase tracking-[0.1em] text-[#666666]"
                       >
-                        Workspace // Organization Name
+                        Profile // Full Name
                       </Label>
                       <Input
-                        id="reg-org"
+                        id="reg-name"
                         type="text"
-                        placeholder="Acme Corp"
-                        value={orgName}
-                        onChange={(e) => setOrgName(e.target.value)}
+                        placeholder="John Doe"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
                         required
                         className="bg-[#F7F7F7] border-transparent focus-visible:ring-0 focus-visible:border-[#111111] text-[#111111] h-10 placeholder:text-[#666666]/50 rounded-md transition-colors"
                       />
                     </div>
-                  )}
 
-                  <div className="space-y-2">
-                    <Label
-                      htmlFor="reg-email"
-                      className="font-jetbrains text-[9px] uppercase tracking-[0.1em] text-[#666666]"
-                    >
-                      Identity // Email
-                    </Label>
-                    <Input
-                      id="reg-email"
-                      type="email"
-                      placeholder="user@kernel.system"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      className="bg-[#F7F7F7] border-transparent focus-visible:ring-0 focus-visible:border-[#111111] text-[#111111] h-10 placeholder:text-[#666666]/50 rounded-md transition-colors"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label
-                      htmlFor="reg-password"
-                      className="font-jetbrains text-[9px] uppercase tracking-[0.1em] text-[#666666]"
-                    >
-                      Security // Password
-                    </Label>
-                    <Input
-                      id="reg-password"
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                      className="bg-[#F7F7F7] border-transparent focus-visible:ring-0 focus-visible:border-[#111111] text-[#111111] h-10 rounded-md transition-colors"
-                    />
-                  </div>
-                </div>
+                    {isFetchingOrg ? (
+                      <div className="flex items-center justify-center p-4">
+                        <Loader2 className="w-4 h-4 animate-spin text-[#666666]" />
+                      </div>
+                    ) : inviteOrg ? (
+                      <div className="space-y-2 p-3 bg-[#111111]/5 rounded-md border border-[#111111]/10">
+                        <p className="font-jetbrains text-[9px] uppercase tracking-[0.1em] text-[#666666]">
+                          Joining Workspace
+                        </p>
+                        <p className="font-sans font-medium text-[#111111]">
+                          {inviteOrg.name}
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="space-y-2">
+                        <Label
+                          htmlFor="reg-org"
+                          className="font-jetbrains text-[9px] uppercase tracking-[0.1em] text-[#666666]"
+                        >
+                          Workspace // Organization Name
+                        </Label>
+                        <Input
+                          id="reg-org"
+                          type="text"
+                          placeholder="Acme Corp"
+                          value={orgName}
+                          onChange={(e) => setOrgName(e.target.value)}
+                          required
+                          className="bg-[#F7F7F7] border-transparent focus-visible:ring-0 focus-visible:border-[#111111] text-[#111111] h-10 placeholder:text-[#666666]/50 rounded-md transition-colors"
+                        />
+                      </div>
+                    )}
 
-                <Button
-                  type="submit"
-                  disabled={isLoading || isFetchingOrg}
-                  className="w-full rounded-full bg-[#111111] text-white hover:bg-[#111111]/90 h-10 text-[11px] uppercase tracking-wider font-jetbrains shadow-none"
-                >
-                  {isLoading ? (
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                  ) : (
-                    'Initialize Account'
-                  )}
-                </Button>
-              </form>
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="reg-email"
+                        className="font-jetbrains text-[9px] uppercase tracking-[0.1em] text-[#666666]"
+                      >
+                        Identity // Email
+                      </Label>
+                      <Input
+                        id="reg-email"
+                        type="email"
+                        placeholder="user@kernel.system"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        className="bg-[#F7F7F7] border-transparent focus-visible:ring-0 focus-visible:border-[#111111] text-[#111111] h-10 placeholder:text-[#666666]/50 rounded-md transition-colors"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="reg-password"
+                        className="font-jetbrains text-[9px] uppercase tracking-[0.1em] text-[#666666]"
+                      >
+                        Security // Password
+                      </Label>
+                      <Input
+                        id="reg-password"
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        className="bg-[#F7F7F7] border-transparent focus-visible:ring-0 focus-visible:border-[#111111] text-[#111111] h-10 rounded-md transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <Button
+                    type="submit"
+                    disabled={isLoading || isFetchingOrg}
+                    className="w-full rounded-full bg-[#111111] text-white hover:bg-[#111111]/90 h-10 text-[11px] uppercase tracking-wider font-jetbrains shadow-none"
+                  >
+                    {isLoading ? (
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    ) : (
+                      'Initialize Account'
+                    )}
+                  </Button>
+                </form>
+              )}
             </TabsContent>
           </Tabs>
         </div>

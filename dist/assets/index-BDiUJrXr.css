@@ -1674,6 +1674,9 @@ body{
 .max-w-none{
   max-width: none;
 }
+.max-w-xs{
+  max-width: 20rem;
+}
 .flex-1{
   flex: 1 1 0%;
 }
@@ -2217,6 +2220,10 @@ body{
 .bg-primary{
   background-color: hsl(var(--primary));
 }
+.bg-red-100{
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 226 226 / var(--tw-bg-opacity, 1));
+}
 .bg-secondary{
   background-color: hsl(var(--secondary));
 }
@@ -2642,6 +2649,10 @@ body{
 .text-red-400{
   --tw-text-opacity: 1;
   color: rgb(248 113 113 / var(--tw-text-opacity, 1));
+}
+.text-red-600{
+  --tw-text-opacity: 1;
+  color: rgb(220 38 38 / var(--tw-text-opacity, 1));
 }
 .text-secondary-foreground{
   color: hsl(var(--secondary-foreground));

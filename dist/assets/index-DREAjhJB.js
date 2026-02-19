@@ -18972,6 +18972,28 @@ var ChevronRight = createLucideIcon("chevron-right", [["path", {
 	d: "m9 18 6-6-6-6",
 	key: "mthhwq"
 }]]);
+var CircleAlert = createLucideIcon("circle-alert", [
+	["circle", {
+		cx: "12",
+		cy: "12",
+		r: "10",
+		key: "1mglay"
+	}],
+	["line", {
+		x1: "12",
+		x2: "12",
+		y1: "8",
+		y2: "12",
+		key: "1pkeuh"
+	}],
+	["line", {
+		x1: "12",
+		x2: "12.01",
+		y1: "16",
+		y2: "16",
+		key: "4dfq90"
+	}]
+]);
 var CircleCheckBig = createLucideIcon("circle-check-big", [["path", {
 	d: "M21.801 10A10 10 0 1 1 17 3.335",
 	key: "yps3ct"
@@ -34074,6 +34096,7 @@ function Login() {
 	const orgSlug = searchParams.get("org");
 	const [inviteOrg, setInviteOrg] = (0, import_react.useState)(null);
 	const [isFetchingOrg, setIsFetchingOrg] = (0, import_react.useState)(!!orgSlug);
+	const [isInvalidSlug, setIsInvalidSlug] = (0, import_react.useState)(false);
 	(0, import_react.useEffect)(() => {
 		if (user) navigate("/");
 	}, [user, navigate]);
@@ -34081,9 +34104,14 @@ function Login() {
 		async function fetchOrg() {
 			if (!orgSlug) return;
 			setIsFetchingOrg(true);
+			setIsInvalidSlug(false);
 			const { data, error } = await supabase.from("organizations").select("id, name").eq("slug", orgSlug).single();
 			if (!error && data) setInviteOrg(data);
-			else toast.error("Invalid or expired invitation link.");
+			else {
+				setInviteOrg(null);
+				setIsInvalidSlug(true);
+				toast.error("Invalid or expired invitation link.");
+			}
 			setIsFetchingOrg(false);
 		}
 		fetchOrg();
@@ -34208,7 +34236,34 @@ function Login() {
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsContent, {
 								value: "register",
 								className: "px-6 pb-6 pt-2",
-								children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
+								children: isInvalidSlug ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex flex-col items-center justify-center space-y-4 py-8 text-center animate-fade-in",
+									children: [
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+											className: "rounded-full bg-red-100 p-3",
+											children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleAlert, { className: "w-6 h-6 text-red-600" })
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "space-y-2",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+												className: "font-medium text-[#111111]",
+												children: "Invalid Invitation"
+											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+												className: "text-sm text-[#666666] max-w-xs mx-auto",
+												children: "The organization link you used is invalid or has expired."
+											})]
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+											variant: "outline",
+											onClick: () => {
+												setIsInvalidSlug(false);
+												navigate("/signup");
+											},
+											className: "mt-2 font-jetbrains text-[10px] uppercase tracking-wider",
+											children: "Create New Organization"
+										})
+									]
+								}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
 									onSubmit: handleRegister,
 									className: "space-y-6",
 									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -37105,4 +37160,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { chil
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-vXa84IIm.js.map
+//# sourceMappingURL=index-DREAjhJB.js.map
