@@ -18985,6 +18985,10 @@ var Clock = createLucideIcon("clock", [["path", {
 	r: "10",
 	key: "1mglay"
 }]]);
+var Command = createLucideIcon("command", [["path", {
+	d: "M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3",
+	key: "11bfej"
+}]]);
 var Ellipsis = createLucideIcon("ellipsis", [
 	["circle", {
 		cx: "12",
@@ -34008,49 +34012,24 @@ var Label = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE
 	...props
 }));
 Label.displayName = Root$1.displayName;
-var Card = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-	ref,
-	className: cn("rounded-lg border bg-card text-card-foreground shadow-sm", className),
-	...props
-}));
-Card.displayName = "Card";
-var CardHeader = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-	ref,
-	className: cn("flex flex-col space-y-1.5 p-6", className),
-	...props
-}));
-CardHeader.displayName = "CardHeader";
-var CardTitle = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-	ref,
-	className: cn("text-2xl font-semibold leading-none tracking-tight", className),
-	...props
-}));
-CardTitle.displayName = "CardTitle";
-var CardDescription = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-	ref,
-	className: cn("text-sm text-muted-foreground", className),
-	...props
-}));
-CardDescription.displayName = "CardDescription";
-var CardContent = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-	ref,
-	className: cn("p-6 pt-0", className),
-	...props
-}));
-CardContent.displayName = "CardContent";
-var CardFooter = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-	ref,
-	className: cn("flex items-center p-6 pt-0", className),
-	...props
-}));
-CardFooter.displayName = "CardFooter";
 function Login() {
 	const [email, setEmail] = (0, import_react.useState)("");
 	const [password, setPassword] = (0, import_react.useState)("");
 	const [fullName, setFullName] = (0, import_react.useState)("");
 	const [isLoading, setIsLoading] = (0, import_react.useState)(false);
-	const { signIn, signUp } = useAuth();
+	const { signIn, signUp, user } = useAuth();
 	const navigate = useNavigate();
+	(0, import_react.useEffect)(() => {
+		if (user) navigate("/");
+	}, [user, navigate]);
+	(0, import_react.useEffect)(() => {
+		document.body.classList.add("bg-[#F7F7F7]");
+		document.body.classList.add("text-[#111111]");
+		return () => {
+			document.body.classList.remove("bg-[#F7F7F7]");
+			document.body.classList.remove("text-[#111111]");
+		};
+	}, []);
 	const handleLogin = async (e) => {
 		e.preventDefault();
 		setIsLoading(true);
@@ -34058,7 +34037,7 @@ function Login() {
 		setIsLoading(false);
 		if (error) toast.error(error.message);
 		else {
-			toast.success("Welcome back!");
+			toast.success("Welcome back // Access Granted");
 			navigate("/");
 		}
 	};
@@ -34068,153 +34047,180 @@ function Login() {
 		const { error } = await signUp(email, password, fullName);
 		setIsLoading(false);
 		if (error) toast.error(error.message);
-		else toast.success("Account created! You can now log in.");
+		else toast.success("Account created // You can now log in");
 	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-		className: "min-h-screen flex items-center justify-center bg-brand-forest p-4",
+		className: "min-h-screen flex flex-col items-center justify-center bg-[#F7F7F7] p-4 font-sans text-[#111111] selection:bg-black selection:text-white",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			className: "w-full max-w-md",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "text-center mb-8",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-					className: "font-grotesk text-4xl font-bold text-white mb-2",
-					children: "BETSMARTER"
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "text-brand-slate",
-					children: "Your gateway to professional betting education"
-				})]
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Tabs, {
-				defaultValue: "login",
-				className: "w-full",
-				children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TabsList, {
-						className: "grid w-full grid-cols-2 mb-4 bg-brand-sea/20 border border-brand-sea/30",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsTrigger, {
-							value: "login",
-							className: "data-[state=active]:bg-brand-green data-[state=active]:text-white text-brand-slate",
-							children: "Login"
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsTrigger, {
-							value: "register",
-							className: "data-[state=active]:bg-brand-green data-[state=active]:text-white text-brand-slate",
-							children: "Register"
-						})]
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsContent, {
-						value: "login",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
-							className: "border-brand-sea bg-brand-forest/90 backdrop-blur-sm text-white",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardHeader, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, { children: "Welcome Back" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardDescription, {
-								className: "text-brand-slate",
-								children: "Enter your credentials to access your dashboard"
-							})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
-								onSubmit: handleLogin,
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
-									className: "space-y-4",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "space-y-2",
-										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-											htmlFor: "email",
-											children: "Email"
-										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-											id: "email",
-											type: "email",
-											placeholder: "name@example.com",
-											value: email,
-											onChange: (e) => setEmail(e.target.value),
-											required: true,
-											className: "bg-brand-sea/10 border-brand-sea/30 text-white focus-visible:ring-brand-green"
-										})]
-									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "space-y-2",
-										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-											htmlFor: "password",
-											children: "Password"
-										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-											id: "password",
-											type: "password",
-											value: password,
-											onChange: (e) => setPassword(e.target.value),
-											required: true,
-											className: "bg-brand-sea/10 border-brand-sea/30 text-white focus-visible:ring-brand-green"
-										})]
-									})]
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardFooter, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-									type: "submit",
-									className: "w-full bg-brand-green hover:bg-brand-green/90",
-									disabled: isLoading,
-									children: isLoading ? "Signing in..." : "Sign In"
-								}) })]
+			className: "w-full max-w-[420px] animate-fade-in-up",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "mb-10 text-center space-y-4",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex items-center justify-center gap-2 text-[#111111]",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Command, { className: "w-5 h-5" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "font-jetbrains font-medium text-sm tracking-widest uppercase",
+								children: "KERNEL_PANIC // AUTH"
 							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+							className: "font-sans text-4xl font-light tracking-tight text-[#111111]",
+							children: "SYSTEM ACCESS"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "font-jetbrains text-[10px] text-[#666666] uppercase tracking-wider",
+							children: "Secure Entry Point v2.3.0"
 						})
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsContent, {
-						value: "register",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
-							className: "border-brand-sea bg-brand-forest/90 backdrop-blur-sm text-white",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardHeader, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, { children: "Create Account" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardDescription, {
-								className: "text-brand-slate",
-								children: "Join the BetSmarter Academy today"
-							})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
-								onSubmit: handleRegister,
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
-									className: "space-y-4",
-									children: [
-										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "bg-white border border-[#E5E5E5] p-2 rounded-2xl shadow-sm",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Tabs, {
+						defaultValue: "login",
+						className: "w-full",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TabsList, {
+								className: "grid w-full grid-cols-2 mb-6 bg-[#F7F7F7] p-1 rounded-xl h-auto",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsTrigger, {
+									value: "login",
+									className: "rounded-lg py-2 data-[state=active]:bg-white data-[state=active]:text-[#111111] data-[state=active]:shadow-sm text-[#666666] font-jetbrains text-[10px] uppercase tracking-wider transition-all",
+									children: "Login"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsTrigger, {
+									value: "register",
+									className: "rounded-lg py-2 data-[state=active]:bg-white data-[state=active]:text-[#111111] data-[state=active]:shadow-sm text-[#666666] font-jetbrains text-[10px] uppercase tracking-wider transition-all",
+									children: "Register"
+								})]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsContent, {
+								value: "login",
+								className: "px-6 pb-6 pt-2",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
+									onSubmit: handleLogin,
+									className: "space-y-6",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "space-y-4",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 											className: "space-y-2",
 											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-												htmlFor: "reg-name",
-												children: "Full Name"
+												htmlFor: "email",
+												className: "font-jetbrains text-[9px] uppercase tracking-[0.1em] text-[#666666]",
+												children: "Identity // Email"
 											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-												id: "reg-name",
-												type: "text",
-												placeholder: "John Doe",
-												value: fullName,
-												onChange: (e) => setFullName(e.target.value),
-												required: true,
-												className: "bg-brand-sea/10 border-brand-sea/30 text-white focus-visible:ring-brand-green"
-											})]
-										}),
-										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-											className: "space-y-2",
-											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-												htmlFor: "reg-email",
-												children: "Email"
-											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-												id: "reg-email",
+												id: "email",
 												type: "email",
-												placeholder: "name@example.com",
+												placeholder: "user@kernel.system",
 												value: email,
 												onChange: (e) => setEmail(e.target.value),
 												required: true,
-												className: "bg-brand-sea/10 border-brand-sea/30 text-white focus-visible:ring-brand-green"
+												className: "bg-[#F7F7F7] border-transparent focus-visible:ring-0 focus-visible:border-[#111111] text-[#111111] h-10 placeholder:text-[#666666]/50 rounded-md transition-colors"
 											})]
-										}),
-										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 											className: "space-y-2",
 											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-												htmlFor: "reg-password",
-												children: "Password"
+												htmlFor: "password",
+												className: "font-jetbrains text-[9px] uppercase tracking-[0.1em] text-[#666666]",
+												children: "Security // Password"
 											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-												id: "reg-password",
+												id: "password",
 												type: "password",
 												value: password,
 												onChange: (e) => setPassword(e.target.value),
 												required: true,
-												className: "bg-brand-sea/10 border-brand-sea/30 text-white focus-visible:ring-brand-green"
+												className: "bg-[#F7F7F7] border-transparent focus-visible:ring-0 focus-visible:border-[#111111] text-[#111111] h-10 rounded-md transition-colors"
 											})]
-										})
-									]
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardFooter, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-									type: "submit",
-									className: "w-full bg-brand-green hover:bg-brand-green/90",
-									disabled: isLoading,
-									children: isLoading ? "Creating Account..." : "Create Account"
-								}) })]
-							})]
-						})
+										})]
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+										type: "submit",
+										disabled: isLoading,
+										className: "w-full rounded-full bg-[#111111] text-white hover:bg-[#111111]/90 h-10 text-[11px] uppercase tracking-wider font-jetbrains shadow-none",
+										children: isLoading ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LoaderCircle, { className: "w-4 h-4 animate-spin" }) : "Authenticate"
+									})]
+								})
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsContent, {
+								value: "register",
+								className: "px-6 pb-6 pt-2",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
+									onSubmit: handleRegister,
+									className: "space-y-6",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "space-y-4",
+										children: [
+											/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+												className: "space-y-2",
+												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+													htmlFor: "reg-name",
+													className: "font-jetbrains text-[9px] uppercase tracking-[0.1em] text-[#666666]",
+													children: "Profile // Full Name"
+												}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+													id: "reg-name",
+													type: "text",
+													placeholder: "John Doe",
+													value: fullName,
+													onChange: (e) => setFullName(e.target.value),
+													required: true,
+													className: "bg-[#F7F7F7] border-transparent focus-visible:ring-0 focus-visible:border-[#111111] text-[#111111] h-10 placeholder:text-[#666666]/50 rounded-md transition-colors"
+												})]
+											}),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+												className: "space-y-2",
+												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+													htmlFor: "reg-email",
+													className: "font-jetbrains text-[9px] uppercase tracking-[0.1em] text-[#666666]",
+													children: "Identity // Email"
+												}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+													id: "reg-email",
+													type: "email",
+													placeholder: "user@kernel.system",
+													value: email,
+													onChange: (e) => setEmail(e.target.value),
+													required: true,
+													className: "bg-[#F7F7F7] border-transparent focus-visible:ring-0 focus-visible:border-[#111111] text-[#111111] h-10 placeholder:text-[#666666]/50 rounded-md transition-colors"
+												})]
+											}),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+												className: "space-y-2",
+												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+													htmlFor: "reg-password",
+													className: "font-jetbrains text-[9px] uppercase tracking-[0.1em] text-[#666666]",
+													children: "Security // Password"
+												}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+													id: "reg-password",
+													type: "password",
+													value: password,
+													onChange: (e) => setPassword(e.target.value),
+													required: true,
+													className: "bg-[#F7F7F7] border-transparent focus-visible:ring-0 focus-visible:border-[#111111] text-[#111111] h-10 rounded-md transition-colors"
+												})]
+											})
+										]
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+										type: "submit",
+										disabled: isLoading,
+										className: "w-full rounded-full bg-[#111111] text-white hover:bg-[#111111]/90 h-10 text-[11px] uppercase tracking-wider font-jetbrains shadow-none",
+										children: isLoading ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LoaderCircle, { className: "w-4 h-4 animate-spin" }) : "Initialize Account"
+									})]
+								})
+							})
+						]
 					})
-				]
-			})]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "mt-8 text-center space-y-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "font-jetbrains text-[9px] text-[#666666] uppercase tracking-widest",
+						children: "Restricted Area // Authorized Personnel Only"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex justify-center gap-4 opacity-50",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "h-[1px] w-8 bg-[#111111]/20" }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "h-[1px] w-8 bg-[#111111]/20" }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "h-[1px] w-8 bg-[#111111]/20" })
+						]
+					})]
+				})
+			]
 		})
 	});
 }
@@ -36805,4 +36811,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { chil
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-DFlJGJAY.js.map
+//# sourceMappingURL=index-BEzY3nbl.js.map
