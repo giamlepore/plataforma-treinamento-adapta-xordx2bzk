@@ -18932,13 +18932,6 @@ var ArrowUpRight = createLucideIcon("arrow-up-right", [["path", {
 	d: "M7 17 17 7",
 	key: "1vkiza"
 }]]);
-var BookOpen = createLucideIcon("book-open", [["path", {
-	d: "M12 7v14",
-	key: "1akyts"
-}], ["path", {
-	d: "M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z",
-	key: "ruj8y"
-}]]);
 var Check = createLucideIcon("check", [["path", {
 	d: "M20 6 9 17l-5-5",
 	key: "1gmf2c"
@@ -31813,71 +31806,43 @@ var Index = () => {
 	});
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "w-full h-full min-h-[calc(100vh-64px)]",
-		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
-				className: "relative px-6 py-12 md:py-16 lg:py-20 border-b border-brand-sea animate-fade-in-up",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "max-w-5xl",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-						className: "text-4xl md:text-6xl lg:text-7xl font-grotesk font-medium leading-[1.1] md:leading-[1.1] tracking-tight mb-8",
-						children: organization?.hero_title || "Advance Your Betting Knowledge"
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "flex flex-col md:flex-row gap-6 md:items-center max-w-2xl",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "w-12 h-[1px] bg-brand-green hidden md:block" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							className: "text-brand-slate text-lg md:text-xl font-light leading-relaxed",
-							children: organization?.hero_subtitle || "Access professional-grade courses and validated strategies. Master the mathematics, psychology, and systems of profitable betting."
-						})]
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+			className: "relative px-6 py-12 md:py-16 lg:py-20 border-b border-brand-sea animate-fade-in-up",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "max-w-5xl",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+					className: "text-4xl md:text-6xl lg:text-7xl font-grotesk font-medium leading-[1.1] md:leading-[1.1] tracking-tight mb-8",
+					children: organization?.hero_title || "Advance Your Betting Knowledge"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex flex-col md:flex-row gap-6 md:items-center max-w-2xl",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "w-12 h-[1px] bg-brand-green hidden md:block" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "text-brand-slate text-lg md:text-xl font-light leading-relaxed",
+						children: organization?.hero_subtitle || "Access professional-grade courses and validated strategies. Master the mathematics, psychology, and systems of profitable betting."
 					})]
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "absolute inset-0 pointer-events-none -z-10 opacity-10",
-					style: {
-						backgroundImage: "linear-gradient(to right, #1a5c48 1px, transparent 1px), linear-gradient(to bottom, #1a5c48 1px, transparent 1px)",
-						backgroundSize: "40px 40px"
-					}
 				})]
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
-				className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full border-b border-brand-sea",
-				style: { backgroundColor: organization?.platform_bg_color || void 0 },
-				children: courses.map((course, index$1) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CourseCard, {
-					id: course.id,
-					label: course.label || "Course",
-					title: course.title,
-					instructor: course.instructor_name,
-					duration: course.duration_text,
-					bgColor: course.image_color || "bg-brand-sea",
-					isHighlight: index$1 === 0,
-					delay: (index$1 + 1) * 50,
-					className: cn("border-r border-brand-sea", (index$1 + 1) % 3 === 0 ? "lg:border-r-0" : ""),
-					progress: 0
-				}, course.id))
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "xl:hidden p-6 border-b border-brand-sea",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "flex items-center justify-between mb-4",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-						className: "font-grotesk text-lg",
-						children: "Continue Learning"
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronRight, { className: "w-5 h-5 text-brand-slate" })]
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "grid grid-cols-1 gap-4",
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "bg-brand-sea/20 p-4 border border-brand-sea/30 flex items-center gap-4",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							className: "h-10 w-10 bg-brand-green/20 flex items-center justify-center rounded-full shrink-0",
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BookOpen, { className: "w-5 h-5 text-brand-green" })
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "block text-xs text-brand-slate mb-1",
-							children: "Last Watched"
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "text-sm font-medium text-white",
-							children: "Data-Driven Decisions: Module 3"
-						})] })]
-					})
-				})]
-			})
-		]
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "absolute inset-0 pointer-events-none -z-10 opacity-10",
+				style: {
+					backgroundImage: "linear-gradient(to right, #1a5c48 1px, transparent 1px), linear-gradient(to bottom, #1a5c48 1px, transparent 1px)",
+					backgroundSize: "40px 40px"
+				}
+			})]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+			className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full border-b border-brand-sea",
+			style: { backgroundColor: organization?.platform_bg_color || void 0 },
+			children: courses.map((course, index$1) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CourseCard, {
+				id: course.id,
+				label: course.label || "Course",
+				title: course.title,
+				instructor: course.instructor_name,
+				duration: course.duration_text,
+				bgColor: course.image_color || "bg-brand-sea",
+				isHighlight: index$1 === 0,
+				delay: (index$1 + 1) * 50,
+				className: cn("border-r border-brand-sea", (index$1 + 1) % 3 === 0 ? "lg:border-r-0" : ""),
+				progress: 0
+			}, course.id))
+		})]
 	});
 };
 var Index_default = Index;
@@ -36812,4 +36777,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { chil
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-lQnfTv-r.js.map
+//# sourceMappingURL=index-C9aiFAk4.js.map

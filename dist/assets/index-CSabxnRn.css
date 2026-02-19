@@ -2046,9 +2046,6 @@ body{
   --tw-border-opacity: 1;
   border-color: rgb(26 92 72 / var(--tw-border-opacity, 1));
 }
-.border-brand-sea\/30{
-  border-color: rgb(26 92 72 / 0.3);
-}
 .border-destructive{
   border-color: hsl(var(--destructive));
 }
@@ -2148,15 +2145,9 @@ body{
   --tw-bg-opacity: 1;
   background-color: rgb(74 222 128 / var(--tw-bg-opacity, 1));
 }
-.bg-brand-green\/20{
-  background-color: rgb(74 222 128 / 0.2);
-}
 .bg-brand-sea{
   --tw-bg-opacity: 1;
   background-color: rgb(26 92 72 / var(--tw-bg-opacity, 1));
-}
-.bg-brand-sea\/20{
-  background-color: rgb(26 92 72 / 0.2);
 }
 .bg-card{
   background-color: hsl(var(--card));
@@ -4061,9 +4052,6 @@ body{
 @media (min-width: 1280px){
   .xl\:flex{
     display: flex;
-  }
-  .xl\:hidden{
-    display: none;
   }
 }
 .\[\&\:first-child\[data-selected\=true\]_button\]\:rounded-l-md:first-child[data-selected=true] button{

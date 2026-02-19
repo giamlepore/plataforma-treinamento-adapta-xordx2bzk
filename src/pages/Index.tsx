@@ -1,13 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { cn } from '@/lib/utils'
-import {
-  ArrowUpRight,
-  ChevronRight,
-  PlayCircle,
-  BookOpen,
-  Loader2,
-} from 'lucide-react'
+import { ArrowUpRight, PlayCircle, Loader2 } from 'lucide-react'
 import { supabase } from '@/lib/supabase/client'
 import { useAuth } from '@/hooks/use-auth'
 import { useOrganization } from '@/context/OrganizationContext'
@@ -210,29 +204,6 @@ const Index = () => {
           />
         ))}
       </section>
-
-      {/* Mobile-only Activity Teaser */}
-      <div className="xl:hidden p-6 border-b border-brand-sea">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="font-grotesk text-lg">Continue Learning</h3>
-          <ChevronRight className="w-5 h-5 text-brand-slate" />
-        </div>
-        <div className="grid grid-cols-1 gap-4">
-          <div className="bg-brand-sea/20 p-4 border border-brand-sea/30 flex items-center gap-4">
-            <div className="h-10 w-10 bg-brand-green/20 flex items-center justify-center rounded-full shrink-0">
-              <BookOpen className="w-5 h-5 text-brand-green" />
-            </div>
-            <div>
-              <span className="block text-xs text-brand-slate mb-1">
-                Last Watched
-              </span>
-              <span className="text-sm font-medium text-white">
-                Data-Driven Decisions: Module 3
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   )
 }
