@@ -4,12 +4,6 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion'
-import {
   Dialog,
   DialogContent,
   DialogHeader,
@@ -51,10 +45,22 @@ export function CurriculumManager({ courseId }: { courseId: string }) {
 
     if (mods && !error) {
       const sorted = mods.map((m: any) => ({
-        ...m,
-        lessons: m.lessons.sort(
-          (a: any, b: any) => a.order_index - b.order_index,
-        ),
+        id: m.id,
+        title: m.title,
+        order_index: m.order_index,
+        lessons:
+          Array.isArray(m.lessons) && m.lessons.length > 0
+            ? m.lessons
+                .sort((a: any, b: any) => a.order_index - b.order_index)
+                .map((l: any) => ({
+                  id: l.id,
+                  title: l.title,
+                  duration: l.duration || '00:00',
+                  is_test: l.is_test || false,
+                  order_index: l.order_index,
+                  video_url: l.video_url || undefined,
+                }))
+            : [],
       }))
       setModules(sorted)
     }
@@ -85,21 +91,24 @@ export function CurriculumManager({ courseId }: { courseId: string }) {
     if (!editingLesson || !activeModuleId) return
 
     const payload = {
-      title: editingLesson.title,
-      duration: editingLesson.duration,
-      is_test: editingLesson.is_test,
-      video_url: editingLesson.video_url,
+      title: editingLesson.title || 'Untitled Lesson',
+      duration: editingLesson.duration || '00:00',
+      is_test: editingLesson.is_test || false,
+      video_url: editingLesson.video_url || null,
       module_id: activeModuleId,
     }
 
     if (editingLesson.id) {
       await supabase.from('lessons').update(payload).eq('id', editingLesson.id)
     } else {
-      const currentLessons =
-        modules.find((m) => m.id === activeModuleId)?.lessons || []
+      const currentModule = modules.find((m) => m.id === activeModuleId)
+      const currentLessonsCount = currentModule
+        ? currentModule.lessons.length
+        : 0
+
       await supabase
         .from('lessons')
-        .insert({ ...payload, order_index: currentLessons.length })
+        .insert({ ...payload, order_index: currentLessonsCount })
     }
     setEditingLesson(null)
     setActiveModuleId(null)

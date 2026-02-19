@@ -36742,8 +36742,17 @@ function CurriculumManager({ courseId }) {
 	const fetchCurriculum = async () => {
 		const { data: mods, error } = await supabase.from("modules").select("*, lessons(*)").eq("course_id", courseId).order("order_index");
 		if (mods && !error) setModules(mods.map((m) => ({
-			...m,
-			lessons: m.lessons.sort((a, b$1) => a.order_index - b$1.order_index)
+			id: m.id,
+			title: m.title,
+			order_index: m.order_index,
+			lessons: Array.isArray(m.lessons) && m.lessons.length > 0 ? m.lessons.sort((a, b$1) => a.order_index - b$1.order_index).map((l) => ({
+				id: l.id,
+				title: l.title,
+				duration: l.duration || "00:00",
+				is_test: l.is_test || false,
+				order_index: l.order_index,
+				video_url: l.video_url || void 0
+			})) : []
 		})));
 	};
 	(0, import_react.useEffect)(() => {
@@ -36767,18 +36776,19 @@ function CurriculumManager({ courseId }) {
 	const saveLesson = async () => {
 		if (!editingLesson || !activeModuleId) return;
 		const payload = {
-			title: editingLesson.title,
-			duration: editingLesson.duration,
-			is_test: editingLesson.is_test,
-			video_url: editingLesson.video_url,
+			title: editingLesson.title || "Untitled Lesson",
+			duration: editingLesson.duration || "00:00",
+			is_test: editingLesson.is_test || false,
+			video_url: editingLesson.video_url || null,
 			module_id: activeModuleId
 		};
 		if (editingLesson.id) await supabase.from("lessons").update(payload).eq("id", editingLesson.id);
 		else {
-			const currentLessons = modules.find((m) => m.id === activeModuleId)?.lessons || [];
+			const currentModule = modules.find((m) => m.id === activeModuleId);
+			const currentLessonsCount = currentModule ? currentModule.lessons.length : 0;
 			await supabase.from("lessons").insert({
 				...payload,
-				order_index: currentLessons.length
+				order_index: currentLessonsCount
 			});
 		}
 		setEditingLesson(null);
@@ -37175,4 +37185,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { chil
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-CZuLqsG6.js.map
+//# sourceMappingURL=index-DOOeQrq5.js.map
