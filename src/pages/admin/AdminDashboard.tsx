@@ -1,6 +1,7 @@
 import { BrandingSettings } from '@/components/admin/BrandingSettings'
 import { CoursesTable } from '@/components/admin/CoursesTable'
 import { VisualSettings } from '@/components/admin/VisualSettings'
+import { InviteMembers } from '@/components/admin/InviteMembers'
 import { useOrganization } from '@/context/OrganizationContext'
 import { LayoutDashboard, Users, Activity } from 'lucide-react'
 import { AdminBentoCard } from '@/components/admin/AdminBentoCard'
@@ -66,6 +67,9 @@ export default function AdminDashboard() {
           </AdminBentoCard>
 
           {/* Row 2 */}
+          <InviteMembers />
+
+          {/* Row 3 */}
           <CoursesTable />
         </div>
       </div>

@@ -503,29 +503,35 @@ export const Constants = {
 //   DECLARE
 //     new_org_id uuid;
 //     org_name text;
+//     base_slug text;
+//     final_slug text;
+//     full_name text;
 //   BEGIN
-//     -- Extract organization name from metadata, fallback if not provided
+//     -- Extract metadata, fallback if not provided
 //     org_name := COALESCE(new.raw_user_meta_data->>'org_name', 'My Organization');
+//     full_name := new.raw_user_meta_data->>'full_name';
 //   
-//     -- 1. Create Profile if table exists
-//     IF EXISTS (SELECT FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'profiles') THEN
-//       INSERT INTO public.profiles (id, full_name)
-//       VALUES (new.id, new.raw_user_meta_data->>'full_name')
-//       ON CONFLICT (id) DO NOTHING;
+//     -- Generate a URL-friendly slug from the organization name
+//     base_slug := regexp_replace(lower(org_name), '[^a-z0-9]+', '-', 'g');
+//     base_slug := trim(both '-' from base_slug);
+//     
+//     -- Ensure base_slug is not empty
+//     IF base_slug = '' OR base_slug IS NULL THEN
+//       base_slug := 'org';
 //     END IF;
 //   
-//     -- 2. Create Organization if table exists
-//     IF EXISTS (SELECT FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'organizations') THEN
-//       INSERT INTO public.organizations (name)
-//       VALUES (org_name)
-//       RETURNING id INTO new_org_id;
+//     -- Append a random string to guarantee uniqueness
+//     final_slug := base_slug || '-' || substr(md5(random()::text), 1, 6);
 //   
-//       -- 3. Link user to organization as owner if members table exists
-//       IF EXISTS (SELECT FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'organization_members') THEN
-//         INSERT INTO public.organization_members (organization_id, user_id, role)
-//         VALUES (new_org_id, new.id, 'owner');
-//       END IF;
-//     END IF;
+//     -- 1. Create Organization first
+//     INSERT INTO public.organizations (name, slug)
+//     VALUES (org_name, final_slug)
+//     RETURNING id INTO new_org_id;
+//   
+//     -- 2. Create Profile and link to the new organization with 'admin' role
+//     INSERT INTO public.profiles (id, full_name, organization_id, role)
+//     VALUES (new.id, full_name, new_org_id, 'admin')
+//     ON CONFLICT (id) DO NOTHING;
 //   
 //     RETURN new;
 //   EXCEPTION

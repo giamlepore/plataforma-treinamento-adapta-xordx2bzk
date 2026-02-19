@@ -16,6 +16,7 @@ interface AuthContextType {
     password: string,
     fullName?: string,
     orgName?: string,
+    orgId?: string,
   ) => Promise<{ error: any }>
   signIn: (email: string, password: string) => Promise<{ error: any }>
   signOut: () => Promise<{ error: any }>
@@ -62,17 +63,27 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     password: string,
     fullName?: string,
     orgName?: string,
+    orgId?: string,
   ) => {
     const redirectUrl = `${window.location.origin}/`
+
+    // Build metadata based on whether they are joining an existing org or creating one
+    const metadata: Record<string, any> = {
+      full_name: fullName,
+    }
+
+    if (orgId) {
+      metadata.organization_id = orgId
+      metadata.role = 'student'
+    } else {
+      metadata.org_name = orgName
+    }
 
     const { error } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        data: {
-          full_name: fullName,
-          org_name: orgName,
-        },
+        data: metadata,
         emailRedirectTo: redirectUrl,
       },
     })

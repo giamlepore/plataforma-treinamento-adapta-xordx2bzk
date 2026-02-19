@@ -16437,6 +16437,21 @@ function isModifiedEvent(event) {
 function shouldProcessLinkClick(event, target) {
 	return event.button === 0 && (!target || target === "_self") && !isModifiedEvent(event);
 }
+function createSearchParams(init = "") {
+	return new URLSearchParams(typeof init === "string" || Array.isArray(init) || init instanceof URLSearchParams ? init : Object.keys(init).reduce((memo2, key) => {
+		let value = init[key];
+		return memo2.concat(Array.isArray(value) ? value.map((v) => [key, v]) : [[key, value]]);
+	}, []));
+}
+function getSearchParamsForLocation(locationSearch, defaultSearchParams) {
+	let searchParams = createSearchParams(locationSearch);
+	if (defaultSearchParams) defaultSearchParams.forEach((_$1, key) => {
+		if (!searchParams.has(key)) defaultSearchParams.getAll(key).forEach((value) => {
+			searchParams.append(key, value);
+		});
+	});
+	return searchParams;
+}
 var _formDataSupportsSubmitter = null;
 function isFormDataSubmitterSupported() {
 	if (_formDataSupportsSubmitter === null) try {
@@ -17069,6 +17084,19 @@ function useLinkClickHandler(to, { target, replace: replaceProp, state, preventS
 		unstable_defaultShouldRevalidate,
 		unstable_useTransitions
 	]);
+}
+function useSearchParams(defaultInit) {
+	warning(typeof URLSearchParams !== "undefined", `You cannot use the \`useSearchParams\` hook in a browser that does not support the URLSearchParams API. If you need to support Internet Explorer 11, we recommend you load a polyfill such as https://github.com/ungap/url-search-params.`);
+	let defaultSearchParamsRef = import_react.useRef(createSearchParams(defaultInit));
+	let hasSetSearchParamsRef = import_react.useRef(false);
+	let location = useLocation();
+	let searchParams = import_react.useMemo(() => getSearchParamsForLocation(location.search, hasSetSearchParamsRef.current ? null : defaultSearchParamsRef.current), [location.search]);
+	let navigate = useNavigate();
+	return [searchParams, import_react.useCallback((nextInit, navigateOptions) => {
+		const newSearchParams = createSearchParams(typeof nextInit === "function" ? nextInit(new URLSearchParams(searchParams)) : nextInit);
+		hasSetSearchParamsRef.current = true;
+		navigate("?" + newSearchParams, navigateOptions);
+	}, [navigate, searchParams])];
 }
 var fetcherId = 0;
 var getUniqueFetcherId = () => `__${String(++fetcherId)}__`;
@@ -18981,6 +19009,18 @@ var Clock = createLucideIcon("clock", [["path", {
 var Command = createLucideIcon("command", [["path", {
 	d: "M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3",
 	key: "11bfej"
+}]]);
+var Copy = createLucideIcon("copy", [["rect", {
+	width: "14",
+	height: "14",
+	x: "8",
+	y: "8",
+	rx: "2",
+	ry: "2",
+	key: "17jyea"
+}], ["path", {
+	d: "M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2",
+	key: "zix9uf"
 }]]);
 var Ellipsis = createLucideIcon("ellipsis", [
 	["circle", {
@@ -31665,16 +31705,18 @@ const AuthProvider = ({ children }) => {
 		});
 		return () => subscription.unsubscribe();
 	}, []);
-	const signUp = async (email, password, fullName, orgName) => {
+	const signUp = async (email, password, fullName, orgName, orgId) => {
 		const redirectUrl = `${window.location.origin}/`;
+		const metadata = { full_name: fullName };
+		if (orgId) {
+			metadata.organization_id = orgId;
+			metadata.role = "student";
+		} else metadata.org_name = orgName;
 		const { error } = await supabase.auth.signUp({
 			email,
 			password,
 			options: {
-				data: {
-					full_name: fullName,
-					org_name: orgName
-				},
+				data: metadata,
 				emailRedirectTo: redirectUrl
 			}
 		});
@@ -33992,9 +34034,25 @@ function Login() {
 	const [isLoading, setIsLoading] = (0, import_react.useState)(false);
 	const { signIn, signUp, user } = useAuth();
 	const navigate = useNavigate();
+	const [searchParams] = useSearchParams();
+	const location = useLocation();
+	const orgSlug = searchParams.get("org");
+	const [inviteOrg, setInviteOrg] = (0, import_react.useState)(null);
+	const [isFetchingOrg, setIsFetchingOrg] = (0, import_react.useState)(!!orgSlug);
 	(0, import_react.useEffect)(() => {
 		if (user) navigate("/");
 	}, [user, navigate]);
+	(0, import_react.useEffect)(() => {
+		async function fetchOrg() {
+			if (!orgSlug) return;
+			setIsFetchingOrg(true);
+			const { data, error } = await supabase.from("organizations").select("id, name").eq("slug", orgSlug).single();
+			if (!error && data) setInviteOrg(data);
+			else toast.error("Invalid or expired invitation link.");
+			setIsFetchingOrg(false);
+		}
+		fetchOrg();
+	}, [orgSlug]);
 	(0, import_react.useEffect)(() => {
 		document.body.classList.add("bg-[#F7F7F7]");
 		document.body.classList.add("text-[#111111]");
@@ -34017,11 +34075,12 @@ function Login() {
 	const handleRegister = async (e) => {
 		e.preventDefault();
 		setIsLoading(true);
-		const { error } = await signUp(email, password, fullName, orgName);
+		const { error } = await signUp(email, password, fullName, orgName, inviteOrg?.id);
 		setIsLoading(false);
 		if (error) toast.error(error.message);
-		else toast.success("Account created // You can now log in");
+		else toast.success(inviteOrg ? `Joined ${inviteOrg.name} // You can now log in` : "Account created // You can now log in");
 	};
+	const defaultTab = location.pathname === "/signup" || orgSlug ? "register" : "login";
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 		className: "min-h-screen flex flex-col items-center justify-center bg-[#F7F7F7] p-4 font-sans text-[#111111] selection:bg-black selection:text-white",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -34050,7 +34109,7 @@ function Login() {
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 					className: "bg-white border border-[#E5E5E5] p-2 rounded-2xl shadow-sm",
 					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Tabs, {
-						defaultValue: "login",
+						defaultValue: defaultTab,
 						className: "w-full",
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TabsList, {
@@ -34136,7 +34195,19 @@ function Login() {
 													className: "bg-[#F7F7F7] border-transparent focus-visible:ring-0 focus-visible:border-[#111111] text-[#111111] h-10 placeholder:text-[#666666]/50 rounded-md transition-colors"
 												})]
 											}),
-											/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											isFetchingOrg ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+												className: "flex items-center justify-center p-4",
+												children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LoaderCircle, { className: "w-4 h-4 animate-spin text-[#666666]" })
+											}) : inviteOrg ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+												className: "space-y-2 p-3 bg-[#111111]/5 rounded-md border border-[#111111]/10",
+												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+													className: "font-jetbrains text-[9px] uppercase tracking-[0.1em] text-[#666666]",
+													children: "Joining Workspace"
+												}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+													className: "font-sans font-medium text-[#111111]",
+													children: inviteOrg.name
+												})]
+											}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 												className: "space-y-2",
 												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
 													htmlFor: "reg-org",
@@ -34186,7 +34257,7 @@ function Login() {
 										]
 									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
 										type: "submit",
-										disabled: isLoading,
+										disabled: isLoading || isFetchingOrg,
 										className: "w-full rounded-full bg-[#111111] text-white hover:bg-[#111111]/90 h-10 text-[11px] uppercase tracking-wider font-jetbrains shadow-none",
 										children: isLoading ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LoaderCircle, { className: "w-4 h-4 animate-spin" }) : "Initialize Account"
 									})]
@@ -34749,6 +34820,42 @@ function VisualSettings() {
 		})
 	});
 }
+function InviteMembers() {
+	const { organization } = useOrganization();
+	const [copied, setCopied] = (0, import_react.useState)(false);
+	if (!organization) return null;
+	const inviteLink = `${window.location.origin}/signup?org=${organization.slug}`;
+	const handleCopy = () => {
+		navigator.clipboard.writeText(inviteLink);
+		setCopied(true);
+		toast.success("Invitation link copied to clipboard");
+		setTimeout(() => setCopied(false), 2e3);
+	};
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AdminBentoCard, {
+		title: "INVITE STUDENTS",
+		subtitle: "Share Access Link",
+		colSpan: 4,
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "mt-4 flex flex-col md:flex-row items-start md:items-center gap-4",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-sm text-gray-500 flex-1",
+				children: "Share this unique link to invite students directly to your organization. They will bypass the organization creation step and join as students."
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex items-center gap-2 w-full md:w-auto",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+					readOnly: true,
+					value: inviteLink,
+					className: "bg-gray-50 border-gray-200 text-black font-mono text-xs w-full md:w-[320px] focus-visible:ring-0",
+					onClick: (e) => e.currentTarget.select()
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+					onClick: handleCopy,
+					className: "bg-[#111111] hover:bg-[#333333] text-white shrink-0 h-10",
+					children: [copied ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleCheck, { className: "w-4 h-4 mr-2 text-green-400" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Copy, { className: "w-4 h-4 mr-2" }), copied ? "Copied" : "Copy Link"]
+				})]
+			})]
+		})
+	});
+}
 function AdminDashboard() {
 	const { organization } = useOrganization();
 	(0, import_react.useEffect)(() => {
@@ -34822,6 +34929,7 @@ function AdminDashboard() {
 							})]
 						})
 					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InviteMembers, {}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CoursesTable, {})
 				]
 			})]
@@ -36842,6 +36950,10 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { chil
 				element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Login, {})
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
+				path: "/signup",
+				element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Login, {})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
 				element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ProtectedRoute, {}),
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Route, {
 					element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Layout, {}),
@@ -36881,4 +36993,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { chil
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-Dt-ynYuJ.js.map
+//# sourceMappingURL=index-DWpZuCDX.js.map

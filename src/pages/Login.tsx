@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
 import { useAuth } from '@/hooks/use-auth'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams, useLocation } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { toast } from 'sonner'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Command, Loader2 } from 'lucide-react'
+import { supabase } from '@/lib/supabase/client'
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -17,11 +18,40 @@ export default function Login() {
   const { signIn, signUp, user } = useAuth()
   const navigate = useNavigate()
 
+  const [searchParams] = useSearchParams()
+  const location = useLocation()
+  const orgSlug = searchParams.get('org')
+  const [inviteOrg, setInviteOrg] = useState<{
+    id: string
+    name: string
+  } | null>(null)
+  const [isFetchingOrg, setIsFetchingOrg] = useState(!!orgSlug)
+
   useEffect(() => {
     if (user) {
       navigate('/')
     }
   }, [user, navigate])
+
+  useEffect(() => {
+    async function fetchOrg() {
+      if (!orgSlug) return
+      setIsFetchingOrg(true)
+      const { data, error } = await supabase
+        .from('organizations')
+        .select('id, name')
+        .eq('slug', orgSlug)
+        .single()
+
+      if (!error && data) {
+        setInviteOrg(data)
+      } else {
+        toast.error('Invalid or expired invitation link.')
+      }
+      setIsFetchingOrg(false)
+    }
+    fetchOrg()
+  }, [orgSlug])
 
   // Apply admin/light theme styles to body for this page only
   useEffect(() => {
@@ -51,15 +81,28 @@ export default function Login() {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
-    const { error } = await signUp(email, password, fullName, orgName)
+    const { error } = await signUp(
+      email,
+      password,
+      fullName,
+      orgName,
+      inviteOrg?.id,
+    )
     setIsLoading(false)
 
     if (error) {
       toast.error(error.message)
     } else {
-      toast.success('Account created // You can now log in')
+      toast.success(
+        inviteOrg
+          ? `Joined ${inviteOrg.name} // You can now log in`
+          : 'Account created // You can now log in',
+      )
     }
   }
+
+  const defaultTab =
+    location.pathname === '/signup' || orgSlug ? 'register' : 'login'
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#F7F7F7] p-4 font-sans text-[#111111] selection:bg-black selection:text-white">
@@ -82,7 +125,7 @@ export default function Login() {
 
         {/* Login Card */}
         <div className="bg-white border border-[#E5E5E5] p-2 rounded-2xl shadow-sm">
-          <Tabs defaultValue="login" className="w-full">
+          <Tabs defaultValue={defaultTab} className="w-full">
             <TabsList className="grid w-full grid-cols-2 mb-6 bg-[#F7F7F7] p-1 rounded-xl h-auto">
               <TabsTrigger
                 value="login"
@@ -170,23 +213,40 @@ export default function Login() {
                       className="bg-[#F7F7F7] border-transparent focus-visible:ring-0 focus-visible:border-[#111111] text-[#111111] h-10 placeholder:text-[#666666]/50 rounded-md transition-colors"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <Label
-                      htmlFor="reg-org"
-                      className="font-jetbrains text-[9px] uppercase tracking-[0.1em] text-[#666666]"
-                    >
-                      Workspace // Organization Name
-                    </Label>
-                    <Input
-                      id="reg-org"
-                      type="text"
-                      placeholder="Acme Corp"
-                      value={orgName}
-                      onChange={(e) => setOrgName(e.target.value)}
-                      required
-                      className="bg-[#F7F7F7] border-transparent focus-visible:ring-0 focus-visible:border-[#111111] text-[#111111] h-10 placeholder:text-[#666666]/50 rounded-md transition-colors"
-                    />
-                  </div>
+
+                  {isFetchingOrg ? (
+                    <div className="flex items-center justify-center p-4">
+                      <Loader2 className="w-4 h-4 animate-spin text-[#666666]" />
+                    </div>
+                  ) : inviteOrg ? (
+                    <div className="space-y-2 p-3 bg-[#111111]/5 rounded-md border border-[#111111]/10">
+                      <p className="font-jetbrains text-[9px] uppercase tracking-[0.1em] text-[#666666]">
+                        Joining Workspace
+                      </p>
+                      <p className="font-sans font-medium text-[#111111]">
+                        {inviteOrg.name}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="reg-org"
+                        className="font-jetbrains text-[9px] uppercase tracking-[0.1em] text-[#666666]"
+                      >
+                        Workspace // Organization Name
+                      </Label>
+                      <Input
+                        id="reg-org"
+                        type="text"
+                        placeholder="Acme Corp"
+                        value={orgName}
+                        onChange={(e) => setOrgName(e.target.value)}
+                        required
+                        className="bg-[#F7F7F7] border-transparent focus-visible:ring-0 focus-visible:border-[#111111] text-[#111111] h-10 placeholder:text-[#666666]/50 rounded-md transition-colors"
+                      />
+                    </div>
+                  )}
+
                   <div className="space-y-2">
                     <Label
                       htmlFor="reg-email"
@@ -224,7 +284,7 @@ export default function Login() {
 
                 <Button
                   type="submit"
-                  disabled={isLoading}
+                  disabled={isLoading || isFetchingOrg}
                   className="w-full rounded-full bg-[#111111] text-white hover:bg-[#111111]/90 h-10 text-[11px] uppercase tracking-wider font-jetbrains shadow-none"
                 >
                   {isLoading ? (
