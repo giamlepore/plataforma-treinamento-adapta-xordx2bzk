@@ -51,7 +51,6 @@ interface Lesson {
 export default function LessonPlayer() {
   const { courseId, lessonId } = useParams()
   const { user } = useAuth()
-  const [isPlaying, setIsPlaying] = useState(false)
   const [course, setCourse] = useState<Course | null>(null)
   const [modules, setModules] = useState<Module[]>([])
   const [loading, setLoading] = useState(true)
@@ -137,7 +136,6 @@ export default function LessonPlayer() {
         if (lesson) {
           setActiveLesson(lesson)
           setActiveModuleId(mod.id)
-          setIsPlaying(false) // Reset player state on lesson change
           break
         }
       }
@@ -145,7 +143,6 @@ export default function LessonPlayer() {
       // Default to first
       setActiveModuleId(modules[0].id)
       setActiveLesson(modules[0].lessons[0])
-      setIsPlaying(false) // Reset player state on default load
     }
   }, [lessonId, modules])
 
@@ -339,10 +336,6 @@ export default function LessonPlayer() {
             </div>
 
             <LessonVideoPlayer
-              isPlaying={isPlaying}
-              setIsPlaying={setIsPlaying}
-              imageQuery={course.image_query}
-              imageColor={course.image_color || 'bg-orange'}
               courseDescription={course.description}
               videoUrl={activeLesson?.video_url}
               title={activeLesson?.title}
