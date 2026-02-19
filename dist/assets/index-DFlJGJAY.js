@@ -19244,15 +19244,6 @@ var Trash = createLucideIcon("trash", [
 		key: "e791ji"
 	}]
 ]);
-var User = createLucideIcon("user", [["path", {
-	d: "M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2",
-	key: "975kel"
-}], ["circle", {
-	cx: "12",
-	cy: "7",
-	r: "4",
-	key: "17ys0d"
-}]]);
 var Users = createLucideIcon("users", [
 	["path", {
 		d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2",
@@ -31752,7 +31743,7 @@ const OrganizationProvider = ({ children }) => {
 		children
 	});
 };
-var CourseCard = ({ id, label, title, instructor, duration, bgColor, isHighlight = false, className, delay = 0, progress = 0 }) => {
+var CourseCard = ({ id, label, title, bgColor, isHighlight = false, className, delay = 0, progress = 0 }) => {
 	const [isHovered, setIsHovered] = (0, import_react.useState)(false);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
 		to: `/course/${id}`,
@@ -31784,36 +31775,16 @@ var CourseCard = ({ id, label, title, instructor, duration, bgColor, isHighlight
 				}), isHighlight ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CirclePlay, { className: "w-6 h-6 text-black opacity-80 group-hover:scale-110 transition-transform duration-300" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowUpRight, { className: "w-5 h-5 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform group-hover:translate-x-1 group-hover:-translate-y-1" })]
 			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "mt-auto",
-				children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-						className: cn("text-xs uppercase tracking-wider mb-3 font-inter flex items-center gap-2", isHighlight ? "text-black/70" : "text-white/70"),
-						children: label
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						className: "flex items-baseline gap-2 mb-4",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: cn("text-3xl md:text-3xl lg:text-4xl font-grotesk font-bold tracking-tight leading-none line-clamp-3", isHighlight ? "text-black" : "text-white"),
-							children: title
-						})
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: cn("flex items-center gap-4 text-xs font-mono border-t pt-3", isHighlight ? "border-black/20 text-black/80" : "border-white/20 text-white/80"),
-						children: [
-							duration && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-								className: "flex items-center gap-1.5",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Clock, { className: "w-3 h-3" }), duration]
-							}),
-							instructor && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-								className: "flex items-center gap-1.5",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(User, { className: "w-3 h-3" }), instructor]
-							}),
-							isHighlight && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-								className: "flex items-center gap-1.5 ml-auto",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Star, { className: "w-3 h-3 fill-black/20" }), "Featured"]
-							})
-						]
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+					className: cn("text-xs uppercase tracking-wider mb-3 font-inter flex items-center gap-2", isHighlight ? "text-black/70" : "text-white/70"),
+					children: label
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "flex items-baseline gap-2 mb-4",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: cn("text-3xl md:text-3xl lg:text-4xl font-grotesk font-bold tracking-tight leading-none line-clamp-3", isHighlight ? "text-black" : "text-white"),
+						children: title
 					})
-				]
+				})]
 			})]
 		})]
 	});
@@ -36834,4 +36805,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { chil
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-C55-rA81.js.map
+//# sourceMappingURL=index-DFlJGJAY.js.map

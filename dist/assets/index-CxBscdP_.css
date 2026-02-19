@@ -2029,9 +2029,6 @@ body{
   --tw-border-opacity: 1;
   border-color: rgb(0 0 0 / var(--tw-border-opacity, 1));
 }
-.border-black\/20{
-  border-color: rgb(0 0 0 / 0.2);
-}
 .border-border\/50{
   border-color: hsl(var(--border) / 0.5);
 }
@@ -2223,9 +2220,6 @@ body{
 }
 .bg-white\/30{
   background-color: rgb(255 255 255 / 0.3);
-}
-.fill-black\/20{
-  fill: rgb(0 0 0 / 0.2);
 }
 .fill-brand-yellow{
   fill: #facc15;
@@ -2533,9 +2527,6 @@ body{
 }
 .text-black\/70{
   color: rgb(0 0 0 / 0.7);
-}
-.text-black\/80{
-  color: rgb(0 0 0 / 0.8);
 }
 .text-blue-500{
   --tw-text-opacity: 1;

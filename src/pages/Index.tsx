@@ -5,9 +5,6 @@ import {
   ArrowUpRight,
   ChevronRight,
   PlayCircle,
-  Clock,
-  User,
-  Star,
   BookOpen,
   Loader2,
 } from 'lucide-react'
@@ -32,8 +29,6 @@ const CourseCard = ({
   id,
   label,
   title,
-  instructor,
-  duration,
   bgColor,
   isHighlight = false,
   className,
@@ -122,34 +117,6 @@ const CourseCard = ({
             >
               {title}
             </span>
-          </div>
-
-          <div
-            className={cn(
-              'flex items-center gap-4 text-xs font-mono border-t pt-3',
-              isHighlight
-                ? 'border-black/20 text-black/80'
-                : 'border-white/20 text-white/80',
-            )}
-          >
-            {duration && (
-              <span className="flex items-center gap-1.5">
-                <Clock className="w-3 h-3" />
-                {duration}
-              </span>
-            )}
-            {instructor && (
-              <span className="flex items-center gap-1.5">
-                <User className="w-3 h-3" />
-                {instructor}
-              </span>
-            )}
-            {isHighlight && (
-              <span className="flex items-center gap-1.5 ml-auto">
-                <Star className="w-3 h-3 fill-black/20" />
-                Featured
-              </span>
-            )}
           </div>
         </div>
       </div>
