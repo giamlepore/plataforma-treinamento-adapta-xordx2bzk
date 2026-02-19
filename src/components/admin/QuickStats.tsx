@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useOrganization } from '@/context/OrganizationContext'
 import { getOrgStats, OrgStats } from '@/services/stats'
-import { AdminBentoCard } from './AdminBentoCard'
+import { AdminBentoCard } from '@/components/admin/AdminBentoCard'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import {
-  LayoutDashboard,
   Users,
   BookOpen,
   FileText,
