@@ -150,20 +150,38 @@ export type Database = {
       organizations: {
         Row: {
           created_at: string
+          header_subtitle: string | null
+          header_title: string | null
+          hero_subtitle: string | null
+          hero_title: string | null
           id: string
+          logo_url: string | null
           name: string
+          platform_bg_color: string | null
           slug: string
         }
         Insert: {
           created_at?: string
+          header_subtitle?: string | null
+          header_title?: string | null
+          hero_subtitle?: string | null
+          hero_title?: string | null
           id?: string
+          logo_url?: string | null
           name: string
+          platform_bg_color?: string | null
           slug: string
         }
         Update: {
           created_at?: string
+          header_subtitle?: string | null
+          header_title?: string | null
+          hero_subtitle?: string | null
+          hero_title?: string | null
           id?: string
+          logo_url?: string | null
           name?: string
+          platform_bg_color?: string | null
           slug?: string
         }
         Relationships: []

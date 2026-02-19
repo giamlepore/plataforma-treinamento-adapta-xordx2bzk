@@ -11,8 +11,10 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { Link } from 'react-router-dom'
-import { Edit, Trash2, Plus } from 'lucide-react'
+import { Edit, Trash2, Plus, Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
+import { AdminBentoCard } from './AdminBentoCard'
+import { cn } from '@/lib/utils'
 
 export function CoursesTable() {
   const { organization } = useOrganization()
@@ -38,7 +40,12 @@ export function CoursesTable() {
   }, [organization])
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this course?')) return
+    if (
+      !confirm(
+        'Are you sure you want to delete this course? This action cannot be undone.',
+      )
+    )
+      return
 
     const { error } = await supabase.from('courses').delete().eq('id', id)
     if (error) {
@@ -51,14 +58,20 @@ export function CoursesTable() {
 
   const handleCreate = async () => {
     if (!organization) return
+
+    const newCourse = {
+      organization_id: organization.id,
+      title: 'Untitled Course',
+      description: 'Add a description...',
+      label: 'New',
+      instructor_name: 'Instructor',
+      duration_text: '0h 0m',
+      image_color: '#1a5c48',
+    }
+
     const { data, error } = await supabase
       .from('courses')
-      .insert({
-        organization_id: organization.id,
-        title: 'New Course',
-        description: 'Course description',
-        label: 'New',
-      })
+      .insert(newCourse)
       .select()
       .single()
 
@@ -70,56 +83,98 @@ export function CoursesTable() {
     }
   }
 
-  if (loading) return <div>Loading courses...</div>
-
   return (
-    <div className="space-y-4">
-      <div className="flex justify-between items-center">
-        <h2 className="text-xl font-semibold">Courses</h2>
-        <Button onClick={handleCreate} className="gap-2">
-          <Plus className="w-4 h-4" /> Add Course
+    <AdminBentoCard
+      title="CONTENT MANAGEMENT"
+      subtitle="Active Courses"
+      colSpan={4}
+      action={
+        <Button
+          onClick={handleCreate}
+          className="bg-[#111111] hover:bg-[#333333] text-white text-xs px-4 h-8"
+        >
+          <Plus className="w-3 h-3 mr-2" />
+          New Course
         </Button>
-      </div>
-
-      <div className="border rounded-md">
+      }
+    >
+      <div className="mt-6 rounded-lg border border-gray-100 overflow-hidden">
         <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Title</TableHead>
-              <TableHead>Instructor</TableHead>
-              <TableHead>Label</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
+          <TableHeader className="bg-gray-50/50">
+            <TableRow className="hover:bg-transparent border-gray-100">
+              <TableHead className="w-[300px] text-xs font-semibold uppercase text-gray-500">
+                Title
+              </TableHead>
+              <TableHead className="text-xs font-semibold uppercase text-gray-500">
+                Instructor
+              </TableHead>
+              <TableHead className="text-xs font-semibold uppercase text-gray-500">
+                Label
+              </TableHead>
+              <TableHead className="text-xs font-semibold uppercase text-gray-500 text-right">
+                Actions
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {courses.length === 0 ? (
+            {loading ? (
+              <TableRow>
+                <TableCell colSpan={4} className="h-24 text-center">
+                  <Loader2 className="w-6 h-6 animate-spin mx-auto text-gray-300" />
+                </TableCell>
+              </TableRow>
+            ) : courses.length === 0 ? (
               <TableRow>
                 <TableCell
                   colSpan={4}
-                  className="text-center py-4 text-muted-foreground"
+                  className="h-24 text-center text-gray-500"
                 >
-                  No courses found
+                  No courses found. Create your first course.
                 </TableCell>
               </TableRow>
             ) : (
               courses.map((course) => (
-                <TableRow key={course.id}>
-                  <TableCell className="font-medium">{course.title}</TableCell>
-                  <TableCell>{course.instructor_name || '-'}</TableCell>
-                  <TableCell>{course.label || '-'}</TableCell>
+                <TableRow
+                  key={course.id}
+                  className="border-gray-100 hover:bg-gray-50/50 group"
+                >
+                  <TableCell className="font-medium text-[#111111]">
+                    <div className="flex items-center gap-3">
+                      <div
+                        className="w-8 h-8 rounded bg-gray-100 flex items-center justify-center text-xs font-mono"
+                        style={{ backgroundColor: course.image_color }}
+                      >
+                        {course.title.charAt(0)}
+                      </div>
+                      {course.title}
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-gray-600">
+                    {course.instructor_name || '-'}
+                  </TableCell>
+                  <TableCell>
+                    <span className="inline-flex items-center px-2 py-1 rounded text-[10px] font-medium bg-gray-100 text-gray-600 uppercase">
+                      {course.label || '-'}
+                    </span>
+                  </TableCell>
                   <TableCell className="text-right">
-                    <div className="flex justify-end gap-2">
+                    <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                       <Link to={`/admin/courses/${course.id}`}>
-                        <Button variant="outline" size="sm">
-                          <Edit className="w-4 h-4" />
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 hover:bg-white hover:border border-gray-200"
+                        >
+                          <Edit className="w-3.5 h-3.5 text-gray-600" />
                         </Button>
                       </Link>
                       <Button
-                        variant="destructive"
-                        size="sm"
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 hover:bg-red-50 hover:text-red-600"
                         onClick={() => handleDelete(course.id)}
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <Trash2 className="w-3.5 h-3.5" />
                       </Button>
                     </div>
                   </TableCell>
@@ -129,6 +184,6 @@ export function CoursesTable() {
           </TableBody>
         </Table>
       </div>
-    </div>
+    </AdminBentoCard>
   )
 }

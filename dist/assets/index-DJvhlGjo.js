@@ -19031,6 +19031,40 @@ var Flag = createLucideIcon("flag", [["path", {
 	d: "M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528",
 	key: "1jaruq"
 }]]);
+var LayoutDashboard = createLucideIcon("layout-dashboard", [
+	["rect", {
+		width: "7",
+		height: "9",
+		x: "3",
+		y: "3",
+		rx: "1",
+		key: "10lvy0"
+	}],
+	["rect", {
+		width: "7",
+		height: "5",
+		x: "14",
+		y: "3",
+		rx: "1",
+		key: "16une8"
+	}],
+	["rect", {
+		width: "7",
+		height: "9",
+		x: "14",
+		y: "12",
+		rx: "1",
+		key: "1hutg5"
+	}],
+	["rect", {
+		width: "7",
+		height: "5",
+		x: "3",
+		y: "16",
+		rx: "1",
+		key: "ldoo1y"
+	}]
+]);
 var LoaderCircle = createLucideIcon("loader-circle", [["path", {
 	d: "M21 12a9 9 0 1 1-6.219-8.56",
 	key: "13zald"
@@ -19061,6 +19095,40 @@ var LogOut = createLucideIcon("log-out", [
 		key: "1uf3rs"
 	}]
 ]);
+var Palette = createLucideIcon("palette", [
+	["path", {
+		d: "M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z",
+		key: "e79jfc"
+	}],
+	["circle", {
+		cx: "13.5",
+		cy: "6.5",
+		r: ".5",
+		fill: "currentColor",
+		key: "1okk4w"
+	}],
+	["circle", {
+		cx: "17.5",
+		cy: "10.5",
+		r: ".5",
+		fill: "currentColor",
+		key: "f64h9f"
+	}],
+	["circle", {
+		cx: "6.5",
+		cy: "12.5",
+		r: ".5",
+		fill: "currentColor",
+		key: "qy21gx"
+	}],
+	["circle", {
+		cx: "8.5",
+		cy: "7.5",
+		r: ".5",
+		fill: "currentColor",
+		key: "fotxhn"
+	}]
+]);
 var Play = createLucideIcon("play", [["path", {
 	d: "M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z",
 	key: "10ikf1"
@@ -19072,6 +19140,20 @@ var Plus = createLucideIcon("plus", [["path", {
 	d: "M12 5v14",
 	key: "s699le"
 }]]);
+var Save = createLucideIcon("save", [
+	["path", {
+		d: "M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z",
+		key: "1c8476"
+	}],
+	["path", {
+		d: "M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7",
+		key: "1ydtos"
+	}],
+	["path", {
+		d: "M7 3v4a1 1 0 0 0 1 1h7",
+		key: "t51u73"
+	}]
+]);
 var Settings = createLucideIcon("settings", [["path", {
 	d: "M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915",
 	key: "1i5ecw"
@@ -19170,6 +19252,37 @@ var User = createLucideIcon("user", [["path", {
 	cy: "7",
 	r: "4",
 	key: "17ys0d"
+}]]);
+var Users = createLucideIcon("users", [
+	["path", {
+		d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2",
+		key: "1yyitq"
+	}],
+	["path", {
+		d: "M16 3.128a4 4 0 0 1 0 7.744",
+		key: "16gr8j"
+	}],
+	["path", {
+		d: "M22 21v-2a4 4 0 0 0-3-3.87",
+		key: "kshegd"
+	}],
+	["circle", {
+		cx: "9",
+		cy: "7",
+		r: "4",
+		key: "nufk8"
+	}]
+]);
+var Video = createLucideIcon("video", [["path", {
+	d: "m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5",
+	key: "ftymec"
+}], ["rect", {
+	x: "2",
+	y: "6",
+	width: "14",
+	height: "12",
+	rx: "2",
+	key: "158x01"
 }]]);
 var X = createLucideIcon("x", [["path", {
 	d: "M18 6 6 18",
@@ -34247,23 +34360,42 @@ var Textarea = import_react.forwardRef(({ className, ...props }, ref) => {
 	});
 });
 Textarea.displayName = "Textarea";
-function BrandingForm() {
+function AdminBentoCard({ title, subtitle, className, children, action, colSpan = 1 }) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: cn("group relative flex flex-col justify-between overflow-hidden rounded-xl admin-card p-6 transition-all hover:shadow-md", colSpan === 2 && "md:col-span-2", colSpan === 3 && "md:col-span-3", colSpan === 4 && "md:col-span-4", className),
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "flex items-start justify-between mb-4",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+				className: "font-jetbrains text-xs font-medium uppercase tracking-wider text-gray-500 mb-1",
+				children: title
+			}), subtitle && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "font-inter text-lg font-medium text-[#111111] leading-tight",
+				children: subtitle
+			})] }), action ? action : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "opacity-0 group-hover:opacity-100 transition-opacity duration-300",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowUpRight, { className: "w-5 h-5 text-gray-400" })
+			})]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			className: "relative z-10 flex-1",
+			children
+		})]
+	});
+}
+function BrandingSettings() {
 	const { organization, refreshOrganization } = useOrganization();
 	const [loading, setLoading] = (0, import_react.useState)(false);
 	const [formData, setFormData] = (0, import_react.useState)({
 		header_title: "",
 		header_subtitle: "",
 		hero_title: "",
-		hero_subtitle: "",
-		platform_bg_color: ""
+		hero_subtitle: ""
 	});
 	(0, import_react.useEffect)(() => {
 		if (organization) setFormData({
 			header_title: organization.header_title || "",
 			header_subtitle: organization.header_subtitle || "",
 			hero_title: organization.hero_title || "",
-			hero_subtitle: organization.hero_subtitle || "",
-			platform_bg_color: organization.platform_bg_color || "#1a5c48"
+			hero_subtitle: organization.hero_subtitle || ""
 		});
 	}, [organization]);
 	const handleChange = (e) => {
@@ -34279,99 +34411,83 @@ function BrandingForm() {
 		const { error } = await supabase.from("organizations").update(formData).eq("id", organization.id);
 		if (error) toast.error("Failed to update branding");
 		else {
-			toast.success("Branding updated successfully");
+			toast.success("Branding settings saved");
 			await refreshOrganization();
 		}
 		setLoading(false);
 	};
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardHeader, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, { children: "Organization Branding" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardDescription, { children: "Customize how your platform looks and feels." })] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardContent, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
-		onSubmit: handleSubmit,
-		className: "space-y-6",
-		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "grid gap-4 md:grid-cols-2",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "space-y-2",
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AdminBentoCard, {
+		title: "BRANDING CONFIG",
+		subtitle: "Platform Identity",
+		colSpan: 2,
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
+			onSubmit: handleSubmit,
+			className: "space-y-6 mt-2",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "grid grid-cols-2 gap-4",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "space-y-1.5",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+							className: "text-xs text-gray-500",
+							children: "Header Title"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+							name: "header_title",
+							value: formData.header_title,
+							onChange: handleChange,
+							className: "bg-gray-50 border-gray-200 text-black focus:ring-black/10",
+							placeholder: "BETSMARTER"
+						})]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "space-y-1.5",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+							className: "text-xs text-gray-500",
+							children: "Header Subtitle"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+							name: "header_subtitle",
+							value: formData.header_subtitle,
+							onChange: handleChange,
+							className: "bg-gray-50 border-gray-200 text-black focus:ring-black/10",
+							placeholder: "Dashboard"
+						})]
+					})]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "space-y-1.5",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-						htmlFor: "header_title",
-						children: "Header Title"
+						className: "text-xs text-gray-500",
+						children: "Hero Title"
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-						id: "header_title",
-						name: "header_title",
-						value: formData.header_title,
+						name: "hero_title",
+						value: formData.hero_title,
 						onChange: handleChange,
-						placeholder: "BETSMARTER"
+						className: "bg-gray-50 border-gray-200 text-black font-medium focus:ring-black/10"
 					})]
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "space-y-2",
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "space-y-1.5",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-						htmlFor: "header_subtitle",
-						children: "Header Subtitle"
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-						id: "header_subtitle",
-						name: "header_subtitle",
-						value: formData.header_subtitle,
+						className: "text-xs text-gray-500",
+						children: "Hero Subtitle"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Textarea, {
+						name: "hero_subtitle",
+						value: formData.hero_subtitle,
 						onChange: handleChange,
-						placeholder: "Course Dashboard"
+						className: "bg-gray-50 border-gray-200 text-black min-h-[80px] resize-none focus:ring-black/10"
 					})]
-				})]
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "space-y-2",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-					htmlFor: "hero_title",
-					children: "Hero Title"
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-					id: "hero_title",
-					name: "hero_title",
-					value: formData.hero_title,
-					onChange: handleChange,
-					placeholder: "Advance Your Betting Knowledge"
-				})]
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "space-y-2",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-					htmlFor: "hero_subtitle",
-					children: "Hero Subtitle"
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Textarea, {
-					id: "hero_subtitle",
-					name: "hero_subtitle",
-					value: formData.hero_subtitle,
-					onChange: handleChange,
-					placeholder: "Access professional-grade courses..."
-				})]
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "space-y-2",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-					htmlFor: "platform_bg_color",
-					children: "Platform Background Color"
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "flex gap-2",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-						id: "platform_bg_color",
-						name: "platform_bg_color",
-						type: "color",
-						value: formData.platform_bg_color,
-						onChange: handleChange,
-						className: "w-12 h-10 p-1 cursor-pointer"
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-						name: "platform_bg_color",
-						value: formData.platform_bg_color,
-						onChange: handleChange,
-						placeholder: "#1a5c48",
-						className: "flex-1"
-					})]
-				})]
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-				type: "submit",
-				disabled: loading,
-				children: loading ? "Saving..." : "Save Changes"
-			})
-		]
-	}) })] });
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "flex justify-end pt-2",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						type: "submit",
+						disabled: loading,
+						className: "bg-[#111111] hover:bg-[#333333] text-white",
+						children: loading ? "Saving..." : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Save, { className: "w-4 h-4 mr-2" }), "Save Changes"] })
+					})
+				})
+			]
+		})
+	});
 }
 var Table = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 	className: "relative w-full overflow-auto",
@@ -34438,7 +34554,7 @@ function CoursesTable() {
 		fetchCourses();
 	}, [organization]);
 	const handleDelete = async (id) => {
-		if (!confirm("Are you sure you want to delete this course?")) return;
+		if (!confirm("Are you sure you want to delete this course? This action cannot be undone.")) return;
 		const { error } = await supabase.from("courses").delete().eq("id", id);
 		if (error) toast.error("Failed to delete course");
 		else {
@@ -34448,118 +34564,278 @@ function CoursesTable() {
 	};
 	const handleCreate = async () => {
 		if (!organization) return;
-		const { data, error } = await supabase.from("courses").insert({
+		const newCourse = {
 			organization_id: organization.id,
-			title: "New Course",
-			description: "Course description",
-			label: "New"
-		}).select().single();
+			title: "Untitled Course",
+			description: "Add a description...",
+			label: "New",
+			instructor_name: "Instructor",
+			duration_text: "0h 0m",
+			image_color: "#1a5c48"
+		};
+		const { data, error } = await supabase.from("courses").insert(newCourse).select().single();
 		if (error) toast.error("Failed to create course");
 		else {
 			toast.success("Course created");
 			fetchCourses();
 		}
 	};
-	if (loading) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: "Loading courses..." });
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		className: "space-y-4",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			className: "flex justify-between items-center",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
-				className: "text-xl font-semibold",
-				children: "Courses"
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
-				onClick: handleCreate,
-				className: "gap-2",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { className: "w-4 h-4" }), " Add Course"]
-			})]
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			className: "border rounded-md",
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Table, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHeader, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableRow, { children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Title" }),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Instructor" }),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Label" }),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
-					className: "text-right",
-					children: "Actions"
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AdminBentoCard, {
+		title: "CONTENT MANAGEMENT",
+		subtitle: "Active Courses",
+		colSpan: 4,
+		action: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+			onClick: handleCreate,
+			className: "bg-[#111111] hover:bg-[#333333] text-white text-xs px-4 h-8",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { className: "w-3 h-3 mr-2" }), "New Course"]
+		}),
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			className: "mt-6 rounded-lg border border-gray-100 overflow-hidden",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Table, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHeader, {
+				className: "bg-gray-50/50",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableRow, {
+					className: "hover:bg-transparent border-gray-100",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
+							className: "w-[300px] text-xs font-semibold uppercase text-gray-500",
+							children: "Title"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
+							className: "text-xs font-semibold uppercase text-gray-500",
+							children: "Instructor"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
+							className: "text-xs font-semibold uppercase text-gray-500",
+							children: "Label"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
+							className: "text-xs font-semibold uppercase text-gray-500 text-right",
+							children: "Actions"
+						})
+					]
 				})
-			] }) }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableBody, { children: courses.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableRow, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableBody, { children: loading ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableRow, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
 				colSpan: 4,
-				className: "text-center py-4 text-muted-foreground",
-				children: "No courses found"
-			}) }) : courses.map((course) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableRow, { children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
-					className: "font-medium",
-					children: course.title
+				className: "h-24 text-center",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LoaderCircle, { className: "w-6 h-6 animate-spin mx-auto text-gray-300" })
+			}) }) : courses.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableRow, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
+				colSpan: 4,
+				className: "h-24 text-center text-gray-500",
+				children: "No courses found. Create your first course."
+			}) }) : courses.map((course) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableRow, {
+				className: "border-gray-100 hover:bg-gray-50/50 group",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
+						className: "font-medium text-[#111111]",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex items-center gap-3",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "w-8 h-8 rounded bg-gray-100 flex items-center justify-center text-xs font-mono",
+								style: { backgroundColor: course.image_color },
+								children: course.title.charAt(0)
+							}), course.title]
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
+						className: "text-gray-600",
+						children: course.instructor_name || "-"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "inline-flex items-center px-2 py-1 rounded text-[10px] font-medium bg-gray-100 text-gray-600 uppercase",
+						children: course.label || "-"
+					}) }),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
+						className: "text-right",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
+								to: `/admin/courses/${course.id}`,
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+									variant: "ghost",
+									size: "icon",
+									className: "h-8 w-8 hover:bg-white hover:border border-gray-200",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SquarePen, { className: "w-3.5 h-3.5 text-gray-600" })
+								})
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+								variant: "ghost",
+								size: "icon",
+								className: "h-8 w-8 hover:bg-red-50 hover:text-red-600",
+								onClick: () => handleDelete(course.id),
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trash2, { className: "w-3.5 h-3.5" })
+							})]
+						})
+					})
+				]
+			}, course.id)) })] })
+		})
+	});
+}
+function VisualSettings() {
+	const { organization, refreshOrganization } = useOrganization();
+	const [loading, setLoading] = (0, import_react.useState)(false);
+	const [formData, setFormData] = (0, import_react.useState)({
+		logo_url: "",
+		platform_bg_color: "#1a5c48"
+	});
+	(0, import_react.useEffect)(() => {
+		if (organization) setFormData({
+			logo_url: organization.logo_url || "",
+			platform_bg_color: organization.platform_bg_color || "#1a5c48"
+		});
+	}, [organization]);
+	const handleChange = (e) => {
+		setFormData((prev) => ({
+			...prev,
+			[e.target.name]: e.target.value
+		}));
+	};
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		if (!organization) return;
+		setLoading(true);
+		const { error } = await supabase.from("organizations").update(formData).eq("id", organization.id);
+		if (error) toast.error("Failed to update visuals");
+		else {
+			toast.success("Visual settings saved");
+			await refreshOrganization();
+		}
+		setLoading(false);
+	};
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AdminBentoCard, {
+		title: "VISUAL CONFIG",
+		subtitle: "Style & Assets",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
+			onSubmit: handleSubmit,
+			className: "space-y-6 mt-4",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "space-y-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+						className: "text-xs text-gray-500",
+						children: "Logo URL"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+						name: "logo_url",
+						value: formData.logo_url,
+						onChange: handleChange,
+						className: "bg-gray-50 border-gray-200 text-black text-xs",
+						placeholder: "https://..."
+					})]
 				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, { children: course.instructor_name || "-" }),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, { children: course.label || "-" }),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
-					className: "text-right",
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "flex justify-end gap-2",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
-							to: `/admin/courses/${course.id}`,
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-								variant: "outline",
-								size: "sm",
-								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SquarePen, { className: "w-4 h-4" })
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "space-y-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+						className: "text-xs text-gray-500",
+						children: "Platform Background"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex gap-3",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "relative w-12 h-12 rounded-lg border border-gray-200 overflow-hidden shadow-sm hover:scale-105 transition-transform",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+								type: "color",
+								name: "platform_bg_color",
+								value: formData.platform_bg_color,
+								onChange: handleChange,
+								className: "absolute -top-2 -left-2 w-16 h-16 p-0 cursor-pointer border-none"
 							})
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-							variant: "destructive",
-							size: "sm",
-							onClick: () => handleDelete(course.id),
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trash2, { className: "w-4 h-4" })
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+							name: "platform_bg_color",
+							value: formData.platform_bg_color,
+							onChange: handleChange,
+							className: "flex-1 bg-gray-50 border-gray-200 text-black font-mono"
 						})]
+					})]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "pt-4",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						type: "submit",
+						disabled: loading,
+						variant: "outline",
+						className: "w-full border-gray-200 hover:bg-gray-50 hover:text-black",
+						children: loading ? "Saving..." : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Palette, { className: "w-4 h-4 mr-2" }), "Update Theme"] })
 					})
 				})
-			] }, course.id)) })] })
-		})]
+			]
+		})
 	});
 }
 function AdminDashboard() {
 	const { organization } = useOrganization();
+	(0, import_react.useEffect)(() => {
+		document.body.classList.add("admin-panel");
+		return () => {
+			document.body.classList.remove("admin-panel");
+		};
+	}, []);
 	if (!organization) return null;
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		className: "container mx-auto py-10 px-4",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			className: "mb-8",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-				className: "text-3xl font-bold tracking-tight text-white mb-2",
-				children: "Admin Dashboard"
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-				className: "text-white/60",
-				children: "Manage your organization settings and content."
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		className: "min-h-screen bg-[#F7F7F7] text-[#111111] font-sans",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "max-w-[1600px] mx-auto p-6 md:p-10",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
+				className: "mb-8 md:mb-12 flex items-end justify-between border-b border-gray-200 pb-6",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
+					className: "font-jetbrains text-xs font-medium uppercase tracking-widest text-gray-500 mb-2",
+					children: "Logged in as Admin"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", {
+					className: "text-3xl md:text-4xl font-inter font-light tracking-tight text-[#111111]",
+					children: [
+						"KERNEL ",
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "text-gray-300 mx-2",
+							children: "//"
+						}),
+						" ARCHITECTURE"
+					]
+				})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "hidden md:flex gap-8 text-sm font-jetbrains text-gray-500",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex items-center gap-2",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "w-2 h-2 rounded-full bg-green-500 animate-pulse" }), "SYSTEM ONLINE"]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: "v2.3.0" })]
+				})]
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "grid grid-cols-1 md:grid-cols-4 gap-6 mb-6",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrandingSettings, {}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(VisualSettings, {}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(AdminBentoCard, {
+						title: "QUICK STATS",
+						subtitle: "Overview",
+						colSpan: 1,
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "space-y-4 mt-4",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-center justify-between p-3 bg-gray-50 rounded-lg",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex items-center gap-3",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(LayoutDashboard, { className: "w-4 h-4 text-gray-500" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: "text-sm font-medium",
+										children: "Platform"
+									})]
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "text-xs font-mono text-green-600",
+									children: "ACTIVE"
+								})]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-center justify-between p-3 bg-gray-50 rounded-lg",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex items-center gap-3",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Users, { className: "w-4 h-4 text-gray-500" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: "text-sm font-medium",
+										children: "Students"
+									})]
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "text-xs font-mono",
+									children: "1,248"
+								})]
+							})]
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CoursesTable, {})
+				]
 			})]
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Tabs, {
-			defaultValue: "branding",
-			className: "space-y-6",
-			children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TabsList, {
-					className: "bg-white/10 text-white border border-white/10",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsTrigger, {
-						value: "branding",
-						className: "data-[state=active]:bg-brand-green",
-						children: "Branding"
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsTrigger, {
-						value: "courses",
-						className: "data-[state=active]:bg-brand-green",
-						children: "Courses"
-					})]
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsContent, {
-					value: "branding",
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrandingForm, {})
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsContent, {
-					value: "courses",
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						className: "bg-white rounded-lg p-6 shadow-sm",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CoursesTable, {})
-					})
-				})
-			]
-		})]
+		})
 	});
 }
 function CourseForm({ course, onUpdate }) {
@@ -34569,7 +34845,7 @@ function CourseForm({ course, onUpdate }) {
 		instructor_name: course.instructor_name || "",
 		instructor_avatar: course.instructor_avatar || "",
 		duration_text: course.duration_text || "",
-		image_color: course.image_color || "",
+		image_color: course.image_color || "#1a5c48",
 		image_query: course.image_query || "",
 		label: course.label || ""
 	});
@@ -34593,105 +34869,137 @@ function CourseForm({ course, onUpdate }) {
 	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
 		onSubmit: handleSubmit,
-		className: "space-y-4",
+		className: "space-y-6 max-w-3xl",
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "space-y-2",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
 					htmlFor: "title",
+					className: "text-xs text-gray-500 uppercase tracking-wide",
 					children: "Course Title"
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
 					id: "title",
 					name: "title",
 					value: formData.title,
 					onChange: handleChange,
-					required: true
+					required: true,
+					className: "bg-gray-50 border-gray-200 text-lg font-medium p-4 h-auto"
 				})]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "space-y-2",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
 					htmlFor: "description",
+					className: "text-xs text-gray-500 uppercase tracking-wide",
 					children: "Description"
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Textarea, {
 					id: "description",
 					name: "description",
 					value: formData.description,
-					onChange: handleChange
+					onChange: handleChange,
+					className: "bg-gray-50 border-gray-200 min-h-[120px]"
 				})]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "grid grid-cols-1 md:grid-cols-2 gap-4",
+				className: "grid grid-cols-1 md:grid-cols-2 gap-6",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "space-y-2",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
 						htmlFor: "instructor_name",
+						className: "text-xs text-gray-500 uppercase tracking-wide",
 						children: "Instructor Name"
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
 						id: "instructor_name",
 						name: "instructor_name",
 						value: formData.instructor_name,
-						onChange: handleChange
+						onChange: handleChange,
+						className: "bg-gray-50 border-gray-200"
 					})]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "space-y-2",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-						htmlFor: "duration_text",
-						children: "Duration Text"
+						htmlFor: "instructor_avatar",
+						className: "text-xs text-gray-500 uppercase tracking-wide",
+						children: "Instructor Avatar URL"
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-						id: "duration_text",
-						name: "duration_text",
-						value: formData.duration_text,
+						id: "instructor_avatar",
+						name: "instructor_avatar",
+						value: formData.instructor_avatar,
 						onChange: handleChange,
-						placeholder: "e.g. 4h 30m"
+						className: "bg-gray-50 border-gray-200",
+						placeholder: "https://..."
 					})]
 				})]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "grid grid-cols-1 md:grid-cols-2 gap-4",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "space-y-2",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-						htmlFor: "image_color",
-						children: "Background Color Class"
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-						id: "image_color",
-						name: "image_color",
-						value: formData.image_color,
-						onChange: handleChange,
-						placeholder: "e.g. bg-brand-yellow"
-					})]
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "space-y-2",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-						htmlFor: "image_query",
-						children: "Image Query"
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-						id: "image_query",
-						name: "image_query",
-						value: formData.image_query,
-						onChange: handleChange,
-						placeholder: "e.g. finance"
-					})]
-				})]
+				className: "grid grid-cols-1 md:grid-cols-3 gap-6",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "space-y-2",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+							htmlFor: "duration_text",
+							className: "text-xs text-gray-500 uppercase tracking-wide",
+							children: "Duration"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+							id: "duration_text",
+							name: "duration_text",
+							value: formData.duration_text,
+							onChange: handleChange,
+							placeholder: "e.g. 4h 30m",
+							className: "bg-gray-50 border-gray-200"
+						})]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "space-y-2",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+							htmlFor: "label",
+							className: "text-xs text-gray-500 uppercase tracking-wide",
+							children: "Label / Tag"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+							id: "label",
+							name: "label",
+							value: formData.label,
+							onChange: handleChange,
+							placeholder: "e.g. Beginner",
+							className: "bg-gray-50 border-gray-200"
+						})]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "space-y-2",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+							htmlFor: "image_color",
+							className: "text-xs text-gray-500 uppercase tracking-wide",
+							children: "Card Accent Color"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex gap-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "relative w-10 h-10 rounded border border-gray-200 overflow-hidden shadow-sm shrink-0",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+									type: "color",
+									name: "image_color",
+									value: formData.image_color,
+									onChange: handleChange,
+									className: "absolute -top-2 -left-2 w-16 h-16 p-0 cursor-pointer border-none"
+								})
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+								id: "image_color",
+								name: "image_color",
+								value: formData.image_color,
+								onChange: handleChange,
+								className: "bg-gray-50 border-gray-200 font-mono"
+							})]
+						})]
+					})
+				]
 			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "space-y-2",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-					htmlFor: "label",
-					children: "Label"
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-					id: "label",
-					name: "label",
-					value: formData.label,
-					onChange: handleChange,
-					placeholder: "e.g. Beginner"
-				})]
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-				type: "submit",
-				disabled: loading,
-				children: loading ? "Saving..." : "Save Details"
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "pt-4",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+					type: "submit",
+					disabled: loading,
+					className: "bg-[#111111] hover:bg-[#333333] text-white min-w-[150px]",
+					children: loading ? "Saving..." : "Save Details"
+				})
 			})
 		]
 	});
@@ -36085,7 +36393,6 @@ var Checkbox = import_react.forwardRef(({ className, ...props }, ref) => /* @__P
 Checkbox.displayName = Checkbox$1.displayName;
 function CurriculumManager({ courseId }) {
 	const [modules, setModules] = (0, import_react.useState)([]);
-	const [loading, setLoading] = (0, import_react.useState)(true);
 	const [newModuleTitle, setNewModuleTitle] = (0, import_react.useState)("");
 	const [editingLesson, setEditingLesson] = (0, import_react.useState)(null);
 	const [activeModuleId, setActiveModuleId] = (0, import_react.useState)(null);
@@ -36095,7 +36402,6 @@ function CurriculumManager({ courseId }) {
 			...m,
 			lessons: m.lessons.sort((a, b$1) => a.order_index - b$1.order_index)
 		})));
-		setLoading(false);
 	};
 	(0, import_react.useEffect)(() => {
 		fetchCurriculum();
@@ -36142,141 +36448,186 @@ function CurriculumManager({ courseId }) {
 		fetchCurriculum();
 	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		className: "space-y-6",
+		className: "space-y-8",
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "flex gap-2",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-					placeholder: "New Module Title",
-					value: newModuleTitle,
-					onChange: (e) => setNewModuleTitle(e.target.value)
+				className: "flex gap-4 items-end bg-gray-50 p-6 rounded-lg border border-gray-100",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex-1 space-y-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+						className: "text-xs text-gray-500 uppercase tracking-wide",
+						children: "New Module"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+						placeholder: "Module Title (e.g., 'Introduction to Betting')",
+						value: newModuleTitle,
+						onChange: (e) => setNewModuleTitle(e.target.value),
+						className: "bg-white"
+					})]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
 					onClick: addModule,
+					className: "bg-[#111111] hover:bg-[#333333] text-white",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { className: "w-4 h-4 mr-2" }), " Add Module"]
 				})]
 			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Accordion, {
-				type: "multiple",
-				className: "w-full space-y-2",
-				children: modules.map((module$1) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(AccordionItem, {
-					value: module$1.id,
-					className: "border rounded-lg bg-gray-50 px-4",
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "space-y-4",
+				children: modules.map((module$1, index$1) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "border border-gray-200 rounded-lg overflow-hidden bg-white",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "flex items-center justify-between py-2",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(AccordionTrigger, {
-							className: "hover:no-underline",
-							children: module$1.title
+						className: "flex items-center justify-between p-4 bg-gray-50 border-b border-gray-100",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex items-center gap-3",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "flex items-center justify-center w-6 h-6 rounded-full bg-gray-200 text-xs font-mono font-medium text-gray-600",
+								children: index$1 + 1
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "font-medium text-[#111111]",
+								children: module$1.title
+							})]
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
 							variant: "ghost",
 							size: "sm",
 							onClick: () => deleteModule(module$1.id),
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trash, { className: "w-4 h-4 text-red-500" })
+							className: "text-gray-400 hover:text-red-500 hover:bg-red-50",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trash, { className: "w-4 h-4" })
 						})]
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AccordionContent, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "space-y-2 pl-4 border-l-2 border-gray-200 ml-2 mb-4",
-						children: [module$1.lessons.map((lesson) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "flex items-center justify-between bg-white p-3 rounded shadow-sm",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex flex-col",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "font-medium",
-									children: lesson.title
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-									className: "text-xs text-gray-500",
-									children: [
-										lesson.duration,
-										" ",
-										lesson.is_test ? "(Test)" : ""
-									]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "p-4",
+						children: [module$1.lessons.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "text-center py-6 text-gray-400 text-sm italic",
+							children: "No lessons in this module yet."
+						}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "space-y-2 mb-4",
+							children: module$1.lessons.map((lesson) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-center justify-between group bg-white border border-gray-100 hover:border-gray-300 p-3 rounded-md transition-all",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex items-center gap-4",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+										className: "p-2 bg-gray-50 rounded text-gray-400",
+										children: lesson.is_test ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleCheckBig, { className: "w-4 h-4" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Video, { className: "w-4 h-4" })
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "flex flex-col",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											className: "font-medium text-sm text-[#111111]",
+											children: lesson.title
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+											className: "text-xs text-gray-400 font-mono flex items-center gap-2",
+											children: [
+												/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Clock, { className: "w-3 h-3" }),
+												" ",
+												lesson.duration || "00:00",
+												lesson.is_test && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+													className: "text-blue-600 font-bold",
+													children: "• TEST"
+												})
+											]
+										})]
+									})]
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+										size: "icon",
+										variant: "ghost",
+										onClick: () => {
+											setEditingLesson(lesson);
+											setActiveModuleId(module$1.id);
+										},
+										children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SquarePen, { className: "w-3.5 h-3.5 text-gray-600" })
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+										size: "icon",
+										variant: "ghost",
+										onClick: () => deleteLesson(lesson.id),
+										children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trash, { className: "w-3.5 h-3.5 text-red-400" })
+									})]
 								})]
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex gap-2",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-									size: "sm",
-									variant: "ghost",
-									onClick: () => {
-										setEditingLesson(lesson);
-										setActiveModuleId(module$1.id);
-									},
-									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SquarePen, { className: "w-3 h-3" })
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-									size: "sm",
-									variant: "ghost",
-									onClick: () => deleteLesson(lesson.id),
-									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trash, { className: "w-3 h-3 text-red-500" })
-								})]
-							})]
-						}, lesson.id)), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+							}, lesson.id))
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
 							variant: "outline",
 							size: "sm",
-							className: "w-full mt-2",
+							className: "w-full border-dashed border-gray-300 text-gray-500 hover:border-gray-400 hover:text-gray-700",
 							onClick: () => {
 								setEditingLesson({});
 								setActiveModuleId(module$1.id);
 							},
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { className: "w-3 h-3 mr-2" }), " Add Lesson"]
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { className: "w-3 h-3 mr-2" }),
+								" Add Lesson to \"",
+								module$1.title,
+								"\""
+							]
 						})]
-					}) })]
+					})]
 				}, module$1.id))
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Dialog, {
 				open: !!editingLesson,
 				onOpenChange: (open) => !open && setEditingLesson(null),
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogContent, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogHeader, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogTitle, { children: editingLesson?.id ? "Edit Lesson" : "Add Lesson" }) }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "space-y-4 py-4",
-					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "space-y-2",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Title" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-								value: editingLesson?.title || "",
-								onChange: (e) => setEditingLesson((prev) => ({
-									...prev,
-									title: e.target.value
-								}))
-							})]
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "space-y-2",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Duration" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-								value: editingLesson?.duration || "",
-								onChange: (e) => setEditingLesson((prev) => ({
-									...prev,
-									duration: e.target.value
-								})),
-								placeholder: "00:00"
-							})]
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "space-y-2",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Video URL" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-								value: editingLesson?.video_url || "",
-								onChange: (e) => setEditingLesson((prev) => ({
-									...prev,
-									video_url: e.target.value
-								}))
-							})]
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "flex items-center space-x-2",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Checkbox, {
-								id: "is_test",
-								checked: editingLesson?.is_test || false,
-								onCheckedChange: (c) => setEditingLesson((prev) => ({
-									...prev,
-									is_test: !!c
-								}))
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-								htmlFor: "is_test",
-								children: "Is a Test/Quiz"
-							})]
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-							onClick: saveLesson,
-							className: "w-full",
-							children: "Save Lesson"
-						})
-					]
-				})] })
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogContent, {
+					className: "sm:max-w-[500px]",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogHeader, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogTitle, { children: editingLesson?.id ? "Edit Lesson" : "Add New Lesson" }) }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "space-y-4 py-4",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "space-y-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Title" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+									value: editingLesson?.title || "",
+									onChange: (e) => setEditingLesson((prev) => ({
+										...prev,
+										title: e.target.value
+									})),
+									placeholder: "Lesson Title"
+								})]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "grid grid-cols-2 gap-4",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "space-y-2",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Duration (mm:ss)" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+										value: editingLesson?.duration || "",
+										onChange: (e) => setEditingLesson((prev) => ({
+											...prev,
+											duration: e.target.value
+										})),
+										placeholder: "12:00"
+									})]
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "space-y-2 flex flex-col justify-end pb-2",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "flex items-center space-x-2",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Checkbox, {
+											id: "is_test",
+											checked: editingLesson?.is_test || false,
+											onCheckedChange: (c) => setEditingLesson((prev) => ({
+												...prev,
+												is_test: !!c
+											}))
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+											htmlFor: "is_test",
+											className: "cursor-pointer",
+											children: "Is a Test/Quiz"
+										})]
+									})
+								})]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "space-y-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Video URL" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+									value: editingLesson?.video_url || "",
+									onChange: (e) => setEditingLesson((prev) => ({
+										...prev,
+										video_url: e.target.value
+									})),
+									placeholder: "https://..."
+								})]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+								onClick: saveLesson,
+								className: "w-full bg-[#111111] hover:bg-[#333333] text-white",
+								children: "Save Lesson"
+							})
+						]
+					})]
+				})
 			})
 		]
 	});
@@ -36293,50 +36644,79 @@ function AdminCourseEdit() {
 	};
 	(0, import_react.useEffect)(() => {
 		fetchCourse();
+		document.body.classList.add("admin-panel");
+		return () => {
+			document.body.classList.remove("admin-panel");
+		};
 	}, [courseId]);
-	if (loading) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: "Loading..." });
+	if (loading) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		className: "min-h-screen bg-[#F7F7F7] flex items-center justify-center",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LoaderCircle, { className: "w-8 h-8 animate-spin text-gray-400" })
+	});
 	if (!course) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: "Course not found" });
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		className: "container mx-auto py-10 px-4",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			className: "mb-6",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
-				to: "/admin",
-				className: "text-white/60 hover:text-white flex items-center gap-2 mb-4",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowLeft, { className: "w-4 h-4" }), " Back to Dashboard"]
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", {
-				className: "text-2xl font-bold text-white",
-				children: ["Edit Course: ", course.title]
-			})]
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			className: "bg-white rounded-lg p-6",
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Tabs, {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		className: "min-h-screen bg-[#F7F7F7] text-[#111111]",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "max-w-[1200px] mx-auto p-6 md:p-10",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "mb-8",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
+					to: "/admin",
+					className: "text-gray-500 hover:text-black flex items-center gap-2 mb-4 text-sm font-medium transition-colors",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowLeft, { className: "w-4 h-4" }), " BACK TO DASHBOARD"]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "flex items-center justify-between",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", {
+						className: "text-3xl font-inter font-light tracking-tight",
+						children: [
+							"EDIT ",
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "text-gray-300 mx-2",
+								children: "//"
+							}),
+							" ",
+							course.title.toUpperCase()
+						]
+					})
+				})]
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Tabs, {
 				defaultValue: "details",
+				className: "space-y-6",
 				children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TabsList, {
-						className: "mb-6",
+						className: "bg-transparent border-b border-gray-200 w-full justify-start rounded-none h-auto p-0 space-x-8",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsTrigger, {
 							value: "details",
-							children: "Details"
+							className: "rounded-none border-b-2 border-transparent data-[state=active]:border-black data-[state=active]:bg-transparent data-[state=active]:shadow-none py-3 px-0 font-jetbrains text-xs uppercase tracking-widest text-gray-500 data-[state=active]:text-black",
+							children: "Details & Meta"
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsTrigger, {
 							value: "curriculum",
-							children: "Curriculum"
+							className: "rounded-none border-b-2 border-transparent data-[state=active]:border-black data-[state=active]:bg-transparent data-[state=active]:shadow-none py-3 px-0 font-jetbrains text-xs uppercase tracking-widest text-gray-500 data-[state=active]:text-black",
+							children: "Curriculum Builder"
 						})]
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsContent, {
 						value: "details",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardHeader, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, { children: "Course Details" }) }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardContent, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CourseForm, {
-							course,
-							onUpdate: fetchCourse
-						}) })] })
+						className: "mt-6",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "bg-white border border-gray-200 rounded-xl p-8 shadow-sm",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CourseForm, {
+								course,
+								onUpdate: fetchCourse
+							})
+						})
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsContent, {
 						value: "curriculum",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardHeader, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, { children: "Curriculum" }) }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardContent, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CurriculumManager, { courseId: course.id }) })] })
+						className: "mt-6",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "bg-white border border-gray-200 rounded-xl p-8 shadow-sm",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CurriculumManager, { courseId: course.id })
+						})
 					})
 				]
-			})
-		})]
+			})]
+		})
 	});
 }
 const ProtectedRoute = () => {
@@ -36433,4 +36813,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { chil
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-mQ9AZNRo.js.map
+//# sourceMappingURL=index-DJvhlGjo.js.map

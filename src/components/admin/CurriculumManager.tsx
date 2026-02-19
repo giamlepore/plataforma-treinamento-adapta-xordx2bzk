@@ -14,11 +14,9 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog'
 import { Checkbox } from '@/components/ui/checkbox'
-import { Plus, Trash, Edit, Save } from 'lucide-react'
-import { toast } from 'sonner'
+import { Plus, Trash, Edit, Video, Clock, CheckCircle } from 'lucide-react'
 
 interface Lesson {
   id: string
@@ -38,10 +36,7 @@ interface Module {
 
 export function CurriculumManager({ courseId }: { courseId: string }) {
   const [modules, setModules] = useState<Module[]>([])
-  const [loading, setLoading] = useState(true)
   const [newModuleTitle, setNewModuleTitle] = useState('')
-
-  // Lesson Edit State
   const [editingLesson, setEditingLesson] = useState<Partial<Lesson> | null>(
     null,
   )
@@ -63,7 +58,6 @@ export function CurriculumManager({ courseId }: { courseId: string }) {
       }))
       setModules(sorted)
     }
-    setLoading(false)
   }
 
   useEffect(() => {
@@ -121,96 +115,135 @@ export function CurriculumManager({ courseId }: { courseId: string }) {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex gap-2">
-        <Input
-          placeholder="New Module Title"
-          value={newModuleTitle}
-          onChange={(e) => setNewModuleTitle(e.target.value)}
-        />
-        <Button onClick={addModule}>
+    <div className="space-y-8">
+      <div className="flex gap-4 items-end bg-gray-50 p-6 rounded-lg border border-gray-100">
+        <div className="flex-1 space-y-2">
+          <Label className="text-xs text-gray-500 uppercase tracking-wide">
+            New Module
+          </Label>
+          <Input
+            placeholder="Module Title (e.g., 'Introduction to Betting')"
+            value={newModuleTitle}
+            onChange={(e) => setNewModuleTitle(e.target.value)}
+            className="bg-white"
+          />
+        </div>
+        <Button
+          onClick={addModule}
+          className="bg-[#111111] hover:bg-[#333333] text-white"
+        >
           <Plus className="w-4 h-4 mr-2" /> Add Module
         </Button>
       </div>
 
-      <Accordion type="multiple" className="w-full space-y-2">
-        {modules.map((module) => (
-          <AccordionItem
+      <div className="space-y-4">
+        {modules.map((module, index) => (
+          <div
             key={module.id}
-            value={module.id}
-            className="border rounded-lg bg-gray-50 px-4"
+            className="border border-gray-200 rounded-lg overflow-hidden bg-white"
           >
-            <div className="flex items-center justify-between py-2">
-              <AccordionTrigger className="hover:no-underline">
-                {module.title}
-              </AccordionTrigger>
+            <div className="flex items-center justify-between p-4 bg-gray-50 border-b border-gray-100">
+              <div className="flex items-center gap-3">
+                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-200 text-xs font-mono font-medium text-gray-600">
+                  {index + 1}
+                </span>
+                <span className="font-medium text-[#111111]">
+                  {module.title}
+                </span>
+              </div>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => deleteModule(module.id)}
+                className="text-gray-400 hover:text-red-500 hover:bg-red-50"
               >
-                <Trash className="w-4 h-4 text-red-500" />
+                <Trash className="w-4 h-4" />
               </Button>
             </div>
-            <AccordionContent>
-              <div className="space-y-2 pl-4 border-l-2 border-gray-200 ml-2 mb-4">
-                {module.lessons.map((lesson) => (
-                  <div
-                    key={lesson.id}
-                    className="flex items-center justify-between bg-white p-3 rounded shadow-sm"
-                  >
-                    <div className="flex flex-col">
-                      <span className="font-medium">{lesson.title}</span>
-                      <span className="text-xs text-gray-500">
-                        {lesson.duration} {lesson.is_test ? '(Test)' : ''}
-                      </span>
+
+            <div className="p-4">
+              {module.lessons.length === 0 ? (
+                <div className="text-center py-6 text-gray-400 text-sm italic">
+                  No lessons in this module yet.
+                </div>
+              ) : (
+                <div className="space-y-2 mb-4">
+                  {module.lessons.map((lesson) => (
+                    <div
+                      key={lesson.id}
+                      className="flex items-center justify-between group bg-white border border-gray-100 hover:border-gray-300 p-3 rounded-md transition-all"
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className="p-2 bg-gray-50 rounded text-gray-400">
+                          {lesson.is_test ? (
+                            <CheckCircle className="w-4 h-4" />
+                          ) : (
+                            <Video className="w-4 h-4" />
+                          )}
+                        </div>
+                        <div className="flex flex-col">
+                          <span className="font-medium text-sm text-[#111111]">
+                            {lesson.title}
+                          </span>
+                          <span className="text-xs text-gray-400 font-mono flex items-center gap-2">
+                            <Clock className="w-3 h-3" />{' '}
+                            {lesson.duration || '00:00'}
+                            {lesson.is_test && (
+                              <span className="text-blue-600 font-bold">
+                                • TEST
+                              </span>
+                            )}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          onClick={() => {
+                            setEditingLesson(lesson)
+                            setActiveModuleId(module.id)
+                          }}
+                        >
+                          <Edit className="w-3.5 h-3.5 text-gray-600" />
+                        </Button>
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          onClick={() => deleteLesson(lesson.id)}
+                        >
+                          <Trash className="w-3.5 h-3.5 text-red-400" />
+                        </Button>
+                      </div>
                     </div>
-                    <div className="flex gap-2">
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        onClick={() => {
-                          setEditingLesson(lesson)
-                          setActiveModuleId(module.id)
-                        }}
-                      >
-                        <Edit className="w-3 h-3" />
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        onClick={() => deleteLesson(lesson.id)}
-                      >
-                        <Trash className="w-3 h-3 text-red-500" />
-                      </Button>
-                    </div>
-                  </div>
-                ))}
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="w-full mt-2"
-                  onClick={() => {
-                    setEditingLesson({})
-                    setActiveModuleId(module.id)
-                  }}
-                >
-                  <Plus className="w-3 h-3 mr-2" /> Add Lesson
-                </Button>
-              </div>
-            </AccordionContent>
-          </AccordionItem>
+                  ))}
+                </div>
+              )}
+
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full border-dashed border-gray-300 text-gray-500 hover:border-gray-400 hover:text-gray-700"
+                onClick={() => {
+                  setEditingLesson({})
+                  setActiveModuleId(module.id)
+                }}
+              >
+                <Plus className="w-3 h-3 mr-2" /> Add Lesson to "{module.title}"
+              </Button>
+            </div>
+          </div>
         ))}
-      </Accordion>
+      </div>
 
       <Dialog
         open={!!editingLesson}
         onOpenChange={(open) => !open && setEditingLesson(null)}
       >
-        <DialogContent>
+        <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
             <DialogTitle>
-              {editingLesson?.id ? 'Edit Lesson' : 'Add Lesson'}
+              {editingLesson?.id ? 'Edit Lesson' : 'Add New Lesson'}
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-4">
@@ -224,20 +257,37 @@ export function CurriculumManager({ courseId }: { courseId: string }) {
                     title: e.target.value,
                   }))
                 }
+                placeholder="Lesson Title"
               />
             </div>
-            <div className="space-y-2">
-              <Label>Duration</Label>
-              <Input
-                value={editingLesson?.duration || ''}
-                onChange={(e) =>
-                  setEditingLesson((prev) => ({
-                    ...prev,
-                    duration: e.target.value,
-                  }))
-                }
-                placeholder="00:00"
-              />
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label>Duration (mm:ss)</Label>
+                <Input
+                  value={editingLesson?.duration || ''}
+                  onChange={(e) =>
+                    setEditingLesson((prev) => ({
+                      ...prev,
+                      duration: e.target.value,
+                    }))
+                  }
+                  placeholder="12:00"
+                />
+              </div>
+              <div className="space-y-2 flex flex-col justify-end pb-2">
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="is_test"
+                    checked={editingLesson?.is_test || false}
+                    onCheckedChange={(c) =>
+                      setEditingLesson((prev) => ({ ...prev, is_test: !!c }))
+                    }
+                  />
+                  <Label htmlFor="is_test" className="cursor-pointer">
+                    Is a Test/Quiz
+                  </Label>
+                </div>
+              </div>
             </div>
             <div className="space-y-2">
               <Label>Video URL</Label>
@@ -249,19 +299,14 @@ export function CurriculumManager({ courseId }: { courseId: string }) {
                     video_url: e.target.value,
                   }))
                 }
+                placeholder="https://..."
               />
             </div>
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="is_test"
-                checked={editingLesson?.is_test || false}
-                onCheckedChange={(c) =>
-                  setEditingLesson((prev) => ({ ...prev, is_test: !!c }))
-                }
-              />
-              <Label htmlFor="is_test">Is a Test/Quiz</Label>
-            </div>
-            <Button onClick={saveLesson} className="w-full">
+
+            <Button
+              onClick={saveLesson}
+              className="w-full bg-[#111111] hover:bg-[#333333] text-white"
+            >
               Save Lesson
             </Button>
           </div>
