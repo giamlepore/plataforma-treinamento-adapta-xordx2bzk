@@ -1,5 +1,5 @@
-import { AlertCircle } from 'lucide-react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { VimeoPlayer } from '@/components/VimeoPlayer'
 
 interface LessonVideoPlayerProps {
   courseDescription?: string
@@ -14,27 +14,8 @@ export function LessonVideoPlayer({
 }: LessonVideoPlayerProps) {
   return (
     <div className="p-6 md:p-8 flex-1 flex flex-col">
-      {/* Video Player Container - 16:9 Aspect Ratio */}
-      <div className="w-full aspect-video bg-black rounded-lg overflow-hidden relative shadow-lg mb-8">
-        {!videoUrl ? (
-          <div className="w-full h-full flex flex-col items-center justify-center bg-gray-900 text-white p-6 text-center">
-            <AlertCircle className="w-12 h-12 text-gray-500 mb-4" />
-            <h3 className="text-lg font-medium mb-2">Video not available</h3>
-            <p className="text-gray-400 text-sm max-w-md">
-              This lesson does not have a video assigned yet.
-            </p>
-          </div>
-        ) : (
-          <iframe
-            src={videoUrl}
-            className="w-full h-full absolute top-0 left-0"
-            allow="autoplay; fullscreen; picture-in-picture"
-            allowFullScreen
-            frameBorder="0"
-            title={title || 'Lesson Video'}
-          />
-        )}
-      </div>
+      {/* Vimeo Player Component */}
+      <VimeoPlayer videoUrl={videoUrl} title={title} className="mb-8" />
 
       {/* Tabs */}
       <Tabs defaultValue="description" className="w-full">

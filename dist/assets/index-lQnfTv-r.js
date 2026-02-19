@@ -18050,7 +18050,7 @@ function handleAndDispatchCustomEvent$1(name, handler, detail, { discrete }) {
 	if (discrete) dispatchDiscreteCustomEvent(target, event);
 	else target.dispatchEvent(event);
 }
-var Root$7 = DismissableLayer;
+var Root$8 = DismissableLayer;
 var Branch = DismissableLayerBranch;
 var useLayoutEffect2 = globalThis?.document ? import_react.useLayoutEffect : () => {};
 var import_react_dom$4 = /* @__PURE__ */ __toESM(require_react_dom(), 1);
@@ -18229,7 +18229,7 @@ var VISUALLY_HIDDEN_STYLES = Object.freeze({
 	whiteSpace: "nowrap",
 	wordWrap: "normal"
 });
-var NAME$2 = "VisuallyHidden";
+var NAME$3 = "VisuallyHidden";
 var VisuallyHidden = import_react.forwardRef((props, forwardedRef) => {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.span, {
 		...props,
@@ -18240,8 +18240,8 @@ var VisuallyHidden = import_react.forwardRef((props, forwardedRef) => {
 		}
 	});
 });
-VisuallyHidden.displayName = NAME$2;
-var Root$6 = VisuallyHidden;
+VisuallyHidden.displayName = NAME$3;
+var Root$7 = VisuallyHidden;
 var import_react_dom$3 = /* @__PURE__ */ __toESM(require_react_dom(), 1);
 var PROVIDER_NAME$1 = "ToastProvider";
 var [Collection$2, useCollection$2, createCollectionScope$2] = createCollection("Toast");
@@ -18540,7 +18540,7 @@ var ToastImpl = import_react.forwardRef((props, forwardedRef) => {
 		onClose: handleClose,
 		children: import_react_dom$3.createPortal(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Collection$2.ItemSlot, {
 			scope: __scopeToast,
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$7, {
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$8, {
 				asChild: true,
 				onEscapeKeyDown: composeEventHandlers(onEscapeKeyDown, () => {
 					if (!context.isFocusedToastEscapeKeyDownRef.current) handleClose();
@@ -18951,28 +18951,6 @@ var ChevronRight = createLucideIcon("chevron-right", [["path", {
 	d: "m9 18 6-6-6-6",
 	key: "mthhwq"
 }]]);
-var CircleAlert = createLucideIcon("circle-alert", [
-	["circle", {
-		cx: "12",
-		cy: "12",
-		r: "10",
-		key: "1mglay"
-	}],
-	["line", {
-		x1: "12",
-		x2: "12",
-		y1: "8",
-		y2: "12",
-		key: "1pkeuh"
-	}],
-	["line", {
-		x1: "12",
-		x2: "12.01",
-		y1: "16",
-		y2: "16",
-		key: "4dfq90"
-	}]
-]);
 var CircleCheckBig = createLucideIcon("circle-check-big", [["path", {
 	d: "M21.801 10A10 10 0 1 1 17 3.335",
 	key: "yps3ct"
@@ -21097,10 +21075,10 @@ var Observer = class {
 			if (typeof id !== "string" && typeof id !== "number") return { unwrap };
 			else return Object.assign(id, { unwrap });
 		};
-		this.custom = (jsx$23, data) => {
+		this.custom = (jsx$24, data) => {
 			const id = (data == null ? void 0 : data.id) || toastsCounter++;
 			this.create({
-				jsx: jsx$23(id),
+				jsx: jsx$24(id),
 				id,
 				...data
 			});
@@ -23226,7 +23204,7 @@ var arrow = (options$1, deps) => ({
 	...arrow$1$1(options$1),
 	options: [options$1, deps]
 });
-var NAME$1 = "Arrow";
+var NAME$2 = "Arrow";
 var Arrow$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { children, width = 10, height = 5, ...arrowProps } = props;
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.svg, {
@@ -23239,8 +23217,8 @@ var Arrow$1 = import_react.forwardRef((props, forwardedRef) => {
 		children: props.asChild ? children : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("polygon", { points: "0,0 30,0 15,10" })
 	});
 });
-Arrow$1.displayName = NAME$1;
-var Root$5 = Arrow$1;
+Arrow$1.displayName = NAME$2;
+var Root$6 = Arrow$1;
 function useSize(element) {
 	const [size$3, setSize] = import_react.useState(void 0);
 	useLayoutEffect2(() => {
@@ -23457,7 +23435,7 @@ var PopperArrow = import_react.forwardRef(function PopperArrow2(props, forwarded
 			}[contentContext.placedSide],
 			visibility: contentContext.shouldHideArrow ? "hidden" : void 0
 		},
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$5, {
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$6, {
 			...arrowProps,
 			ref: forwardedRef,
 			style: {
@@ -23839,7 +23817,7 @@ var TooltipContentImpl = import_react.forwardRef((props, forwardedRef) => {
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Slottable, { children }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(VisuallyHiddenContentContextProvider, {
 				scope: __scopeTooltip,
 				isInside: true,
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$6, {
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$7, {
 					id: context.contentId,
 					role: "tooltip",
 					children: ariaLabel || children
@@ -32262,7 +32240,7 @@ var CollapsibleContentImpl = import_react.forwardRef((props, forwardedRef) => {
 function getState$3(open) {
 	return open ? "open" : "closed";
 }
-var Root$4 = Collapsible;
+var Root$5 = Collapsible;
 var Trigger$2 = CollapsibleTrigger;
 var Content$2 = CollapsibleContent;
 var DirectionContext = import_react.createContext(void 0);
@@ -32428,7 +32406,7 @@ var AccordionItem$1 = import_react.forwardRef((props, forwardedRef) => {
 		open,
 		disabled,
 		triggerId,
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$4, {
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$5, {
 			"data-orientation": accordionContext.orientation,
 			"data-state": getState$2(open),
 			...collapsibleScope,
@@ -33189,10 +33167,10 @@ function useResizeObserver(element, onResize) {
 		}
 	}, [element, handleResize]);
 }
-var Root$3 = ScrollArea$1;
+var Root$4 = ScrollArea$1;
 var Viewport = ScrollAreaViewport;
 var Corner = ScrollAreaCorner;
-var ScrollArea = import_react.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Root$3, {
+var ScrollArea = import_react.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Root$4, {
 	ref,
 	className: cn("relative overflow-hidden", className),
 	...props,
@@ -33205,7 +33183,7 @@ var ScrollArea = import_react.forwardRef(({ className, children, ...props }, ref
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Corner, {})
 	]
 }));
-ScrollArea.displayName = Root$3.displayName;
+ScrollArea.displayName = Root$4.displayName;
 var ScrollBar = import_react.forwardRef(({ className, orientation = "vertical", ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ScrollAreaScrollbar, {
 	ref,
 	orientation,
@@ -33491,7 +33469,7 @@ function focusFirst$1(candidates, preventScroll = false) {
 function wrapArray(array, startIndex) {
 	return array.map((_$1, index$1) => array[(startIndex + index$1) % array.length]);
 }
-var Root$2 = RovingFocusGroup;
+var Root$3 = RovingFocusGroup;
 var Item = RovingFocusGroupItem;
 var TABS_NAME = "Tabs";
 var [createTabsContext, createTabsScope] = createContextScope(TABS_NAME, [createRovingFocusGroupScope]);
@@ -33528,7 +33506,7 @@ var TabsList$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeTabs, loop = true, ...listProps } = props;
 	const context = useTabsContext(TAB_LIST_NAME, __scopeTabs);
 	const rovingFocusGroupScope = useRovingFocusGroupScope(__scopeTabs);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$2, {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$3, {
 		asChild: true,
 		...rovingFocusGroupScope,
 		orientation: context.orientation,
@@ -33644,32 +33622,99 @@ var TabsContent = import_react.forwardRef(({ className, ...props }, ref) => /* @
 	...props
 }));
 TabsContent.displayName = Content$1.displayName;
+require_react_dom();
+var Primitive$1 = [
+	"a",
+	"button",
+	"div",
+	"form",
+	"h2",
+	"h3",
+	"img",
+	"input",
+	"label",
+	"li",
+	"nav",
+	"ol",
+	"p",
+	"select",
+	"span",
+	"svg",
+	"ul"
+].reduce((primitive, node) => {
+	const Slot$2 = /* @__PURE__ */ createSlot$1(`Primitive.${node}`);
+	const Node$1 = import_react.forwardRef((props, forwardedRef) => {
+		const { asChild, ...primitiveProps } = props;
+		const Comp = asChild ? Slot$2 : node;
+		if (typeof window !== "undefined") window[Symbol.for("radix-ui")] = true;
+		return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Comp, {
+			...primitiveProps,
+			ref: forwardedRef
+		});
+	});
+	Node$1.displayName = `Primitive.${node}`;
+	return {
+		...primitive,
+		[node]: Node$1
+	};
+}, {});
+var NAME$1 = "AspectRatio";
+var AspectRatio$1 = import_react.forwardRef((props, forwardedRef) => {
+	const { ratio = 1 / 1, style, ...aspectRatioProps } = props;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		style: {
+			position: "relative",
+			width: "100%",
+			paddingBottom: `${100 / ratio}%`
+		},
+		"data-radix-aspect-ratio-wrapper": "",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+			...aspectRatioProps,
+			ref: forwardedRef,
+			style: {
+				...style,
+				position: "absolute",
+				top: 0,
+				right: 0,
+				bottom: 0,
+				left: 0
+			}
+		})
+	});
+});
+AspectRatio$1.displayName = NAME$1;
+var AspectRatio = AspectRatio$1;
+function VimeoPlayer({ videoUrl, title, className }) {
+	const getVimeoId = (url) => {
+		if (!url) return null;
+		const match = url.match(/(?:vimeo\.com\/|player\.vimeo\.com\/video\/)(\d+)/);
+		return match ? match[1] : null;
+	};
+	const vimeoId = videoUrl ? getVimeoId(videoUrl) : null;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		className: cn("w-full rounded-xl overflow-hidden shadow-lg bg-black border border-white/10", className),
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AspectRatio, {
+			ratio: 16 / 9,
+			children: vimeoId ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("iframe", {
+				src: `https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&player_id=0&app_id=58479`,
+				className: "w-full h-full",
+				allow: "autoplay; fullscreen; picture-in-picture; clipboard-write",
+				allowFullScreen: true,
+				title: title || "Vimeo Video"
+			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "w-full h-full flex flex-col items-center justify-center bg-gray-900 text-gray-400",
+				children: "Vídeo indisponível"
+			})
+		})
+	});
+}
 function LessonVideoPlayer({ courseDescription, videoUrl, title }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "p-6 md:p-8 flex-1 flex flex-col",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			className: "w-full aspect-video bg-black rounded-lg overflow-hidden relative shadow-lg mb-8",
-			children: !videoUrl ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "w-full h-full flex flex-col items-center justify-center bg-gray-900 text-white p-6 text-center",
-				children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleAlert, { className: "w-12 h-12 text-gray-500 mb-4" }),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-						className: "text-lg font-medium mb-2",
-						children: "Video not available"
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-						className: "text-gray-400 text-sm max-w-md",
-						children: "This lesson does not have a video assigned yet."
-					})
-				]
-			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("iframe", {
-				src: videoUrl,
-				className: "w-full h-full absolute top-0 left-0",
-				allow: "autoplay; fullscreen; picture-in-picture",
-				allowFullScreen: true,
-				frameBorder: "0",
-				title: title || "Lesson Video"
-			})
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(VimeoPlayer, {
+			videoUrl,
+			title,
+			className: "mb-8"
 		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Tabs, {
 			defaultValue: "description",
 			className: "w-full",
@@ -33947,42 +33992,6 @@ var Input = import_react.forwardRef(({ className, type, ...props }, ref) => {
 	});
 });
 Input.displayName = "Input";
-require_react_dom();
-var Primitive$1 = [
-	"a",
-	"button",
-	"div",
-	"form",
-	"h2",
-	"h3",
-	"img",
-	"input",
-	"label",
-	"li",
-	"nav",
-	"ol",
-	"p",
-	"select",
-	"span",
-	"svg",
-	"ul"
-].reduce((primitive, node) => {
-	const Slot$2 = /* @__PURE__ */ createSlot$1(`Primitive.${node}`);
-	const Node$1 = import_react.forwardRef((props, forwardedRef) => {
-		const { asChild, ...primitiveProps } = props;
-		const Comp = asChild ? Slot$2 : node;
-		if (typeof window !== "undefined") window[Symbol.for("radix-ui")] = true;
-		return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Comp, {
-			...primitiveProps,
-			ref: forwardedRef
-		});
-	});
-	Node$1.displayName = `Primitive.${node}`;
-	return {
-		...primitive,
-		[node]: Node$1
-	};
-}, {});
 var NAME = "Label";
 var Label$1 = import_react.forwardRef((props, forwardedRef) => {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.label, {
@@ -36803,4 +36812,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { chil
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-Det9aFHH.js.map
+//# sourceMappingURL=index-lQnfTv-r.js.map
