@@ -17,7 +17,6 @@ import { useAuth } from '@/hooks/use-auth'
 import { toast } from 'sonner'
 import { Loader2 } from 'lucide-react'
 
-// Define DB types locally or import if available
 interface Course {
   id: string
   title: string
@@ -26,7 +25,7 @@ interface Course {
   instructor_avatar: string
   duration_text: string
   image_query: string
-  image_color: string
+  image_color: string | null
   label: string
   rating: number
   reviews: number
@@ -46,6 +45,7 @@ interface Lesson {
   is_locked: boolean
   order_index: number
   is_completed?: boolean
+  video_url: string | null
 }
 
 export default function LessonPlayer() {
@@ -80,6 +80,7 @@ export default function LessonPlayer() {
       setCourse(courseData)
 
       // Fetch modules and lessons
+      // Added video_url to selection
       const { data: modulesData, error: modulesError } = await supabase
         .from('modules')
         .select(
@@ -87,7 +88,7 @@ export default function LessonPlayer() {
           id,
           title,
           lessons (
-            id, title, duration, is_test, is_locked, order_index
+            id, title, duration, is_test, is_locked, order_index, video_url
           )
         `,
         )
@@ -136,6 +137,7 @@ export default function LessonPlayer() {
         if (lesson) {
           setActiveLesson(lesson)
           setActiveModuleId(mod.id)
+          setIsPlaying(false) // Reset player state on lesson change
           break
         }
       }
@@ -143,6 +145,7 @@ export default function LessonPlayer() {
       // Default to first
       setActiveModuleId(modules[0].id)
       setActiveLesson(modules[0].lessons[0])
+      setIsPlaying(false) // Reset player state on default load
     }
   }, [lessonId, modules])
 
@@ -213,7 +216,7 @@ export default function LessonPlayer() {
                 course.instructor_avatar ||
                 'https://img.usecurling.com/ppl/thumbnail?gender=male'
               }
-              alt={course.instructor_name}
+              alt={course.instructor_name || 'Instructor'}
               className="w-8 h-8 rounded-full border border-white/10"
             />
             <span className="text-sm font-medium text-white/90">
@@ -339,8 +342,10 @@ export default function LessonPlayer() {
               isPlaying={isPlaying}
               setIsPlaying={setIsPlaying}
               imageQuery={course.image_query}
-              imageColor={course.image_color}
+              imageColor={course.image_color || 'bg-orange'}
               courseDescription={course.description}
+              videoUrl={activeLesson?.video_url}
+              title={activeLesson?.title}
             />
           </div>
         </div>

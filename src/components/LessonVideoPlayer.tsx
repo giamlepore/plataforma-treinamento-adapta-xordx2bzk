@@ -8,6 +8,8 @@ interface LessonVideoPlayerProps {
   imageQuery: string
   imageColor: string
   courseDescription?: string
+  videoUrl?: string | null
+  title?: string
 }
 
 export function LessonVideoPlayer({
@@ -16,25 +18,59 @@ export function LessonVideoPlayer({
   imageQuery,
   imageColor,
   courseDescription,
+  videoUrl,
+  title,
 }: LessonVideoPlayerProps) {
+  const getVimeoSrc = (url: string) => {
+    // Expected format: https://player.vimeo.com/video/[ID]
+    // We extract the ID which is the numeric part after /video/
+    try {
+      const regex = /video\/(\d+)/
+      const match = url.match(regex)
+
+      if (match && match[1]) {
+        const videoId = match[1]
+        // Mandatory parameters: badge=0, autopause=0, player_id=0, app_id=58479
+        // Added autoplay=1 for better UX after clicking play overlay
+        return `https://player.vimeo.com/video/${videoId}?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1`
+      }
+      return null
+    } catch (error) {
+      console.error('Error parsing Vimeo URL:', error)
+      return null
+    }
+  }
+
+  const vimeoSrc = videoUrl ? getVimeoSrc(videoUrl) : null
+
   return (
     <div className="p-6 md:p-8 flex-1 flex flex-col">
       {/* Video Player Placeholder */}
       <div className="w-full aspect-video bg-black rounded-lg overflow-hidden relative group shadow-lg mb-8">
         {isPlaying ? (
-          <iframe
-            width="100%"
-            height="100%"
-            src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-            title="Video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="w-full h-full"
-          />
+          vimeoSrc ? (
+            <iframe
+              src={vimeoSrc}
+              allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
+              className="w-full h-full absolute top-0 left-0"
+              title={title || 'Lesson Video'}
+              allowFullScreen
+            />
+          ) : (
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+              title="Video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full h-full"
+            />
+          )
         ) : (
           <>
             <img
-              src={`https://img.usecurling.com/p/1200/675?q=${imageQuery || 'abstract'}&color=${imageColor.replace('bg-', '') || 'orange'}`}
+              src={`https://img.usecurling.com/p/1200/675?q=${imageQuery || 'abstract'}&color=${imageColor?.replace('bg-', '') || 'orange'}`}
               alt="Video Thumbnail"
               className="w-full h-full object-cover opacity-80"
             />
@@ -50,10 +86,12 @@ export function LessonVideoPlayer({
           </>
         )}
 
-        {/* Fake Progress Bar */}
-        <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-white/20">
-          <div className="h-full w-[35%] bg-[#FF6B6B]" />
-        </div>
+        {/* Fake Progress Bar - Only show when not playing (thumbnail mode) */}
+        {!isPlaying && (
+          <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-white/20">
+            <div className="h-full w-[35%] bg-[#FF6B6B]" />
+          </div>
+        )}
       </div>
 
       {/* Tabs */}

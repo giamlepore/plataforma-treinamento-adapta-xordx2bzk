@@ -33647,12 +33647,29 @@ var TabsContent = import_react.forwardRef(({ className, ...props }, ref) => /* @
 	...props
 }));
 TabsContent.displayName = Content$1.displayName;
-function LessonVideoPlayer({ isPlaying, setIsPlaying, imageQuery, imageColor, courseDescription }) {
+function LessonVideoPlayer({ isPlaying, setIsPlaying, imageQuery, imageColor, courseDescription, videoUrl, title }) {
+	const getVimeoSrc = (url) => {
+		try {
+			const match = url.match(/video\/(\d+)/);
+			if (match && match[1]) return `https://player.vimeo.com/video/${match[1]}?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1`;
+			return null;
+		} catch (error) {
+			console.error("Error parsing Vimeo URL:", error);
+			return null;
+		}
+	};
+	const vimeoSrc = videoUrl ? getVimeoSrc(videoUrl) : null;
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "p-6 md:p-8 flex-1 flex flex-col",
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 			className: "w-full aspect-video bg-black rounded-lg overflow-hidden relative group shadow-lg mb-8",
-			children: [isPlaying ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("iframe", {
+			children: [isPlaying ? vimeoSrc ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("iframe", {
+				src: vimeoSrc,
+				allow: "autoplay; fullscreen; picture-in-picture; clipboard-write",
+				className: "w-full h-full absolute top-0 left-0",
+				title: title || "Lesson Video",
+				allowFullScreen: true
+			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("iframe", {
 				width: "100%",
 				height: "100%",
 				src: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1",
@@ -33662,7 +33679,7 @@ function LessonVideoPlayer({ isPlaying, setIsPlaying, imageQuery, imageColor, co
 				className: "w-full h-full"
 			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-					src: `https://img.usecurling.com/p/1200/675?q=${imageQuery || "abstract"}&color=${imageColor.replace("bg-", "") || "orange"}`,
+					src: `https://img.usecurling.com/p/1200/675?q=${imageQuery || "abstract"}&color=${imageColor?.replace("bg-", "") || "orange"}`,
 					alt: "Video Thumbnail",
 					className: "w-full h-full object-cover opacity-80"
 				}),
@@ -33675,7 +33692,7 @@ function LessonVideoPlayer({ isPlaying, setIsPlaying, imageQuery, imageColor, co
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Play, { className: "w-6 h-6 md:w-8 md:h-8 text-white fill-white ml-1" })
 					})
 				})
-			] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			] }), !isPlaying && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 				className: "absolute bottom-0 left-0 right-0 h-1.5 bg-white/20",
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "h-full w-[35%] bg-[#FF6B6B]" })
 			})]
@@ -33743,7 +33760,7 @@ function LessonPlayer() {
           id,
           title,
           lessons (
-            id, title, duration, is_test, is_locked, order_index
+            id, title, duration, is_test, is_locked, order_index, video_url
           )
         `).eq("course_id", courseId).order("order_index");
 			if (modulesError) {
@@ -33771,12 +33788,14 @@ function LessonPlayer() {
 			if (lesson) {
 				setActiveLesson(lesson);
 				setActiveModuleId(mod.id);
+				setIsPlaying(false);
 				break;
 			}
 		}
 		else if (modules.length > 0 && modules[0].lessons.length > 0) {
 			setActiveModuleId(modules[0].id);
 			setActiveLesson(modules[0].lessons[0]);
+			setIsPlaying(false);
 		}
 	}, [lessonId, modules]);
 	const handleToggleComplete = async () => {
@@ -33825,7 +33844,7 @@ function LessonPlayer() {
 					className: "flex items-center gap-3 mb-4",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
 						src: course.instructor_avatar || "https://img.usecurling.com/ppl/thumbnail?gender=male",
-						alt: course.instructor_name,
+						alt: course.instructor_name || "Instructor",
 						className: "w-8 h-8 rounded-full border border-white/10"
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 						className: "text-sm font-medium text-white/90",
@@ -33942,8 +33961,10 @@ function LessonPlayer() {
 						isPlaying,
 						setIsPlaying,
 						imageQuery: course.image_query,
-						imageColor: course.image_color,
-						courseDescription: course.description
+						imageColor: course.image_color || "bg-orange",
+						courseDescription: course.description,
+						videoUrl: activeLesson?.video_url,
+						title: activeLesson?.title
 					})]
 				})]
 			})
@@ -36813,4 +36834,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { chil
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-DJvhlGjo.js.map
+//# sourceMappingURL=index-C55-rA81.js.map
