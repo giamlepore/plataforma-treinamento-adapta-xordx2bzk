@@ -34983,8 +34983,24 @@ function CourseForm({ course, onUpdate }) {
 		label: course.label || "",
 		thumbnail_url: course.thumbnail_url || ""
 	});
+	const [activeTab, setActiveTab] = (0, import_react.useState)(course.thumbnail_url ? "image" : "color");
 	const [loading, setLoading] = (0, import_react.useState)(false);
 	const [uploading, setUploading] = (0, import_react.useState)(false);
+	(0, import_react.useEffect)(() => {
+		setFormData({
+			title: course.title || "",
+			description: course.description || "",
+			instructor_name: course.instructor_name || "",
+			instructor_avatar: course.instructor_avatar || "",
+			duration_text: course.duration_text || "",
+			image_color: course.image_color || "#1a5c48",
+			image_query: course.image_query || "",
+			label: course.label || "",
+			thumbnail_url: course.thumbnail_url || ""
+		});
+		if (course.thumbnail_url) setActiveTab("image");
+		else setActiveTab("color");
+	}, [course]);
 	const handleChange = (e) => {
 		setFormData((prev) => ({
 			...prev,
@@ -35011,9 +35027,7 @@ function CourseForm({ course, onUpdate }) {
 				...prev,
 				thumbnail_url: publicUrl
 			}));
-			const { error: updateError } = await supabase.from("courses").update({ thumbnail_url: publicUrl }).eq("id", course.id);
-			if (updateError) throw updateError;
-			toast.success("Thumbnail uploaded and saved successfully");
+			toast.success("Thumbnail uploaded. Click Save Details to apply.");
 		} catch (error) {
 			console.error("Upload error:", error);
 			toast.error(error.message || "Error uploading image");
@@ -35033,6 +35047,15 @@ function CourseForm({ course, onUpdate }) {
 		e.preventDefault();
 		setLoading(true);
 		const payload = { ...formData };
+		if (activeTab === "color") payload.thumbnail_url = null;
+		else {
+			if (!payload.thumbnail_url) {
+				toast.error("Please upload an image or select Color Accent");
+				setLoading(false);
+				return;
+			}
+			payload.image_color = null;
+		}
 		const { error } = await supabase.from("courses").update(payload).eq("id", course.id);
 		if (error) toast.error("Failed to update course details");
 		else {
@@ -35143,7 +35166,8 @@ function CourseForm({ course, onUpdate }) {
 					className: "text-xs text-gray-500 uppercase tracking-wide",
 					children: "Course Thumbnail"
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Tabs, {
-					defaultValue: formData.thumbnail_url ? "image" : "color",
+					value: activeTab,
+					onValueChange: setActiveTab,
 					className: "w-full",
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TabsList, {
@@ -37081,4 +37105,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { chil
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-B4e2F8nC.js.map
+//# sourceMappingURL=index-vXa84IIm.js.map

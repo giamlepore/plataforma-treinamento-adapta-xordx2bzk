@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -25,8 +25,40 @@ export function CourseForm({ course, onUpdate }: CourseFormProps) {
     label: course.label || '',
     thumbnail_url: course.thumbnail_url || '',
   })
+
+  // Initialize active tab based on presence of thumbnail_url
+  const [activeTab, setActiveTab] = useState(
+    course.thumbnail_url ? 'image' : 'color',
+  )
   const [loading, setLoading] = useState(false)
   const [uploading, setUploading] = useState(false)
+
+  useEffect(() => {
+    // Sync local state when course prop updates (e.g. after save)
+    setFormData({
+      title: course.title || '',
+      description: course.description || '',
+      instructor_name: course.instructor_name || '',
+      instructor_avatar: course.instructor_avatar || '',
+      duration_text: course.duration_text || '',
+      image_color: course.image_color || '#1a5c48',
+      image_query: course.image_query || '',
+      label: course.label || '',
+      thumbnail_url: course.thumbnail_url || '',
+    })
+
+    // Update active tab logic:
+    // If there is a thumbnail, show Image tab.
+    // If not, but there is a color, show Color tab.
+    // If neither (new course), default to Color or Image?
+    // Based on user story: "If thumbnail_url is present, the 'Image' tab/option must be active.
+    // If thumbnail_url is null and image_color is present, the 'Color Accent' tab/option must be active."
+    if (course.thumbnail_url) {
+      setActiveTab('image')
+    } else {
+      setActiveTab('color')
+    }
+  }, [course])
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -67,15 +99,7 @@ export function CourseForm({ course, onUpdate }: CourseFormProps) {
         thumbnail_url: publicUrl,
       }))
 
-      // Auto-update the course record with the new thumbnail URL
-      const { error: updateError } = await supabase
-        .from('courses')
-        .update({ thumbnail_url: publicUrl })
-        .eq('id', course.id)
-
-      if (updateError) throw updateError
-
-      toast.success('Thumbnail uploaded and saved successfully')
+      toast.success('Thumbnail uploaded. Click Save Details to apply.')
     } catch (error: any) {
       console.error('Upload error:', error)
       toast.error(error.message || 'Error uploading image')
@@ -87,10 +111,6 @@ export function CourseForm({ course, onUpdate }: CourseFormProps) {
   }
 
   const handleRemoveImage = async () => {
-    // Only update local state, user must save to persist removal
-    // Or we could auto-save removal too, but strictly speaking "Auto-Update" requirement was for upload.
-    // However, for consistency with the upload behavior, let's just clear it in the form
-    // and let the user click "Save Details" to confirm removal.
     setFormData((prev) => ({ ...prev, thumbnail_url: '' }))
     toast.info('Image removed from preview. Click Save to persist.')
   }
@@ -100,6 +120,22 @@ export function CourseForm({ course, onUpdate }: CourseFormProps) {
     setLoading(true)
 
     const payload = { ...formData } as any
+
+    // Enforce mutual exclusivity based on active tab
+    if (activeTab === 'color') {
+      // User selected Color Accent
+      payload.thumbnail_url = null
+      // Ensure image_color is sent (it's in formData)
+    } else {
+      // User selected Image
+      if (!payload.thumbnail_url) {
+        toast.error('Please upload an image or select Color Accent')
+        setLoading(false)
+        return
+      }
+      payload.image_color = null
+    }
+
     const { error } = await supabase
       .from('courses')
       .update(payload)
@@ -222,10 +258,7 @@ export function CourseForm({ course, onUpdate }: CourseFormProps) {
         <Label className="text-xs text-gray-500 uppercase tracking-wide">
           Course Thumbnail
         </Label>
-        <Tabs
-          defaultValue={formData.thumbnail_url ? 'image' : 'color'}
-          className="w-full"
-        >
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-2 bg-gray-100 p-1 rounded-lg h-auto">
             <TabsTrigger
               value="color"
