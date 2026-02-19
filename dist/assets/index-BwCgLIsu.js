@@ -33645,30 +33645,20 @@ var TabsContent = import_react.forwardRef(({ className, ...props }, ref) => /* @
 }));
 TabsContent.displayName = Content$1.displayName;
 function LessonVideoPlayer({ isPlaying, setIsPlaying, imageQuery, imageColor, courseDescription, videoUrl, title }) {
-	const getVimeoSrc = (url) => {
-		if (!url) return null;
+	const getEmbedUrl = (url) => {
+		if (!url) return "";
 		try {
-			const match = url.match(/(?:vimeo\.com\/(?:.*\/)?|player\.vimeo\.com\/video\/)(\d+)/);
-			if (match && match[1]) return `https://player.vimeo.com/video/${match[1]}?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1`;
-			if (/^\d+$/.test(url.trim())) return `https://player.vimeo.com/video/${url.trim()}?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1`;
-			return null;
-		} catch (error) {
-			console.error("Error parsing Vimeo URL:", error);
-			return null;
+			if (url.includes("autoplay=1")) return url;
+			return `${url}${url.includes("?") ? "&" : "?"}autoplay=1`;
+		} catch (e) {
+			return url;
 		}
 	};
-	const vimeoSrc = videoUrl ? getVimeoSrc(videoUrl) : null;
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "p-6 md:p-8 flex-1 flex flex-col",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 			className: "w-full aspect-video bg-black rounded-lg overflow-hidden relative group shadow-lg mb-8",
-			children: [isPlaying ? vimeoSrc ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("iframe", {
-				src: vimeoSrc,
-				allow: "autoplay; fullscreen; picture-in-picture; clipboard-write",
-				className: "w-full h-full absolute top-0 left-0",
-				title: title || "Lesson Video",
-				allowFullScreen: true
-			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			children: !videoUrl ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "w-full h-full flex flex-col items-center justify-center bg-gray-900 text-white p-6 text-center",
 				children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleAlert, { className: "w-12 h-12 text-gray-500 mb-4" }),
@@ -33678,13 +33668,16 @@ function LessonVideoPlayer({ isPlaying, setIsPlaying, imageQuery, imageColor, co
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 						className: "text-gray-400 text-sm max-w-md",
-						children: "We encountered an issue loading the video. The video URL might be invalid or not properly formatted."
-					}),
-					videoUrl && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-						className: "text-gray-600 text-xs mt-4 font-mono truncate max-w-full px-4",
-						children: videoUrl
+						children: "This lesson does not have a video assigned yet."
 					})
 				]
+			}) : isPlaying ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("iframe", {
+				src: getEmbedUrl(videoUrl),
+				className: "w-full h-full absolute top-0 left-0",
+				allow: "autoplay; fullscreen; picture-in-picture",
+				allowFullScreen: true,
+				frameBorder: "0",
+				title: title || "Lesson Video"
 			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
 					src: `https://img.usecurling.com/p/1200/675?q=${imageQuery || "abstract"}&color=${imageColor?.replace("bg-", "") || "orange"}`,
@@ -33699,11 +33692,12 @@ function LessonVideoPlayer({ isPlaying, setIsPlaying, imageQuery, imageColor, co
 						className: "w-16 h-16 md:w-20 md:h-20 bg-[#FF6B6B] rounded-full flex items-center justify-center shadow-lg hover:scale-105 transition-transform group-hover:scale-110",
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Play, { className: "w-6 h-6 md:w-8 md:h-8 text-white fill-white ml-1" })
 					})
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "absolute bottom-0 left-0 right-0 h-1.5 bg-white/20",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "h-full w-[35%] bg-[#FF6B6B]" })
 				})
-			] }), !isPlaying && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "absolute bottom-0 left-0 right-0 h-1.5 bg-white/20",
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "h-full w-[35%] bg-[#FF6B6B]" })
-			})]
+			] })
 		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Tabs, {
 			defaultValue: "description",
 			className: "w-full",
@@ -36844,4 +36838,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { chil
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-BZ6YuvNN.js.map
+//# sourceMappingURL=index-BwCgLIsu.js.map

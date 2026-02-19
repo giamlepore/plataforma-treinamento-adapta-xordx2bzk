@@ -1658,9 +1658,6 @@ body{
 .max-w-\[420px\]{
   max-width: 420px;
 }
-.max-w-full{
-  max-width: 100%;
-}
 .max-w-lg{
   max-width: 32rem;
 }
