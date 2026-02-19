@@ -68,11 +68,11 @@ export default function Login() {
           <div className="flex items-center justify-center gap-2 text-[#111111]">
             <Command className="w-5 h-5" />
             <span className="font-jetbrains font-medium text-sm tracking-widest uppercase">
-              KERNEL_PANIC // AUTH
+              AUTH
             </span>
           </div>
           <h1 className="font-sans text-4xl font-light tracking-tight text-[#111111]">
-            SYSTEM ACCESS
+            PLATAFORMA DE TREINAMENTOS
           </h1>
           <p className="font-jetbrains text-[10px] text-[#666666] uppercase tracking-wider">
             Secure Entry Point v2.3.0

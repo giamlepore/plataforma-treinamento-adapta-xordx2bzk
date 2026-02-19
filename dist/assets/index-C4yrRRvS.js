@@ -34061,12 +34061,12 @@ function Login() {
 							className: "flex items-center justify-center gap-2 text-[#111111]",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Command, { className: "w-5 h-5" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 								className: "font-jetbrains font-medium text-sm tracking-widest uppercase",
-								children: "KERNEL_PANIC // AUTH"
+								children: "AUTH"
 							})]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
 							className: "font-sans text-4xl font-light tracking-tight text-[#111111]",
-							children: "SYSTEM ACCESS"
+							children: "PLATAFORMA DE TREINAMENTOS"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 							className: "font-jetbrains text-[10px] text-[#666666] uppercase tracking-wider",
@@ -36811,4 +36811,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { chil
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-BEzY3nbl.js.map
+//# sourceMappingURL=index-C4yrRRvS.js.map
