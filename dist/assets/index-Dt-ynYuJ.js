@@ -31665,25 +31665,25 @@ const AuthProvider = ({ children }) => {
 		});
 		return () => subscription.unsubscribe();
 	}, []);
-	const signIn = async (email, password) => {
-		const { error } = await supabase.auth.signInWithPassword({
-			email,
-			password
-		});
-		return { error };
-	};
 	const signUp = async (email, password, fullName, orgName) => {
 		const redirectUrl = `${window.location.origin}/`;
 		const { error } = await supabase.auth.signUp({
 			email,
 			password,
 			options: {
-				emailRedirectTo: redirectUrl,
 				data: {
 					full_name: fullName,
 					org_name: orgName
-				}
+				},
+				emailRedirectTo: redirectUrl
 			}
+		});
+		return { error };
+	};
+	const signIn = async (email, password) => {
+		const { error } = await supabase.auth.signInWithPassword({
+			email,
+			password
 		});
 		return { error };
 	};
@@ -31694,9 +31694,9 @@ const AuthProvider = ({ children }) => {
 	const value = {
 		user,
 		session,
+		signUp,
 		signIn,
 		signOut,
-		signUp,
 		loading
 	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthContext.Provider, {
@@ -36881,4 +36881,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { chil
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-Dv33I6FA.js.map
+//# sourceMappingURL=index-Dt-ynYuJ.js.map
