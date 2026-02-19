@@ -19068,6 +19068,27 @@ var Flag = createLucideIcon("flag", [["path", {
 	d: "M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528",
 	key: "1jaruq"
 }]]);
+var Image = createLucideIcon("image", [
+	["rect", {
+		width: "18",
+		height: "18",
+		x: "3",
+		y: "3",
+		rx: "2",
+		ry: "2",
+		key: "1m3agn"
+	}],
+	["circle", {
+		cx: "9",
+		cy: "9",
+		r: "2",
+		key: "af1f0g"
+	}],
+	["path", {
+		d: "m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21",
+		key: "1xmnt7"
+	}]
+]);
 var LayoutDashboard = createLucideIcon("layout-dashboard", [
 	["rect", {
 		width: "7",
@@ -19279,6 +19300,20 @@ var Trash = createLucideIcon("trash", [
 	["path", {
 		d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2",
 		key: "e791ji"
+	}]
+]);
+var Upload = createLucideIcon("upload", [
+	["path", {
+		d: "M12 3v12",
+		key: "1x0j5s"
+	}],
+	["path", {
+		d: "m17 8-5-5-5 5",
+		key: "7q97r8"
+	}],
+	["path", {
+		d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4",
+		key: "ih7n3h"
 	}]
 ]);
 var Users = createLucideIcon("users", [
@@ -34959,22 +34994,40 @@ function CourseForm({ course, onUpdate }) {
 	const handleFileUpload = async (e) => {
 		const file = e.target.files?.[0];
 		if (!file) return;
-		setUploading(true);
-		const fileExt = file.name.split(".").pop();
-		const filePath = `${`${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`}`;
-		const { error: uploadError } = await supabase.storage.from("course-thumbnails").upload(filePath, file);
-		if (uploadError) {
-			toast.error("Error uploading image");
-			setUploading(false);
+		if (!course.id) {
+			toast.error("Course ID is missing. Cannot upload image.");
 			return;
 		}
-		const { data: publicUrlData } = supabase.storage.from("course-thumbnails").getPublicUrl(filePath);
+		setUploading(true);
+		const fileExt = file.name.split(".").pop();
+		const fileName = `${Date.now()}.${fileExt}`;
+		const filePath = `${course.id}/${fileName}`;
+		try {
+			const { error: uploadError } = await supabase.storage.from("course-thumbnails").upload(filePath, file);
+			if (uploadError) throw uploadError;
+			const { data: publicUrlData } = supabase.storage.from("course-thumbnails").getPublicUrl(filePath);
+			const publicUrl = publicUrlData.publicUrl;
+			setFormData((prev) => ({
+				...prev,
+				thumbnail_url: publicUrl
+			}));
+			const { error: updateError } = await supabase.from("courses").update({ thumbnail_url: publicUrl }).eq("id", course.id);
+			if (updateError) throw updateError;
+			toast.success("Thumbnail uploaded and saved successfully");
+		} catch (error) {
+			console.error("Upload error:", error);
+			toast.error(error.message || "Error uploading image");
+		} finally {
+			setUploading(false);
+			e.target.value = "";
+		}
+	};
+	const handleRemoveImage = async () => {
 		setFormData((prev) => ({
 			...prev,
-			thumbnail_url: publicUrlData.publicUrl
+			thumbnail_url: ""
 		}));
-		toast.success("Image uploaded");
-		setUploading(false);
+		toast.info("Image removed from preview. Click Save to persist.");
 	};
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -35085,10 +35138,10 @@ function CourseForm({ course, onUpdate }) {
 				})]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "space-y-2 max-w-sm",
+				className: "space-y-2 max-w-md",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
 					className: "text-xs text-gray-500 uppercase tracking-wide",
-					children: "Course Appearance"
+					children: "Course Thumbnail"
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Tabs, {
 					defaultValue: formData.thumbnail_url ? "image" : "color",
 					className: "w-full",
@@ -35102,77 +35155,112 @@ function CourseForm({ course, onUpdate }) {
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsTrigger, {
 								value: "image",
 								className: "rounded-md py-1.5 text-xs data-[state=active]:bg-white data-[state=active]:shadow-sm",
-								children: "Thumbnail"
+								children: "Custom Image"
 							})]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsContent, {
 							value: "color",
-							className: "pt-2",
+							className: "pt-4",
 							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex gap-2",
+								className: "flex gap-4 items-center p-4 bg-gray-50 rounded-lg border border-gray-100 border-dashed",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-									className: "relative w-10 h-10 rounded border border-gray-200 overflow-hidden shadow-sm shrink-0",
-									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
-										type: "color",
-										name: "image_color",
-										value: formData.image_color,
-										onChange: handleChange,
-										className: "absolute -top-2 -left-2 w-16 h-16 p-0 cursor-pointer border-none"
-									})
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-									id: "image_color",
-									name: "image_color",
-									value: formData.image_color,
-									onChange: handleChange,
-									className: "bg-gray-50 border-gray-200 font-mono"
+									className: "w-12 h-12 rounded-full border border-gray-200 shadow-sm shrink-0",
+									style: { backgroundColor: formData.image_color }
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "space-y-1 flex-1",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+										htmlFor: "image_color",
+										className: "text-xs font-medium block",
+										children: "Hex Color Code"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+										className: "flex gap-2",
+										children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "relative w-full",
+											children: [
+												/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+													type: "color",
+													name: "image_color",
+													value: formData.image_color,
+													onChange: handleChange,
+													className: "absolute inset-0 opacity-0 w-full h-full cursor-pointer"
+												}),
+												/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+													value: formData.image_color,
+													onChange: handleChange,
+													className: "bg-white border-gray-200 font-mono pl-8"
+												}),
+												/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+													className: "absolute left-2 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full border border-gray-200",
+													style: { backgroundColor: formData.image_color }
+												})
+											]
+										})
+									})]
 								})]
 							})
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsContent, {
 							value: "image",
-							className: "pt-2 space-y-4",
+							className: "pt-4 space-y-4",
 							children: formData.thumbnail_url ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "space-y-2",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-									className: "relative w-full h-24 rounded-lg overflow-hidden border border-gray-200",
-									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-										src: formData.thumbnail_url,
-										alt: "Thumbnail",
-										className: "w-full h-full object-cover"
+								className: "relative group rounded-lg overflow-hidden border border-gray-200 bg-gray-100",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+									src: formData.thumbnail_url,
+									alt: "Thumbnail",
+									className: "w-full h-48 object-cover"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+										type: "button",
+										variant: "destructive",
+										size: "sm",
+										onClick: handleRemoveImage,
+										className: "gap-2",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "w-4 h-4" }), " Remove Image"]
 									})
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-									type: "button",
-									variant: "outline",
-									size: "sm",
-									onClick: () => setFormData((prev) => ({
-										...prev,
-										thumbnail_url: ""
-									})),
-									className: "w-full text-xs",
-									children: "Remove Image"
 								})]
 							}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "space-y-2",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-									type: "file",
-									accept: "image/*",
-									onChange: handleFileUpload,
-									disabled: uploading,
-									className: "bg-gray-50 border-gray-200 text-sm file:text-xs file:font-medium file:text-gray-700 file:bg-gray-200 file:border-0 file:rounded-md file:mr-2 file:px-3 file:py-1 cursor-pointer h-auto py-2"
-								}), uploading && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									className: "text-xs text-gray-500 flex items-center gap-2",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(LoaderCircle, { className: "w-3 h-3 animate-spin" }), " Uploading..."]
-								})]
+								className: "border-2 border-dashed border-gray-200 rounded-lg p-6 flex flex-col items-center justify-center text-center hover:bg-gray-50 transition-colors bg-white",
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+										className: "w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mb-3",
+										children: uploading ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LoaderCircle, { className: "w-6 h-6 text-gray-400 animate-spin" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Image, { className: "w-6 h-6 text-gray-400" })
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
+										className: "text-sm font-medium text-gray-900 mb-1",
+										children: "Upload Thumbnail"
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										className: "text-xs text-gray-500 mb-4 max-w-[200px]",
+										children: "SVG, PNG, JPG or WEBP (max. 2MB)"
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "relative",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+											type: "file",
+											accept: "image/*",
+											onChange: handleFileUpload,
+											disabled: uploading,
+											className: "absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+											type: "button",
+											variant: "outline",
+											disabled: uploading,
+											className: "relative",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Upload, { className: "w-4 h-4 mr-2" }), uploading ? "Uploading..." : "Select File"]
+										})]
+									})
+								]
 							})
 						})
 					]
 				})]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "pt-4",
+				className: "pt-4 border-t border-gray-100",
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
 					type: "submit",
-					disabled: loading,
+					disabled: loading || uploading,
 					className: "bg-[#111111] hover:bg-[#333333] text-white min-w-[150px]",
 					children: loading ? "Saving..." : "Save Details"
 				})
@@ -36993,4 +37081,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { chil
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-DWpZuCDX.js.map
+//# sourceMappingURL=index-B4e2F8nC.js.map
