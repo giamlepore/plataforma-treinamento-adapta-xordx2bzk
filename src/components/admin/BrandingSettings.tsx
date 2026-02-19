@@ -9,7 +9,11 @@ import { toast } from 'sonner'
 import { AdminBentoCard } from './AdminBentoCard'
 import { Save } from 'lucide-react'
 
-export function BrandingSettings() {
+interface BrandingSettingsProps {
+  colSpan?: 1 | 2 | 3 | 4
+}
+
+export function BrandingSettings({ colSpan = 2 }: BrandingSettingsProps) {
   const { organization, refreshOrganization } = useOrganization()
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
@@ -59,7 +63,7 @@ export function BrandingSettings() {
     <AdminBentoCard
       title="BRANDING CONFIG"
       subtitle="Platform Identity"
-      colSpan={2}
+      colSpan={colSpan}
     >
       <form onSubmit={handleSubmit} className="space-y-6 mt-2">
         <div className="grid grid-cols-2 gap-4">

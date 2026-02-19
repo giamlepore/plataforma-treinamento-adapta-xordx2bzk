@@ -2,9 +2,10 @@ import { BrandingSettings } from '@/components/admin/BrandingSettings'
 import { CoursesTable } from '@/components/admin/CoursesTable'
 import { VisualSettings } from '@/components/admin/VisualSettings'
 import { InviteMembers } from '@/components/admin/InviteMembers'
+import { QuickStats } from '@/components/admin/QuickStats'
 import { useOrganization } from '@/context/OrganizationContext'
-import { LayoutDashboard, Users, Activity } from 'lucide-react'
 import { AdminBentoCard } from '@/components/admin/AdminBentoCard'
+import { LayoutDashboard, Users, Activity } from 'lucide-react'
 import { useEffect } from 'react'
 
 export default function AdminDashboard() {
@@ -43,33 +44,17 @@ export default function AdminDashboard() {
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
           {/* Row 1 */}
-          <BrandingSettings />
+          <BrandingSettings colSpan={2} />
 
-          <VisualSettings />
-
-          <AdminBentoCard title="QUICK STATS" subtitle="Overview" colSpan={1}>
-            <div className="space-y-4 mt-4">
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <div className="flex items-center gap-3">
-                  <LayoutDashboard className="w-4 h-4 text-gray-500" />
-                  <span className="text-sm font-medium">Platform</span>
-                </div>
-                <span className="text-xs font-mono text-green-600">ACTIVE</span>
-              </div>
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <div className="flex items-center gap-3">
-                  <Users className="w-4 h-4 text-gray-500" />
-                  <span className="text-sm font-medium">Students</span>
-                </div>
-                <span className="text-xs font-mono">1,248</span>
-              </div>
-            </div>
-          </AdminBentoCard>
+          <VisualSettings colSpan={2} />
 
           {/* Row 2 */}
-          <InviteMembers />
+          <QuickStats colSpan={4} />
 
           {/* Row 3 */}
+          <InviteMembers />
+
+          {/* Row 4 */}
           <CoursesTable />
         </div>
       </div>

@@ -8,7 +8,11 @@ import { toast } from 'sonner'
 import { AdminBentoCard } from './AdminBentoCard'
 import { Palette } from 'lucide-react'
 
-export function VisualSettings() {
+interface VisualSettingsProps {
+  colSpan?: 1 | 2 | 3 | 4
+}
+
+export function VisualSettings({ colSpan = 1 }: VisualSettingsProps) {
   const { organization, refreshOrganization } = useOrganization()
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
@@ -49,7 +53,11 @@ export function VisualSettings() {
   }
 
   return (
-    <AdminBentoCard title="VISUAL CONFIG" subtitle="Style & Assets">
+    <AdminBentoCard
+      title="VISUAL CONFIG"
+      subtitle="Style & Assets"
+      colSpan={colSpan}
+    >
       <form onSubmit={handleSubmit} className="space-y-6 mt-4">
         <div className="space-y-2">
           <Label className="text-xs text-gray-500">Logo URL</Label>
