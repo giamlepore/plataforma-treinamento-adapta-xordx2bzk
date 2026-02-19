@@ -66,13 +66,11 @@ export function CurriculumManager({ courseId }: { courseId: string }) {
 
   const addModule = async () => {
     if (!newModuleTitle) return
-    await supabase
-      .from('modules')
-      .insert({
-        course_id: courseId,
-        title: newModuleTitle,
-        order_index: modules.length,
-      })
+    await supabase.from('modules').insert({
+      course_id: courseId,
+      title: newModuleTitle,
+      order_index: modules.length,
+    })
     setNewModuleTitle('')
     fetchCurriculum()
   }
@@ -240,15 +238,17 @@ export function CurriculumManager({ courseId }: { courseId: string }) {
         open={!!editingLesson}
         onOpenChange={(open) => !open && setEditingLesson(null)}
       >
-        <DialogContent className="sm:max-w-[500px]">
+        <DialogContent className="sm:max-w-[500px] bg-white border-gray-200 shadow-xl">
           <DialogHeader>
-            <DialogTitle>
+            <DialogTitle className="text-xl font-bold tracking-tight text-[#111111] uppercase">
               {editingLesson?.id ? 'Edit Lesson' : 'Add New Lesson'}
             </DialogTitle>
           </DialogHeader>
-          <div className="space-y-4 py-4">
+          <div className="space-y-6 py-4">
             <div className="space-y-2">
-              <Label>Title</Label>
+              <Label className="text-xs text-gray-500 uppercase tracking-wide">
+                Title
+              </Label>
               <Input
                 value={editingLesson?.title || ''}
                 onChange={(e) =>
@@ -258,11 +258,14 @@ export function CurriculumManager({ courseId }: { courseId: string }) {
                   }))
                 }
                 placeholder="Lesson Title"
+                className="bg-gray-50 border-gray-200"
               />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-6">
               <div className="space-y-2">
-                <Label>Duration (mm:ss)</Label>
+                <Label className="text-xs text-gray-500 uppercase tracking-wide">
+                  Duration (mm:ss)
+                </Label>
                 <Input
                   value={editingLesson?.duration || ''}
                   onChange={(e) =>
@@ -272,10 +275,11 @@ export function CurriculumManager({ courseId }: { courseId: string }) {
                     }))
                   }
                   placeholder="12:00"
+                  className="bg-gray-50 border-gray-200"
                 />
               </div>
-              <div className="space-y-2 flex flex-col justify-end pb-2">
-                <div className="flex items-center space-x-2">
+              <div className="space-y-2 flex flex-col justify-end">
+                <div className="flex items-center gap-3 h-10 px-3 w-full bg-gray-50 border border-gray-200 rounded-md">
                   <Checkbox
                     id="is_test"
                     checked={editingLesson?.is_test || false}
@@ -283,14 +287,19 @@ export function CurriculumManager({ courseId }: { courseId: string }) {
                       setEditingLesson((prev) => ({ ...prev, is_test: !!c }))
                     }
                   />
-                  <Label htmlFor="is_test" className="cursor-pointer">
+                  <Label
+                    htmlFor="is_test"
+                    className="cursor-pointer text-sm font-medium text-gray-700"
+                  >
                     Is a Test/Quiz
                   </Label>
                 </div>
               </div>
             </div>
             <div className="space-y-2">
-              <Label>Video URL</Label>
+              <Label className="text-xs text-gray-500 uppercase tracking-wide">
+                Video URL
+              </Label>
               <Input
                 value={editingLesson?.video_url || ''}
                 onChange={(e) =>
@@ -300,6 +309,7 @@ export function CurriculumManager({ courseId }: { courseId: string }) {
                   }))
                 }
                 placeholder="https://..."
+                className="bg-gray-50 border-gray-200"
               />
             </div>
 

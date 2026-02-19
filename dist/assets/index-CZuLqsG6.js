@@ -36906,37 +36906,48 @@ function CurriculumManager({ courseId }) {
 				open: !!editingLesson,
 				onOpenChange: (open) => !open && setEditingLesson(null),
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogContent, {
-					className: "sm:max-w-[500px]",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogHeader, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogTitle, { children: editingLesson?.id ? "Edit Lesson" : "Add New Lesson" }) }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "space-y-4 py-4",
+					className: "sm:max-w-[500px] bg-white border-gray-200 shadow-xl",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogHeader, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogTitle, {
+						className: "text-xl font-bold tracking-tight text-[#111111] uppercase",
+						children: editingLesson?.id ? "Edit Lesson" : "Add New Lesson"
+					}) }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "space-y-6 py-4",
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 								className: "space-y-2",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Title" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+									className: "text-xs text-gray-500 uppercase tracking-wide",
+									children: "Title"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
 									value: editingLesson?.title || "",
 									onChange: (e) => setEditingLesson((prev) => ({
 										...prev,
 										title: e.target.value
 									})),
-									placeholder: "Lesson Title"
+									placeholder: "Lesson Title",
+									className: "bg-gray-50 border-gray-200"
 								})]
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "grid grid-cols-2 gap-4",
+								className: "grid grid-cols-2 gap-6",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 									className: "space-y-2",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Duration (mm:ss)" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+										className: "text-xs text-gray-500 uppercase tracking-wide",
+										children: "Duration (mm:ss)"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
 										value: editingLesson?.duration || "",
 										onChange: (e) => setEditingLesson((prev) => ({
 											...prev,
 											duration: e.target.value
 										})),
-										placeholder: "12:00"
+										placeholder: "12:00",
+										className: "bg-gray-50 border-gray-200"
 									})]
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-									className: "space-y-2 flex flex-col justify-end pb-2",
+									className: "space-y-2 flex flex-col justify-end",
 									children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "flex items-center space-x-2",
+										className: "flex items-center gap-3 h-10 px-3 w-full bg-gray-50 border border-gray-200 rounded-md",
 										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Checkbox, {
 											id: "is_test",
 											checked: editingLesson?.is_test || false,
@@ -36946,7 +36957,7 @@ function CurriculumManager({ courseId }) {
 											}))
 										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
 											htmlFor: "is_test",
-											className: "cursor-pointer",
+											className: "cursor-pointer text-sm font-medium text-gray-700",
 											children: "Is a Test/Quiz"
 										})]
 									})
@@ -36954,13 +36965,17 @@ function CurriculumManager({ courseId }) {
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 								className: "space-y-2",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Video URL" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+									className: "text-xs text-gray-500 uppercase tracking-wide",
+									children: "Video URL"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
 									value: editingLesson?.video_url || "",
 									onChange: (e) => setEditingLesson((prev) => ({
 										...prev,
 										video_url: e.target.value
 									})),
-									placeholder: "https://..."
+									placeholder: "https://...",
+									className: "bg-gray-50 border-gray-200"
 								})]
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
@@ -37160,4 +37175,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { chil
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-DREAjhJB.js.map
+//# sourceMappingURL=index-CZuLqsG6.js.map
