@@ -14,7 +14,6 @@ import { Link } from 'react-router-dom'
 import { Edit, Trash2, Plus, Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { AdminBentoCard } from './AdminBentoCard'
-import { cn } from '@/lib/utils'
 
 export function CoursesTable() {
   const { organization } = useOrganization()
@@ -67,7 +66,7 @@ export function CoursesTable() {
       instructor_name: 'Instructor',
       duration_text: '0h 0m',
       image_color: '#1a5c48',
-    }
+    } as any
 
     const { data, error } = await supabase
       .from('courses')
@@ -140,12 +139,21 @@ export function CoursesTable() {
                 >
                   <TableCell className="font-medium text-[#111111]">
                     <div className="flex items-center gap-3">
-                      <div
-                        className="w-8 h-8 rounded bg-gray-100 flex items-center justify-center text-xs font-mono"
-                        style={{ backgroundColor: course.image_color }}
-                      >
-                        {course.title.charAt(0)}
-                      </div>
+                      {course.thumbnail_url ? (
+                        <div
+                          className="w-8 h-8 rounded flex items-center justify-center bg-cover bg-center shadow-sm"
+                          style={{
+                            backgroundImage: `url(${course.thumbnail_url})`,
+                          }}
+                        />
+                      ) : (
+                        <div
+                          className="w-8 h-8 rounded bg-gray-100 flex items-center justify-center text-xs font-mono"
+                          style={{ backgroundColor: course.image_color }}
+                        >
+                          {course.title.charAt(0)}
+                        </div>
+                      )}
                       {course.title}
                     </div>
                   </TableCell>

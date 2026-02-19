@@ -12,6 +12,7 @@ export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [fullName, setFullName] = useState('')
+  const [orgName, setOrgName] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const { signIn, signUp, user } = useAuth()
   const navigate = useNavigate()
@@ -50,7 +51,7 @@ export default function Login() {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
-    const { error } = await signUp(email, password, fullName)
+    const { error } = await signUp(email, password, fullName, orgName)
     setIsLoading(false)
 
     if (error) {
@@ -165,6 +166,23 @@ export default function Login() {
                       placeholder="John Doe"
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
+                      required
+                      className="bg-[#F7F7F7] border-transparent focus-visible:ring-0 focus-visible:border-[#111111] text-[#111111] h-10 placeholder:text-[#666666]/50 rounded-md transition-colors"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label
+                      htmlFor="reg-org"
+                      className="font-jetbrains text-[9px] uppercase tracking-[0.1em] text-[#666666]"
+                    >
+                      Workspace // Organization Name
+                    </Label>
+                    <Input
+                      id="reg-org"
+                      type="text"
+                      placeholder="Acme Corp"
+                      value={orgName}
+                      onChange={(e) => setOrgName(e.target.value)}
                       required
                       className="bg-[#F7F7F7] border-transparent focus-visible:ring-0 focus-visible:border-[#111111] text-[#111111] h-10 placeholder:text-[#666666]/50 rounded-md transition-colors"
                     />

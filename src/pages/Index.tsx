@@ -13,6 +13,7 @@ interface CourseCardProps {
   instructor?: string
   duration?: string
   bgColor: string
+  thumbnailUrl?: string | null
   isHighlight?: boolean
   className?: string
   delay?: number
@@ -24,6 +25,7 @@ const CourseCard = ({
   label,
   title,
   bgColor,
+  thumbnailUrl,
   isHighlight = false,
   className,
   delay = 0,
@@ -44,27 +46,25 @@ const CourseCard = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Background Color */}
+      {/* Background Color or Image */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div
           className={cn(
-            'w-full h-full transition-transform duration-700 ease-out',
+            'w-full h-full transition-transform duration-700 ease-out bg-cover bg-center',
             isHovered && 'scale-105',
+            !thumbnailUrl && !bgColor.startsWith('#') && bgColor,
           )}
           style={{
-            backgroundColor: bgColor.startsWith('#') ? bgColor : undefined,
-          }} // Support hex or fallback to class
-        >
-          {/* If it's a class (not hex), apply it */}
-          <div
-            className={cn('w-full h-full', !bgColor.startsWith('#') && bgColor)}
-          />
-        </div>
+            backgroundColor:
+              !thumbnailUrl && bgColor.startsWith('#') ? bgColor : undefined,
+            backgroundImage: thumbnailUrl ? `url(${thumbnailUrl})` : undefined,
+          }}
+        />
         {/* Subtle Overlay for depth */}
         <div
           className={cn(
             'absolute inset-0 transition-opacity duration-500',
-            isHighlight ? 'bg-white/10' : 'bg-black/10',
+            isHighlight ? 'bg-white/10' : 'bg-black/20',
             isHovered && 'opacity-50',
           )}
         />
@@ -79,7 +79,7 @@ const CourseCard = ({
               'border px-2 py-1 text-[10px] uppercase tracking-widest font-mono font-medium flex items-center gap-2',
               isHighlight
                 ? 'border-black text-black'
-                : 'border-white/30 text-white/80',
+                : 'border-white/30 text-white/90 bg-black/20 backdrop-blur-sm',
             )}
           >
             <span>ID: {id.slice(0, 4)}</span>
@@ -96,8 +96,8 @@ const CourseCard = ({
         <div className="mt-auto">
           <h3
             className={cn(
-              'text-xs uppercase tracking-wider mb-3 font-inter flex items-center gap-2',
-              isHighlight ? 'text-black/70' : 'text-white/70',
+              'text-xs uppercase tracking-wider mb-3 font-inter flex items-center gap-2 drop-shadow-sm',
+              isHighlight ? 'text-black/70' : 'text-white/90',
             )}
           >
             {label}
@@ -105,7 +105,7 @@ const CourseCard = ({
           <div className="flex items-baseline gap-2 mb-4">
             <span
               className={cn(
-                'text-3xl md:text-3xl lg:text-4xl font-grotesk font-bold tracking-tight leading-none line-clamp-3',
+                'text-3xl md:text-3xl lg:text-4xl font-grotesk font-bold tracking-tight leading-none line-clamp-3 drop-shadow-md',
                 isHighlight ? 'text-black' : 'text-white',
               )}
             >
@@ -194,13 +194,14 @@ const Index = () => {
             instructor={course.instructor_name}
             duration={course.duration_text}
             bgColor={course.image_color || 'bg-brand-sea'}
+            thumbnailUrl={course.thumbnail_url}
             isHighlight={index === 0}
             delay={(index + 1) * 50}
             className={cn(
               'border-r border-brand-sea',
-              (index + 1) % 3 === 0 ? 'lg:border-r-0' : '', // Simple grid fix
+              (index + 1) % 3 === 0 ? 'lg:border-r-0' : '',
             )}
-            progress={0} // TODO: Calculate progress if needed for grid
+            progress={0}
           />
         ))}
       </section>

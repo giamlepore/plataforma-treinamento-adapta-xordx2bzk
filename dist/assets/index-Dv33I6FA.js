@@ -31672,14 +31672,17 @@ const AuthProvider = ({ children }) => {
 		});
 		return { error };
 	};
-	const signUp = async (email, password, fullName) => {
+	const signUp = async (email, password, fullName, orgName) => {
 		const redirectUrl = `${window.location.origin}/`;
 		const { error } = await supabase.auth.signUp({
 			email,
 			password,
 			options: {
 				emailRedirectTo: redirectUrl,
-				data: { full_name: fullName }
+				data: {
+					full_name: fullName,
+					org_name: orgName
+				}
 			}
 		});
 		return { error };
@@ -31740,7 +31743,7 @@ const OrganizationProvider = ({ children }) => {
 		children
 	});
 };
-var CourseCard = ({ id, label, title, bgColor, isHighlight = false, className, delay = 0, progress = 0 }) => {
+var CourseCard = ({ id, label, title, bgColor, thumbnailUrl, isHighlight = false, className, delay = 0, progress = 0 }) => {
 	const [isHovered, setIsHovered] = (0, import_react.useState)(false);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
 		to: `/course/${id}`,
@@ -31751,16 +31754,18 @@ var CourseCard = ({ id, label, title, bgColor, isHighlight = false, className, d
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 			className: "absolute inset-0 z-0 overflow-hidden",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: cn("w-full h-full transition-transform duration-700 ease-out", isHovered && "scale-105"),
-				style: { backgroundColor: bgColor.startsWith("#") ? bgColor : void 0 },
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: cn("w-full h-full", !bgColor.startsWith("#") && bgColor) })
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: cn("absolute inset-0 transition-opacity duration-500", isHighlight ? "bg-white/10" : "bg-black/10", isHovered && "opacity-50") })]
+				className: cn("w-full h-full transition-transform duration-700 ease-out bg-cover bg-center", isHovered && "scale-105", !thumbnailUrl && !bgColor.startsWith("#") && bgColor),
+				style: {
+					backgroundColor: !thumbnailUrl && bgColor.startsWith("#") ? bgColor : void 0,
+					backgroundImage: thumbnailUrl ? `url(${thumbnailUrl})` : void 0
+				}
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: cn("absolute inset-0 transition-opacity duration-500", isHighlight ? "bg-white/10" : "bg-black/20", isHovered && "opacity-50") })]
 		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 			className: "relative z-10 flex flex-col h-full justify-between",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "flex justify-between items-start",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: cn("border px-2 py-1 text-[10px] uppercase tracking-widest font-mono font-medium flex items-center gap-2", isHighlight ? "border-black text-black" : "border-white/30 text-white/80"),
+					className: cn("border px-2 py-1 text-[10px] uppercase tracking-widest font-mono font-medium flex items-center gap-2", isHighlight ? "border-black text-black" : "border-white/30 text-white/90 bg-black/20 backdrop-blur-sm"),
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: ["ID: ", id.slice(0, 4)] }), progress > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
 						className: "opacity-60",
 						children: [
@@ -31773,12 +31778,12 @@ var CourseCard = ({ id, label, title, bgColor, isHighlight = false, className, d
 			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "mt-auto",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-					className: cn("text-xs uppercase tracking-wider mb-3 font-inter flex items-center gap-2", isHighlight ? "text-black/70" : "text-white/70"),
+					className: cn("text-xs uppercase tracking-wider mb-3 font-inter flex items-center gap-2 drop-shadow-sm", isHighlight ? "text-black/70" : "text-white/90"),
 					children: label
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 					className: "flex items-baseline gap-2 mb-4",
 					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-						className: cn("text-3xl md:text-3xl lg:text-4xl font-grotesk font-bold tracking-tight leading-none line-clamp-3", isHighlight ? "text-black" : "text-white"),
+						className: cn("text-3xl md:text-3xl lg:text-4xl font-grotesk font-bold tracking-tight leading-none line-clamp-3 drop-shadow-md", isHighlight ? "text-black" : "text-white"),
 						children: title
 					})
 				})]
@@ -31837,6 +31842,7 @@ var Index = () => {
 				instructor: course.instructor_name,
 				duration: course.duration_text,
 				bgColor: course.image_color || "bg-brand-sea",
+				thumbnailUrl: course.thumbnail_url,
 				isHighlight: index$1 === 0,
 				delay: (index$1 + 1) * 50,
 				className: cn("border-r border-brand-sea", (index$1 + 1) % 3 === 0 ? "lg:border-r-0" : ""),
@@ -33982,6 +33988,7 @@ function Login() {
 	const [email, setEmail] = (0, import_react.useState)("");
 	const [password, setPassword] = (0, import_react.useState)("");
 	const [fullName, setFullName] = (0, import_react.useState)("");
+	const [orgName, setOrgName] = (0, import_react.useState)("");
 	const [isLoading, setIsLoading] = (0, import_react.useState)(false);
 	const { signIn, signUp, user } = useAuth();
 	const navigate = useNavigate();
@@ -34010,7 +34017,7 @@ function Login() {
 	const handleRegister = async (e) => {
 		e.preventDefault();
 		setIsLoading(true);
-		const { error } = await signUp(email, password, fullName);
+		const { error } = await signUp(email, password, fullName, orgName);
 		setIsLoading(false);
 		if (error) toast.error(error.message);
 		else toast.success("Account created // You can now log in");
@@ -34125,6 +34132,22 @@ function Login() {
 													placeholder: "John Doe",
 													value: fullName,
 													onChange: (e) => setFullName(e.target.value),
+													required: true,
+													className: "bg-[#F7F7F7] border-transparent focus-visible:ring-0 focus-visible:border-[#111111] text-[#111111] h-10 placeholder:text-[#666666]/50 rounded-md transition-colors"
+												})]
+											}),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+												className: "space-y-2",
+												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+													htmlFor: "reg-org",
+													className: "font-jetbrains text-[9px] uppercase tracking-[0.1em] text-[#666666]",
+													children: "Workspace // Organization Name"
+												}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+													id: "reg-org",
+													type: "text",
+													placeholder: "Acme Corp",
+													value: orgName,
+													onChange: (e) => setOrgName(e.target.value),
 													required: true,
 													className: "bg-[#F7F7F7] border-transparent focus-visible:ring-0 focus-visible:border-[#111111] text-[#111111] h-10 placeholder:text-[#666666]/50 rounded-md transition-colors"
 												})]
@@ -34593,7 +34616,10 @@ function CoursesTable() {
 						className: "font-medium text-[#111111]",
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 							className: "flex items-center gap-3",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							children: [course.thumbnail_url ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "w-8 h-8 rounded flex items-center justify-center bg-cover bg-center shadow-sm",
+								style: { backgroundImage: `url(${course.thumbnail_url})` }
+							}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 								className: "w-8 h-8 rounded bg-gray-100 flex items-center justify-center text-xs font-mono",
 								style: { backgroundColor: course.image_color },
 								children: course.title.charAt(0)
@@ -34811,19 +34837,42 @@ function CourseForm({ course, onUpdate }) {
 		duration_text: course.duration_text || "",
 		image_color: course.image_color || "#1a5c48",
 		image_query: course.image_query || "",
-		label: course.label || ""
+		label: course.label || "",
+		thumbnail_url: course.thumbnail_url || ""
 	});
 	const [loading, setLoading] = (0, import_react.useState)(false);
+	const [uploading, setUploading] = (0, import_react.useState)(false);
 	const handleChange = (e) => {
 		setFormData((prev) => ({
 			...prev,
 			[e.target.name]: e.target.value
 		}));
 	};
+	const handleFileUpload = async (e) => {
+		const file = e.target.files?.[0];
+		if (!file) return;
+		setUploading(true);
+		const fileExt = file.name.split(".").pop();
+		const filePath = `${`${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`}`;
+		const { error: uploadError } = await supabase.storage.from("course-thumbnails").upload(filePath, file);
+		if (uploadError) {
+			toast.error("Error uploading image");
+			setUploading(false);
+			return;
+		}
+		const { data: publicUrlData } = supabase.storage.from("course-thumbnails").getPublicUrl(filePath);
+		setFormData((prev) => ({
+			...prev,
+			thumbnail_url: publicUrlData.publicUrl
+		}));
+		toast.success("Image uploaded");
+		setUploading(false);
+	};
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setLoading(true);
-		const { error } = await supabase.from("courses").update(formData).eq("id", course.id);
+		const payload = { ...formData };
+		const { error } = await supabase.from("courses").update(payload).eq("id", course.id);
 		if (error) toast.error("Failed to update course details");
 		else {
 			toast.success("Course details updated");
@@ -34896,65 +34945,120 @@ function CourseForm({ course, onUpdate }) {
 				})]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "grid grid-cols-1 md:grid-cols-3 gap-6",
-				children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "space-y-2",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-							htmlFor: "duration_text",
-							className: "text-xs text-gray-500 uppercase tracking-wide",
-							children: "Duration"
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-							id: "duration_text",
-							name: "duration_text",
-							value: formData.duration_text,
-							onChange: handleChange,
-							placeholder: "e.g. 4h 30m",
-							className: "bg-gray-50 border-gray-200"
-						})]
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "space-y-2",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-							htmlFor: "label",
-							className: "text-xs text-gray-500 uppercase tracking-wide",
-							children: "Label / Tag"
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-							id: "label",
-							name: "label",
-							value: formData.label,
-							onChange: handleChange,
-							placeholder: "e.g. Beginner",
-							className: "bg-gray-50 border-gray-200"
-						})]
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "space-y-2",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-							htmlFor: "image_color",
-							className: "text-xs text-gray-500 uppercase tracking-wide",
-							children: "Card Accent Color"
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "flex gap-2",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								className: "relative w-10 h-10 rounded border border-gray-200 overflow-hidden shadow-sm shrink-0",
-								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
-									type: "color",
+				className: "grid grid-cols-1 md:grid-cols-2 gap-6",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "space-y-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+						htmlFor: "duration_text",
+						className: "text-xs text-gray-500 uppercase tracking-wide",
+						children: "Duration"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+						id: "duration_text",
+						name: "duration_text",
+						value: formData.duration_text,
+						onChange: handleChange,
+						placeholder: "e.g. 4h 30m",
+						className: "bg-gray-50 border-gray-200"
+					})]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "space-y-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+						htmlFor: "label",
+						className: "text-xs text-gray-500 uppercase tracking-wide",
+						children: "Label / Tag"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+						id: "label",
+						name: "label",
+						value: formData.label,
+						onChange: handleChange,
+						placeholder: "e.g. Beginner",
+						className: "bg-gray-50 border-gray-200"
+					})]
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "space-y-2 max-w-sm",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+					className: "text-xs text-gray-500 uppercase tracking-wide",
+					children: "Course Appearance"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Tabs, {
+					defaultValue: formData.thumbnail_url ? "image" : "color",
+					className: "w-full",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TabsList, {
+							className: "grid w-full grid-cols-2 bg-gray-100 p-1 rounded-lg h-auto",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsTrigger, {
+								value: "color",
+								className: "rounded-md py-1.5 text-xs data-[state=active]:bg-white data-[state=active]:shadow-sm",
+								children: "Color Accent"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsTrigger, {
+								value: "image",
+								className: "rounded-md py-1.5 text-xs data-[state=active]:bg-white data-[state=active]:shadow-sm",
+								children: "Thumbnail"
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsContent, {
+							value: "color",
+							className: "pt-2",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex gap-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "relative w-10 h-10 rounded border border-gray-200 overflow-hidden shadow-sm shrink-0",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+										type: "color",
+										name: "image_color",
+										value: formData.image_color,
+										onChange: handleChange,
+										className: "absolute -top-2 -left-2 w-16 h-16 p-0 cursor-pointer border-none"
+									})
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+									id: "image_color",
 									name: "image_color",
 									value: formData.image_color,
 									onChange: handleChange,
-									className: "absolute -top-2 -left-2 w-16 h-16 p-0 cursor-pointer border-none"
-								})
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-								id: "image_color",
-								name: "image_color",
-								value: formData.image_color,
-								onChange: handleChange,
-								className: "bg-gray-50 border-gray-200 font-mono"
-							})]
-						})]
-					})
-				]
+									className: "bg-gray-50 border-gray-200 font-mono"
+								})]
+							})
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsContent, {
+							value: "image",
+							className: "pt-2 space-y-4",
+							children: formData.thumbnail_url ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "space-y-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "relative w-full h-24 rounded-lg overflow-hidden border border-gray-200",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+										src: formData.thumbnail_url,
+										alt: "Thumbnail",
+										className: "w-full h-full object-cover"
+									})
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+									type: "button",
+									variant: "outline",
+									size: "sm",
+									onClick: () => setFormData((prev) => ({
+										...prev,
+										thumbnail_url: ""
+									})),
+									className: "w-full text-xs",
+									children: "Remove Image"
+								})]
+							}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "space-y-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+									type: "file",
+									accept: "image/*",
+									onChange: handleFileUpload,
+									disabled: uploading,
+									className: "bg-gray-50 border-gray-200 text-sm file:text-xs file:font-medium file:text-gray-700 file:bg-gray-200 file:border-0 file:rounded-md file:mr-2 file:px-3 file:py-1 cursor-pointer h-auto py-2"
+								}), uploading && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "text-xs text-gray-500 flex items-center gap-2",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(LoaderCircle, { className: "w-3 h-3 animate-spin" }), " Uploading..."]
+								})]
+							})
+						})
+					]
+				})]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 				className: "pt-4",
@@ -36777,4 +36881,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { chil
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-C9aiFAk4.js.map
+//# sourceMappingURL=index-Dv33I6FA.js.map
