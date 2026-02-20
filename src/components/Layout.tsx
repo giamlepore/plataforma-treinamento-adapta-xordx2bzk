@@ -195,11 +195,6 @@ export default function Layout() {
           <footer className="hidden md:block absolute bottom-6 left-8 z-10 pointer-events-none mix-blend-difference">
             <div className="text-[10px] text-brand-slate leading-relaxed max-w-md">
               <p>{organization?.header_title || 'BETSMARTER'} ACADEMY</p>
-              <p className="mt-1 opacity-60">
-                All course materials are intellectual property of{' '}
-                {organization?.header_title || 'BetSmarter'}. Unauthorized
-                distribution is prohibited. Platform v2.2.0.
-              </p>
             </div>
           </footer>
         </main>

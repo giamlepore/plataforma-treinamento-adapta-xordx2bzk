@@ -34584,17 +34584,9 @@ function Layout() {
 				className: "flex-1 flex flex-col relative w-full transition-all duration-300",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("footer", {
 					className: "hidden md:block absolute bottom-6 left-8 z-10 pointer-events-none mix-blend-difference",
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 						className: "text-[10px] text-brand-slate leading-relaxed max-w-md",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { children: [organization?.header_title || "BETSMARTER", " ACADEMY"] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-							className: "mt-1 opacity-60",
-							children: [
-								"All course materials are intellectual property of",
-								" ",
-								organization?.header_title || "BetSmarter",
-								". Unauthorized distribution is prohibited. Platform v2.2.0."
-							]
-						})]
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { children: [organization?.header_title || "BETSMARTER", " ACADEMY"] })
 					})
 				})]
 			})
@@ -37620,4 +37612,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { chil
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-RoZlS6h7.js.map
+//# sourceMappingURL=index-DdrbjrO-.js.map
