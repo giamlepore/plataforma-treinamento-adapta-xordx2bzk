@@ -23,6 +23,10 @@ export function BrandingForm() {
     hero_title: '',
     hero_subtitle: '',
     platform_bg_color: '',
+    header_title_color: '',
+    header_subtitle_color: '',
+    hero_title_color: '',
+    hero_subtitle_color: '',
   })
 
   useEffect(() => {
@@ -33,6 +37,10 @@ export function BrandingForm() {
         hero_title: organization.hero_title || '',
         hero_subtitle: organization.hero_subtitle || '',
         platform_bg_color: organization.platform_bg_color || '#1a5c48',
+        header_title_color: organization.header_title_color || '',
+        header_subtitle_color: organization.header_subtitle_color || '',
+        hero_title_color: organization.hero_title_color || '',
+        hero_subtitle_color: organization.hero_subtitle_color || '',
       })
     }
   }, [organization])
@@ -74,47 +82,87 @@ export function BrandingForm() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="header_title">Header Title</Label>
-              <Input
-                id="header_title"
-                name="header_title"
-                value={formData.header_title}
-                onChange={handleChange}
-                placeholder="BETSMARTER"
-              />
+              <Label>Header Title & Color</Label>
+              <div className="flex gap-2">
+                <Input
+                  name="header_title"
+                  value={formData.header_title}
+                  onChange={handleChange}
+                  placeholder="BETSMARTER"
+                  className="flex-1"
+                />
+                <Input
+                  type="color"
+                  name="header_title_color"
+                  value={formData.header_title_color || '#ffffff'}
+                  onChange={handleChange}
+                  className="w-12 h-10 p-1 cursor-pointer shrink-0"
+                  title="Header Title Color"
+                />
+              </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="header_subtitle">Header Subtitle</Label>
+              <Label>Header Subtitle & Color</Label>
+              <div className="flex gap-2">
+                <Input
+                  name="header_subtitle"
+                  value={formData.header_subtitle}
+                  onChange={handleChange}
+                  placeholder="Course Dashboard"
+                  className="flex-1"
+                />
+                <Input
+                  type="color"
+                  name="header_subtitle_color"
+                  value={formData.header_subtitle_color || '#94a3b8'}
+                  onChange={handleChange}
+                  className="w-12 h-10 p-1 cursor-pointer shrink-0"
+                  title="Header Subtitle Color"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label>Hero Title & Color</Label>
+            <div className="flex gap-2">
               <Input
-                id="header_subtitle"
-                name="header_subtitle"
-                value={formData.header_subtitle}
+                name="hero_title"
+                value={formData.hero_title}
                 onChange={handleChange}
-                placeholder="Course Dashboard"
+                placeholder="Advance Your Betting Knowledge"
+                className="flex-1"
+              />
+              <Input
+                type="color"
+                name="hero_title_color"
+                value={formData.hero_title_color || '#ffffff'}
+                onChange={handleChange}
+                className="w-12 h-10 p-1 cursor-pointer shrink-0"
+                title="Hero Title Color"
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="hero_title">Hero Title</Label>
-            <Input
-              id="hero_title"
-              name="hero_title"
-              value={formData.hero_title}
-              onChange={handleChange}
-              placeholder="Advance Your Betting Knowledge"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="hero_subtitle">Hero Subtitle</Label>
-            <Textarea
-              id="hero_subtitle"
-              name="hero_subtitle"
-              value={formData.hero_subtitle}
-              onChange={handleChange}
-              placeholder="Access professional-grade courses..."
-            />
+            <Label>Hero Subtitle & Color</Label>
+            <div className="flex gap-2 items-start">
+              <Textarea
+                name="hero_subtitle"
+                value={formData.hero_subtitle}
+                onChange={handleChange}
+                placeholder="Access professional-grade courses..."
+                className="flex-1"
+              />
+              <Input
+                type="color"
+                name="hero_subtitle_color"
+                value={formData.hero_subtitle_color || '#cbd5e1'}
+                onChange={handleChange}
+                className="w-12 h-10 p-1 cursor-pointer shrink-0"
+                title="Hero Subtitle Color"
+              />
+            </div>
           </div>
 
           <div className="space-y-2">
@@ -124,9 +172,9 @@ export function BrandingForm() {
                 id="platform_bg_color"
                 name="platform_bg_color"
                 type="color"
-                value={formData.platform_bg_color}
+                value={formData.platform_bg_color || '#1a5c48'}
                 onChange={handleChange}
-                className="w-12 h-10 p-1 cursor-pointer"
+                className="w-12 h-10 p-1 cursor-pointer shrink-0"
               />
               <Input
                 name="platform_bg_color"

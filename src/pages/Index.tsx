@@ -155,12 +155,18 @@ const Index = () => {
       {/* Hero Section */}
       <section className="relative px-6 py-12 md:py-16 lg:py-20 border-b border-brand-sea animate-fade-in-up">
         <div className="max-w-5xl">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-grotesk font-medium leading-[1.1] md:leading-[1.1] tracking-tight mb-8">
+          <h1
+            className="text-4xl md:text-6xl lg:text-7xl font-grotesk font-medium leading-[1.1] md:leading-[1.1] tracking-tight mb-8"
+            style={{ color: organization?.hero_title_color || undefined }}
+          >
             {organization?.hero_title || 'Advance Your Betting Knowledge'}
           </h1>
           <div className="flex flex-col md:flex-row gap-6 md:items-center max-w-2xl">
             <div className="w-12 h-[1px] bg-brand-green hidden md:block" />
-            <p className="text-brand-slate text-lg md:text-xl font-light leading-relaxed">
+            <p
+              className="text-brand-slate text-lg md:text-xl font-light leading-relaxed"
+              style={{ color: organization?.hero_subtitle_color || undefined }}
+            >
               {organization?.hero_subtitle ||
                 'Access professional-grade courses and validated strategies. Master the mathematics, psychology, and systems of profitable betting.'}
             </p>

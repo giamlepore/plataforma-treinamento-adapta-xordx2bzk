@@ -21,6 +21,10 @@ export function BrandingSettings({ colSpan = 2 }: BrandingSettingsProps) {
     header_subtitle: '',
     hero_title: '',
     hero_subtitle: '',
+    header_title_color: '',
+    header_subtitle_color: '',
+    hero_title_color: '',
+    hero_subtitle_color: '',
   })
 
   useEffect(() => {
@@ -30,6 +34,10 @@ export function BrandingSettings({ colSpan = 2 }: BrandingSettingsProps) {
         header_subtitle: organization.header_subtitle || '',
         hero_title: organization.hero_title || '',
         hero_subtitle: organization.hero_subtitle || '',
+        header_title_color: organization.header_title_color || '',
+        header_subtitle_color: organization.header_subtitle_color || '',
+        hero_title_color: organization.hero_title_color || '',
+        hero_subtitle_color: organization.hero_subtitle_color || '',
       })
     }
   }, [organization])
@@ -68,45 +76,89 @@ export function BrandingSettings({ colSpan = 2 }: BrandingSettingsProps) {
       <form onSubmit={handleSubmit} className="space-y-6 mt-2">
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-1.5">
-            <Label className="text-xs text-gray-500">Header Title</Label>
-            <Input
-              name="header_title"
-              value={formData.header_title}
-              onChange={handleChange}
-              className="bg-gray-50 border-gray-200 text-black focus:ring-black/10"
-              placeholder="BETSMARTER"
-            />
+            <Label className="text-xs text-gray-500">
+              Header Title & Color
+            </Label>
+            <div className="flex gap-2">
+              <Input
+                name="header_title"
+                value={formData.header_title}
+                onChange={handleChange}
+                className="bg-gray-50 border-gray-200 text-black focus:ring-black/10 flex-1"
+                placeholder="BETSMARTER"
+              />
+              <Input
+                type="color"
+                name="header_title_color"
+                value={formData.header_title_color || '#ffffff'}
+                onChange={handleChange}
+                className="w-10 h-10 p-1 cursor-pointer bg-gray-50 border-gray-200 shrink-0"
+                title="Header Title Color"
+              />
+            </div>
           </div>
           <div className="space-y-1.5">
-            <Label className="text-xs text-gray-500">Header Subtitle</Label>
+            <Label className="text-xs text-gray-500">
+              Header Subtitle & Color
+            </Label>
+            <div className="flex gap-2">
+              <Input
+                name="header_subtitle"
+                value={formData.header_subtitle}
+                onChange={handleChange}
+                className="bg-gray-50 border-gray-200 text-black focus:ring-black/10 flex-1"
+                placeholder="Dashboard"
+              />
+              <Input
+                type="color"
+                name="header_subtitle_color"
+                value={formData.header_subtitle_color || '#94a3b8'}
+                onChange={handleChange}
+                className="w-10 h-10 p-1 cursor-pointer bg-gray-50 border-gray-200 shrink-0"
+                title="Header Subtitle Color"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-1.5">
+          <Label className="text-xs text-gray-500">Hero Title & Color</Label>
+          <div className="flex gap-2">
             <Input
-              name="header_subtitle"
-              value={formData.header_subtitle}
+              name="hero_title"
+              value={formData.hero_title}
               onChange={handleChange}
-              className="bg-gray-50 border-gray-200 text-black focus:ring-black/10"
-              placeholder="Dashboard"
+              className="bg-gray-50 border-gray-200 text-black font-medium focus:ring-black/10 flex-1"
+            />
+            <Input
+              type="color"
+              name="hero_title_color"
+              value={formData.hero_title_color || '#ffffff'}
+              onChange={handleChange}
+              className="w-10 h-10 p-1 cursor-pointer bg-gray-50 border-gray-200 shrink-0"
+              title="Hero Title Color"
             />
           </div>
         </div>
 
         <div className="space-y-1.5">
-          <Label className="text-xs text-gray-500">Hero Title</Label>
-          <Input
-            name="hero_title"
-            value={formData.hero_title}
-            onChange={handleChange}
-            className="bg-gray-50 border-gray-200 text-black font-medium focus:ring-black/10"
-          />
-        </div>
-
-        <div className="space-y-1.5">
-          <Label className="text-xs text-gray-500">Hero Subtitle</Label>
-          <Textarea
-            name="hero_subtitle"
-            value={formData.hero_subtitle}
-            onChange={handleChange}
-            className="bg-gray-50 border-gray-200 text-black min-h-[80px] resize-none focus:ring-black/10"
-          />
+          <Label className="text-xs text-gray-500">Hero Subtitle & Color</Label>
+          <div className="flex gap-2 items-start">
+            <Textarea
+              name="hero_subtitle"
+              value={formData.hero_subtitle}
+              onChange={handleChange}
+              className="bg-gray-50 border-gray-200 text-black min-h-[80px] resize-none focus:ring-black/10 flex-1"
+            />
+            <Input
+              type="color"
+              name="hero_subtitle_color"
+              value={formData.hero_subtitle_color || '#cbd5e1'}
+              onChange={handleChange}
+              className="w-10 h-10 p-1 cursor-pointer bg-gray-50 border-gray-200 shrink-0"
+              title="Hero Subtitle Color"
+            />
+          </div>
         </div>
 
         <div className="flex justify-end pt-2">

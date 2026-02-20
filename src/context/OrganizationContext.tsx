@@ -18,6 +18,10 @@ interface Organization {
   hero_subtitle?: string
   platform_bg_color?: string
   logo_url?: string
+  header_title_color?: string
+  header_subtitle_color?: string
+  hero_title_color?: string
+  hero_subtitle_color?: string
 }
 
 interface OrganizationContextType {

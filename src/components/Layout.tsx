@@ -80,10 +80,18 @@ export default function Layout() {
           className="w-[256px] h-full flex items-center justify-between px-6 border-r border-brand-sea shrink-0 hover:bg-white/5 transition-colors"
         >
           <div className="flex flex-col">
-            <span className="font-grotesk font-bold text-xl tracking-tight leading-none">
+            <span
+              className="font-grotesk font-bold text-xl tracking-tight leading-none"
+              style={{ color: organization?.header_title_color || undefined }}
+            >
               {organization?.header_title || 'BETSMARTER'}
             </span>
-            <span className="text-[10px] text-brand-slate tracking-widest uppercase">
+            <span
+              className="text-[10px] text-brand-slate tracking-widest uppercase"
+              style={{
+                color: organization?.header_subtitle_color || undefined,
+              }}
+            >
               {organization?.header_subtitle || 'Course Dashboard'}
             </span>
           </div>
