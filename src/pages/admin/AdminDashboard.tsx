@@ -7,6 +7,8 @@ import { useOrganization } from '@/context/OrganizationContext'
 import { AdminBentoCard } from '@/components/admin/AdminBentoCard'
 import { LayoutDashboard, Users, Activity } from 'lucide-react'
 import { useEffect } from 'react'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { StudentsTable } from '@/components/admin/StudentsTable'
 
 export default function AdminDashboard() {
   const { organization } = useOrganization()
@@ -42,21 +44,45 @@ export default function AdminDashboard() {
           </div>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-          {/* Row 1 */}
-          <BrandingSettings colSpan={2} />
+        <Tabs defaultValue="overview" className="space-y-6 mb-12">
+          <TabsList className="bg-white border border-gray-200 p-1 w-full md:w-auto inline-flex justify-start overflow-x-auto">
+            <TabsTrigger value="overview" className="px-6">
+              Overview
+            </TabsTrigger>
+            <TabsTrigger value="courses" className="px-6">
+              Courses
+            </TabsTrigger>
+            <TabsTrigger value="students" className="px-6">
+              Students
+            </TabsTrigger>
+          </TabsList>
 
-          <VisualSettings colSpan={2} />
+          <TabsContent
+            value="overview"
+            className="focus-visible:outline-none animate-fade-in"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              <BrandingSettings colSpan={2} />
+              <VisualSettings colSpan={2} />
+              <QuickStats colSpan={4} />
+              <InviteMembers />
+            </div>
+          </TabsContent>
 
-          {/* Row 2 */}
-          <QuickStats colSpan={4} />
+          <TabsContent
+            value="courses"
+            className="focus-visible:outline-none animate-fade-in"
+          >
+            <CoursesTable />
+          </TabsContent>
 
-          {/* Row 3 */}
-          <InviteMembers />
-
-          {/* Row 4 */}
-          <CoursesTable />
-        </div>
+          <TabsContent
+            value="students"
+            className="focus-visible:outline-none animate-fade-in"
+          >
+            <StudentsTable />
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   )
