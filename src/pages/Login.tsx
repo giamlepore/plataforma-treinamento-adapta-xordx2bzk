@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { toast } from 'sonner'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Command, Loader2, AlertCircle } from 'lucide-react'
+import { Command, Loader2, AlertCircle, Info } from 'lucide-react'
 import { supabase } from '@/lib/supabase/client'
 
 export default function Login() {
@@ -68,6 +68,11 @@ export default function Login() {
       document.body.classList.remove('text-[#111111]')
     }
   }, [])
+
+  const fillDemoCredentials = () => {
+    setEmail('teste@adapta.org')
+    setPassword('Template@123')
+  }
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -147,6 +152,19 @@ export default function Login() {
             </TabsList>
 
             <TabsContent value="login" className="px-6 pb-6 pt-2">
+              <div className="mb-4 flex items-center gap-2 rounded-md bg-[#F7F7F7] px-3 py-2 border border-[#E5E5E5]">
+                <Info className="w-3 h-3 shrink-0 text-[#666666]" />
+                <span className="flex-1 font-jetbrains text-[10px] uppercase tracking-wider text-[#666666]">
+                  Demo // teste@adapta.org
+                </span>
+                <button
+                  type="button"
+                  onClick={fillDemoCredentials}
+                  className="font-jetbrains text-[10px] uppercase tracking-wider text-[#111111] hover:underline"
+                >
+                  Fill
+                </button>
+              </div>
               <form onSubmit={handleLogin} className="space-y-6">
                 <div className="space-y-4">
                   <div className="space-y-2">
