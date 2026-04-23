@@ -10,7 +10,16 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { Checkbox } from '@/components/ui/checkbox'
-import { Plus, Trash, Edit, Video, Clock, CheckCircle } from 'lucide-react'
+import {
+  Plus,
+  Trash,
+  Edit,
+  Video,
+  Clock,
+  CheckCircle,
+  ListChecks,
+} from 'lucide-react'
+import { QuizManagerDialog } from './QuizManagerDialog'
 
 interface Lesson {
   id: string
@@ -35,6 +44,7 @@ export function CurriculumManager({ courseId }: { courseId: string }) {
     null,
   )
   const [activeModuleId, setActiveModuleId] = useState<string | null>(null)
+  const [quizLessonId, setQuizLessonId] = useState<string | null>(null)
 
   const fetchCurriculum = async () => {
     const { data: mods, error } = await supabase
@@ -204,6 +214,16 @@ export function CurriculumManager({ courseId }: { courseId: string }) {
                         </div>
                       </div>
                       <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        {lesson.is_test && (
+                          <Button
+                            size="icon"
+                            variant="ghost"
+                            onClick={() => setQuizLessonId(lesson.id)}
+                            title="Manage Quiz Questions"
+                          >
+                            <ListChecks className="w-3.5 h-3.5 text-blue-500" />
+                          </Button>
+                        )}
                         <Button
                           size="icon"
                           variant="ghost"
@@ -331,6 +351,12 @@ export function CurriculumManager({ courseId }: { courseId: string }) {
           </div>
         </DialogContent>
       </Dialog>
+
+      <QuizManagerDialog
+        lessonId={quizLessonId}
+        open={!!quizLessonId}
+        onOpenChange={(open: boolean) => !open && setQuizLessonId(null)}
+      />
     </div>
   )
 }

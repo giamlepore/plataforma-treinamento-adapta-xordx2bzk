@@ -12,6 +12,7 @@ import { Clock, Share2, Star, FileText, CheckCircle } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { LessonSidebar } from '@/components/LessonSidebar'
 import { LessonVideoPlayer } from '@/components/LessonVideoPlayer'
+import { QuizPlayer } from '@/components/QuizPlayer'
 import { supabase } from '@/lib/supabase/client'
 import { useAuth } from '@/hooks/use-auth'
 import { toast } from 'sonner'
@@ -335,11 +336,23 @@ export default function LessonPlayer() {
               </Breadcrumb>
             </div>
 
-            <LessonVideoPlayer
-              courseDescription={course.description}
-              videoUrl={activeLesson?.video_url}
-              title={activeLesson?.title}
-            />
+            {activeLesson?.is_test ? (
+              <QuizPlayer
+                lessonId={activeLesson.id}
+                onComplete={() => {
+                  setProgressMap((prev) => ({
+                    ...prev,
+                    [activeLesson.id]: true,
+                  }))
+                }}
+              />
+            ) : (
+              <LessonVideoPlayer
+                courseDescription={course.description}
+                videoUrl={activeLesson?.video_url}
+                title={activeLesson?.title}
+              />
+            )}
           </div>
         </div>
       </div>
