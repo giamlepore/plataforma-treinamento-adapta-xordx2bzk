@@ -45,14 +45,14 @@ export default function AdminDashboard() {
         </header>
 
         <Tabs defaultValue="overview" className="space-y-6 mb-12">
-          <TabsList className="bg-white border border-gray-200 p-1 w-full md:w-auto inline-flex justify-start overflow-x-auto">
-            <TabsTrigger value="overview" className="px-6">
+          <TabsList className="bg-white border border-gray-200 p-1 w-full md:w-auto inline-flex justify-start overflow-x-auto overflow-y-hidden h-auto">
+            <TabsTrigger value="overview" className="px-6 py-2">
               Overview
             </TabsTrigger>
-            <TabsTrigger value="courses" className="px-6">
+            <TabsTrigger value="courses" className="px-6 py-2">
               Courses
             </TabsTrigger>
-            <TabsTrigger value="students" className="px-6">
+            <TabsTrigger value="students" className="px-6 py-2">
               Students
             </TabsTrigger>
           </TabsList>
