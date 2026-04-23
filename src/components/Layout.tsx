@@ -165,22 +165,26 @@ export default function Layout() {
         </div>
 
         {/* System Status / Logout */}
-        <div className="hidden xl:flex w-[256px] h-full items-center justify-end px-6 border-l border-brand-sea shrink-0 gap-4">
+        <div className="hidden xl:flex min-w-[256px] max-w-fit h-full items-center justify-end px-6 border-l border-brand-sea shrink-0 gap-6">
           {isAdmin && (
             <Link
               to="/admin"
-              className="flex items-center gap-2 text-brand-slate hover:text-white transition-colors"
+              className="flex items-center gap-3 text-brand-slate hover:text-white transition-colors text-right group"
               title="Admin Dashboard"
             >
-              <Settings className="w-4 h-4" />
+              <span className="font-mono text-[9px] uppercase leading-tight max-w-[120px] group-hover:text-white transition-colors opacity-80 group-hover:opacity-100">
+                Configurações de contas e cursos
+              </span>
+              <Settings className="w-4 h-4 shrink-0" />
             </Link>
           )}
+          <div className="w-[1px] h-6 bg-brand-sea/50 shrink-0" />
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2 text-brand-slate hover:text-white transition-colors"
+            className="flex items-center gap-2 text-brand-slate hover:text-white transition-colors shrink-0"
           >
             <span className="font-mono text-xs uppercase">Logout</span>
-            <LogOut className="w-4 h-4" />
+            <LogOut className="w-4 h-4 shrink-0" />
           </button>
         </div>
       </header>
