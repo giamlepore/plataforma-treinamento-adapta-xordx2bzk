@@ -1,5 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { VimeoPlayer } from '@/components/VimeoPlayer'
+import { VideoPlayer } from '@/components/VideoPlayer'
 
 interface LessonVideoPlayerProps {
   courseDescription?: string
@@ -14,8 +14,8 @@ export function LessonVideoPlayer({
 }: LessonVideoPlayerProps) {
   return (
     <div className="p-6 md:p-8 flex-1 flex flex-col">
-      {/* Vimeo Player Component */}
-      <VimeoPlayer videoUrl={videoUrl} title={title} className="mb-8" />
+      {/* Video Player Component */}
+      <VideoPlayer videoUrl={videoUrl} title={title} className="mb-8" />
 
       {/* Tabs */}
       <Tabs defaultValue="description" className="w-full">
