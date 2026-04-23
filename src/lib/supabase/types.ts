@@ -11,7 +11,7 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: '14.1'
+    PostgrestVersion: "14.1"
   }
   public: {
     Tables: {
@@ -66,11 +66,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'courses_organization_id_fkey'
-            columns: ['organization_id']
+            foreignKeyName: "courses_organization_id_fkey"
+            columns: ["organization_id"]
             isOneToOne: false
-            referencedRelation: 'organizations'
-            referencedColumns: ['id']
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -110,11 +110,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'lessons_module_id_fkey'
-            columns: ['module_id']
+            foreignKeyName: "lessons_module_id_fkey"
+            columns: ["module_id"]
             isOneToOne: false
-            referencedRelation: 'modules'
-            referencedColumns: ['id']
+            referencedRelation: "modules"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -142,11 +142,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'modules_course_id_fkey'
-            columns: ['course_id']
+            foreignKeyName: "modules_course_id_fkey"
+            columns: ["course_id"]
             isOneToOne: false
-            referencedRelation: 'courses'
-            referencedColumns: ['id']
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -154,9 +154,13 @@ export type Database = {
         Row: {
           created_at: string
           header_subtitle: string | null
+          header_subtitle_color: string | null
           header_title: string | null
+          header_title_color: string | null
           hero_subtitle: string | null
+          hero_subtitle_color: string | null
           hero_title: string | null
+          hero_title_color: string | null
           id: string
           logo_url: string | null
           name: string
@@ -166,9 +170,13 @@ export type Database = {
         Insert: {
           created_at?: string
           header_subtitle?: string | null
+          header_subtitle_color?: string | null
           header_title?: string | null
+          header_title_color?: string | null
           hero_subtitle?: string | null
+          hero_subtitle_color?: string | null
           hero_title?: string | null
+          hero_title_color?: string | null
           id?: string
           logo_url?: string | null
           name: string
@@ -178,9 +186,13 @@ export type Database = {
         Update: {
           created_at?: string
           header_subtitle?: string | null
+          header_subtitle_color?: string | null
           header_title?: string | null
+          header_title_color?: string | null
           hero_subtitle?: string | null
+          hero_subtitle_color?: string | null
           hero_title?: string | null
+          hero_title_color?: string | null
           id?: string
           logo_url?: string | null
           name?: string
@@ -219,11 +231,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'profiles_organization_id_fkey'
-            columns: ['organization_id']
+            foreignKeyName: "profiles_organization_id_fkey"
+            columns: ["organization_id"]
             isOneToOne: false
-            referencedRelation: 'organizations'
-            referencedColumns: ['id']
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -251,18 +263,18 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'user_progress_lesson_id_fkey'
-            columns: ['lesson_id']
+            foreignKeyName: "user_progress_lesson_id_fkey"
+            columns: ["lesson_id"]
             isOneToOne: false
-            referencedRelation: 'lessons'
-            referencedColumns: ['id']
+            referencedRelation: "lessons"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'user_progress_profile_id_fkey'
-            columns: ['profile_id']
+            foreignKeyName: "user_progress_profile_id_fkey"
+            columns: ["profile_id"]
             isOneToOne: false
-            referencedRelation: 'profiles'
-            referencedColumns: ['id']
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -282,33 +294,33 @@ export type Database = {
   }
 }
 
-type DatabaseWithoutInternals = Omit<Database, '__InternalSupabase'>
+type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
 
-type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, 'public'>]
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
 
 export type Tables<
   DefaultSchemaTableNameOrOptions extends
-    | keyof (DefaultSchema['Tables'] & DefaultSchema['Views'])
+    | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
     | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'] &
-        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Views'])
+    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
     : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'] &
-      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Views'])[TableName] extends {
+  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
       Row: infer R
     }
     ? R
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema['Tables'] &
-        DefaultSchema['Views'])
-    ? (DefaultSchema['Tables'] &
-        DefaultSchema['Views'])[DefaultSchemaTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])
+    ? (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
         Row: infer R
       }
       ? R
@@ -317,23 +329,23 @@ export type Tables<
 
 export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
-    | keyof DefaultSchema['Tables']
+    | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables']
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'][TableName] extends {
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Insert: infer I
     }
     ? I
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema['Tables']
-    ? DefaultSchema['Tables'][DefaultSchemaTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
         Insert: infer I
       }
       ? I
@@ -342,23 +354,23 @@ export type TablesInsert<
 
 export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
-    | keyof DefaultSchema['Tables']
+    | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables']
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'][TableName] extends {
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Update: infer U
     }
     ? U
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema['Tables']
-    ? DefaultSchema['Tables'][DefaultSchemaTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
         Update: infer U
       }
       ? U
@@ -367,36 +379,36 @@ export type TablesUpdate<
 
 export type Enums<
   DefaultSchemaEnumNameOrOptions extends
-    | keyof DefaultSchema['Enums']
+    | keyof DefaultSchema["Enums"]
     | { schema: keyof DatabaseWithoutInternals },
   EnumName extends DefaultSchemaEnumNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions['schema']]['Enums']
+    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
     : never = never,
 > = DefaultSchemaEnumNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions['schema']]['Enums'][EnumName]
-  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema['Enums']
-    ? DefaultSchema['Enums'][DefaultSchemaEnumNameOrOptions]
+  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
+    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
     : never
 
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
-    | keyof DefaultSchema['CompositeTypes']
+    | keyof DefaultSchema["CompositeTypes"]
     | { schema: keyof DatabaseWithoutInternals },
   CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes']
+    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
     : never = never,
 > = PublicCompositeTypeNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes'][CompositeTypeName]
-  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema['CompositeTypes']
-    ? DefaultSchema['CompositeTypes'][PublicCompositeTypeNameOrOptions]
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
+    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
 
 export const Constants = {
@@ -405,9 +417,77 @@ export const Constants = {
   },
 } as const
 
+
 // ====== DATABASE EXTENDED CONTEXT (auto-generated) ======
-// This section contains constraints, RLS policies, functions, triggers,
-// indexes and materialized views not present in the type definitions above.
+// This section contains actual PostgreSQL column types, constraints, RLS policies,
+// functions, triggers, indexes and materialized views not present in the type definitions above.
+// IMPORTANT: The TypeScript types above map UUID, TEXT, VARCHAR all to "string".
+// Use the COLUMN TYPES section below to know the real PostgreSQL type for each column.
+// Always use the correct PostgreSQL type when writing SQL migrations.
+
+// --- COLUMN TYPES (actual PostgreSQL types) ---
+// Use this to know the real database type when writing migrations.
+// "string" in TypeScript types above may be uuid, text, varchar, timestamptz, etc.
+// Table: courses
+//   id: uuid (not null, default: gen_random_uuid())
+//   organization_id: uuid (not null)
+//   title: text (not null)
+//   description: text (nullable)
+//   instructor_name: text (nullable)
+//   instructor_avatar: text (nullable)
+//   duration_text: text (nullable)
+//   image_color: text (nullable)
+//   image_query: text (nullable)
+//   label: text (nullable)
+//   rating: numeric (nullable)
+//   reviews: integer (nullable, default: 0)
+//   created_at: timestamp with time zone (not null, default: timezone('utc'::text, now()))
+//   thumbnail_url: text (nullable)
+// Table: lessons
+//   id: uuid (not null, default: gen_random_uuid())
+//   module_id: uuid (not null)
+//   title: text (not null)
+//   duration: text (nullable)
+//   video_url: text (nullable)
+//   is_test: boolean (nullable, default: false)
+//   is_locked: boolean (nullable, default: false)
+//   order_index: integer (not null, default: 0)
+//   created_at: timestamp with time zone (not null, default: timezone('utc'::text, now()))
+// Table: modules
+//   id: uuid (not null, default: gen_random_uuid())
+//   course_id: uuid (not null)
+//   title: text (not null)
+//   order_index: integer (not null, default: 0)
+//   created_at: timestamp with time zone (not null, default: timezone('utc'::text, now()))
+// Table: organizations
+//   id: uuid (not null, default: gen_random_uuid())
+//   name: text (not null)
+//   slug: text (not null)
+//   created_at: timestamp with time zone (not null, default: timezone('utc'::text, now()))
+//   header_title: text (nullable, default: 'BETSMARTER'::text)
+//   header_subtitle: text (nullable, default: 'Course Dashboard'::text)
+//   hero_title: text (nullable, default: 'Advance Your Betting Knowledge'::text)
+//   hero_subtitle: text (nullable, default: 'Access professional-grade courses and validated strategies. Master the mathematics, psychology, and systems of profitable betting.'::text)
+//   platform_bg_color: text (nullable, default: '#1a5c48'::text)
+//   logo_url: text (nullable)
+//   header_title_color: text (nullable)
+//   header_subtitle_color: text (nullable)
+//   hero_title_color: text (nullable)
+//   hero_subtitle_color: text (nullable)
+// Table: profiles
+//   id: uuid (not null)
+//   organization_id: uuid (nullable)
+//   full_name: text (nullable)
+//   avatar_url: text (nullable)
+//   role: text (nullable, default: 'student'::text)
+//   created_at: timestamp with time zone (not null, default: timezone('utc'::text, now()))
+//   updated_at: timestamp with time zone (not null, default: timezone('utc'::text, now()))
+// Table: user_progress
+//   id: uuid (not null, default: gen_random_uuid())
+//   profile_id: uuid (not null)
+//   lesson_id: uuid (not null)
+//   is_completed: boolean (nullable, default: false)
+//   last_watched_at: timestamp with time zone (nullable, default: timezone('utc'::text, now()))
 
 // --- CONSTRAINTS ---
 // Table: courses
@@ -435,56 +515,30 @@ export const Constants = {
 // --- ROW LEVEL SECURITY POLICIES ---
 // Table: courses
 //   Policy "Admins can delete courses" (DELETE, PERMISSIVE) roles={public}
-//     USING: (organization_id IN ( SELECT profiles.organization_id
-//               FROM profiles
-//              WHERE ((profiles.id = auth.uid()) AND (profiles.role = 'admin'::text))))
+//     USING: (organization_id IN ( SELECT profiles.organization_id    FROM profiles   WHERE ((profiles.id = auth.uid()) AND (profiles.role = 'admin'::text))))
 //   Policy "Admins can insert courses" (INSERT, PERMISSIVE) roles={public}
-//     WITH CHECK: (organization_id IN ( SELECT profiles.organization_id
-//                    FROM profiles
-//                   WHERE ((profiles.id = auth.uid()) AND (profiles.role = 'admin'::text))))
+//     WITH CHECK: (organization_id IN ( SELECT profiles.organization_id    FROM profiles   WHERE ((profiles.id = auth.uid()) AND (profiles.role = 'admin'::text))))
 //   Policy "Admins can update courses" (UPDATE, PERMISSIVE) roles={public}
-//     USING: (organization_id IN ( SELECT profiles.organization_id
-//               FROM profiles
-//              WHERE ((profiles.id = auth.uid()) AND (profiles.role = 'admin'::text))))
+//     USING: (organization_id IN ( SELECT profiles.organization_id    FROM profiles   WHERE ((profiles.id = auth.uid()) AND (profiles.role = 'admin'::text))))
 //   Policy "Users can read courses of their organization" (SELECT, PERMISSIVE) roles={public}
-//     USING: (organization_id IN ( SELECT profiles.organization_id
-//               FROM profiles
-//              WHERE (profiles.id = auth.uid())))
+//     USING: (organization_id IN ( SELECT profiles.organization_id    FROM profiles   WHERE (profiles.id = auth.uid())))
 // Table: lessons
 //   Policy "Admins can all lessons" (ALL, PERMISSIVE) roles={public}
-//     USING: (module_id IN ( SELECT m.id
-//               FROM ((modules m
-//                 JOIN courses c ON ((c.id = m.course_id)))
-//                 JOIN profiles p ON ((p.organization_id = c.organization_id)))
-//              WHERE ((p.id = auth.uid()) AND (p.role = 'admin'::text))))
+//     USING: (module_id IN ( SELECT m.id    FROM ((modules m      JOIN courses c ON ((c.id = m.course_id)))      JOIN profiles p ON ((p.organization_id = c.organization_id)))   WHERE ((p.id = auth.uid()) AND (p.role = 'admin'::text))))
 //   Policy "Users can read lessons of their organization" (SELECT, PERMISSIVE) roles={public}
-//     USING: (module_id IN ( SELECT m.id
-//               FROM ((modules m
-//                 JOIN courses c ON ((c.id = m.course_id)))
-//                 JOIN profiles p ON ((p.organization_id = c.organization_id)))
-//              WHERE (p.id = auth.uid())))
+//     USING: (module_id IN ( SELECT m.id    FROM ((modules m      JOIN courses c ON ((c.id = m.course_id)))      JOIN profiles p ON ((p.organization_id = c.organization_id)))   WHERE (p.id = auth.uid())))
 // Table: modules
 //   Policy "Admins can all modules" (ALL, PERMISSIVE) roles={public}
-//     USING: (course_id IN ( SELECT c.id
-//               FROM (courses c
-//                 JOIN profiles p ON ((p.organization_id = c.organization_id)))
-//              WHERE ((p.id = auth.uid()) AND (p.role = 'admin'::text))))
+//     USING: (course_id IN ( SELECT c.id    FROM (courses c      JOIN profiles p ON ((p.organization_id = c.organization_id)))   WHERE ((p.id = auth.uid()) AND (p.role = 'admin'::text))))
 //   Policy "Users can read modules of their organization" (SELECT, PERMISSIVE) roles={public}
-//     USING: (course_id IN ( SELECT c.id
-//               FROM (courses c
-//                 JOIN profiles p ON ((p.organization_id = c.organization_id)))
-//              WHERE (p.id = auth.uid())))
+//     USING: (course_id IN ( SELECT c.id    FROM (courses c      JOIN profiles p ON ((p.organization_id = c.organization_id)))   WHERE (p.id = auth.uid())))
 // Table: organizations
 //   Policy "Admins can update their organization" (UPDATE, PERMISSIVE) roles={public}
-//     USING: (id IN ( SELECT profiles.organization_id
-//               FROM profiles
-//              WHERE ((profiles.id = auth.uid()) AND (profiles.role = 'admin'::text))))
+//     USING: (id IN ( SELECT profiles.organization_id    FROM profiles   WHERE ((profiles.id = auth.uid()) AND (profiles.role = 'admin'::text))))
 //   Policy "Allow public read access" (SELECT, PERMISSIVE) roles={anon}
 //     USING: true
 //   Policy "Users can read organization they belong to" (SELECT, PERMISSIVE) roles={public}
-//     USING: (id IN ( SELECT profiles.organization_id
-//               FROM profiles
-//              WHERE (profiles.id = auth.uid())))
+//     USING: (id IN ( SELECT profiles.organization_id    FROM profiles   WHERE (profiles.id = auth.uid())))
 // Table: profiles
 //   Policy "Users can read their own profile" (SELECT, PERMISSIVE) roles={public}
 //     USING: (auth.uid() = id)
@@ -513,7 +567,7 @@ export const Constants = {
 //     provided_org_id uuid;
 //   BEGIN
 //     full_name := new.raw_user_meta_data->>'full_name';
-//
+//     
 //     -- Check for organization_id in metadata
 //     -- Safely cast if needed, though usually it's string in JSON
 //     BEGIN
@@ -521,7 +575,7 @@ export const Constants = {
 //     EXCEPTION WHEN OTHERS THEN
 //       provided_org_id := NULL;
 //     END;
-//
+//   
 //     IF provided_org_id IS NOT NULL THEN
 //        -- User is joining an existing organization
 //        INSERT INTO public.profiles (id, full_name, organization_id, role)
@@ -530,28 +584,28 @@ export const Constants = {
 //     ELSE
 //        -- User is creating a new organization
 //        org_name := COALESCE(new.raw_user_meta_data->>'org_name', 'My Organization');
-//
+//        
 //        -- Generate a URL-friendly slug from the organization name
 //        base_slug := regexp_replace(lower(org_name), '[^a-z0-9]+', '-', 'g');
 //        base_slug := trim(both '-' from base_slug);
-//
+//        
 //        -- Ensure base_slug is not empty
 //        IF base_slug = '' OR base_slug IS NULL THEN
 //          base_slug := 'org';
 //        END IF;
-//
+//      
 //        -- Append a random string to guarantee uniqueness
 //        final_slug := base_slug || '-' || substr(md5(random()::text), 1, 6);
-//
+//      
 //        INSERT INTO public.organizations (name, slug)
 //        VALUES (org_name, final_slug)
 //        RETURNING id INTO new_org_id;
-//
+//      
 //        INSERT INTO public.profiles (id, full_name, organization_id, role)
 //        VALUES (new.id, full_name, new_org_id, 'admin')
 //        ON CONFLICT (id) DO NOTHING;
 //     END IF;
-//
+//   
 //     RETURN new;
 //   EXCEPTION
 //     WHEN others THEN
@@ -559,10 +613,11 @@ export const Constants = {
 //       RETURN new;
 //   END;
 //   $function$
-//
+//   
 
 // --- INDEXES ---
 // Table: organizations
 //   CREATE UNIQUE INDEX organizations_slug_key ON public.organizations USING btree (slug)
 // Table: user_progress
 //   CREATE UNIQUE INDEX user_progress_profile_id_lesson_id_key ON public.user_progress USING btree (profile_id, lesson_id)
+
