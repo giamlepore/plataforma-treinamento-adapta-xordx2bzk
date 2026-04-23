@@ -173,7 +173,7 @@ export default function Layout() {
               title="Admin Dashboard"
             >
               <span className="font-mono text-[9px] uppercase leading-tight max-w-[120px] group-hover:text-white transition-colors opacity-80 group-hover:opacity-100">
-                Configurações de contas e cursos
+                Account and course settings
               </span>
               <Settings className="w-4 h-4 shrink-0" />
             </Link>
