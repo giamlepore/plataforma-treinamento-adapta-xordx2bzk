@@ -144,35 +144,60 @@ export function QuizPlayer({
               className="space-y-3"
             >
               {q.quiz_options.map((opt: any) => {
+                const isSelected = answers[q.id] === opt.id
+
                 let optClass =
-                  'flex items-center space-x-3 p-4 rounded-lg border bg-white cursor-pointer transition-all hover:border-gray-300'
+                  'flex items-center space-x-3 p-4 rounded-lg border cursor-pointer transition-all group'
+                let labelClass =
+                  'flex-1 cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-100 transition-colors'
+                let radioClass = 'transition-colors'
+
                 if (submitted) {
-                  optClass =
-                    'flex items-center space-x-3 p-4 rounded-lg border bg-white' // reset hover
-                  if (opt.is_correct)
+                  optClass += ' bg-white'
+                  labelClass += ' text-[#111111]'
+                  if (opt.is_correct) {
                     optClass +=
                       ' border-green-500 bg-green-50/50 shadow-[0_0_0_1px_rgba(34,197,94,1)]'
-                  else if (answers[q.id] === opt.id)
+                    radioClass += ' text-green-600 border-green-600'
+                  } else if (isSelected) {
                     optClass +=
                       ' border-red-500 bg-red-50/50 shadow-[0_0_0_1px_rgba(239,68,68,1)]'
-                } else if (answers[q.id] === opt.id) {
-                  optClass += ' border-[#111111] shadow-[0_0_0_1px_#111111]'
+                    radioClass += ' text-red-600 border-red-600'
+                  } else {
+                    optClass += ' border-gray-200'
+                    radioClass += ' text-gray-400 border-gray-300'
+                  }
+                } else {
+                  if (isSelected) {
+                    optClass +=
+                      ' bg-[#111111] border-[#111111] shadow-[0_0_0_1px_#111111]'
+                    labelClass += ' text-white'
+                    radioClass += ' text-white border-white'
+                  } else {
+                    optClass +=
+                      ' bg-white border-gray-200 hover:bg-[#111111] hover:border-[#111111]'
+                    labelClass += ' text-[#111111] group-hover:text-white'
+                    radioClass +=
+                      ' border-[#111111] text-[#111111] group-hover:border-white group-hover:text-white'
+                  }
                 }
+
                 return (
-                  <div key={opt.id} className={optClass}>
+                  <div
+                    key={opt.id}
+                    className={optClass}
+                    onClick={() => {
+                      if (!submitted) {
+                        setAnswers((prev) => ({ ...prev, [q.id]: opt.id }))
+                      }
+                    }}
+                  >
                     <RadioGroupItem
                       value={opt.id}
                       id={opt.id}
-                      className={
-                        submitted && opt.is_correct
-                          ? 'text-green-600 border-green-600'
-                          : ''
-                      }
+                      className={radioClass}
                     />
-                    <Label
-                      htmlFor={opt.id}
-                      className="flex-1 cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-100"
-                    >
+                    <Label htmlFor={opt.id} className={labelClass}>
                       {opt.option_text}
                     </Label>
                   </div>
