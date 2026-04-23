@@ -89,6 +89,7 @@ export function QuizManagerDialog({ lessonId, open, onOpenChange }: any) {
                         variant="outline"
                         size="sm"
                         onClick={() => setEditingQuestion(q)}
+                        className="border-gray-300 text-[#111111] hover:bg-gray-100"
                       >
                         Edit
                       </Button>
