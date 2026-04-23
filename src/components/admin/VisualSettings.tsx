@@ -96,7 +96,7 @@ export function VisualSettings({ colSpan = 1 }: VisualSettingsProps) {
             type="submit"
             disabled={loading}
             variant="outline"
-            className="w-full border-gray-200 hover:bg-gray-50 hover:text-black"
+            className="w-full border-gray-200 text-gray-900 bg-white hover:bg-gray-50 hover:text-black"
           >
             {loading ? (
               'Saving...'
