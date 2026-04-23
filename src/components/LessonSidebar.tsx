@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import {
   Accordion,
   AccordionContent,
@@ -43,6 +44,14 @@ export function LessonSidebar({
   totalLessons,
   courseId,
 }: LessonSidebarProps) {
+  const [openModules, setOpenModules] = useState<string[]>([])
+
+  useEffect(() => {
+    if (activeModuleId && !openModules.includes(activeModuleId)) {
+      setOpenModules((prev) => [...prev, activeModuleId])
+    }
+  }, [activeModuleId])
+
   return (
     <div className="w-full lg:w-[400px] border-r border-gray-100 flex flex-col bg-white shrink-0 h-[600px] lg:h-auto">
       {/* Sidebar Header */}
@@ -67,7 +76,8 @@ export function LessonSidebar({
       <ScrollArea className="flex-1">
         <Accordion
           type="multiple"
-          value={activeModuleId ? [activeModuleId] : []}
+          value={openModules}
+          onValueChange={setOpenModules}
           className="w-full"
         >
           {modules.map((module) => (
