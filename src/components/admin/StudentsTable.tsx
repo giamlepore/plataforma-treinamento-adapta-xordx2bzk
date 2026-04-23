@@ -98,40 +98,6 @@ export function StudentsTable() {
           })
         }
 
-        if (formatted.length === 0) {
-          formatted = [
-            {
-              id: 'm1',
-              name: 'Sarah Connor',
-              avatar_url:
-                'https://img.usecurling.com/ppl/thumbnail?gender=female&seed=1',
-              created_at: new Date(Date.now() - 432000000).toISOString(),
-              progressPercentage: 100,
-              status: 'completed',
-              hasDoubts: false,
-            },
-            {
-              id: 'm2',
-              name: 'John Smith',
-              avatar_url:
-                'https://img.usecurling.com/ppl/thumbnail?gender=male&seed=2',
-              created_at: new Date(Date.now() - 1036800000).toISOString(),
-              progressPercentage: 45,
-              status: 'in_progress',
-              hasDoubts: true,
-            },
-            {
-              id: 'm3',
-              name: 'Emma Watson',
-              avatar_url:
-                'https://img.usecurling.com/ppl/thumbnail?gender=female&seed=3',
-              created_at: new Date(Date.now() - 172800000).toISOString(),
-              progressPercentage: 0,
-              status: 'not_started',
-              hasDoubts: false,
-            },
-          ]
-        }
         setStudents(formatted)
       } catch (err) {
         console.error(err)
@@ -184,9 +150,9 @@ export function StudentsTable() {
           <Tabs
             value={filter}
             onValueChange={setFilter}
-            className="w-full md:w-auto"
+            className="w-full md:w-auto overflow-x-auto [&::-webkit-scrollbar]:hidden"
           >
-            <TabsList className="bg-gray-100/50">
+            <TabsList className="bg-secondary/50 h-10">
               <TabsTrigger value="all">All</TabsTrigger>
               <TabsTrigger value="completed">Completed</TabsTrigger>
               <TabsTrigger value="in_progress">In Progress</TabsTrigger>
@@ -229,9 +195,11 @@ export function StudentsTable() {
               <TableRow>
                 <TableCell
                   colSpan={5}
-                  className="h-32 text-center text-gray-500"
+                  className="h-32 text-center text-muted-foreground"
                 >
-                  No students found.
+                  {search || filter !== 'all'
+                    ? 'No students found matching the filters.'
+                    : 'No students enrolled yet.'}
                 </TableCell>
               </TableRow>
             ) : (
@@ -250,13 +218,13 @@ export function StudentsTable() {
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
-                      <div className="w-24 h-2 bg-gray-100 rounded-full overflow-hidden">
+                      <div className="w-24 h-2 bg-secondary rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-black"
+                          className="h-full bg-primary"
                           style={{ width: `${s.progressPercentage}%` }}
                         />
                       </div>
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-muted-foreground">
                         {s.progressPercentage}%
                       </span>
                     </div>
@@ -265,7 +233,7 @@ export function StudentsTable() {
                     {s.status === 'completed' && (
                       <Badge
                         variant="outline"
-                        className="bg-green-50 text-green-700 border-green-200 font-normal"
+                        className="bg-primary/10 text-primary border-primary/20 font-normal"
                       >
                         <CheckCircle2 className="w-3 h-3 mr-1" /> Completed
                       </Badge>
@@ -273,7 +241,7 @@ export function StudentsTable() {
                     {s.status === 'in_progress' && (
                       <Badge
                         variant="outline"
-                        className="bg-blue-50 text-blue-700 border-blue-200 font-normal"
+                        className="bg-blue-500/10 text-blue-700 border-blue-500/20 font-normal"
                       >
                         <Clock className="w-3 h-3 mr-1" /> In Progress
                       </Badge>
@@ -281,7 +249,7 @@ export function StudentsTable() {
                     {s.status === 'not_started' && (
                       <Badge
                         variant="outline"
-                        className="bg-gray-50 text-gray-600 font-normal"
+                        className="bg-secondary text-secondary-foreground font-normal"
                       >
                         Not Started
                       </Badge>
@@ -291,12 +259,14 @@ export function StudentsTable() {
                     {s.hasDoubts ? (
                       <Badge
                         variant="outline"
-                        className="bg-amber-50 text-amber-700 border-amber-200 font-normal"
+                        className="bg-destructive/10 text-destructive border-destructive/20 font-normal"
                       >
                         <AlertCircle className="w-3 h-3 mr-1" /> Needs Help
                       </Badge>
                     ) : (
-                      <span className="text-xs text-gray-400">None</span>
+                      <span className="text-xs text-muted-foreground">
+                        None
+                      </span>
                     )}
                   </TableCell>
                   <TableCell className="text-right pr-6 text-sm text-gray-500">
